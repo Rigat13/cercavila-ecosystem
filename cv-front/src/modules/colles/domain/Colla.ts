@@ -1,4 +1,3 @@
-import {UUID} from "crypto";
 import {CollaIdNotValidError, isCollaIdValid} from "@/modules/colles/domain/colla-attributes/CollaId";
 import {CollaNameNotValidError, isCollaNameValid} from "@/modules/colles/domain/colla-attributes/CollaName";
 import {CollaEntityNotValidError, isCollaEntityValid} from "@/modules/colles/domain/colla-attributes/CollaEntity";
@@ -8,7 +7,7 @@ import {
 } from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
 
 export interface Colla {
-    id: UUID;
+    id: string;
     name: string;
     entity: string;
     foundationYear: number;
