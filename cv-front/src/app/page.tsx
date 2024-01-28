@@ -48,7 +48,7 @@ export default function Home() {
             <Image
                 className="image"
                 src="/gegants_fons.png"
-                alt="Logotip de Cercavila"
+                alt="Fons de gegants"
                 width={510}
                 height={56}
                 priority
