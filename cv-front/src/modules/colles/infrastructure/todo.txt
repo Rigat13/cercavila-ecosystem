@@ -1,0 +1,3 @@
+TODO1: Add ApiCourseRepository or LocalStorageCourseRepository
+TODO2: Add sections and their things, and tests
+TODO3: Add mockup colles and list all colles in text at main page
