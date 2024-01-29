@@ -1,4 +1,4 @@
-package cat.cercavila.cvapi.colles.application.port.in;
+package cat.cercavila.cvapi.colles.application.port.in.create;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

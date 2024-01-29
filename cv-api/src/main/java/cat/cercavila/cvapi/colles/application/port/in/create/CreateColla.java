@@ -1,4 +1,4 @@
-package cat.cercavila.cvapi.colles.application.port.in;
+package cat.cercavila.cvapi.colles.application.port.in.create;
 
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;

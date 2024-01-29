@@ -1,7 +1,7 @@
 package cat.cercavila.cvapi.colles.adapter.in.web;
 
-import cat.cercavila.cvapi.colles.application.port.in.CreateColla;
-import cat.cercavila.cvapi.colles.application.port.in.CreateCollaCommand;
+import cat.cercavila.cvapi.colles.application.port.in.create.CreateColla;
+import cat.cercavila.cvapi.colles.application.port.in.create.CreateCollaCommand;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

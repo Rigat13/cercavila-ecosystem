@@ -1,6 +1,6 @@
 package cat.cercavila.cvapi.colles.adapter.out.persistence;
 
-import cat.cercavila.cvapi.colles.application.port.in.CreateCollaCommand;
+import cat.cercavila.cvapi.colles.application.port.in.create.CreateCollaCommand;
 import cat.cercavila.cvapi.colles.application.port.out.StoreCollaPort;
 import org.springframework.stereotype.Component;
 

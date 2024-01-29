@@ -1,7 +1,7 @@
 package cat.cercavila.cvapi.colles.application.service;
 
-import cat.cercavila.cvapi.colles.application.port.in.CreateColla;
-import cat.cercavila.cvapi.colles.application.port.in.CreateCollaCommand;
+import cat.cercavila.cvapi.colles.application.port.in.create.CreateColla;
+import cat.cercavila.cvapi.colles.application.port.in.create.CreateCollaCommand;
 import cat.cercavila.cvapi.colles.application.port.out.StoreCollaPort;
 import org.springframework.stereotype.Service;
 
