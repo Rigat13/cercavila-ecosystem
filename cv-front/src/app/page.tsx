@@ -25,6 +25,14 @@ export default function Home() {
               height={24}
               priority
             />
+            <Image
+                className="image"
+                src="/personatge_protag.png"
+                alt="Personatge"
+                width={510}
+                height={56}
+                priority
+            />
           </a>
         </div>
       </div>
