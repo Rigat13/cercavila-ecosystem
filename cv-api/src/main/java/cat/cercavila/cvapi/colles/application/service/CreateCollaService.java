@@ -15,6 +15,7 @@ public class CreateCollaService implements CreateColla {
 
     @Override
     public void createColla(CreateCollaCommand createCollaCommand) {
+        // TODO perform checks
         storeCollaPort.storeColla(createCollaCommand);
     }
 
