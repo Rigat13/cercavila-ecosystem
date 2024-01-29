@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public record CreateCollaCommand(
+    String id,
     @NotNull (message = "El nom no pot ser nul")
     @Size(min=3, max=255, message="El nom ha de tenir entre 3 i 255 caràcters")
     String name,
