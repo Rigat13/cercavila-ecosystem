@@ -2,7 +2,7 @@ package cat.cercavila.cvapi.configuration.security;
 
 import cat.cercavila.cvapi.configuration.security.persistence.UserLab;
 import cat.cercavila.cvapi.configuration.security.persistence.UserLabRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

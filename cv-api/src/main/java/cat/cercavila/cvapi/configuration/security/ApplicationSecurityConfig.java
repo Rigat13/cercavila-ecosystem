@@ -2,7 +2,6 @@ package cat.cercavila.cvapi.configuration.security;
 
 import cat.cercavila.cvapi.configuration.security.jwt.JwtAuthenticationFilter;
 import cat.cercavila.cvapi.configuration.security.jwt.JwtConfig;
-import cat.cercavila.cvapi.configuration.security.jwt.JwtConfig;
 import cat.cercavila.cvapi.configuration.security.jwt.JwtTokenVerifierFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.servlet.Filter;
 
 @EnableWebSecurity
 @Configuration
@@ -40,8 +37,8 @@ public class ApplicationSecurityConfig {
                 .authenticated()
 
                 .and()
-                .addFilter((Filter) new JwtAuthenticationFilter(authenticationProvider(), jwtConfig)) // TODO check if this is correct
-                .addFilterAfter((Filter) new JwtTokenVerifierFilter(jwtConfig), (Class<? extends Filter>) JwtAuthenticationFilter.class) // TODO check if this is correct
+                .addFilter(new JwtAuthenticationFilter(authenticationProvider(), jwtConfig))
+                .addFilterAfter(new JwtTokenVerifierFilter(jwtConfig), JwtAuthenticationFilter.class)
 
                 .csrf().disable()
                 .cors().and()
