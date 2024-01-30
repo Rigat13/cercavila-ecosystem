@@ -2,12 +2,14 @@ package cat.cercavila.cvapi.colles.adapter.in.web;
 
 import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
 import cat.cercavila.cvapi.colles.application.port.in.list.ListColles;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@ComponentScan({"cat.cercavila.cvapi.colles.application.port.in.list.ListColles"})
 @RestController
 public class ListCollesController {
     private final ListColles listColles;

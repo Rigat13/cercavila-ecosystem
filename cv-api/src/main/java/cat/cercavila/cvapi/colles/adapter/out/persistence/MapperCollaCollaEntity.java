@@ -5,7 +5,7 @@ import cat.cercavila.cvapi.colles.domain.Colla;
 public class MapperCollaCollaEntity {
     public static Colla collaEntityToColla(CollaEntity collaEntity) {
         Colla colla = new Colla(collaEntity.getName(), collaEntity.getEntity(), collaEntity.getFoundationYear());
-        // NOTE: Created from zero, with new ID.
+        // NOTE: Created from zero, with new ID. // TODO Check if this is true
         return colla;
     }
 

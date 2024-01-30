@@ -1,7 +1,7 @@
 package cat.cercavila.cvapi.colles.adapter.out.persistence;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity(name = "colla")
 public class CollaEntity {
