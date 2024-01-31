@@ -14,10 +14,8 @@ import java.util.List;
 public class ListCollesController {
     private final ListColles listColles;
 
-    public ListCollesController(ListColles listColles) { this.listColles = listColles; }
 
-    @GetMapping("/colles")
-    public List<CollaListing> getAllColles() { return listColles.getAllColles(); }
+    public ListCollesController(ListColles listColles) { this.listColles = listColles; }
 
     @GetMapping("/colles/id/{id}")
     public CollaListing getCollaById(@PathVariable String id) { return listColles.getCollaById(id); }
@@ -25,4 +23,12 @@ public class ListCollesController {
     @GetMapping("/colles/name/{name}")
     public CollaListing getCollaByName(@PathVariable String name) { return listColles.getCollaByName(name); }
 
+    @GetMapping("/colles/name")
+    public List<CollaListing> getAllCollesByName() { return listColles.getAllCollesByName(); }
+
+    @GetMapping("/colles/foundationYear")
+    public List<CollaListing> getAllCollesByFoundationYear() { return listColles.getAllCollesByFoundationYear(); }
+
+    @GetMapping("/colles")
+    public List<CollaListing> getAllColles() { return listColles.getAllColles(); }
 }
