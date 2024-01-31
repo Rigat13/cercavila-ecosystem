@@ -1,11 +1,16 @@
 package cat.cercavila.cvapi.colles.adapter.out.persistence;
 
 import javax.persistence.Entity;
+
+import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity(name = "colla")
 public class CollaEntity {
     @Id
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
     private String name;
     private String entity;
