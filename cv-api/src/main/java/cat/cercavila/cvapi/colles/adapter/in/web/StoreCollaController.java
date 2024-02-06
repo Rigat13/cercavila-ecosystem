@@ -12,7 +12,7 @@ public class StoreCollaController {
 
     public StoreCollaController(CreateColla createColla) { this.createColla = createColla; }
 
-    @PostMapping("/colles")
+    @PostMapping("/api/colles")
     public void storeColla(@RequestBody CreateCollaCommand createCollaCommand) {
         createColla.createColla(createCollaCommand);
     }

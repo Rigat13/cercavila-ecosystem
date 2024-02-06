@@ -17,18 +17,18 @@ public class ListCollesController {
 
     public ListCollesController(ListColles listColles) { this.listColles = listColles; }
 
-    @GetMapping("/colles/id/{id}")
+    @GetMapping("/api/colles/id/{id}")
     public CollaListing getCollaById(@PathVariable String id) { return listColles.getCollaById(id); }
 
-    @GetMapping("/colles/name/{name}")
+    @GetMapping("/api/colles/name/{name}")
     public CollaListing getCollaByName(@PathVariable String name) { return listColles.getCollaByName(name); }
 
-    @GetMapping("/colles/name")
+    @GetMapping("/api/colles/name")
     public List<CollaListing> getAllCollesByName() { return listColles.getAllCollesByName(); }
 
-    @GetMapping("/colles/foundationYear")
+    @GetMapping("/api/colles/foundationYear")
     public List<CollaListing> getAllCollesByFoundationYear() { return listColles.getAllCollesByFoundationYear(); }
 
-    @GetMapping("/colles")
+    @GetMapping("/api/colles")
     public List<CollaListing> getAllColles() { return listColles.getAllColles(); }
 }
