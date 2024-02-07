@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
 import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
 import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
@@ -7,8 +7,8 @@ import { Spinner } from "@/pages/shared/Spinner";
 import {useCollaFormData} from "@/pages/colles/form/useCollaFormData";
 
 const initialState = {
-    name: "",
-    entity: "",
+    name: " ",
+    entity: " ",
     foundationYear: 2024,
 }
 

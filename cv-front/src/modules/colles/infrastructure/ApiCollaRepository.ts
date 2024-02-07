@@ -1,5 +1,6 @@
 import {CollaRepository} from "@/modules/colles/domain/CollaRepository";
 import {Colla} from "@/modules/colles/domain/Colla";
+import {URL_PREFIX} from "@/modules/colles/infrastructure/configuration";
 
 export function createApiCollaRepository(): CollaRepository {
     return {
@@ -21,36 +22,48 @@ async function storeColla(colla: Colla) {
 }
 
 async function getCollaById(id: string) {
-    const colla = await fetch(`/api/colles/id/${id}`).then(
+    try {
+        const colla = await fetch(URL_PREFIX + `/api/colles/id/${id}`).then(
         (response) => response.json() as Promise<Colla>
-    );
-    return colla;
+        );
+        return colla;
+    } catch (error) { throw new Error("No s'ha pogut obtenir la colla amb l'id. \nMotiu: " + error); }
 }
 
 async function getCollaByName(name: string) {
-    const colla = await fetch(`/api/colles/name/${name}`).then(
+    try {
+        const colla = await fetch(URL_PREFIX + `/api/colles/name/${name}`).then(
         (response) => response.json() as Promise<Colla>
-    );
-    return colla;
+        );
+        return colla;
+    } catch (error) { throw new Error("No s'ha pogut obtenir la colla amb el nom. \nMotiu: " + error); }
 }
 
 async function getAllCollesByName() {
-    const collas = await fetch(`/api/colles/name`).then(
-        (response) => response.json() as Promise<Colla[]>
-    );
-    return collas;
+    try {
+        const colles = await fetch(URL_PREFIX + `/api/colles/name`).then(
+            (response) => response.json() as Promise<Colla[]>
+        );
+        return colles;
+    } catch (error) { throw new Error("No s'ha pogut obtenir totes les colles ordenades per nom. \nMotiu: " + error); }
 }
 
 async function getAllCollesByFoundationYear() {
-    const collas = await fetch(`/api/colles/foundationYear`).then(
-        (response) => response.json() as Promise<Colla[]>
-    );
-    return collas;
+    try {
+        const colles = await fetch(URL_PREFIX + `/api/colles/foundationYear`).then(
+            (response) => response.json() as Promise<Colla[]>
+        );
+        return colles;
+    } catch (error) { throw new Error("No s'ha pogut obtenir totes les colles ordenades per any de fundació. \nMotiu: " + error); }
 }
 
 async function getAllColles() {
-    const collas = await fetch(`/api/colles`).then(
-        (response) => response.json() as Promise<Colla[]>
-    );
-    return collas;
+    try {
+        const colles = await fetch(URL_PREFIX + `/api/colles`).then(
+            (response) => response.json() as Promise<Colla[]>
+        );
+        return colles;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir totes les colles. \nMotiu: " + error);
+    }
 }
