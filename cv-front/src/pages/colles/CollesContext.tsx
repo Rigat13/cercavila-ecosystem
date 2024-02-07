@@ -1,6 +1,6 @@
 import {Colla} from "@/modules/colles/domain/Colla";
 import {CollaRepository} from "@/modules/colles/domain/CollaRepository";
-import {useContext, useEffect, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {getAllColles} from "@/modules/colles/application/get-all/getAllColles";
 import {storeColla} from "@/modules/colles/application/store/storeColla";
 
@@ -10,7 +10,7 @@ export interface ContextState {
     // TODO: Check how not to ask for an ID when creating a new Colla, but avoid having problems when creating an instance of Colla.ts, which has an ID.
 }
 
-export const CollesContext = React.createContext({} as ContextState);
+export const CollesContext = createContext({} as ContextState);
 
 export const CollesContextProvider = ({
     children,
