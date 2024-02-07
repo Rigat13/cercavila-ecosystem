@@ -11,6 +11,7 @@ const initialState = {
     entity: " ",
     foundationYear: 2024,
 }
+export let isNameValid, isEntityValid, isFoundationYearValid = false;
 
 export let userEnteredData = false;
 
@@ -22,9 +23,9 @@ export function CreateCollaForm() {
     useEffect(() => {
         if (!userEnteredData) { userEnteredData = true;}
         else {
-            const isNameValid = userEnteredData ? isCollaNameValid(formData.name) : true;
-            const isEntityValid = userEnteredData ? isCollaEntityValid(formData.entity) : true;
-            const isFoundationYearValid = userEnteredData ? isCollaFoundationYearValid(formData.foundationYear) : true;
+            isNameValid = userEnteredData ? isCollaNameValid(formData.name) : true;
+            isEntityValid = userEnteredData ? isCollaEntityValid(formData.entity) : true;
+            isFoundationYearValid = userEnteredData ? isCollaFoundationYearValid(formData.foundationYear) : true;
 
             setErrors({
                 name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
@@ -36,6 +37,7 @@ export function CreateCollaForm() {
     }, [formData]);
 
     const handleSubmit = (ev: React.FormEvent) => {
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid) { return; }
         ev.preventDefault();
         submitForm(formData);
         userEnteredData = false;

@@ -2,7 +2,7 @@ export const NAME_MIN_LENGTH = 3;
 export const NAME_MAX_LENGTH = 120;
 
 export function isCollaNameValid(name: string): boolean {
-    if (name.length < NAME_MIN_LENGTH || name.length > NAME_MAX_LENGTH) return false;
+    if (name.length <= NAME_MIN_LENGTH || name.length > NAME_MAX_LENGTH+1) return false;
     const regexExp =/^[\p{L}\p{N}\p{Zs}'-]+$/gmu;
     return regexExp.test(name);
 }
