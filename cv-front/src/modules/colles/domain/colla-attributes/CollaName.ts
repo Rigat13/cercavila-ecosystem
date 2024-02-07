@@ -1,6 +1,10 @@
+export const NAME_MIN_LENGTH = 3;
+export const NAME_MAX_LENGTH = 120;
+
 export function isCollaNameValid(name: string): boolean {
-    // The name must start in uppercase, have at least 3 letters and up to 120 characters
-    const regexExp = /^[A-Z][a-z]{2,120}$/;
+    if (name.length < NAME_MIN_LENGTH || name.length > NAME_MAX_LENGTH) return false;
+    // The name must start in uppercase
+    const regexExp = /^[A-Z][a-z]$/;
     return regexExp.test(name);
 }
 

@@ -1,4 +1,4 @@
-import {CollaCard} from "@/pages/colles/CollaCard";
+import {CollaCard} from "@/pages/colles/card/CollaCard";
 import {useCollesContext} from "@/pages/colles/CollesContext";
 import styles from "./CollesList.module.scss";
 

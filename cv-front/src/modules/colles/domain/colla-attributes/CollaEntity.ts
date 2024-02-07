@@ -1,6 +1,10 @@
+export const ENTITY_MIN_LENGTH = 3;
+export const ENTITY_MAX_LENGTH = 120;
+
 export function isCollaEntityValid(entity: string): boolean {
-    // The name must start in uppercase, have at least 3 letters and up to 120 characters
-    const regexExp = /^[A-Z][a-z]{2,120}$/;
+    if (entity.length < ENTITY_MIN_LENGTH || entity.length > ENTITY_MAX_LENGTH) return false;
+    // The name must start in uppercase
+    const regexExp = /^[A-Z][a-z]$/;
     return regexExp.test(entity);
 }
 
