@@ -11,7 +11,7 @@ public class Colla {
     public Colla() {}
 
     public Colla(String name, String entity, int foundationYear) {
-        this.id = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString(); // TODO: Note: this is correct for not web applications; but as Colles can be created from the front, the UUID is assigned between the front and the in port of persistence, and does not get to domain.
         this.name = name;
         this.entity = entity;
         this.foundationYear = foundationYear;
