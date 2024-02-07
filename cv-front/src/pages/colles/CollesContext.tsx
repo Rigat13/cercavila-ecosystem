@@ -6,7 +6,8 @@ import {storeColla} from "@/modules/colles/application/store/storeColla";
 
 export interface ContextState {
     colles: Colla[];
-    createColla: (colla: { name: string; entity: string; foundationYear: number }) => Promise<void>;
+    createColla: (colla: {  id: string; name: string; entity: string; foundationYear: number }) => Promise<void>;
+    // TODO: Check how not to ask for an ID when creating a new Colla, but avoid having problems when creating an instance of Colla.ts, which has an ID.
 }
 
 export const CollesContext = React.createContext({} as ContextState);
