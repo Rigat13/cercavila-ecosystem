@@ -27,3 +27,15 @@ export function ensureCollaIsValid({id, name, entity, foundationYear}: Colla): v
         throw CollaFoundationYearNotValidError(foundationYear);
     }
 }
+
+export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear}: Colla): void {
+    if (!isCollaNameValid(name)) {
+        throw CollaNameNotValidError(name);
+    }
+    if (!isCollaEntityValid(entity)) {
+        throw CollaEntityNotValidError(entity);
+    }
+    if (!isCollaFoundationYearValid(foundationYear)) {
+        throw CollaFoundationYearNotValidError(foundationYear);
+    }
+}

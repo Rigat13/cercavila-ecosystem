@@ -24,8 +24,8 @@ export function useCollaForm(): {
                 .then(() => {
                     setFormStatus(FormStatus.Success);
                 })
-                .catch(() => {
-                    throw new Error("No s'ha pogut crear la colla");
+                .catch((e) => {
+                    throw new Error("No s'ha pogut crear la colla. \nMotiu: "+e);
                 });
         } catch (e) {
             setFormStatus(FormStatus.Error);

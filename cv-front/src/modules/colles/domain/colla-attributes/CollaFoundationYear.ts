@@ -7,5 +7,5 @@ export function isCollaFoundationYearValid(foundationYear: number): boolean {
 }
 
 export function CollaFoundationYearNotValidError(foundationYear: number): Error {
-    return new Error(`Foundation year ${foundationYear} is not valid`);
+    return new Error(`L'any de fundació ${foundationYear} no és vàlid. L'any de fundació ha de ser un nombre enter positiu entre ${FOUNDATION_YEAR_MIN} i ${FOUNDATION_YEAR_MAX}.`);
 }

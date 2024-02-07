@@ -3,11 +3,10 @@ export const NAME_MAX_LENGTH = 120;
 
 export function isCollaNameValid(name: string): boolean {
     if (name.length < NAME_MIN_LENGTH || name.length > NAME_MAX_LENGTH) return false;
-    // The name must start in uppercase
-    const regexExp = /^[A-Z][a-z]$/;
+    const regexExp =/^[\p{L}\p{N}\p{Zs}]+$/gmu;
     return regexExp.test(name);
 }
 
 export function CollaNameNotValidError(name: string): Error {
-    return new Error(`Name ${name} is not valid`);
+    return new Error(`El nom ${name} no és vàlid. El nom ha de tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters vàlids.`);
 }

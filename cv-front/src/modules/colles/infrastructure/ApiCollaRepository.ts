@@ -10,15 +10,17 @@ export function createApiCollaRepository(): CollaRepository {
 }
 
 async function storeColla(colla: Colla) {
-    await fetch("/api/colles", {
-        method: "POST",
-        body: JSON.stringify({
-            id: colla.id,
-            name: colla.name,
-            entity: colla.entity,
-            foundationYear: colla.foundationYear,
-        }),
-    });
+    try {
+        await fetch(URL_PREFIX + "/api/colles", {
+            method: "POST",
+            body: JSON.stringify({
+                id: colla.id,
+                name: colla.name,
+                entity: colla.entity,
+                foundationYear: colla.foundationYear,
+            }),
+        });
+    } catch (error) { throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error); }
 }
 
 async function getCollaById(id: string) {

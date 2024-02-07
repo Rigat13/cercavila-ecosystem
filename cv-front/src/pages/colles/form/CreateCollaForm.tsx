@@ -23,7 +23,7 @@ export function CreateCollaForm() {
         const isFoundationYearValid = isCollaFoundationYearValid(formData.foundationYear);
 
         setErrors({
-            name: isNameValid ? "" : `El nom no és vàlid. Ha de començar en majúscula i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
+            name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
             entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
             foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN, // TODO: Validate correct behaviour at run.
         });

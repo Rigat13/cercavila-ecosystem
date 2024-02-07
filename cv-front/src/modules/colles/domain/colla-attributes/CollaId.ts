@@ -6,5 +6,5 @@ export function isCollaIdValid(id: string): boolean {
 }
 
 export function CollaIdNotValidError(id: string): Error {
-    return new Error(`Id ${id} is not valid`);
+    return new Error(`L'id ${id} no és vàlid.`);
 }
