@@ -1,6 +1,6 @@
 import {useState} from "react";
 import { useCollesContext} from "@/pages/colles/CollesContext";
-
+import {userEnteredData} from "@/pages/colles/form/CreateCollaForm";
 export const enum FormStatus {
     Loading,
     Success,
@@ -18,7 +18,6 @@ export function useCollaForm(): {
 
     function submitForm({ name, entity, foundationYear }: { name: string, entity: string, foundationYear: number }) {
         setFormStatus(FormStatus.Loading);
-
         try {
             createColla({id: "", name, entity, foundationYear })
                 .then(() => {

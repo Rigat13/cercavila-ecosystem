@@ -12,26 +12,33 @@ const initialState = {
     foundationYear: 2024,
 }
 
+export let userEnteredData = false;
+
 export function CreateCollaForm() {
     const { formData, updateForm, resetForm } = useCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
 
     useEffect(() => {
-        const isNameValid = isCollaNameValid(formData.name);
-        const isEntityValid = isCollaEntityValid(formData.entity);
-        const isFoundationYearValid = isCollaFoundationYearValid(formData.foundationYear);
+        if (!userEnteredData) { userEnteredData = true;}
+        else {
+            const isNameValid = userEnteredData ? isCollaNameValid(formData.name) : true;
+            const isEntityValid = userEnteredData ? isCollaEntityValid(formData.entity) : true;
+            const isFoundationYearValid = userEnteredData ? isCollaFoundationYearValid(formData.foundationYear) : true;
 
-        setErrors({
-            name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
-            entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
-            foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN, // TODO: Validate correct behaviour at run.
-        });
+            setErrors({
+                name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
+                entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
+                foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN, // TODO: Validate correct behaviour at run.
+            });
+        }
+
     }, [formData]);
 
     const handleSubmit = (ev: React.FormEvent) => {
         ev.preventDefault();
         submitForm(formData);
+        userEnteredData = false;
     };
 
     switch (formStatus) {
