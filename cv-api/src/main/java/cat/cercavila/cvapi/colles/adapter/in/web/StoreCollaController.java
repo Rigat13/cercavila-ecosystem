@@ -14,6 +14,13 @@ public class StoreCollaController {
 
     @PostMapping("/api/colles")
     public void storeColla(@RequestBody CreateCollaCommand createCollaCommand) {
+        //throw new Error("Ei, que arribem AL BACKEND AMB REQUESTBODY!");
         createColla.createColla(createCollaCommand);
     }
+
+    /*@PostMapping("/api/colles")
+    public void storeColla() {
+        throw new Error("Ei, que arribem AL BACKEND!");
+        //createColla.createColla(createCollaCommand);
+    }*/
 }

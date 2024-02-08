@@ -13,6 +13,10 @@ async function storeColla(colla: Colla) {
     try {
         await fetch(URL_PREFIX + "/api/colles", {
             method: "POST",
+            headers: new Headers({
+                accept: "application/json",
+                "Content-Type": "application/json"
+            }),
             body: JSON.stringify({
                 id: colla.id,
                 name: colla.name,
