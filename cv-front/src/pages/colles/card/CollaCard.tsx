@@ -1,5 +1,5 @@
 import {Colla} from "@/modules/colles/domain/Colla";
-import styles from "./CollaCard.scss";
+import styles from "./CollaCard.module.scss";
 
 export function CollaCard({ colla } : { colla: Colla }) {
     return (
