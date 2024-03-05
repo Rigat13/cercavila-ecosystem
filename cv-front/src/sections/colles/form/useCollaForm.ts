@@ -1,5 +1,5 @@
 import {useState} from "react";
-import { useCollesContext} from "@/pages/colles/CollesContext";
+import { useCollesContext} from "@/sections/colles/CollesContext";
 export const enum FormStatus {
     Loading,
     Success,

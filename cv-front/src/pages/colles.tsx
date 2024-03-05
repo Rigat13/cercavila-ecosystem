@@ -1,8 +1,8 @@
 import Image from "next/image";
 import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiCollaRepository";
-import {CollesContextProvider} from "@/pages/colles/CollesContext";
-import {CollesList} from "@/pages/colles/list/CollesList";
-import {CreateCollaForm} from "@/pages/colles/form/CreateCollaForm";
+import {CollesContextProvider} from "@/sections/colles/CollesContext";
+import {CollesList} from "@/sections/colles/list/CollesList";
+import {CreateCollaForm} from "@/sections/colles/form/CreateCollaForm";
 
 export default function Colles() {
     const repository = createApiCollaRepository();
