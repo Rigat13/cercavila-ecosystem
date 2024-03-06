@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
