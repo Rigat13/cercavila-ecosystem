@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {describe, it} from "node:test";
 
 import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiCollaRepository";
 import {CreateCollaForm} from "@/sections/colles/form/CreateCollaForm";
@@ -8,6 +7,7 @@ import {CollesContextProvider} from "@/sections/colles/CollesContext";
 import {CollaMother} from "../../../modules/colles/domain/CollesMother";
 import {expect} from "sucrase/dist/types/parser/traverser/util";
 import {NAME_ERROR_MESSAGE} from "@/modules/colles/domain/colla-attributes/CollaName";
+import {describe, it} from "@jest/globals";
 
 describe("CreateCollaForm component", () => {
     it("mostra missatge d'èxit quan les dades són correctes", () => {

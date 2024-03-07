@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { Factory } from "fishery";
-import { NAME_MIN_LENGTH, NAME_MAX_LENGTH } from "../../../../src/modules/colles/domain/colla-attributes/CollaName";
+import { NAME_MIN_LENGTH, NAME_MAX_LENGTH } from "@/modules/colles/domain/colla-attributes/CollaName";
 import { ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH } from "@/modules/colles/domain/colla-attributes/CollaEntity";
 import { FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX } from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
 import {Colla} from "@/modules/colles/domain/Colla";
@@ -9,7 +9,7 @@ const CollaFactory = Factory.define<Colla>(() => ({
     id: faker.string.uuid(),
     name: faker.lorem.sentence(),
     entity: faker.lorem.sentence(),
-    foundationYear: faker.datatype.number(),
+    foundationYear: faker.number.int(),
 }));
 
 export const CollaMother = {
