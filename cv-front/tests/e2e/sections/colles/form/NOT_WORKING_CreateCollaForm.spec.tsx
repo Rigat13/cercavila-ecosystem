@@ -9,6 +9,7 @@ import {expect} from "sucrase/dist/types/parser/traverser/util";
 import {NAME_ERROR_MESSAGE} from "@/modules/colles/domain/colla-attributes/CollaName";
 import {describe, it} from "@jest/globals";
 
+//TODO Fix or remove
 describe("CreateCollaForm component", () => {
     it("mostra missatge d'èxit quan les dades són correctes", () => {
         const repository = createApiCollaRepository();
