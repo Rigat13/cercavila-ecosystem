@@ -4,6 +4,6 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 
 @Validated
-public interface CreateColla {
+public interface CreateCollaUseCase {
     void createColla(@Valid CreateCollaCommand createCollaCommand);
 }
