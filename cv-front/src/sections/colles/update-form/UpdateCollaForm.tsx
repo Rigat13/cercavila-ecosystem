@@ -74,11 +74,29 @@ export function UpdateCollaForm({collaId}) {
         });
     };
 
-    const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid) { return; }
+    const handleSubmit = (ev) => {
         ev.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
         submitForm(formData);
-        userEnteredData = false;
+    };
+
+    const validateForm = () => {
+        const isNameValid = isCollaNameValid(formData.name);
+        const isEntityValid = isCollaEntityValid(formData.entity);
+        const isFoundationYearValid = isCollaFoundationYearValid(formData.foundationYear);
+
+        setErrors({
+            id: "",
+            name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
+            entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
+            foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN,
+        });
+
+        // Return validation result
+        return isNameValid && isEntityValid && isFoundationYearValid;
     };
 
     switch (formStatus) {
