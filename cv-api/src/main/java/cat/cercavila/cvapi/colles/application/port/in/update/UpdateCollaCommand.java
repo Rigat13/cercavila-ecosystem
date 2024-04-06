@@ -1,11 +1,11 @@
-package cat.cercavila.cvapi.colles.application.port.in.edit;
+package cat.cercavila.cvapi.colles.application.port.in.update;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public record EditCollaCommand(
+public record UpdateCollaCommand(
     @NotNull(message = "L'identificador no pot ser nul.")
     String id,
     @NotNull(message = "El nom no pot ser nul.")
