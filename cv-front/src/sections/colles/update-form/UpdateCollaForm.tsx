@@ -6,6 +6,7 @@ import {FormStatus, useUpdateCollaForm} from "@/sections/colles/update-form/useU
 import { Spinner } from "@/sections/shared/Spinner";
 import {useUpdateCollaFormData} from "@/sections/colles/update-form/useUpdateCollaFormData";
 import {useCollesContext} from "@/sections/colles/CollesContext";
+import styles from "@/sections/colles/card/CollaCard.module.scss";
 
 const initialState = {
     id: "",
@@ -116,7 +117,7 @@ export function UpdateCollaForm({collaId}) {
         case FormStatus.Initial:
             return (
                 <section id="order" className="">
-                    <h2>Crea una nova colla</h2>
+                    <h2>Edita la colla</h2>
 
                     <form
                         onSubmit={(ev) => {
@@ -167,6 +168,9 @@ export function UpdateCollaForm({collaId}) {
 
                         <button type="submit">Edita la colla</button>
                     </form>
+                    <a href={`/colles`} className={styles.updateLink}>
+                        <button className={styles.updateButton}> Colles </button>
+                    </a>
                 </section>
             );
         default:
@@ -174,11 +178,13 @@ export function UpdateCollaForm({collaId}) {
     }
 }
 
-function SuccessNotification({ resetForm }: { resetForm: () => void }) {
+function SuccessNotification() {
     return (
         <section>
-            <h2>Colla editar amb èxit</h2>
-            <button onClick={resetForm}>Tornar a editar</button>
+            <h2>Colla editada amb èxit</h2>
+            <a href={`/colles`} className={styles.updateLink}>
+                <button className={styles.updateButton}> Colles </button>
+            </a>
         </section>
     );
 }
