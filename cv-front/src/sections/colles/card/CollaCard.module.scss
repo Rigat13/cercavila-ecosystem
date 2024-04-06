@@ -1,4 +1,21 @@
 .collaCard {
+  position: relative;
+
+  .editButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 10;
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
   padding: 1rem;
   overflow: hidden;
   background: #f3f3f3;
@@ -17,4 +34,5 @@
     margin-top: 0.5em;
     font-size: 0.5rem;
   }
+
 }
