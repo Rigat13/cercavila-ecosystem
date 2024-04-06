@@ -23,8 +23,7 @@ export default function UpdateColla() {
 
             <div className = "Colles">
                 <h1>Cercavila</h1>
-                <h2>Colla ID: {collaId}</h2> {/* Displaying the colla ID */}
-                <UpdateCollaForm />
+                <UpdateCollaForm collaId={collaId}/>
             </div>
         </CollesContextProvider>
     )
