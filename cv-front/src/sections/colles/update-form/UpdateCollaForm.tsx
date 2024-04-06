@@ -8,6 +8,7 @@ import {useUpdateCollaFormData} from "@/sections/colles/update-form/useUpdateCol
 import {useCollesContext} from "@/sections/colles/CollesContext";
 
 const initialState = {
+    id: "",
     name: " ",
     entity: " ",
     foundationYear: 2024,
@@ -29,6 +30,7 @@ export function UpdateCollaForm({collaId}) {
                 const collaData = colles.find((colla) => colla.id === collaId);
 
                 updateForm({
+                    id: collaData.id,
                     name: collaData.name,
                     entity: collaData.entity,
                     foundationYear: collaData.foundationYear
@@ -58,13 +60,14 @@ export function UpdateCollaForm({collaId}) {
         validateFormData({ ...formData, foundationYear: newFoundationYear });
     };
 
-    const validateFormData = ({ name, entity, foundationYear }) => {
+    const validateFormData = ({ id, name, entity, foundationYear }) => {
         // Perform validation based on the provided data
         const isNameValid = isCollaNameValid(name);
         const isEntityValid = isCollaEntityValid(entity);
         const isFoundationYearValid = isCollaFoundationYearValid(foundationYear);
 
         setErrors({
+            id: "",
             name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
             entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
             foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN,
