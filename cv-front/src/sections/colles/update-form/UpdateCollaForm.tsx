@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
 import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
 import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
-import {FormStatus, useUpdateCollaForm} from "@/sections/colles/update/useUpdateCollaForm";
+import {FormStatus, useUpdateCollaForm} from "@/sections/colles/update-form/useUpdateCollaForm";
 import { Spinner } from "@/sections/shared/Spinner";
 import {useUpdateCollaFormData} from "@/sections/colles/update-form/useUpdateCollaFormData";
 
