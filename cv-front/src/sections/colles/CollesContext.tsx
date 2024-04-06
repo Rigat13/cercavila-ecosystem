@@ -3,10 +3,13 @@ import {CollaRepository} from "@/modules/colles/domain/CollaRepository";
 import React, {createContext, useContext, useEffect, useState} from "react";
 import {getAllColles} from "@/modules/colles/application/get-all/getAllColles";
 import {storeColla} from "@/modules/colles/application/store/storeColla";
+import {updateColla} from "@/modules/colles/application/update/updateColla";
 
 export interface ContextState {
     colles: Colla[];
     createColla: (colla: { id: string; name: string; entity: string, foundationYear: number; }) => Promise<void>;
+    updateColla: (colla: { id: string; name: string; entity: string, foundationYear: number; }) => Promise<void>;
+    deleteColla: (collaId: string) => Promise<void>;
 }
 
 export const CollesContext = createContext({} as ContextState);
@@ -28,12 +31,21 @@ export const CollesContextProvider = ({
         });
     }
 
+    async function update({ id, name, entity, foundationYear }: { id: string; name: string; entity: string; foundationYear: number }) {
+        await updateColla(repository, { id, name, entity, foundationYear });
+        await getColles();
+    }
+
+    async function deleteColla(collaId: string) {
+        await repository.deleteColla(collaId);
+    }
+
     useEffect(() => {
         getColles();
     }, []);
 
     return (
-        <CollesContext.Provider value={{ colles, createColla: create }}>
+        <CollesContext.Provider value={{ colles, createColla: create, updateColla: update, deleteColla: deleteColla }}>
             {children}
         </CollesContext.Provider>
     );
