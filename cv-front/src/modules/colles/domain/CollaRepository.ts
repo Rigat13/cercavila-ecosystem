@@ -7,4 +7,6 @@ export interface CollaRepository {
     getAllCollesByName:() => Promise<Colla[]>;
     getAllCollesByFoundationYear:() => Promise<Colla[]>;
     getAllColles:() => Promise<Colla[]>;
+    updateColla:(colla: Colla) => Promise<void>;
+    deleteColla:(id: string) => Promise<void>;
 }

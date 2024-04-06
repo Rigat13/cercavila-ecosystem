@@ -5,7 +5,7 @@ import {URL_PREFIX} from "@/modules/colles/infrastructure/configuration";
 export function createApiCollaRepository(): CollaRepository {
     return {
         storeColla, getCollaById, getCollaByName, getAllCollesByName,
-        getAllCollesByFoundationYear, getAllColles,
+        getAllCollesByFoundationYear, getAllColles, updateColla, deleteColla
     };
 }
 
@@ -72,4 +72,37 @@ async function getAllColles() {
     } catch (error) {
         throw new Error("No s'ha pogut obtenir totes les colles. \nMotiu: " + error);
     }
+}
+
+async function updateColla(colla: Colla) {
+    try {
+        await fetch(URL_PREFIX + "/api/colles", {
+            method: "PUT",
+            headers: new Headers({
+                accept: "application/json",
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify({
+                id: colla.id,
+                name: colla.name,
+                entity: colla.entity,
+                foundationYear: colla.foundationYear,
+            }),
+        });
+    } catch (error) { throw new Error("No s'ha pogut actualitzar la colla. \nMotiu: " + error); }
+}
+
+async function deleteColla(colla: Colla) {
+    try {
+        await fetch(URL_PREFIX + "/api/colles", {
+            method: "DELETE",
+            headers: new Headers({
+                accept: "application/json",
+                "Content-Type": "application/json"
+            }),
+            body: JSON.stringify({
+                id: colla.id,
+            }),
+        });
+    } catch (error) { throw new Error("No s'ha pogut eliminar la colla. \nMotiu: " + error); }
 }

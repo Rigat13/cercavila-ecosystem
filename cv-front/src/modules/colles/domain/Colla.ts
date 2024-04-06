@@ -39,3 +39,9 @@ export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear}: Co
         throw CollaFoundationYearNotValidError(foundationYear);
     }
 }
+
+export function ensureCollaIdIsValid(id: string): void {
+    if (!isCollaIdValid(id)) {
+        throw CollaIdNotValidError(id);
+    }
+}
