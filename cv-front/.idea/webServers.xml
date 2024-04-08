@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="3035e33b-ed77-4249-8093-f82320bde810" name="cercavila.cat" url="http://cercavila.cat">
-        <fileTransfer host="cercavila.cat" port="21">
+        <fileTransfer rootFolder="/datos/web" host="cercavila.cat" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

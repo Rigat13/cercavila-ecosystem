@@ -30,7 +30,9 @@ export function UpdateCollaForm({collaId}) {
         const fetchCollaData = async () => {
             try {
                 const collaData = colles.find((colla) => colla.id === collaId);
-
+                if (!collaData) {
+                    throw new Error(`No s'ha trobat cap colla amb l'ID ${collaId}`);
+                }
                 updateForm({
                     id: collaData.id,
                     name: collaData.name,
@@ -144,12 +146,7 @@ export function UpdateCollaForm({collaId}) {
             return <Spinner />;
         case FormStatus.Success:
             return (
-                <SuccessNotification
-                    resetForm={() => {
-                        resetForm();
-                        resetFormStatus();
-                    }}
-                />
+                <SuccessNotification/>
         );
         case FormStatus.Error:
             return <ErrorNotification resetForm={resetFormStatus} />;

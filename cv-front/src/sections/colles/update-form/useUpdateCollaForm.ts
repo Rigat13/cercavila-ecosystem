@@ -9,13 +9,13 @@ export const enum FormStatus {
 
 export function useUpdateCollaForm(): {
     formStatus: FormStatus;
-    submitForm: (formData: { name: string, entity: string, foundationYear: number }) => void;
+    submitForm: (formData: { id: string, name: string, entity: string, foundationYear: number }) => void;
     resetFormStatus: () => void;
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
     const { updateColla } = useCollesContext();
 
-    function submitForm({ id, name, entity, foundationYear }: { name: string, entity: string, foundationYear: number }) {
+    function submitForm({ id, name, entity, foundationYear }: { id: string, name: string, entity: string, foundationYear: number }) {
         setFormStatus(FormStatus.Loading);
         try {
             updateColla({id, name, entity, foundationYear })
