@@ -4,7 +4,7 @@ import styles from "./CollaCard.module.scss";
 export function CollaCard({ colla } : { colla: Colla }) {
     return (
         <div className={styles.collaCard}>
-            <a href={`/update-colla?collaId=${colla.id}`} className={styles.updateLink}>
+            <a href={`/update-colla?collaId=${colla.id}`} >
                 <button className={styles.updateButton}>
                     <img src="/icons/edit.svg" alt="Editar" />
                 </button>
