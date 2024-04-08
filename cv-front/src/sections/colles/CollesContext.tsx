@@ -4,6 +4,7 @@ import React, {createContext, useContext, useEffect, useState} from "react";
 import {getAllColles} from "@/modules/colles/application/get-all/getAllColles";
 import {storeColla} from "@/modules/colles/application/store/storeColla";
 import {updateColla} from "@/modules/colles/application/update/updateColla";
+import {deleteColla} from "@/modules/colles/application/delete/deleteColla";
 
 export interface ContextState {
     colles: Colla[];
@@ -36,8 +37,8 @@ export const CollesContextProvider = ({
         await getColles();
     }
 
-    async function deleteColla(collaId: string) {
-        await repository.deleteColla(collaId);
+    async function deleteC(collaId: string) {
+        await deleteColla(repository, collaId);
     }
 
     useEffect(() => {
@@ -45,7 +46,7 @@ export const CollesContextProvider = ({
     }, []);
 
     return (
-        <CollesContext.Provider value={{ colles, createColla: create, updateColla: update, deleteColla: deleteColla }}>
+        <CollesContext.Provider value={{ colles, createColla: create, updateColla: update, deleteColla: deleteC }}>
             {children}
         </CollesContext.Provider>
     );

@@ -100,6 +100,25 @@ export function UpdateCollaForm({collaId}) {
         return isNameValid && isEntityValid && isFoundationYearValid;
     };
 
+    // ------------------ DELETE COLLA ------------------
+    const { deleteColla } = useCollesContext();
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+    const handleDeleteClick = () => {
+        setIsConfirmOpen(true);
+    };
+
+    const handleConfirmDelete = () => {
+        deleteColla(collaId); // Call deleteColla method from CollesContext with collaId
+        setIsConfirmOpen(false);
+    };
+
+    const handleCancelDelete = () => {
+        setIsConfirmOpen(false);
+    };
+    // ---------------- END DELETE COLLA ----------------
+
+
     switch (formStatus) {
         case FormStatus.Loading:
             return <Spinner />;
@@ -171,6 +190,17 @@ export function UpdateCollaForm({collaId}) {
                     <a href={`/colles`} className={styles.updateLink}>
                         <button className={styles.updateButton}> Colles </button>
                     </a>
+
+                    {/* "Delete" Button */}
+                    <button onClick={handleDeleteClick} >Esborrar</button>
+                    {/* Confirmation Dialog */}
+                    {isConfirmOpen && (
+                        <div className="confirmation-dialog">
+                            <p>Voleu esborrar la colla de manera permanent? No es pot desfer aquesta acció.</p>
+                            <button onClick={handleCancelDelete}>Cancel·lar</button>
+                            <button style={{ backgroundColor: 'red', color: 'white', }} onClick={handleConfirmDelete}>Esborrar permanentment</button>
+                        </div>
+                    )}
                 </section>
             );
         default:

@@ -92,7 +92,7 @@ async function updateColla(colla: Colla) {
     } catch (error) { throw new Error("No s'ha pogut actualitzar la colla. \nMotiu: " + error); }
 }
 
-async function deleteColla(colla: Colla) {
+async function deleteColla(id: string) {
     try {
         await fetch(URL_PREFIX + "/api/colles", {
             method: "DELETE",
@@ -101,7 +101,7 @@ async function deleteColla(colla: Colla) {
                 "Content-Type": "application/json"
             }),
             body: JSON.stringify({
-                id: colla.id,
+                id: id,
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut eliminar la colla. \nMotiu: " + error); }
