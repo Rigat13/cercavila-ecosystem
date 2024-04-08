@@ -22,6 +22,7 @@ export function UpdateCollaForm({collaId}) {
     const { formData, updateForm, resetForm } = useUpdateCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useUpdateCollaForm();
     const [errors, setErrors] = useState(initialState);
+    const [isDeleted, setIsDeleted] = useState(false);
     const { colles } = useCollesContext();
 
 
@@ -107,15 +108,34 @@ export function UpdateCollaForm({collaId}) {
     const handleDeleteClick = () => {
         setIsConfirmOpen(true);
     };
+    if (isDeleted) {
+        return (
+            <section>
+                <h2>Colla esborrada amb èxit</h2>
+                <a href={`/colles`} className={styles.updateLink}>
+                    <button className={styles.updateButton}> Colles </button>
+                </a>
+            </section>
+        );
+    }
 
     const handleConfirmDelete = () => {
-        deleteColla(collaId); // Call deleteColla method from CollesContext with collaId
+        deleteColla(collaId);
+        setIsDeleted(true);
         setIsConfirmOpen(false);
     };
 
     const handleCancelDelete = () => {
         setIsConfirmOpen(false);
     };
+
+    if (isDeleted) {
+        return (
+            <div>
+                <p>The colla has been deleted successfully.</p>
+            </div>
+        );
+    }
     // ---------------- END DELETE COLLA ----------------
 
 
