@@ -14,7 +14,7 @@ export default function Page() {
             <Image
                 src="/cercavila_logo.svg"
                 alt="Logotip de Cercavila"
-                className="dark:invert"
+                className=""// dark:invert for dark logo on dark mode
                 width={100}
                 height={24}
                 priority
