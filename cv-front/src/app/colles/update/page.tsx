@@ -1,11 +1,13 @@
-"use client";
-
+'use client';
 import Image from "next/image";
 import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiCollaRepository";
 import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
 import {UpdateCollaForm} from "@/app/sections/colles/update-form/UpdateCollaForm";
+import {useRouter} from "next/router";
 
-export default function Update({ params }: { params: { collaId: string } }) {
+export default function Page() {
+    const router = useRouter();
+    const { collaId } = router.query; // Allows to receive the collaId from the URL, from CollaCard.tsx
 
     const repository = createApiCollaRepository();
 
@@ -22,7 +24,7 @@ export default function Update({ params }: { params: { collaId: string } }) {
 
             <div className = "Colles">
                 <h1>Cercavila</h1>
-                <UpdateCollaForm collaId={params.collaId}/>
+                <UpdateCollaForm collaId={collaId}/>
             </div>
         </CollesContextProvider>
     )
