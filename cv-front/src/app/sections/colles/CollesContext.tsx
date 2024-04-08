@@ -1,3 +1,5 @@
+'use client';
+
 import {Colla} from "@/modules/colles/domain/Colla";
 import {CollaRepository} from "@/modules/colles/domain/CollaRepository";
 import React, {createContext, useContext, useEffect, useState} from "react";

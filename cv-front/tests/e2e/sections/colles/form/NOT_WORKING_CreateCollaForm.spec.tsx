@@ -2,8 +2,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiCollaRepository";
-import {CreateCollaForm} from "@/sections/colles/form/CreateCollaForm";
-import {CollesContextProvider} from "@/sections/colles/CollesContext";
+import {CreateCollaForm} from "@/app/sections/colles/form/CreateCollaForm";
+import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
 import {CollaMother} from "../../../modules/colles/domain/CollesMother";
 import {expect} from "sucrase/dist/types/parser/traverser/util";
 import {NAME_ERROR_MESSAGE} from "@/modules/colles/domain/colla-attributes/CollaName";

@@ -1,10 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiCollaRepository";
-import {CollesContextProvider} from "@/sections/colles/CollesContext";
-import {CollesList} from "@/sections/colles/list/CollesList";
-import {CreateCollaForm} from "@/sections/colles/form/CreateCollaForm";
+import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
+import {CollesList} from "@/app/sections/colles/list/CollesList";
+import {CreateCollaForm} from "@/app/sections/colles/form/CreateCollaForm";
 
-export default function Colles() {
+export default function Page() {
     const repository = createApiCollaRepository();
 
     return (

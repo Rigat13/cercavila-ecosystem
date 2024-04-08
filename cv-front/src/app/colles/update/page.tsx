@@ -1,10 +1,11 @@
+'use client';
 import Image from "next/image";
 import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiCollaRepository";
-import {CollesContextProvider} from "@/sections/colles/CollesContext";
-import {UpdateCollaForm} from "@/sections/colles/update-form/UpdateCollaForm";
+import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
+import {UpdateCollaForm} from "@/app/sections/colles/update-form/UpdateCollaForm";
 import {useRouter} from "next/router";
 
-export default function UpdateColla() {
+export default function Page() {
     const router = useRouter();
     const { collaId } = router.query; // Allows to receive the collaId from the URL, from CollaCard.tsx
 

@@ -1,10 +1,12 @@
+'use client';
+
 import React, {useEffect, useState} from "react";
 import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
 import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
 import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
-import {FormStatus, useCollaForm} from "@/sections/colles/form/useCollaForm";
-import { Spinner } from "@/sections/shared/Spinner";
-import {useCollaFormData} from "@/sections/colles/form/useCollaFormData";
+import {FormStatus, useCollaForm} from "@/app/sections/colles/form/useCollaForm";
+import { Spinner } from "@/app/sections/shared/Spinner";
+import {useCollaFormData} from "@/app/sections/colles/form/useCollaFormData";
 
 const initialState = {
     name: " ",

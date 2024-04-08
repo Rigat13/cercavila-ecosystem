@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useCollesContext} from "@/sections/colles/CollesContext";
+import { useCollesContext} from "@/app/sections/colles/CollesContext";
 export const enum FormStatus {
     Loading,
     Success,
@@ -7,23 +7,23 @@ export const enum FormStatus {
     Initial,
 }
 
-export function useUpdateCollaForm(): {
+export function useCollaForm(): {
     formStatus: FormStatus;
-    submitForm: (formData: { id: string, name: string, entity: string, foundationYear: number }) => void;
+    submitForm: (formData: { name: string, entity: string, foundationYear: number }) => void;
     resetFormStatus: () => void;
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
-    const { updateColla } = useCollesContext();
+    const { createColla } = useCollesContext();
 
-    function submitForm({ id, name, entity, foundationYear }: { id: string, name: string, entity: string, foundationYear: number }) {
+    function submitForm({ name, entity, foundationYear }: { name: string, entity: string, foundationYear: number }) {
         setFormStatus(FormStatus.Loading);
         try {
-            updateColla({id, name, entity, foundationYear })
+            createColla({id: "", name, entity, foundationYear })
                 .then(() => {
                     setFormStatus(FormStatus.Success);
                 })
                 .catch((e) => {
-                    throw new Error("No s'ha pogut editar la colla. \nMotiu: "+e);
+                    throw new Error("No s'ha pogut crear la colla. \nMotiu: "+e);
                 });
         } catch (e) {
             setFormStatus(FormStatus.Error);

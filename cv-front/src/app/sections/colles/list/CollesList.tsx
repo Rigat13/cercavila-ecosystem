@@ -1,5 +1,5 @@
-import {CollaCard} from "@/sections/colles/card/CollaCard";
-import {useCollesContext} from "@/sections/colles/CollesContext";
+import {CollaCard} from "@/app/sections/colles/card/CollaCard";
+import {useCollesContext} from "@/app/sections/colles/CollesContext";
 import styles from "./CollesList.module.scss";
 
 export function CollesList() {
