@@ -8,13 +8,14 @@
   --background-end-rgb: 249, 236, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Changing theme based on user device theme: */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 16, 0, 177;
     --background-end-rgb: 10, 5, 40;
   }
-}
+} */
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -30,4 +31,19 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+h1 {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 2.25rem;
+  padding: 1rem;
+}
+
+h2 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.875rem;
+  padding: 1rem;
 }

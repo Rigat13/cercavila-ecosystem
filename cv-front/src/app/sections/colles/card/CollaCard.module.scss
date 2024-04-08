@@ -25,16 +25,19 @@
 
   padding: 1rem;
   overflow: hidden;
-  background: #f3f3f3;
+  background: #f8f1f1;
+  color: #000088;
 
   &__name {
     margin-top: 0.5em;
     font-size: 2.5rem;
+    font-weight: 900;
   }
 
   &__entity {
     margin-top: 0.5em;
     font-size: 1.5rem;
+    font-style: italic;
   }
 
   &__foundation-year {
