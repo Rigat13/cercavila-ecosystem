@@ -7,7 +7,6 @@ import { Spinner } from "@/app/sections/shared/Spinner";
 import {useUpdateCollaFormData} from "@/app/sections/colles/update-form/useUpdateCollaFormData";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
 import styles from "@/app/sections/colles/card/CollaCard.module.scss";
-
 const initialState = {
     id: "",
     name: " ",
@@ -114,7 +113,7 @@ export function UpdateCollaForm({collaId}) {
         return (
             <section>
                 <h2>Colla esborrada amb èxit</h2>
-                <a href={`/colles`} className={styles.updateLink}>
+                <a href={`/colles`} className={styles.h2}>
                     <button className={styles.updateButton}> Colles </button>
                 </a>
             </section>
