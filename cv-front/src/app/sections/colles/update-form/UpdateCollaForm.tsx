@@ -203,7 +203,7 @@ export function UpdateCollaForm({collaId}) {
 
                         <button type="submit">Edita la colla</button>
                     </form>
-                    <a href={`/colles`} className={styles.updateLink}>
+                    <a href={`/colles`} className={styles.h2}>
                         <button className={styles.updateButton}> Colles </button>
                     </a>
 
@@ -228,7 +228,7 @@ function SuccessNotification() {
     return (
         <section>
             <h2>Colla editada amb èxit</h2>
-            <a href={`/colles`} className={styles.updateLink}>
+            <a href={`/colles`} className={styles.h2}>
                 <button className={styles.updateButton}> Colles </button>
             </a>
         </section>

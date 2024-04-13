@@ -3,11 +3,11 @@ import Image from "next/image";
 import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiCollaRepository";
 import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
 import {UpdateCollaForm} from "@/app/sections/colles/update-form/UpdateCollaForm";
-import {useRouter} from "next/navigation";
+import {useSearchParams } from "next/navigation";
 
 export default function Page() {
-    const router = useRouter();
-    const { collaId } = router.query || {}; // Allows to receive the collaId from the URL, from CollaCard.tsx
+    const searchParams = useSearchParams();
+    const collaId = searchParams.get('collaId');
 
     const repository = createApiCollaRepository();
 
