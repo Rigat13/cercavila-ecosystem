@@ -6,8 +6,12 @@ import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
 import {CollesList} from "@/app/sections/colles/list/CollesList";
 import {CreateCollaForm} from "@/app/sections/colles/form/CreateCollaForm";
 import styles from "@/app/sections/colles/list/CollesList.module.scss";
+import { dictionary} from "@/content";
+import {useSearchParams } from "next/navigation";
 
 export default function Page() {
+    const searchParams = useSearchParams();
+    const lang = searchParams.get('lang');
     const repository = createApiCollaRepository();
 
     return (
@@ -22,7 +26,7 @@ export default function Page() {
             />
 
             <div className = "Colles">
-                <h1 className={styles.h1}>Cercavila</h1>
+                <h1 className={styles.h1}>{dictionary[lang]?.createCollaTitle}</h1>
                 <CollesList />
                 <CreateCollaForm />
             </div>
