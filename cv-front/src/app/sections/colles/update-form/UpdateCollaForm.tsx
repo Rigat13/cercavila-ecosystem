@@ -63,9 +63,9 @@ export function UpdateCollaForm({collaId}) {
 
     const validateFormData = ({ id, name, entity, foundationYear }) => {
         // Perform validation based on the provided data
-        const isNameValid = isCollaNameValid(name);
-        const isEntityValid = isCollaEntityValid(entity);
-        const isFoundationYearValid = isCollaFoundationYearValid(foundationYear);
+        isNameValid = isCollaNameValid(name);
+        isEntityValid = isCollaEntityValid(entity);
+        isFoundationYearValid = isCollaFoundationYearValid(foundationYear);
 
         setErrors({
             id: "",
