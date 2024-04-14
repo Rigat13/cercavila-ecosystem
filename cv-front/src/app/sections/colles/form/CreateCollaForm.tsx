@@ -149,18 +149,18 @@ export function CreateCollaForm() {
 
 function SuccessNotification({ resetForm }: { resetForm: () => void }) {
     return (
-        <section>
-            <h2>Colla creada amb èxit</h2>
-            <button onClick={resetForm}>Crear una altra colla</button>
+        <section className={styles.collaForm}>
+            <h2 classname={styles.h2}>Colla creada amb èxit</h2>
+            <button className={styles.actionButton} onClick={resetForm}>Crear una altra colla</button>
         </section>
     );
 }
 
 function ErrorNotification({ resetForm }: { resetForm: () => void }) {
     return (
-        <section>
-            <h2>Hi ha hagut un error</h2>
-            <button onClick={resetForm}>Tornar a intentar</button>
+        <section className={styles.collaForm}>
+            <h2 className={styles.h2error}>Hi ha hagut un error</h2>
+            <button className={styles.actionButton} onClick={resetForm}>Tornar a intentar</button>
         </section>
     );
 }

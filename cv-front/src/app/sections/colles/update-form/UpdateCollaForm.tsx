@@ -111,8 +111,8 @@ export function UpdateCollaForm({collaId}) {
     };
     if (isDeleted) {
         return (
-            <section>
-                <h2>Colla esborrada amb èxit</h2>
+            <section className={styles.collaForm}>
+                <h2 className={styles.h2}>Colla esborrada amb èxit</h2>
                 <a href={`/colles`} className={styles.h2}>
                     <button className={styles.actionButton}> Colles </button>
                 </a>
@@ -209,7 +209,7 @@ export function UpdateCollaForm({collaId}) {
                             Edita la colla
                         </button>
                     </form>
-                    <a href={`/colles`} className={styles.h2}>
+                    <a href={`/colles`}>
                         <button className={styles.actionButton}> Colles </button>
                     </a>
 
@@ -217,10 +217,10 @@ export function UpdateCollaForm({collaId}) {
                     <button className={styles.deleteButton} onClick={handleDeleteClick} >Esborrar</button>
                     {/* Confirmation Dialog */}
                     {isConfirmOpen && (
-                        <div className="confirmation-dialog">
-                            <p>Voleu esborrar la colla de manera permanent? No es pot desfer aquesta acció.</p>
-                            <button onClick={handleCancelDelete}>Cancel·lar</button>
-                            <button style={{ backgroundColor: 'red', color: 'white', }} onClick={handleConfirmDelete}>Esborrar permanentment</button>
+                        <div className={styles.collaForm}>
+                            <p className={styles.warningMessage}>Voleu esborrar la colla de manera permanent? No es pot desfer aquesta acció.</p>
+                            <button className={styles.actionButton} onClick={handleCancelDelete}>Cancel·lar</button>
+                            <button className={styles.deleteButton} onClick={handleConfirmDelete}>Esborrar permanentment</button>
                         </div>
                     )}
                 </section>
@@ -232,8 +232,8 @@ export function UpdateCollaForm({collaId}) {
 
 function SuccessNotification() {
     return (
-        <section>
-            <h2>Colla editada amb èxit</h2>
+        <section className={styles.collaForm}>
+            <h2 className={styles.h2}>Colla editada amb èxit</h2>
             <a href={`/colles`} className={styles.h2}>
                 <button className={styles.actionButton}> Colles </button>
             </a>
@@ -243,9 +243,9 @@ function SuccessNotification() {
 
 function ErrorNotification({ resetForm }: { resetForm: () => void }) {
     return (
-        <section>
-            <h2>Hi ha hagut un error</h2>
-            <button onClick={resetForm}>Tornar a intentar</button>
+        <section className={styles.collaForm}>
+            <h2 className={styles.h2error}>Hi ha hagut un error</h2>
+            <button className={styles.actionButton} onClick={resetForm}>Tornar a intentar</button>
         </section>
     );
 }
