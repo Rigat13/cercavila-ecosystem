@@ -23,26 +23,46 @@ export function CreateCollaForm() {
     const [errors, setErrors] = useState(initialState);
 
     useEffect(() => {
-        if (!userEnteredData) { userEnteredData = true;}
-        else {
-            isNameValid = userEnteredData ? isCollaNameValid(formData.name) : true;
-            isEntityValid = userEnteredData ? isCollaEntityValid(formData.entity) : true;
-            isFoundationYearValid = userEnteredData ? isCollaFoundationYearValid(formData.foundationYear) : true;
 
-            setErrors({
-                name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
-                entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
-                foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN, // TODO: Validate correct behaviour at run.
-            });
-        }
 
     }, [formData]);
+
+    const handleNameChange = (ev) => {
+        const newName = ev.target.value;
+        updateForm({ name: newName });
+        validateFormData({ ...formData, name: newName });
+    };
+
+    const handleEntityChange = (ev) => {
+        const newEntity = ev.target.value;
+        updateForm({ entity: newEntity });
+        validateFormData({ ...formData, entity: newEntity });
+    };
+
+    const handleFoundationYearChange = (ev) => {
+        const newFoundationYear = Number(ev.target.value);
+        updateForm({ foundationYear: newFoundationYear });
+        validateFormData({ ...formData, foundationYear: newFoundationYear });
+    };
+
+    const validateFormData = ({ name, entity, foundationYear }) => {
+        // Perform validation based on the provided data
+        const isNameValid = isCollaNameValid(name);
+        const isEntityValid = isCollaEntityValid(entity);
+        const isFoundationYearValid = isCollaFoundationYearValid(foundationYear);
+
+        setErrors({
+            id: "",
+            name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
+            entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
+            foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN,
+        });
+    };
 
     const handleSubmit = (ev: React.FormEvent) => {
         if (!isNameValid || !isEntityValid || !isFoundationYearValid) { return; }
         ev.preventDefault();
         submitForm(formData);
-        userEnteredData = false;
     };
 
     switch (formStatus) {
@@ -76,9 +96,7 @@ export function CreateCollaForm() {
                                 id="name"
                                 name="name"
                                 value={formData.name}
-                                onChange={(ev) => {
-                                    updateForm({ name: ev.target.value});
-                                }}
+                                onChange={handleNameChange}
                             />
                             {formData.name && errors.name && (
                                 <div style={{ color: "tomato" }}>{errors.name}</div>
@@ -92,9 +110,7 @@ export function CreateCollaForm() {
                                 id="entity"
                                 name="entity"
                                 value={formData.entity}
-                                onChange={(ev) => {
-                                    updateForm({ entity: ev.target.value});
-                                }}
+                                onChange={handleEntityChange}
                             />
                             {formData.entity && errors.entity && (
                                 <div style={{ color: "tomato" }}>{errors.entity}</div>
@@ -108,9 +124,7 @@ export function CreateCollaForm() {
                                 id="foundationYear"
                                 name="foundationYear"
                                 value={formData.foundationYear}
-                                onChange={(ev) => {
-                                    updateForm({ foundationYear: Number(ev.target.value)});
-                                }}
+                                onChange={handleFoundationYearChange}
                             />
                             {formData.foundationYear && errors.foundationYear && (
                                 <div style={{ color: "tomato" }}>{errors.foundationYear}</div>
