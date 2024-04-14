@@ -33,6 +33,11 @@
       background: #f8f1f1;
       color: #000088;
     }
+    &:disabled {
+      background-color: #c0c0c0;
+      color: #808080;
+      cursor: not-allowed;
+    }
   }
 
   .deleteButton {

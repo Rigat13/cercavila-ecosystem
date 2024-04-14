@@ -4,6 +4,7 @@ export const FOUNDATION_YEAR_ERROR_MESSAGE = `L'any de fundació no és vàlid. 
 
 export function isCollaFoundationYearValid(foundationYear: number): boolean {
     // Foundation year must be a positive number, integer and between 1400 and 2400
+    foundationYear = Math.floor(foundationYear);
     return foundationYear % 1 == 0 && foundationYear >= FOUNDATION_YEAR_MIN && foundationYear <= FOUNDATION_YEAR_MAX;
 }
 

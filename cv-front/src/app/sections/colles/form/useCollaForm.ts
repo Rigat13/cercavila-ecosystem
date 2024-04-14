@@ -8,15 +8,18 @@ export const enum FormStatus {
 }
 
 export function useCollaForm(): {
-    formStatus: FormStatus;
-    submitForm: (formData: { name: string, entity: string, foundationYear: number }) => void;
-    resetFormStatus: () => void;
+    submitForm: ({
+                     name,
+                     entity,
+                     foundationYearString
+                 }: { name: string; entity: string; foundationYear: string }) => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
     const { createColla } = useCollesContext();
 
-    function submitForm({ name, entity, foundationYear }: { name: string, entity: string, foundationYear: number }) {
+    function submitForm({ name, entity, foundationYearString }: { name: string, entity: string, foundationYear: string }) {
         setFormStatus(FormStatus.Loading);
+        var foundationYear = parseInt(foundationYearString);
         try {
             createColla({id: "", name, entity, foundationYear })
                 .then(() => {

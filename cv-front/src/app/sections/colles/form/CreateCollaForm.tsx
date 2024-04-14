@@ -9,9 +9,9 @@ import { Spinner } from "@/app/sections/shared/Spinner";
 import {useCollaFormData} from "@/app/sections/colles/form/useCollaFormData";
 import styles from "@/app/sections/colles/form/CollaForm.module.scss";
 const initialState = {
-    name: " ",
-    entity: " ",
-    foundationYear: 2024,
+    name: "",
+    entity: "",
+    foundationYear: "",
 }
 export let isNameValid, isEntityValid, isFoundationYearValid = false;
 
@@ -23,7 +23,6 @@ export function CreateCollaForm() {
     const [errors, setErrors] = useState(initialState);
 
     useEffect(() => {
-
 
     }, [formData]);
 
@@ -41,21 +40,21 @@ export function CreateCollaForm() {
 
     const handleFoundationYearChange = (ev) => {
         const newFoundationYear = Number(ev.target.value);
-        updateForm({ foundationYear: newFoundationYear });
+        updateForm({ foundationYear: newFoundationYear+"" });
         validateFormData({ ...formData, foundationYear: newFoundationYear });
     };
 
     const validateFormData = ({ name, entity, foundationYear }) => {
         // Perform validation based on the provided data
-        const isNameValid = isCollaNameValid(name);
-        const isEntityValid = isCollaEntityValid(entity);
-        const isFoundationYearValid = isCollaFoundationYearValid(foundationYear);
+        isNameValid = isCollaNameValid(name);
+        isEntityValid = isCollaEntityValid(entity);
+        isFoundationYearValid = isCollaFoundationYearValid(foundationYear);
 
         setErrors({
             id: "",
             name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
             entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
-            foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN,
+            foundationYear: isFoundationYearValid ? "" : `L'any de fundació no és vàlid. Ha de ser un número entre ${FOUNDATION_YEAR_MIN} i ${FOUNDATION_YEAR_MAX}`,
         });
     };
 
@@ -131,7 +130,13 @@ export function CreateCollaForm() {
                             )}
                         </div>
 
-                        <button className={styles.actionButton} type="submit">Crea la colla</button>
+                        <button
+                            className={styles.actionButton}
+                            type="submit"
+                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid}
+                        >
+                            Crea la colla
+                        </button>
                     </form>
                 </section>
             );

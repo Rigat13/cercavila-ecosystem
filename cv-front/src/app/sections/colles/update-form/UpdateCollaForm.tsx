@@ -9,9 +9,9 @@ import {useCollesContext} from "@/app/sections/colles/CollesContext";
 import styles from "@/app/sections/colles/form/CollaForm.module.scss";
 const initialState = {
     id: "",
-    name: " ",
-    entity: " ",
-    foundationYear: 0,
+    name: "",
+    entity: "",
+    foundationYear: "",
 }
 export let isNameValid, isEntityValid, isFoundationYearValid = false;
 
@@ -36,7 +36,7 @@ export function UpdateCollaForm({collaId}) {
                     id: collaData.id,
                     name: collaData.name,
                     entity: collaData.entity,
-                    foundationYear: collaData.foundationYear
+                    foundationYear: collaData.foundationYear+""
                 });
             } catch (error) {
                 console.error("Error en obtenir la informació de la colla:", error);
@@ -59,7 +59,7 @@ export function UpdateCollaForm({collaId}) {
 
     const handleFoundationYearChange = (ev) => {
         const newFoundationYear = Number(ev.target.value);
-        updateForm({ foundationYear: newFoundationYear });
+        updateForm({ foundationYear: newFoundationYear+"" });
         validateFormData({ ...formData, foundationYear: newFoundationYear });
     };
 
@@ -73,29 +73,26 @@ export function UpdateCollaForm({collaId}) {
             id: "",
             name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
             entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
-            foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN,
+            foundationYear: isFoundationYearValid ? "" : `L'any de fundació no és vàlid. Ha de ser un número entre ${FOUNDATION_YEAR_MIN} i ${FOUNDATION_YEAR_MAX}`,
         });
     };
 
     const handleSubmit = (ev) => {
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid) { return; }
         ev.preventDefault();
-
-        if (!validateForm()) {
-            return;
-        }
         submitForm(formData);
     };
 
     const validateForm = () => {
-        const isNameValid = isCollaNameValid(formData.name);
-        const isEntityValid = isCollaEntityValid(formData.entity);
-        const isFoundationYearValid = isCollaFoundationYearValid(formData.foundationYear);
+        isNameValid = isCollaNameValid(formData.name);
+        isEntityValid = isCollaEntityValid(formData.entity);
+        isFoundationYearValid = isCollaFoundationYearValid(parseInt(formData.foundationYear));
 
         setErrors({
             id: "",
             name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
             entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
-            foundationYear: isFoundationYearValid ? 0 : FOUNDATION_YEAR_MIN,
+            foundationYear: isFoundationYearValid ? "" : `L'any de fundació no és vàlid. Ha de ser un número entre ${FOUNDATION_YEAR_MIN} i ${FOUNDATION_YEAR_MAX}`,
         });
 
         // Return validation result
@@ -201,7 +198,13 @@ export function UpdateCollaForm({collaId}) {
                             )}
                         </div>
 
-                        <button type="submit" className={styles.actionButton}>Edita la colla</button>
+                        <button
+                            className={styles.actionButton}
+                            type="submit"
+                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid}
+                        >
+                            Edita la colla
+                        </button>
                     </form>
                     <a href={`/colles`} className={styles.h2}>
                         <button className={styles.actionButton}> Colles </button>
