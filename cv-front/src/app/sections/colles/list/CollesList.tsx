@@ -6,7 +6,7 @@ export function CollesList() {
     const { colles } = useCollesContext();
     return (
         <section>
-            <h2>Colles registrades</h2>
+            <h2 className={styles.h2}>Colles registrades</h2>
             <div className={styles.list}>
                 {colles.map((colla) => (
                     <CollaCard key={colla.id} colla={colla} />

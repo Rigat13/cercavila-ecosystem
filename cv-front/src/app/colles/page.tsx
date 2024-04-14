@@ -5,6 +5,7 @@ import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiColla
 import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
 import {CollesList} from "@/app/sections/colles/list/CollesList";
 import {CreateCollaForm} from "@/app/sections/colles/form/CreateCollaForm";
+import styles from "@/app/sections/colles/list/CollesList.module.scss";
 
 export default function Page() {
     const repository = createApiCollaRepository();
@@ -21,7 +22,7 @@ export default function Page() {
             />
 
             <div className = "Colles">
-                <h1>Cercavila</h1>
+                <h1 className={styles.h1}>Cercavila</h1>
                 <CollesList />
                 <CreateCollaForm />
             </div>
