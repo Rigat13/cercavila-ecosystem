@@ -15,8 +15,6 @@ const initialState = {
 }
 export let isNameValid, isEntityValid, isFoundationYearValid = false;
 
-export let userEnteredData = false;
-
 export function CreateCollaForm() {
     const { formData, updateForm, resetForm } = useCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useCollaForm();
@@ -48,7 +46,7 @@ export function CreateCollaForm() {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
-        isFoundationYearValid = isCollaFoundationYearValid(foundationYear);
+        isFoundationYearValid = !isNaN(foundationYear) && isCollaFoundationYearValid(foundationYear);
 
         setErrors({
             id: "",
@@ -61,7 +59,11 @@ export function CreateCollaForm() {
     const handleSubmit = (ev: React.FormEvent) => {
         if (!isNameValid || !isEntityValid || !isFoundationYearValid) { return; }
         ev.preventDefault();
-        submitForm(formData);
+        submitForm({
+            name: formData.name,
+            entity: formData.entity,
+            foundationYear: Number(formData.foundationYear),
+        });
     };
 
     switch (formStatus) {

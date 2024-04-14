@@ -12,21 +12,20 @@ export function useCollaForm(): {
                      name,
                      entity,
                      foundationYearString
-                 }: { name: string; entity: string; foundationYear: string }) => void; formStatus: FormStatus; resetFormStatus: () => void
+                 }: { name: string; entity: string; foundationYear: number }) => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
     const { createColla } = useCollesContext();
 
-    function submitForm({ name, entity, foundationYearString }: { name: string, entity: string, foundationYear: string }) {
+    function submitForm({ name, entity, foundationYear }: { name: string, entity: string, foundationYear: number }) {
         setFormStatus(FormStatus.Loading);
-        var foundationYear = parseInt(foundationYearString);
         try {
             createColla({id: "", name, entity, foundationYear })
                 .then(() => {
                     setFormStatus(FormStatus.Success);
                 })
                 .catch((e) => {
-                    throw new Error("No s'ha pogut crear la colla. \nMotiu: "+e);
+                    throw new Error("No s'ha pogut crear la colla. \nMotiu: "+e+foundationYear);
                 });
         } catch (e) {
             setFormStatus(FormStatus.Error);

@@ -13,14 +13,13 @@ export function useUpdateCollaForm(): {
                      name,
                      entity,
                      foundationYear
-                 }: { id: string; name: string; entity: string; foundationYear: string }) => void; formStatus: FormStatus; resetFormStatus: () => void
+                 }: { id: string; name: string; entity: string; foundationYear: number }) => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
     const { updateColla } = useCollesContext();
 
-    function submitForm({ id, name, entity, foundationYearString }: { id: string, name: string, entity: string, foundationYear: string }) {
+    function submitForm({ id, name, entity, foundationYear }: { id: string, name: string, entity: string, foundationYear: number }) {
         setFormStatus(FormStatus.Loading);
-        var foundationYear = parseInt(foundationYearString);
         try {
             updateColla({id, name, entity, foundationYear })
                 .then(() => {

@@ -15,8 +15,6 @@ const initialState = {
 }
 export let isNameValid, isEntityValid, isFoundationYearValid = false;
 
-export let userEnteredData = false;
-
 export function UpdateCollaForm({collaId}) {
     const { formData, updateForm, resetForm } = useUpdateCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useUpdateCollaForm();
@@ -80,7 +78,12 @@ export function UpdateCollaForm({collaId}) {
     const handleSubmit = (ev) => {
         if (!isNameValid || !isEntityValid || !isFoundationYearValid) { return; }
         ev.preventDefault();
-        submitForm(formData);
+        submitForm({
+            id: formData.id,
+            name: formData.name,
+            entity: formData.entity,
+            foundationYear: Number(formData.foundationYear),
+        });
     };
 
     const validateForm = () => {
