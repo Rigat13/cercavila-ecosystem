@@ -7,7 +7,7 @@ import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} fr
 import {FormStatus, useCollaForm} from "@/app/sections/colles/form/useCollaForm";
 import { Spinner } from "@/app/sections/shared/Spinner";
 import {useCollaFormData} from "@/app/sections/colles/form/useCollaFormData";
-
+import styles from "@/app/sections/colles/form/CollaForm.module.scss";
 const initialState = {
     name: " ",
     entity: " ",
@@ -61,7 +61,7 @@ export function CreateCollaForm() {
             return <ErrorNotification resetForm={resetFormStatus} />;
         case FormStatus.Initial:
             return (
-                <section id="order" className="">
+                <section id="order" className={styles.collaForm}>
                     <h2>Crea una nova colla</h2>
 
                     <form
@@ -69,7 +69,7 @@ export function CreateCollaForm() {
                             handleSubmit(ev);
                         }}
                     >
-                        <div className="form-group">
+                        <div className={styles.formGroup}>
                             <label htmlFor="name">Nom</label>
                             <input
                                 type="text"
@@ -85,7 +85,7 @@ export function CreateCollaForm() {
                             )}
                         </div>
 
-                        <div className="form-group">
+                        <div className={styles.formGroup}>
                             <label htmlFor="entity">Entitat</label>
                             <input
                                 type="text"
@@ -101,7 +101,7 @@ export function CreateCollaForm() {
                             )}
                         </div>
 
-                        <div className="form-group">
+                        <div className={styles.formGroup}>
                             <label htmlFor="foundationYear">Any de fundació</label>
                             <input
                                 type="number"
@@ -117,7 +117,7 @@ export function CreateCollaForm() {
                             )}
                         </div>
 
-                        <button type="submit">Crea la colla</button>
+                        <button className={styles.actionButton} type="submit">Crea la colla</button>
                     </form>
                 </section>
             );

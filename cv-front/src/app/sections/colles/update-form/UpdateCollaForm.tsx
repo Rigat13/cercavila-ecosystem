@@ -6,12 +6,12 @@ import {FormStatus, useUpdateCollaForm} from "@/app/sections/colles/update-form/
 import { Spinner } from "@/app/sections/shared/Spinner";
 import {useUpdateCollaFormData} from "@/app/sections/colles/update-form/useUpdateCollaFormData";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
-import styles from "@/app/sections/colles/card/CollaCard.module.scss";
+import styles from "@/app/sections/colles/form/CollaForm.module.scss";
 const initialState = {
     id: "",
     name: " ",
     entity: " ",
-    foundationYear: 2024,
+    foundationYear: 0,
 }
 export let isNameValid, isEntityValid, isFoundationYearValid = false;
 
@@ -114,7 +114,7 @@ export function UpdateCollaForm({collaId}) {
             <section>
                 <h2>Colla esborrada amb èxit</h2>
                 <a href={`/colles`} className={styles.h2}>
-                    <button className={styles.updateButton}> Colles </button>
+                    <button className={styles.actionButton}> Colles </button>
                 </a>
             </section>
         );
@@ -151,7 +151,7 @@ export function UpdateCollaForm({collaId}) {
             return <ErrorNotification resetForm={resetFormStatus} />;
         case FormStatus.Initial:
             return (
-                <section id="order" className="">
+                <section id="order" className={styles.collaForm}>
                     <h2>Edita la colla</h2>
 
                     <form
@@ -159,7 +159,7 @@ export function UpdateCollaForm({collaId}) {
                             handleSubmit(ev);
                         }}
                     >
-                        <div className="form-group">
+                        <div className={styles.formGroup}>
                             <label htmlFor="name">Nom</label>
                             <input
                                 type="text"
@@ -173,7 +173,7 @@ export function UpdateCollaForm({collaId}) {
                             )}
                         </div>
 
-                        <div className="form-group">
+                        <div className={styles.formGroup}>
                             <label htmlFor="entity">Entitat</label>
                             <input
                                 type="text"
@@ -187,7 +187,7 @@ export function UpdateCollaForm({collaId}) {
                             )}
                         </div>
 
-                        <div className="form-group">
+                        <div className={styles.formGroup}>
                             <label htmlFor="foundationYear">Any de fundació</label>
                             <input
                                 type="number"
@@ -201,14 +201,14 @@ export function UpdateCollaForm({collaId}) {
                             )}
                         </div>
 
-                        <button type="submit">Edita la colla</button>
+                        <button type="submit" className={styles.actionButton}>Edita la colla</button>
                     </form>
                     <a href={`/colles`} className={styles.h2}>
-                        <button className={styles.updateButton}> Colles </button>
+                        <button className={styles.actionButton}> Colles </button>
                     </a>
 
                     {/* "Delete" Button */}
-                    <button onClick={handleDeleteClick} >Esborrar</button>
+                    <button className={styles.deleteButton} onClick={handleDeleteClick} >Esborrar</button>
                     {/* Confirmation Dialog */}
                     {isConfirmOpen && (
                         <div className="confirmation-dialog">
@@ -229,7 +229,7 @@ function SuccessNotification() {
         <section>
             <h2>Colla editada amb èxit</h2>
             <a href={`/colles`} className={styles.h2}>
-                <button className={styles.updateButton}> Colles </button>
+                <button className={styles.actionButton}> Colles </button>
             </a>
         </section>
     );

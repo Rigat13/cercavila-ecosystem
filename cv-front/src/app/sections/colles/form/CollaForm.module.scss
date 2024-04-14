@@ -1,0 +1,66 @@
+.collaForm {
+  position: relative;
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    label {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #000088;
+      border-radius: 7px;
+    }
+  }
+
+
+  .actionButton {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 7px;
+    background: #000088;
+    color: #f8f1f1;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background: #f8f1f1;
+      color: #000088;
+    }
+  }
+
+  .deleteButton {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 7px;
+    background: #444444;
+    color: #f8f1f1;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background: #ff4646;
+      color: #ffffff;
+    }
+  }
+
+  padding: 2rem;
+  overflow: hidden;
+  background: transparent;
+  color: #000088;
+
+
+  .h2 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.875rem;
+    padding: 1rem;
+  }
+}
