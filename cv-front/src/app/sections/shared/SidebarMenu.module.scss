@@ -1,0 +1,107 @@
+.sidebar{
+  /* ---------------------------------------------------- LANGUAGE SELECTOR ---------------------------------------------------- */
+  .languageSelector {
+  display: inline-block;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+  .languageButton {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 15px;
+  }
+
+  .dropdownContent {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgb(185, 185, 255);
+    z-index: 1;
+    border-radius: 15px;
+  }
+
+  .dropdownContent a {
+    color: black;
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+  }
+
+  .dropdownContent a:hover {
+    color: white;
+    background-color: #7f7ffd;
+    border-radius: 15px;
+  }
+
+  .languageSelector:hover .dropdownContent {
+    display: block;
+  }
+
+  /* ---------------------------------------------------- SIDE BAR ---------------------------------------------------- */
+
+  .sidebarButton {
+    position: fixed;
+    top: 0;
+    margin: 20px;
+    display: flex;
+    width: 50px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease;
+    z-index: 9;
+  }
+
+  .sidebarButton:hover {
+    transform: scale(1.1);
+  }
+
+  .sidebarCategoryButton {
+    margin: 20px;
+    display: flex;
+    width: 250px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease;
+    background-color: #232323;
+    color: white;
+    font-weight: bold;
+    font-size: x-large;
+    border-radius: 20px;
+    padding: 10px;
+  }
+
+  .sidebarCategoryButton:hover {
+    transform: scale(1.1);
+    background-color: white;
+    color: #232323;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: black;
+    transition: left 0.3s ease;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    z-index: 10;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .menu {
+    padding-top: 150px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
