@@ -15,7 +15,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose, lang }) => {
                 <img src="/icons/logo-burger-inverted.svg" alt="Side bar" />
             </button>
             <div className={styles.menu}>
-                <a className={styles.sidebarCategoryButton} href="/">{dictionary[lang]?.cercavilaTitle}</a>
+                <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/" : `/?lang=${lang}`}>{dictionary[lang]?.cercavilaTitle}</a>
                 <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/colles" : `/colles?lang=${lang}`}>{dictionary[lang]?.collesTitle}</a>
             </div>
             <div className={styles.languageSelector}>
