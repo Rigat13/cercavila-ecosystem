@@ -6,8 +6,17 @@ import {useSearchParams } from "next/navigation";
 import {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
+import { Suspense } from 'react';
 
 export default function Home() {
+  return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <HomeContent />
+      </Suspense>
+  );
+}
+
+function HomeContent() {
   const searchParams = useSearchParams();
   const lang = searchParams.get('lang') || defaultLang;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

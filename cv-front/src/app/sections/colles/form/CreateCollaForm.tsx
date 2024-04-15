@@ -52,7 +52,6 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         isFoundationYearValid = !isNaN(foundationYear) && isCollaFoundationYearValid(foundationYear);
 
         setErrors({
-            id: "",
             name: isNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
             entity: isEntityValid ? "" : dictionary[lang]?.collesEntityInvalid + ENTITY_MIN_LENGTH + " - " + ENTITY_MAX_LENGTH,
             foundationYear: isFoundationYearValid ? "" : dictionary[lang]?.collesFoundationYearInvalid + FOUNDATION_YEAR_MIN + " - " + FOUNDATION_YEAR_MAX,
@@ -153,7 +152,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 function SuccessNotification({ lang, resetForm }: { lang: string; resetForm: () => void }) {
     return (
         <section className={styles.collaForm}>
-            <h2 classname={styles.h2}>{dictionary[lang]?.successCreateCollaMessage}</h2>
+            <h2 className={styles.h2}>{dictionary[lang]?.successCreateCollaMessage}</h2>
             <button className={styles.actionButton} onClick={resetForm}>{dictionary[lang]?.createAnotherCollaButton}</button>
         </section>
     );

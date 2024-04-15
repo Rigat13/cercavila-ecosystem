@@ -11,7 +11,7 @@ export function useCollaForm(): {
     submitForm: ({
                      name,
                      entity,
-                     foundationYearString
+                     foundationYear
                  }: { name: string; entity: string; foundationYear: number }) => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);

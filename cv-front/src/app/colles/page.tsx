@@ -11,8 +11,17 @@ import {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import globalStyles from "@/app/globalStyles.module.scss";
+import { Suspense } from 'react';
 
 export default function Page() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <PageContent />
+        </Suspense>
+    );
+}
+
+function PageContent() {
     const searchParams = useSearchParams();
     const lang = searchParams.get('lang') || defaultLang;
     const repository = createApiCollaRepository();
@@ -36,5 +45,5 @@ export default function Page() {
                 <CreateCollaForm lang={lang}/>
             </div>
         </CollesContextProvider>
-    )
+    );
 }
