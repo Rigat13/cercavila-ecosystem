@@ -6,12 +6,12 @@ import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
 import {CollesList} from "@/app/sections/colles/list/CollesList";
 import {CreateCollaForm} from "@/app/sections/colles/form/CreateCollaForm";
 import styles from "@/app/sections/colles/list/CollesList.module.scss";
-import { dictionary} from "@/content";
+import {defaultLang, dictionary} from "@/content";
 import {useSearchParams } from "next/navigation";
 
 export default function Page() {
     const searchParams = useSearchParams();
-    const lang = searchParams.get('lang');
+    const lang = searchParams.get('lang') || defaultLang;
     const repository = createApiCollaRepository();
 
     return (

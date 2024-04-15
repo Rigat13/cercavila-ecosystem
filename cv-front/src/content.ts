@@ -1,3 +1,6 @@
+export const lang = ["ca", "es", "en"];
+export const defaultLang = "ca";
+
 interface DictionaryEntry {
     // GENERAL
     cercavilaTitle: string;
