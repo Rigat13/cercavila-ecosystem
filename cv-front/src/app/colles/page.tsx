@@ -26,9 +26,9 @@ export default function Page() {
             />
 
             <div className = "Colles">
-                <h1 className={styles.h1}>{dictionary[lang]?.createCollaTitle}</h1>
+                <h1 className={styles.h1}>{dictionary[lang]?.cercavilaTitle}</h1>
                 <CollesList lang={lang}/>
-                <CreateCollaForm />
+                <CreateCollaForm lang={lang}/>
             </div>
         </CollesContextProvider>
     )

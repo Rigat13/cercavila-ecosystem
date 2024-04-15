@@ -7,6 +7,7 @@ import { Spinner } from "@/app/sections/shared/Spinner";
 import {useUpdateCollaFormData} from "@/app/sections/colles/update-form/useUpdateCollaFormData";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
 import styles from "@/app/sections/colles/form/CollaForm.module.scss";
+import {defaultLang, dictionary} from "@/content";
 const initialState = {
     id: "",
     name: "",
@@ -14,21 +15,22 @@ const initialState = {
     foundationYear: "",
 }
 export let isNameValid, isEntityValid, isFoundationYearValid = false;
+const lang = defaultLang;
 
-export function UpdateCollaForm({collaId}) {
+export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}) {
     const { formData, updateForm, resetForm } = useUpdateCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useUpdateCollaForm();
     const [errors, setErrors] = useState(initialState);
     const [isDeleted, setIsDeleted] = useState(false);
     const { colles } = useCollesContext();
-
+    lang = lang;
 
     useEffect(() => {
         const fetchCollaData = async () => {
             try {
                 const collaData = colles.find((colla) => colla.id === collaId);
                 if (!collaData) {
-                    throw new Error(`No s'ha trobat cap colla amb l'ID ${collaId}`);
+                    throw new Error(dictionary[lang]?.collaNotFoundWithId + collaId);
                 }
                 updateForm({
                     id: collaData.id,
@@ -37,7 +39,7 @@ export function UpdateCollaForm({collaId}) {
                     foundationYear: collaData.foundationYear+""
                 });
             } catch (error) {
-                console.error("Error en obtenir la informació de la colla:", error);
+                console.error(dictionary[lang]?.errorRetreivingCollaMessage + collaId);
             }
         };
         fetchCollaData();
@@ -69,9 +71,9 @@ export function UpdateCollaForm({collaId}) {
 
         setErrors({
             id: "",
-            name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
-            entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
-            foundationYear: isFoundationYearValid ? "" : `L'any de fundació no és vàlid. Ha de ser un número entre ${FOUNDATION_YEAR_MIN} i ${FOUNDATION_YEAR_MAX}`,
+            name: isNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
+            entity: isEntityValid ? "" : dictionary[lang]?.collesEntityInvalid + ENTITY_MIN_LENGTH + " - " + ENTITY_MAX_LENGTH,
+            foundationYear: isFoundationYearValid ? "" : dictionary[lang]?.collesFoundationYearInvalid + FOUNDATION_YEAR_MIN + " - " + FOUNDATION_YEAR_MAX,
         });
     };
 
@@ -86,22 +88,6 @@ export function UpdateCollaForm({collaId}) {
         });
     };
 
-    const validateForm = () => {
-        isNameValid = isCollaNameValid(formData.name);
-        isEntityValid = isCollaEntityValid(formData.entity);
-        isFoundationYearValid = isCollaFoundationYearValid(parseInt(formData.foundationYear));
-
-        setErrors({
-            id: "",
-            name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
-            entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
-            foundationYear: isFoundationYearValid ? "" : `L'any de fundació no és vàlid. Ha de ser un número entre ${FOUNDATION_YEAR_MIN} i ${FOUNDATION_YEAR_MAX}`,
-        });
-
-        // Return validation result
-        return isNameValid && isEntityValid && isFoundationYearValid;
-    };
-
     // ------------------ DELETE COLLA ------------------
     const { deleteColla } = useCollesContext();
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -112,9 +98,9 @@ export function UpdateCollaForm({collaId}) {
     if (isDeleted) {
         return (
             <section className={styles.collaForm}>
-                <h2 className={styles.h2}>Colla esborrada amb èxit</h2>
+                <h2 className={styles.h2}>{dictionary[lang].successUpdateCollaMessage}</h2>
                 <a href={`/colles`} className={styles.h2}>
-                    <button className={styles.actionButton}> Colles </button>
+                    <button className={styles.actionButton}>{dictionary[lang].goToCollesButton}</button>
                 </a>
             </section>
         );
@@ -133,7 +119,7 @@ export function UpdateCollaForm({collaId}) {
     if (isDeleted) {
         return (
             <div>
-                <p>The colla has been deleted successfully.</p>
+                <p>{dictionary[lang].successDeleteCollaMessage}</p>
             </div>
         );
     }
@@ -152,7 +138,7 @@ export function UpdateCollaForm({collaId}) {
         case FormStatus.Initial:
             return (
                 <section id="order" className={styles.collaForm}>
-                    <h2>Edita la colla</h2>
+                    <h2>{dictionary[lang].updateCollaTitle}</h2>
 
                     <form
                         onSubmit={(ev) => {
@@ -160,7 +146,7 @@ export function UpdateCollaForm({collaId}) {
                         }}
                     >
                         <div className={styles.formGroup}>
-                            <label htmlFor="name">Nom</label>
+                            <label htmlFor="name">{dictionary[lang].collaName}</label>
                             <input
                                 type="text"
                                 id="name"
@@ -174,7 +160,7 @@ export function UpdateCollaForm({collaId}) {
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="entity">Entitat</label>
+                            <label htmlFor="entity">{dictionary[lang].collaEntity}</label>
                             <input
                                 type="text"
                                 id="entity"
@@ -188,7 +174,7 @@ export function UpdateCollaForm({collaId}) {
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="foundationYear">Any de fundació</label>
+                            <label htmlFor="foundationYear">{dictionary[lang].collaFoundationYear}</label>
                             <input
                                 type="number"
                                 id="foundationYear"
@@ -206,21 +192,21 @@ export function UpdateCollaForm({collaId}) {
                             type="submit"
                             disabled={!isNameValid || !isEntityValid || !isFoundationYearValid}
                         >
-                            Edita la colla
+                            {dictionary[lang].updateCollaButton}
                         </button>
                     </form>
                     <a href={`/colles`}>
-                        <button className={styles.actionButton}> Colles </button>
+                        <button className={styles.actionButton}>{dictionary[lang].goToCollesButton}</button>
                     </a>
 
                     {/* "Delete" Button */}
-                    <button className={styles.deleteButton} onClick={handleDeleteClick} >Esborrar</button>
+                    <button className={styles.deleteButton} onClick={handleDeleteClick} >{dictionary[lang].deleteCollaButton}</button>
                     {/* Confirmation Dialog */}
                     {isConfirmOpen && (
                         <div className={styles.collaForm}>
-                            <p className={styles.warningMessage}>Voleu esborrar la colla de manera permanent? No es pot desfer aquesta acció.</p>
-                            <button className={styles.actionButton} onClick={handleCancelDelete}>Cancel·lar</button>
-                            <button className={styles.deleteButton} onClick={handleConfirmDelete}>Esborrar permanentment</button>
+                            <p className={styles.warningMessage}>{dictionary[lang].warningDeleteCollaMessage}</p>
+                            <button className={styles.actionButton} onClick={handleCancelDelete}>{dictionary[lang].cancelDeleteCollaButton}</button>
+                            <button className={styles.deleteButton} onClick={handleConfirmDelete}>{dictionary[lang].confirmDeleteCollaButton}</button>
                         </div>
                     )}
                 </section>
@@ -233,9 +219,9 @@ export function UpdateCollaForm({collaId}) {
 function SuccessNotification() {
     return (
         <section className={styles.collaForm}>
-            <h2 className={styles.h2}>Colla editada amb èxit</h2>
+            <h2 className={styles.h2}>{dictionary[lang].successUpdateCollaMessage}</h2>
             <a href={`/colles`} className={styles.h2}>
-                <button className={styles.actionButton}> Colles </button>
+                <button className={styles.actionButton}>{dictionary[lang].goToCollesButton}</button>
             </a>
         </section>
     );
@@ -244,12 +230,12 @@ function SuccessNotification() {
 function ErrorNotification({ resetForm }: { resetForm: () => void }) {
     return (
         <section className={styles.collaForm}>
-            <h2 className={styles.h2error}>Hi ha hagut un error</h2>
-            <button className={styles.actionButton} onClick={resetForm}>Tornar a intentar</button>
+            <h2 className={styles.h2error}>{dictionary[lang].errorFound}</h2>
+            <button className={styles.actionButton} onClick={resetForm}>{dictionary[lang].retry}</button>
         </section>
     );
 }
 
 function assertUnreachable(x: never): never {
-    throw new Error("No s'esperava arribar aquí");
+    throw new Error(dictionary[lang].unreachablePage);
 }

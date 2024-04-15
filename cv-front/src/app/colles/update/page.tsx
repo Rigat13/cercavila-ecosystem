@@ -5,6 +5,7 @@ import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
 import {UpdateCollaForm} from "@/app/sections/colles/update-form/UpdateCollaForm";
 import {useSearchParams } from "next/navigation";
 import {defaultLang, dictionary} from "@/content";
+import styles from "@/app/sections/colles/list/CollesList.module.scss";
 
 export default function Page() {
     const searchParams = useSearchParams();
@@ -25,8 +26,8 @@ export default function Page() {
             />
 
             <div className = "Colles">
-                <h1>Cercavila</h1>
-                <UpdateCollaForm collaId={collaId}/>
+                <h1 className={styles.h1}>{dictionary[lang]?.cercavilaTitle}</h1>
+                <UpdateCollaForm collaId={collaId} lang={lang}/>
             </div>
         </CollesContextProvider>
     )

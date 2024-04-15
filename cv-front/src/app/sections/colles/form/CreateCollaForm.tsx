@@ -8,17 +8,20 @@ import {FormStatus, useCollaForm} from "@/app/sections/colles/form/useCollaForm"
 import { Spinner } from "@/app/sections/shared/Spinner";
 import {useCollaFormData} from "@/app/sections/colles/form/useCollaFormData";
 import styles from "@/app/sections/colles/form/CollaForm.module.scss";
+import {defaultLang, dictionary} from "@/content";
 const initialState = {
     name: "",
     entity: "",
     foundationYear: "",
 }
 export let isNameValid, isEntityValid, isFoundationYearValid = false;
+const lang = defaultLang;
 
-export function CreateCollaForm() {
+export function CreateCollaForm(lang: string) {
     const { formData, updateForm, resetForm } = useCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
+    lang = lang;
 
     useEffect(() => {
 
@@ -50,9 +53,9 @@ export function CreateCollaForm() {
 
         setErrors({
             id: "",
-            name: isNameValid ? "" : `El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters`,
-            entity: isEntityValid ? "" : `L'entitat no és vàlida. Ha de començar en majúscula i tenir entre ${ENTITY_MIN_LENGTH} i ${ENTITY_MAX_LENGTH} caràcters`,
-            foundationYear: isFoundationYearValid ? "" : `L'any de fundació no és vàlid. Ha de ser un número entre ${FOUNDATION_YEAR_MIN} i ${FOUNDATION_YEAR_MAX}`,
+            name: isNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
+            entity: isEntityValid ? "" : dictionary[lang]?.collesEntityInvalid + ENTITY_MIN_LENGTH + " - " + ENTITY_MAX_LENGTH,
+            foundationYear: isFoundationYearValid ? "" : dictionary[lang]?.collesFoundationYearInvalid + FOUNDATION_YEAR_MIN + " - " + FOUNDATION_YEAR_MAX,
         });
     };
 
@@ -83,7 +86,7 @@ export function CreateCollaForm() {
         case FormStatus.Initial:
             return (
                 <section id="order" className={styles.collaForm}>
-                    <h2>Crea una nova colla</h2>
+                    <h2>{dictionary[lang]?.createCollaTitle}</h2>
 
                     <form
                         onSubmit={(ev) => {
@@ -91,7 +94,7 @@ export function CreateCollaForm() {
                         }}
                     >
                         <div className={styles.formGroup}>
-                            <label htmlFor="name">Nom</label>
+                            <label htmlFor="name">{dictionary[lang]?.collaName}</label>
                             <input
                                 type="text"
                                 id="name"
@@ -105,7 +108,7 @@ export function CreateCollaForm() {
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="entity">Entitat</label>
+                            <label htmlFor="entity">{dictionary[lang]?.collaEntity}</label>
                             <input
                                 type="text"
                                 id="entity"
@@ -119,7 +122,7 @@ export function CreateCollaForm() {
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="foundationYear">Any de fundació</label>
+                            <label htmlFor="foundationYear">{dictionary[lang]?.collaFoundationYear}</label>
                             <input
                                 type="number"
                                 id="foundationYear"
@@ -150,8 +153,8 @@ export function CreateCollaForm() {
 function SuccessNotification({ resetForm }: { resetForm: () => void }) {
     return (
         <section className={styles.collaForm}>
-            <h2 classname={styles.h2}>Colla creada amb èxit</h2>
-            <button className={styles.actionButton} onClick={resetForm}>Crear una altra colla</button>
+            <h2 classname={styles.h2}>{dictionary[lang]?.successCreateCollaMessage}</h2>
+            <button className={styles.actionButton} onClick={resetForm}>{dictionary[lang]?.createAnotherCollaButton}</button>
         </section>
     );
 }
@@ -159,8 +162,8 @@ function SuccessNotification({ resetForm }: { resetForm: () => void }) {
 function ErrorNotification({ resetForm }: { resetForm: () => void }) {
     return (
         <section className={styles.collaForm}>
-            <h2 className={styles.h2error}>Hi ha hagut un error</h2>
-            <button className={styles.actionButton} onClick={resetForm}>Tornar a intentar</button>
+            <h2 className={styles.h2error}>{dictionary[lang]?.errorCreateCollaMessage}</h2>
+            <button className={styles.actionButton} onClick={resetForm}>{dictionary[lang]?.retryCreateCollaButton}</button>
         </section>
     );
 }

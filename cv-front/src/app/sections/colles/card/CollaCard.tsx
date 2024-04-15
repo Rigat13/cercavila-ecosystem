@@ -1,11 +1,12 @@
 import {Colla} from "@/modules/colles/domain/Colla";
 import styles from "./CollaCard.module.scss";
+import {defaultLang} from "@/content";
 
 export function CollaCard({ colla, lang } : { colla: Colla; lang: string }) {
     return (
         <div className={styles.collaCard}>
-            <a href={`colles/update?collaId=${colla.id}`} >
-                <button className={styles.updateButton}>
+            <a href={`colles/update?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`} >
+            <button className={styles.updateButton}>
                     <img src="/icons/edit.svg" alt="Editar" />
                 </button>
             </a>
