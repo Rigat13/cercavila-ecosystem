@@ -102,8 +102,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         createCollaTitle: "Crea una nueva colla",
         createCollaButton: "Crea la colla",
 
-        collesNameInvalid: "El nombre no es válido. Debe contener caracteres válidos y tener entre: ",
-        collesEntityInvalid: "La entidad no es válida. Debe empezar en mayúscula y tener caracteres entre: ",
+        collesNameInvalid: "El nombre no es válido. Debe contener carácteres válidos y tener entre: ",
+        collesEntityInvalid: "La entidad no es válida. Debe empezar en mayúscula y tener carácteres entre: ",
         collesFoundationYearInvalid: "El año de fundación no es válido. Debe ser un número entre: ",
 
         successCreateCollaMessage: "La colla se ha creado con éxito",

@@ -3,7 +3,7 @@ import {useCollesContext} from "@/app/sections/colles/CollesContext";
 import styles from "./CollesList.module.scss";
 import {dictionary} from "@/content";
 
-export function CollesList(lang: string) {
+export function CollesList({ lang }: { lang: string }) {
     const { colles } = useCollesContext();
     return (
         <section>

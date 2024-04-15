@@ -98,9 +98,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     if (isDeleted) {
         return (
             <section className={styles.collaForm}>
-                <h2 className={styles.h2}>{dictionary[lang].successUpdateCollaMessage}</h2>
-                <a href={`/colles`} className={styles.h2}>
-                    <button className={styles.actionButton}>{dictionary[lang].goToCollesButton}</button>
+                <h2 className={styles.h2}>{dictionary[lang]?.successUpdateCollaMessage}</h2>
+                <a href={lang === defaultLang ? "/colles" : `/colles?lang=${lang}`} className={styles.h2}>
+                    <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
                 </a>
             </section>
         );
@@ -119,7 +119,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     if (isDeleted) {
         return (
             <div>
-                <p>{dictionary[lang].successDeleteCollaMessage}</p>
+                <p>{dictionary[lang]?.successDeleteCollaMessage}</p>
             </div>
         );
     }
@@ -131,14 +131,14 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             return <Spinner />;
         case FormStatus.Success:
             return (
-                <SuccessNotification/>
+                <SuccessNotification lang={lang}/>
         );
         case FormStatus.Error:
-            return <ErrorNotification resetForm={resetFormStatus} />;
+            return <ErrorNotification lang={lang} resetForm={resetFormStatus} />;
         case FormStatus.Initial:
             return (
                 <section id="order" className={styles.collaForm}>
-                    <h2>{dictionary[lang].updateCollaTitle}</h2>
+                    <h2>{dictionary[lang]?.updateCollaTitle}</h2>
 
                     <form
                         onSubmit={(ev) => {
@@ -146,7 +146,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                         }}
                     >
                         <div className={styles.formGroup}>
-                            <label htmlFor="name">{dictionary[lang].collaName}</label>
+                            <label htmlFor="name">{dictionary[lang]?.collaName}</label>
                             <input
                                 type="text"
                                 id="name"
@@ -160,7 +160,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="entity">{dictionary[lang].collaEntity}</label>
+                            <label htmlFor="entity">{dictionary[lang]?.collaEntity}</label>
                             <input
                                 type="text"
                                 id="entity"
@@ -174,7 +174,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="foundationYear">{dictionary[lang].collaFoundationYear}</label>
+                            <label htmlFor="foundationYear">{dictionary[lang]?.collaFoundationYear}</label>
                             <input
                                 type="number"
                                 id="foundationYear"
@@ -192,21 +192,21 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             type="submit"
                             disabled={!isNameValid || !isEntityValid || !isFoundationYearValid}
                         >
-                            {dictionary[lang].updateCollaButton}
+                            {dictionary[lang]?.updateCollaButton}
                         </button>
                     </form>
-                    <a href={`/colles`}>
-                        <button className={styles.actionButton}>{dictionary[lang].goToCollesButton}</button>
+                    <a href={lang === defaultLang ? "/colles" : `/colles?lang=${lang}`}>
+                        <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
                     </a>
 
                     {/* "Delete" Button */}
-                    <button className={styles.deleteButton} onClick={handleDeleteClick} >{dictionary[lang].deleteCollaButton}</button>
+                    <button className={styles.deleteButton} onClick={handleDeleteClick} >{dictionary[lang]?.deleteCollaButton}</button>
                     {/* Confirmation Dialog */}
                     {isConfirmOpen && (
                         <div className={styles.collaForm}>
-                            <p className={styles.warningMessage}>{dictionary[lang].warningDeleteCollaMessage}</p>
-                            <button className={styles.actionButton} onClick={handleCancelDelete}>{dictionary[lang].cancelDeleteCollaButton}</button>
-                            <button className={styles.deleteButton} onClick={handleConfirmDelete}>{dictionary[lang].confirmDeleteCollaButton}</button>
+                            <p className={styles.warningMessage}>{dictionary[lang]?.warningDeleteCollaMessage}</p>
+                            <button className={styles.actionButton} onClick={handleCancelDelete}>{dictionary[lang]?.cancelDeleteCollaButton}</button>
+                            <button className={styles.deleteButton} onClick={handleConfirmDelete}>{dictionary[lang]?.confirmDeleteCollaButton}</button>
                         </div>
                     )}
                 </section>
@@ -216,26 +216,26 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     }
 }
 
-function SuccessNotification() {
+function SuccessNotification({ lang }: { lang: string}) {
     return (
         <section className={styles.collaForm}>
-            <h2 className={styles.h2}>{dictionary[lang].successUpdateCollaMessage}</h2>
-            <a href={`/colles`} className={styles.h2}>
-                <button className={styles.actionButton}>{dictionary[lang].goToCollesButton}</button>
+            <h2 className={styles.h2}>{dictionary[lang]?.successUpdateCollaMessage}</h2>
+            <a href={lang === defaultLang ? "/colles" : `/colles?lang=${lang}`}>
+                <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
             </a>
         </section>
     );
 }
 
-function ErrorNotification({ resetForm }: { resetForm: () => void }) {
+function ErrorNotification({ lang, resetForm }: { lang: string; resetForm: () => void }) {
     return (
         <section className={styles.collaForm}>
-            <h2 className={styles.h2error}>{dictionary[lang].errorFound}</h2>
-            <button className={styles.actionButton} onClick={resetForm}>{dictionary[lang].retry}</button>
+            <h2 className={styles.h2error}>{dictionary[lang]?.errorFound}</h2>
+            <button className={styles.actionButton} onClick={resetForm}>{dictionary[lang]?.retry}</button>
         </section>
     );
 }
 
 function assertUnreachable(x: never): never {
-    throw new Error(dictionary[lang].unreachablePage);
+    throw new Error(""+dictionary[lang]?.unreachablePage);
 }

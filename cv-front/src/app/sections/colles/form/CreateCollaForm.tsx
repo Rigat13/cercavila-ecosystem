@@ -17,7 +17,7 @@ const initialState = {
 export let isNameValid, isEntityValid, isFoundationYearValid = false;
 const lang = defaultLang;
 
-export function CreateCollaForm(lang: string) {
+export function CreateCollaForm({ lang }: { lang: string }) {
     const { formData, updateForm, resetForm } = useCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
@@ -74,7 +74,7 @@ export function CreateCollaForm(lang: string) {
             return <Spinner />;
         case FormStatus.Success:
             return (
-                <SuccessNotification
+                <SuccessNotification lang={lang}
                     resetForm={() => {
                         resetForm();
                         resetFormStatus();
@@ -82,7 +82,7 @@ export function CreateCollaForm(lang: string) {
                 />
         );
         case FormStatus.Error:
-            return <ErrorNotification resetForm={resetFormStatus} />;
+            return <ErrorNotification lang={lang} resetForm={resetFormStatus} />;
         case FormStatus.Initial:
             return (
                 <section id="order" className={styles.collaForm}>
@@ -150,7 +150,7 @@ export function CreateCollaForm(lang: string) {
     }
 }
 
-function SuccessNotification({ resetForm }: { resetForm: () => void }) {
+function SuccessNotification({ lang, resetForm }: { lang: string; resetForm: () => void }) {
     return (
         <section className={styles.collaForm}>
             <h2 classname={styles.h2}>{dictionary[lang]?.successCreateCollaMessage}</h2>
@@ -159,7 +159,7 @@ function SuccessNotification({ resetForm }: { resetForm: () => void }) {
     );
 }
 
-function ErrorNotification({ resetForm }: { resetForm: () => void }) {
+function ErrorNotification({ lang, resetForm }: { lang: string; resetForm: () => void }) {
     return (
         <section className={styles.collaForm}>
             <h2 className={styles.h2error}>{dictionary[lang]?.errorCreateCollaMessage}</h2>
