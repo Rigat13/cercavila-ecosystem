@@ -1,7 +1,7 @@
 import {Colla} from "@/modules/colles/domain/Colla";
 import styles from "./CollaCard.module.scss";
 
-export function CollaCard({ colla } : { colla: Colla }) {
+export function CollaCard({ colla, lang } : { colla: Colla; lang: string }) {
     return (
         <div className={styles.collaCard}>
             <a href={`colles/update?collaId=${colla.id}`} >

@@ -4,10 +4,12 @@ import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiColla
 import {CollesContextProvider} from "@/app/sections/colles/CollesContext";
 import {UpdateCollaForm} from "@/app/sections/colles/update-form/UpdateCollaForm";
 import {useSearchParams } from "next/navigation";
+import {defaultLang, dictionary} from "@/content";
 
 export default function Page() {
     const searchParams = useSearchParams();
     const collaId = searchParams.get('collaId');
+    const lang = searchParams.get('lang') || defaultLang;
 
     const repository = createApiCollaRepository();
 
