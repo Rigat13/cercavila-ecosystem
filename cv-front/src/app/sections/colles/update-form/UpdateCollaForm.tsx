@@ -99,7 +99,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         return (
             <section className={styles.collaForm}>
                 <h2 className={styles.h2}>{dictionary[lang]?.successUpdateCollaMessage}</h2>
-                <a href={lang === defaultLang ? "/colles" : `/colles?lang=${lang}`} className={styles.h2}>
+                <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`} className={styles.h2}>
                     <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
                 </a>
             </section>
@@ -195,7 +195,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             {dictionary[lang]?.updateCollaButton}
                         </button>
                     </form>
-                    <a href={lang === defaultLang ? "/colles" : `/colles?lang=${lang}`}>
+                    <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
                         <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
                     </a>
 
@@ -220,7 +220,7 @@ function SuccessNotification({ lang }: { lang: string}) {
     return (
         <section className={styles.collaForm}>
             <h2 className={styles.h2}>{dictionary[lang]?.successUpdateCollaMessage}</h2>
-            <a href={lang === defaultLang ? "/colles" : `/colles?lang=${lang}`}>
+            <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
                 <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
             </a>
         </section>

@@ -139,7 +139,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             type="submit"
                             disabled={!isNameValid || !isEntityValid || !isFoundationYearValid}
                         >
-                            Crea la colla
+                            {dictionary[lang]?.createCollaButton}
                         </button>
                     </form>
                 </section>
