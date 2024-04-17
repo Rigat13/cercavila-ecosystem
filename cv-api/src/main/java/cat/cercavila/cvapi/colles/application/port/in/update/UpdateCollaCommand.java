@@ -17,5 +17,7 @@ public record UpdateCollaCommand(
     @NotNull(message = "L'any de fundació no pot ser nul.")
     @Min(value = 1400, message = "L'any de fundació ha de ser superior a 1400.")
     @Max(value = 2400, message = "L'any de fundació no pot ser superior a 2400.")
-    int foundationYear) {
-}
+    int foundationYear,
+
+    String description
+    ) {}

@@ -23,6 +23,7 @@ public class StoreCollaAdapter implements StoreCollaPort {
         collaEntity.setName(createCollaCommand.name());
         collaEntity.setEntity(createCollaCommand.entity());
         collaEntity.setFoundationYear(createCollaCommand.foundationYear());
+        collaEntity.setDescription(createCollaCommand.description());
 
         return collaEntity;
     }

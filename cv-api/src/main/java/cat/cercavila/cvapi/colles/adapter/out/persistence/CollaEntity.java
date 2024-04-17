@@ -15,6 +15,7 @@ public class CollaEntity {
     private String name;
     private String entity;
     private int foundationYear;
+    private String description;
 
     public void setId(String id) { this.id = id; }
     public String getId() { return id; }
@@ -25,4 +26,6 @@ public class CollaEntity {
     public void setEntity(String entity) { this.entity = entity; }
     public int getFoundationYear() { return foundationYear; }
     public void setFoundationYear(int foundationYear) { this.foundationYear = foundationYear; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 }
