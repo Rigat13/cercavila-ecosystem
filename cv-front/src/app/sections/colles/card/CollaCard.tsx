@@ -13,6 +13,7 @@ export function CollaCard({ colla, lang } : { colla: Colla; lang: string }) {
             <h3 className={styles.collaCard__name}>{colla.name}</h3>
             <h6 className={styles.collaCard__entity}>{colla.entity}</h6>
             <p className={styles.collaCard__foundationYear}>{colla.foundationYear}</p>
+            <p className={styles.collaCard__description}>{colla.description}</p>
         </div>
     );
 }

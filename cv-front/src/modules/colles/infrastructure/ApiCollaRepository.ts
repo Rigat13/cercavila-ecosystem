@@ -22,6 +22,7 @@ async function storeColla(colla: Colla) {
                 name: colla.name,
                 entity: colla.entity,
                 foundationYear: colla.foundationYear,
+                description: colla.description,
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error); }
@@ -87,6 +88,7 @@ async function updateColla(colla: Colla) {
                 name: colla.name,
                 entity: colla.entity,
                 foundationYear: colla.foundationYear,
+                description: colla.description,
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut actualitzar la colla. \nMotiu: " + error); }

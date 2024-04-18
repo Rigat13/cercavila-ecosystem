@@ -5,30 +5,27 @@ import {
     CollaFoundationYearNotValidError,
     isCollaFoundationYearValid
 } from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
+import {
+    CollaDescriptionNotValidError,
+    isCollaDescriptionValid
+} from "@/modules/colles/domain/colla-attributes/CollaDescription";
 
 export interface Colla {
     id: string;
     name: string;
     entity: string;
     foundationYear: number;
+    description: string;
 }
 
-export function ensureCollaIsValid({id, name, entity, foundationYear}: Colla): void {
+export function ensureCollaIsValid({id, name, entity, foundationYear, description}: Colla): void {
     if (!isCollaIdValid(id)) {
         throw CollaIdNotValidError(id);
     }
-    if (!isCollaNameValid(name)) {
-        throw CollaNameNotValidError(name);
-    }
-    if (!isCollaEntityValid(entity)) {
-        throw CollaEntityNotValidError(entity);
-    }
-    if (!isCollaFoundationYearValid(foundationYear)) {
-        throw CollaFoundationYearNotValidError(foundationYear);
-    }
+    ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description});
 }
 
-export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear}: Colla): void {
+export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description}: Colla): void {
     if (!isCollaNameValid(name)) {
         throw CollaNameNotValidError(name);
     }
@@ -37,6 +34,9 @@ export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear}: Co
     }
     if (!isCollaFoundationYearValid(foundationYear)) {
         throw CollaFoundationYearNotValidError(foundationYear);
+    }
+    if (!isCollaDescriptionValid(description)) {
+        throw CollaDescriptionNotValidError(description);
     }
 }
 

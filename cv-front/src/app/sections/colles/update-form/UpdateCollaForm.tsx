@@ -85,6 +85,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             name: formData.name,
             entity: formData.entity,
             foundationYear: Number(formData.foundationYear),
+            description: "",
         });
     };
 
