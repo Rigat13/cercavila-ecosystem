@@ -67,7 +67,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesNameInvalid: "El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
         collesEntityInvalid: "L'entitat no és vàlida. Ha de començar en majúscula i tenir caràcters entre: ",
         collesFoundationYearInvalid: "L'any de fundació no és vàlid. Ha de ser un número entre: ",
-        collesDescriptionInvalid: "La descripció no és vàlida. Ha de tenir caràcters entre: ",
+        collesDescriptionInvalid: "La descripció no és vàlida. Ha de tenir caràcters vàlids entre: ",
 
         successCreateCollaMessage: "La colla s'ha creat amb èxit",
         errorCreateCollaMessage: "La colla no s'ha pogut crear. \nMotiu: ",
@@ -110,7 +110,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesNameInvalid: "El nombre no es válido. Debe contener carácteres válidos y tener entre: ",
         collesEntityInvalid: "La entidad no es válida. Debe empezar en mayúscula y tener carácteres entre: ",
         collesFoundationYearInvalid: "El año de fundación no es válido. Debe ser un número entre: ",
-        collesDescriptionInvalid: "La descripción no es válida. Debe tener carácteres entre: ",
+        collesDescriptionInvalid: "La descripción no es válida. Debe tener carácteres válidos entre: ",
 
         successCreateCollaMessage: "La colla se ha creado con éxito",
         errorCreateCollaMessage: "La colla no se ha podido crear. \nMotivo: ",
@@ -153,7 +153,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesNameInvalid: "The name is not valid. It must contain valid characters and be between: ",
         collesEntityInvalid: "The entity is not valid. It must start with an uppercase letter and have characters between: ",
         collesFoundationYearInvalid: "The foundation year is not valid. It must be a number between: ",
-        collesDescriptionInvalid: "The description is not valid. It must have characters between: ",
+        collesDescriptionInvalid: "The description is not valid. It must have valid characters between: ",
 
         successCreateCollaMessage: "The colla has been created successfully",
         errorCreateCollaMessage: "The colla could not be created. \nReason: ",

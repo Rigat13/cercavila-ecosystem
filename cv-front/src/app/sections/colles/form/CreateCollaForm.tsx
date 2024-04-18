@@ -79,7 +79,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             name: formData.name,
             entity: formData.entity,
             foundationYear: Number(formData.foundationYear),
-            description: "",
+            description: formData.description,
         });
     };
 
