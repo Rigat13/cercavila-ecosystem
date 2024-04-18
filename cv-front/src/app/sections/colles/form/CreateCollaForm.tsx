@@ -11,8 +11,18 @@ import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/coll
 import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
 import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
 import {isCollaDescriptionValid, DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaDescription";
-import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
-import {isCollaTypeValid, TYPE_MAX_LENGTH, TYPE_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaType";
+import {
+    isCollaNeighbourhoodValid,
+    NEIGHBOURHOOD_MAX_LENGTH,
+    NEIGHBOURHOOD_MIN_LENGTH,
+    neighbourhoods
+} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
+import {
+    collaTypes,
+    isCollaTypeValid,
+    TYPE_MAX_LENGTH,
+    TYPE_MIN_LENGTH
+} from "@/modules/colles/domain/colla-attributes/CollaType";
 
 const initialState = {
     name: "",
@@ -184,13 +194,19 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="type">{dictionary[lang]?.collaType}</label>
-                            <input
-                                type="text"
+                            <select
                                 id="type"
                                 name="type"
                                 value={formData.type}
                                 onChange={handleTypeChange}
-                            />
+                            >
+                                <option value="">{dictionary[lang]?.selectCollaType}</option>
+                                {collaTypes.map(option => (
+                                    <option key={option.labelKey} value={option.labelKey}>
+                                        {dictionary[lang]?.[option.labelKey]}
+                                    </option>
+                                ))}
+                            </select>
                             {formData.type && errors.type && (
                                 <div style={{ color: "tomato" }}>{errors.type}</div>
                             )}
@@ -198,13 +214,19 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="neighbourhood">{dictionary[lang]?.collaNeighbourhood}</label>
-                            <input
-                                type="text"
+                            <select
                                 id="neighbourhood"
                                 name="neighbourhood"
                                 value={formData.neighbourhood}
                                 onChange={handleNeighbourhoodChange}
-                            />
+                            >
+                                <option value="">{dictionary[lang]?.selectNeighbourhood}</option>
+                                {neighbourhoods.map(option => (
+                                    <option key={option.labelKey} value={option.labelKey}>
+                                        {dictionary[lang]?.[option.labelKey]}
+                                    </option>
+                                ))}
+                            </select>
                             {formData.neighbourhood && errors.neighbourhood && (
                                 <div style={{ color: "tomato" }}>{errors.neighbourhood}</div>
                             )}

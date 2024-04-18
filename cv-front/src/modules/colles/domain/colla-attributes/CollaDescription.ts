@@ -4,7 +4,7 @@ export const DESCRIPTION_ERROR_MESSAGE = `La descripció no és vàlida. Ha de t
 
 export function isCollaDescriptionValid(description: string): boolean {
     if (description.length <= DESCRIPTION_MIN_LENGTH || description.length > DESCRIPTION_MAX_LENGTH+1) return false;
-    const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
+    const regexExp =/^[\p{L}\p{N}\p{Zs}·.',!?-]+$/gmu;
     return regexExp.test(description);
 }
 

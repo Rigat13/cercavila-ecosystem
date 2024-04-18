@@ -11,3 +11,22 @@ export function isCollaNeighbourhoodValid(neighbourhood: string): boolean {
 export function CollaNeighbourhoodNotValidError(neighbourhood: string): Error {
     return new Error(NEIGHBOURHOOD_ERROR_MESSAGE);
 }
+
+export const neighbourhoods = [
+    { labelKey: 'neighbourhoodCentre' },
+    { labelKey: 'neighbourhoodEixample' },
+    { labelKey: 'neighbourhoodPlaDenBoet' },
+    { labelKey: 'neighbourhoodCerdanyola' },
+    { labelKey: 'neighbourhoodPeramasEsmandies' },
+    { labelKey: 'neighbourhoodLaLlantia' },
+    { labelKey: 'neighbourhoodViaEuropaNouParcCentral' },
+    { labelKey: 'neighbourhoodCirera' },
+    { labelKey: 'neighbourhoodElsMolins' },
+    { labelKey: 'neighbourhoodVistaAlegre' },
+    { labelKey: 'neighbourhoodRocafonda' },
+    { labelKey: 'neighbourhoodElPalau' },
+    { labelKey: 'neighbourhoodLesSantesEscorxador' },
+    { labelKey: 'neighbourhoodLHavana' },
+    { labelKey: 'neighbourhoodLesCincSenies' },
+    { labelKey: 'neighbourhoodVallveric' },
+]

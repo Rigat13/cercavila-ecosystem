@@ -16,6 +16,40 @@ interface DictionaryEntry {
     collaType: string;
     collaNeighbourhood: string;
 
+    // COLLA TYPE
+    selectCollaType: string;
+    collaTypeInstitutional: string;
+    collaTypeNeighbourhood: string;
+    collaTypeStreet: string;
+    collaTypeEntity: string;
+    collaTypeTheatrical: string;
+    collaTypeScout: string;
+    collaTypeNursingHome: string;
+    collaTypeSportsClub: string;
+    collaTypeSchool: string;
+    collaTypeInstitute: string;
+    collaTypeNursery: string;
+    collaTypePrivate: string;
+
+    // COLLA NEIGHBOURHOOD
+    selectNeighbourhood: string;
+    neighbourhoodCentre: string;
+    neighbourhoodEixample: string;
+    neighbourhoodPlaDenBoet: string;
+    neighbourhoodCerdanyola: string;
+    neighbourhoodPeramasEsmandies: string;
+    neighbourhoodLaLlantia: string;
+    neighbourhoodViaEuropaNouParcCentral: string;
+    neighbourhoodCirera: string;
+    neighbourhoodElsMolins: string;
+    neighbourhoodVistaAlegre: string;
+    neighbourhoodRocafonda: string;
+    neighbourhoodElPalau: string;
+    neighbourhoodLesSantesEscorxador: string;
+    neighbourhoodLHavana: string;
+    neighbourhoodLesCincSenies: string;
+    neighbourhoodVallveric: string;
+
     // CREATE COLLA
     collesTitle: string;
     createCollaTitle: string;
@@ -65,6 +99,40 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaType: "Tipus",
         collaNeighbourhood: "Barri",
 
+        // COLLA TYPE
+        selectCollaType: "Tipus de colla",
+        collaTypeInstitutional: "Institucional",
+        collaTypeNeighbourhood: "Barri",
+        collaTypeStreet: "Carrer",
+        collaTypeEntity: "Entitat",
+        collaTypeTheatrical: "Grup d'animació",
+        collaTypeScout: "Esplai",
+        collaTypeNursingHome: "Casals i residències",
+        collaTypeSportsClub: "Club esportiu",
+        collaTypeSchool: "Escola",
+        collaTypeInstitute: "Institut",
+        collaTypeNursery: "Escola bressol",
+        collaTypePrivate: "Particular",
+
+        // COLLA NEIGHBOURHOOD
+        selectNeighbourhood: "Barri",
+        neighbourhoodCentre: "Centre",
+        neighbourhoodEixample: "Eixample",
+        neighbourhoodPlaDenBoet: "Pla d'en Boet",
+        neighbourhoodCerdanyola: "Cerdanyola",
+        neighbourhoodPeramasEsmandies: "Peramàs-Esmandies",
+        neighbourhoodLaLlantia: "La Llàntia",
+        neighbourhoodViaEuropaNouParcCentral: "Via Europa-Nou Parc Central",
+        neighbourhoodCirera: "Cirera",
+        neighbourhoodElsMolins: "Els Molins",
+        neighbourhoodVistaAlegre: "Vista Alegre",
+        neighbourhoodRocafonda: "Rocafonda",
+        neighbourhoodElPalau: "El Palau",
+        neighbourhoodLesSantesEscorxador: "Les Santes-Escorxador",
+        neighbourhoodLHavana: "L'Havana",
+        neighbourhoodLesCincSenies: "Les Cinc Sénies",
+        neighbourhoodVallveric: "Vallveric",
+
         // CREATE COLLA
         collesTitle: "Colles registrades",
         createCollaTitle: "Crea una nova colla",
@@ -112,6 +180,40 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaType: "Tipo",
         collaNeighbourhood: "Barrio",
 
+        // COLLA TYPE
+        selectCollaType: "Tipo de colla",
+        collaTypeInstitutional: "Institucional",
+        collaTypeNeighbourhood: "Barrio",
+        collaTypeStreet: "Calle",
+        collaTypeEntity: "Entidad",
+        collaTypeTheatrical: "Grupo de animación",
+        collaTypeScout: "Esplai",
+        collaTypeNursingHome: "Casales y residencias",
+        collaTypeSportsClub: "Club deportivo",
+        collaTypeSchool: "Escuela",
+        collaTypeInstitute: "Instituto",
+        collaTypeNursery: "Guardería",
+        collaTypePrivate: "Particular",
+
+        // COLLA NEIGHBOURHOOD
+        selectNeighbourhood: "Barrio",
+        neighbourhoodCentre: "Centre",
+        neighbourhoodEixample: "Eixample",
+        neighbourhoodPlaDenBoet: "Pla d'en Boet",
+        neighbourhoodCerdanyola: "Cerdanyola",
+        neighbourhoodPeramasEsmandies: "Peramàs-Esmandies",
+        neighbourhoodLaLlantia: "La Llàntia",
+        neighbourhoodViaEuropaNouParcCentral: "Via Europa-Nou Parc Central",
+        neighbourhoodCirera: "Cirera",
+        neighbourhoodElsMolins: "Els Molins",
+        neighbourhoodVistaAlegre: "Vista Alegre",
+        neighbourhoodRocafonda: "Rocafonda",
+        neighbourhoodElPalau: "El Palau",
+        neighbourhoodLesSantesEscorxador: "Les Santes-Escorxador",
+        neighbourhoodLHavana: "L'Havana",
+        neighbourhoodLesCincSenies: "Les Cinc Sénies",
+        neighbourhoodVallveric: "Vallveric",
+
         // CREATE COLLA
         collesTitle: "Collas registradas",
         createCollaTitle: "Crea una nueva colla",
@@ -158,6 +260,40 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaDescription: "Description",
         collaType: "Type",
         collaNeighbourhood: "Neighbourhood",
+
+        // COLLA TYPE
+        selectCollaType: "Colla type",
+        collaTypeInstitutional: "Institutional",
+        collaTypeNeighbourhood: "Neighbourhood",
+        collaTypeStreet: "Street",
+        collaTypeEntity: "Entity",
+        collaTypeTheatrical: "Theatrical troupe",
+        collaTypeScout: "Scout group",
+        collaTypeNursingHome: "Nursing homes",
+        collaTypeSportsClub: "Sports club",
+        collaTypeSchool: "School",
+        collaTypeInstitute: "Institute",
+        collaTypeNursery: "Nursery",
+        collaTypePrivate: "Private",
+
+        // COLLA NEIGHBOURHOOD
+        selectNeighbourhood: "Neighbourhood",
+        neighbourhoodCentre: "Centre",
+        neighbourhoodEixample: "Eixample",
+        neighbourhoodPlaDenBoet: "Pla d'en Boet",
+        neighbourhoodCerdanyola: "Cerdanyola",
+        neighbourhoodPeramasEsmandies: "Peramàs-Esmandies",
+        neighbourhoodLaLlantia: "La Llàntia",
+        neighbourhoodViaEuropaNouParcCentral: "Via Europa-Nou Parc Central",
+        neighbourhoodCirera: "Cirera",
+        neighbourhoodElsMolins: "Els Molins",
+        neighbourhoodVistaAlegre: "Vista Alegre",
+        neighbourhoodRocafonda: "Rocafonda",
+        neighbourhoodElPalau: "El Palau",
+        neighbourhoodLesSantesEscorxador: "Les Santes-Escorxador",
+        neighbourhoodLHavana: "L'Havana",
+        neighbourhoodLesCincSenies: "Les Cinc Sénies",
+        neighbourhoodVallveric: "Vallveric",
 
         // CREATE COLLA
         collesTitle: "Registered colles",

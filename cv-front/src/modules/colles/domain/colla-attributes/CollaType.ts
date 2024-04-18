@@ -11,3 +11,22 @@ export function isCollaTypeValid(type: string): boolean {
 export function CollaTypeNotValidError(type: string): Error {
     return new Error(TYPE_ERROR_MESSAGE);
 }
+
+export const collaTypes = [
+    { labelKey: 'collaTypeInstitutional' },
+    { labelKey: 'collaTypeNeighbourhood' },
+    { labelKey: 'collaTypeStreet' },
+
+    { labelKey: 'collaTypeEntity' },
+    { labelKey: 'collaTypeTheatrical' },
+    { labelKey: 'collaTypeScout' },
+
+    { labelKey: 'collaTypeNursingHome' },
+    { labelKey: 'collaTypeSportsClub' },
+
+    { labelKey: 'collaTypeSchool' },
+    { labelKey: 'collaTypeInstitute' },
+    { labelKey: 'collaTypeNursery' },
+
+    { labelKey: 'collaTypePrivate' },
+]
