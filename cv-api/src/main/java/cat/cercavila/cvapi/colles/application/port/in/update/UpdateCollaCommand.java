@@ -1,9 +1,6 @@
 package cat.cercavila.cvapi.colles.application.port.in.update;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public record UpdateCollaCommand(
     @NotNull(message = "L'identificador no pot ser nul.")
@@ -20,6 +17,42 @@ public record UpdateCollaCommand(
     int foundationYear,
 
     String description,
+    @Pattern(regexp =
+            "^(collaTypeInstitutional" +
+                    "|collaTypeNeighbourhood" +
+                    "|collaTypeStreet" +
+                    "|collaTypeEntity" +
+                    "|collaTypeTheatrical" +
+                    "|collaTypeScout" +
+                    "|collaTypeNursingHome" +
+                    "|collaTypeSportsClub" +
+                    "|collaTypeSchool" +
+                    "|collaTypeInstitute" +
+                    "|collaTypeNursery" +
+                    "|collaTypePrivate)$",
+            message = "El tipus no és un dels valors permesos."
+    )
     String type,
+
+
+    @Pattern(regexp =
+            "^(neighbourhoodCentre" +
+                    "|neighbourhoodEixample" +
+                    "|neighbourhoodPlaDenBoet" +
+                    "|neighbourhoodCerdanyola" +
+                    "|neighbourhoodPeramasEsmandies" +
+                    "|neighbourhoodLaLlantia" +
+                    "|neighbourhoodViaEuropaNouParcCentral" +
+                    "|neighbourhoodCirera" +
+                    "|neighbourhoodElsMolins" +
+                    "|neighbourhoodVistaAlegre" +
+                    "|neighbourhoodRocafonda" +
+                    "|neighbourhoodElPalau" +
+                    "|neighbourhoodLesSantesEscorxador" +
+                    "|neighbourhoodLHavana" +
+                    "|neighbourhoodLesCincSenies" +
+                    "|neighbourhoodVallveric)$",
+            message = "El barri no és un dels valors permesos."
+    )
     String neighbourhood
     ) {}
