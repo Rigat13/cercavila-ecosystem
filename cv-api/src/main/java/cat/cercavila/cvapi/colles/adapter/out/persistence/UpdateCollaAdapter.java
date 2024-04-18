@@ -23,6 +23,8 @@ public class UpdateCollaAdapter implements UpdateCollaPort {
         collaEntity.setEntity(updateCollaCommand.entity());
         collaEntity.setFoundationYear(updateCollaCommand.foundationYear());
         collaEntity.setDescription(updateCollaCommand.description());
+        collaEntity.setType(updateCollaCommand.type());
+        collaEntity.setNeighbourhood(updateCollaCommand.neighbourhood());
 
         return collaEntity;
     }

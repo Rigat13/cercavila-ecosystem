@@ -17,7 +17,7 @@ public record CreateCollaCommand(
     @Min(value = 1400, message = "L'any de fundació ha de ser superior a 1400.")
     @Max(value = 2400, message = "L'any de fundació no pot ser superior a 2400.")
     int foundationYear,
-
-
-    String description
+    String description,
+    String type,
+    String neighbourhood
     ) {}

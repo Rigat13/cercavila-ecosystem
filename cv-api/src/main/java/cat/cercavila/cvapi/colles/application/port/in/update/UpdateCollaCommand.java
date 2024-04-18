@@ -19,5 +19,7 @@ public record UpdateCollaCommand(
     @Max(value = 2400, message = "L'any de fundació no pot ser superior a 2400.")
     int foundationYear,
 
-    String description
+    String description,
+    String type,
+    String neighbourhood
     ) {}
