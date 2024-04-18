@@ -9,12 +9,18 @@ import { Spinner } from "@/app/sections/shared/Spinner";
 import {useCollaFormData} from "@/app/sections/colles/form/useCollaFormData";
 import styles from "@/app/sections/colles/form/CollaForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
+import {
+    DESCRIPTION_MAX_LENGTH,
+    DESCRIPTION_MIN_LENGTH,
+    isCollaDescriptionValid
+} from "@/modules/colles/domain/colla-attributes/CollaDescription";
 const initialState = {
     name: "",
     entity: "",
     foundationYear: "",
+    description: "",
 }
-export let isNameValid, isEntityValid, isFoundationYearValid = false;
+export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid = false;
 const lang = defaultLang;
 
 export function CreateCollaForm({ lang }: { lang: string }) {
@@ -45,21 +51,29 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, foundationYear: newFoundationYear });
     };
 
-    const validateFormData = ({ name, entity, foundationYear }) => {
+    const handleDescriptionChange = (ev) => {
+        const newDescription = ev.target.value;
+        updateForm({ description: newDescription });
+        validateFormData({ ...formData, description: newDescription });
+    };
+
+    const validateFormData = ({ name, entity, foundationYear, description }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
         isFoundationYearValid = !isNaN(foundationYear) && isCollaFoundationYearValid(foundationYear);
+        isDescriptionValid = isCollaDescriptionValid(description);
 
         setErrors({
             name: isNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
             entity: isEntityValid ? "" : dictionary[lang]?.collesEntityInvalid + ENTITY_MIN_LENGTH + " - " + ENTITY_MAX_LENGTH,
             foundationYear: isFoundationYearValid ? "" : dictionary[lang]?.collesFoundationYearInvalid + FOUNDATION_YEAR_MIN + " - " + FOUNDATION_YEAR_MAX,
+            description: isDescriptionValid ? "" : dictionary[lang]?.collesDescriptionInvalid + " " + DESCRIPTION_MIN_LENGTH + " - " + DESCRIPTION_MAX_LENGTH,
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid) { return; }
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid) { return; }
         ev.preventDefault();
         submitForm({
             name: formData.name,
@@ -135,10 +149,23 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
+                        <div className={styles.formGroup}>
+                            <label htmlFor="description">{dictionary[lang]?.collaDescription}</label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                value={formData.description}
+                                onChange={handleDescriptionChange}
+                            />
+                            {formData.description && errors.description && (
+                                <div style={{ color: "tomato" }}>{errors.description}</div>
+                            )}
+                        </div>
+
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid}
+                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid}
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>
