@@ -31,6 +31,7 @@ const initialState = {
     description: "",
     type: "",
     neighbourhood: "",
+    logo: null as File | null, // Set logo type here
 }
 export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid = false;
 const lang = defaultLang;
@@ -39,6 +40,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const { formData, updateForm, resetForm } = useCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
+    const [logo, setImage] = useState<File | null>(null);
     lang = lang;
 
     useEffect(() => {
@@ -81,7 +83,16 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, neighbourhood: newNeighbourhood });
     }
 
-    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood }) => {
+    const handleImageChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        const file = ev.target.files?.[0];
+        if (file !== undefined) {
+            setImage(file);
+        } else {
+            setImage(null);
+        }
+    };
+
+    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood, logo }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
@@ -97,10 +108,16 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             description: isDescriptionValid ? "" : dictionary[lang]?.collesDescriptionInvalid + " " + DESCRIPTION_MIN_LENGTH + " - " + DESCRIPTION_MAX_LENGTH,
             type: isTypeValid ? "" : dictionary[lang]?.collesTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
             neighbourhood: isNeighbourhoodValid ? "" : dictionary[lang]?.collesNeighbourhoodInvalid + " " + NEIGHBOURHOOD_MIN_LENGTH + " - " + NEIGHBOURHOOD_MAX_LENGTH,
+            logo: null,
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
+        const formDataWithImage = { ...formData };
+        if (logo) {
+            formDataWithImage.logo = logo;
+        }
+
         if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid) { return; }
         ev.preventDefault();
         submitForm({
@@ -110,6 +127,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             description: formData.description,
             type: formData.type,
             neighbourhood: formData.neighbourhood,
+            logo: formDataWithImage.logo,
         });
     };
 
@@ -230,6 +248,17 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             {formData.neighbourhood && errors.neighbourhood && (
                                 <div style={{ color: "tomato" }}>{errors.neighbourhood}</div>
                             )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="logo">{dictionary[lang]?.collaLogo}</label>
+                            <input
+                                type="file"
+                                id="logo"
+                                name="logo"
+                                accept="image/*" // Specify accepted file types (images)
+                                onChange={handleImageChange}
+                            />
                         </div>
 
                         <button

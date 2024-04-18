@@ -24,7 +24,7 @@ export function useUpdateCollaForm(): {
     function submitForm({ id, name, entity, foundationYear, description, type, neighbourhood }: { id: string, name: string, entity: string, foundationYear: number, description: string, type: string; neighbourhood: string }) {
         setFormStatus(FormStatus.Loading);
         try {
-            updateColla({id, name, entity, foundationYear, description, type, neighbourhood })
+            updateColla({id, name, entity, foundationYear, description, type, neighbourhood, logo: null })
                 .then(() => {
                     setFormStatus(FormStatus.Success);
                 })

@@ -23,16 +23,17 @@ export interface Colla {
     description: string;
     type: string;
     neighbourhood: string;
+    logo: File | null;
 }
 
-export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood}: Colla): void {
+export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood, logo}: Colla): void {
     if (!isCollaIdValid(id)) {
         throw CollaIdNotValidError(id);
     }
-    ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood});
+    ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, logo});
 }
 
-export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood}: Colla): void {
+export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, logo}: Colla): void {
     if (!isCollaNameValid(name)) {
         throw CollaNameNotValidError(name);
     }

@@ -15,6 +15,7 @@ interface DictionaryEntry {
     collaDescription: string;
     collaType: string;
     collaNeighbourhood: string;
+    collaLogo: string;
 
     // COLLA TYPE
     selectCollaType: string;
@@ -98,6 +99,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaDescription: "Descripció",
         collaType: "Tipus",
         collaNeighbourhood: "Barri",
+        collaLogo: "Logotip",
 
         // COLLA TYPE
         selectCollaType: "Tipus de colla",
@@ -179,6 +181,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaDescription: "Descripción",
         collaType: "Tipo",
         collaNeighbourhood: "Barrio",
+        collaLogo: "Logotipo",
 
         // COLLA TYPE
         selectCollaType: "Tipo de colla",
@@ -260,6 +263,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaDescription: "Description",
         collaType: "Type",
         collaNeighbourhood: "Neighbourhood",
+        collaLogo: "Logo",
 
         // COLLA TYPE
         selectCollaType: "Colla type",
