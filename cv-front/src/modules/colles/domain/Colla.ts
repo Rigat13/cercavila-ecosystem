@@ -9,6 +9,11 @@ import {
     CollaDescriptionNotValidError,
     isCollaDescriptionValid
 } from "@/modules/colles/domain/colla-attributes/CollaDescription";
+import {CollaTypeNotValidError, isCollaTypeValid} from "@/modules/colles/domain/colla-attributes/CollaType";
+import {
+    CollaNeighbourhoodNotValidError,
+    isCollaNeighbourhoodValid
+} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
 
 export interface Colla {
     id: string;
@@ -16,16 +21,18 @@ export interface Colla {
     entity: string;
     foundationYear: number;
     description: string;
+    type: string;
+    neighbourhood: string;
 }
 
-export function ensureCollaIsValid({id, name, entity, foundationYear, description}: Colla): void {
+export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood}: Colla): void {
     if (!isCollaIdValid(id)) {
         throw CollaIdNotValidError(id);
     }
-    ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description});
+    ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood});
 }
 
-export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description}: Colla): void {
+export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood}: Colla): void {
     if (!isCollaNameValid(name)) {
         throw CollaNameNotValidError(name);
     }
@@ -37,6 +44,12 @@ export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, des
     }
     if (!isCollaDescriptionValid(description)) {
         throw CollaDescriptionNotValidError(description);
+    }
+    if (!isCollaTypeValid(type)) {
+        throw CollaTypeNotValidError(type);
+    }
+    if (!isCollaNeighbourhoodValid(neighbourhood)) {
+        throw CollaNeighbourhoodNotValidError(neighbourhood);
     }
 }
 

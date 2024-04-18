@@ -13,6 +13,8 @@ interface DictionaryEntry {
     collaEntity: string;
     collaFoundationYear: string;
     collaDescription: string;
+    collaType: string;
+    collaNeighbourhood: string;
 
     // CREATE COLLA
     collesTitle: string;
@@ -23,6 +25,8 @@ interface DictionaryEntry {
     collesEntityInvalid: string;
     collesFoundationYearInvalid: string;
     collesDescriptionInvalid: string;
+    collesTypeInvalid: string;
+    collesNeighbourhoodInvalid: string;
 
     successCreateCollaMessage: string;
     errorCreateCollaMessage: string;
@@ -58,6 +62,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaEntity: "Entitat",
         collaFoundationYear: "Any de fundació",
         collaDescription: "Descripció",
+        collaType: "Tipus",
+        collaNeighbourhood: "Barri",
 
         // CREATE COLLA
         collesTitle: "Colles registrades",
@@ -68,6 +74,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesEntityInvalid: "L'entitat no és vàlida. Ha de començar en majúscula i tenir caràcters entre: ",
         collesFoundationYearInvalid: "L'any de fundació no és vàlid. Ha de ser un número entre: ",
         collesDescriptionInvalid: "La descripció no és vàlida. Ha de tenir caràcters vàlids entre: ",
+        collesTypeInvalid: "El tipus no és vàlid. Ha de tenir caràcters vàlids entre: ",
+        collesNeighbourhoodInvalid: "El barri no és vàlid. Ha de tenir caràcters vàlids entre: ",
 
         successCreateCollaMessage: "La colla s'ha creat amb èxit",
         errorCreateCollaMessage: "La colla no s'ha pogut crear. \nMotiu: ",
@@ -101,6 +109,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaEntity: "Entidad",
         collaFoundationYear: "Año de fundación",
         collaDescription: "Descripción",
+        collaType: "Tipo",
+        collaNeighbourhood: "Barrio",
 
         // CREATE COLLA
         collesTitle: "Collas registradas",
@@ -111,6 +121,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesEntityInvalid: "La entidad no es válida. Debe empezar en mayúscula y tener carácteres entre: ",
         collesFoundationYearInvalid: "El año de fundación no es válido. Debe ser un número entre: ",
         collesDescriptionInvalid: "La descripción no es válida. Debe tener carácteres válidos entre: ",
+        collesTypeInvalid: "El tipo no es válido. Debe tener carácteres válidos entre: ",
+        collesNeighbourhoodInvalid: "El barrio no es válido. Debe tener carácteres válidos entre: ",
 
         successCreateCollaMessage: "La colla se ha creado con éxito",
         errorCreateCollaMessage: "La colla no se ha podido crear. \nMotivo: ",
@@ -144,6 +156,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaEntity: "Entity",
         collaFoundationYear: "Foundation year",
         collaDescription: "Description",
+        collaType: "Type",
+        collaNeighbourhood: "Neighbourhood",
 
         // CREATE COLLA
         collesTitle: "Registered colles",
@@ -154,6 +168,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesEntityInvalid: "The entity is not valid. It must start with an uppercase letter and have characters between: ",
         collesFoundationYearInvalid: "The foundation year is not valid. It must be a number between: ",
         collesDescriptionInvalid: "The description is not valid. It must have valid characters between: ",
+        collesTypeInvalid: "The type is not valid. It must have valid characters between: ",
+        collesNeighbourhoodInvalid: "The neighbourhood is not valid. It must have valid characters between: ",
 
         successCreateCollaMessage: "The colla has been created successfully",
         errorCreateCollaMessage: "The colla could not be created. \nReason: ",

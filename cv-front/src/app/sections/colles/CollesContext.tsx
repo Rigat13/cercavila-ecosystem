@@ -10,8 +10,8 @@ import {deleteColla} from "@/modules/colles/application/delete/deleteColla";
 
 export interface ContextState {
     colles: Colla[];
-    createColla: (colla: { id: string; name: string; entity: string, foundationYear: number, description: string; }) => Promise<void>;
-    updateColla: (colla: { id: string; name: string; entity: string, foundationYear: number, description: string; }) => Promise<void>;
+    createColla: (colla: { id: string; name: string; entity: string, foundationYear: number, description: string; type: string, neighbourhood: string; }) => Promise<void>;
+    updateColla: (colla: { id: string; name: string; entity: string, foundationYear: number, description: string; type: string, neighbourhood: string; }) => Promise<void>;
     deleteColla: (collaId: string) => Promise<void>;
 }
 
@@ -23,8 +23,8 @@ export const CollesContextProvider = ({
 }: React.PropsWithChildren<{ repository: CollaRepository }>) => {
     const [colles, setColles] = useState<Colla[]>([]);
 
-    async function create({ id, name, entity, foundationYear, description }: { id: string; name: string; entity: string; foundationYear: number; description: string }) {
-        await storeColla(repository, { id, name, entity, foundationYear, description });
+    async function create({ id, name, entity, foundationYear, description, type, neighbourhood }: { id: string; name: string; entity: string; foundationYear: number; description: string; type: string, neighbourhood: string }) {
+        await storeColla(repository, { id, name, entity, foundationYear, description, type, neighbourhood });
         await getColles();
     }
 
@@ -34,8 +34,8 @@ export const CollesContextProvider = ({
         });
     }
 
-    async function update({ id, name, entity, foundationYear, description }: { id: string; name: string; entity: string; foundationYear: number; description: string }) {
-        await updateColla(repository, { id, name, entity, foundationYear, description });
+    async function update({ id, name, entity, foundationYear, description, type, neighbourhood }: { id: string; name: string; entity: string; foundationYear: number; description: string; type: string, neighbourhood: string }) {
+        await updateColla(repository, { id, name, entity, foundationYear, description, type, neighbourhood });
         await getColles();
     }
 

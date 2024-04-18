@@ -14,6 +14,8 @@ export function CollaCard({ colla, lang } : { colla: Colla; lang: string }) {
             <h6 className={styles.collaCard__entity}>{colla.entity}</h6>
             <p className={styles.collaCard__foundationYear}>{colla.foundationYear}</p>
             <p className={styles.collaCard__description}>{colla.description}</p>
+            <p className={styles.collaCard__type}>{colla.type}</p>
+            <p className={styles.collaCard__neighbourhood}>{colla.neighbourhood}</p>
         </div>
     );
 }

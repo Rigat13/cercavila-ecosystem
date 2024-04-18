@@ -23,6 +23,8 @@ async function storeColla(colla: Colla) {
                 entity: colla.entity,
                 foundationYear: colla.foundationYear,
                 description: colla.description,
+                type: colla.type,
+                neighbourhood: colla.neighbourhood,
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error); }
@@ -89,6 +91,8 @@ async function updateColla(colla: Colla) {
                 entity: colla.entity,
                 foundationYear: colla.foundationYear,
                 description: colla.description,
+                type: colla.type,
+                neighbourhood: colla.neighbourhood,
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut actualitzar la colla. \nMotiu: " + error); }

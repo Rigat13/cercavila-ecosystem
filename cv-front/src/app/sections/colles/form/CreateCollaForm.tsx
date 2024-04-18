@@ -1,26 +1,28 @@
 'use client';
 
 import React, {useEffect, useState} from "react";
-import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
-import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
-import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
 import {FormStatus, useCollaForm} from "@/app/sections/colles/form/useCollaForm";
 import { Spinner } from "@/app/sections/shared/Spinner";
 import {useCollaFormData} from "@/app/sections/colles/form/useCollaFormData";
 import styles from "@/app/sections/colles/form/CollaForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
-import {
-    DESCRIPTION_MAX_LENGTH,
-    DESCRIPTION_MIN_LENGTH,
-    isCollaDescriptionValid
-} from "@/modules/colles/domain/colla-attributes/CollaDescription";
+
+import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
+import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
+import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
+import {isCollaDescriptionValid, DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaDescription";
+import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
+import {isCollaTypeValid, TYPE_MAX_LENGTH, TYPE_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaType";
+
 const initialState = {
     name: "",
     entity: "",
     foundationYear: "",
     description: "",
+    type: "",
+    neighbourhood: "",
 }
-export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid = false;
+export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid = false;
 const lang = defaultLang;
 
 export function CreateCollaForm({ lang }: { lang: string }) {
@@ -57,29 +59,47 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, description: newDescription });
     };
 
-    const validateFormData = ({ name, entity, foundationYear, description }) => {
+    const handleTypeChange = (ev) => {
+        const newType = ev.target.value;
+        updateForm({ type: newType });
+        validateFormData({ ...formData, type: newType });
+    }
+
+    const handleNeighbourhoodChange = (ev) => {
+        const newNeighbourhood = ev.target.value;
+        updateForm({ neighbourhood: newNeighbourhood });
+        validateFormData({ ...formData, neighbourhood: newNeighbourhood });
+    }
+
+    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
         isFoundationYearValid = !isNaN(foundationYear) && isCollaFoundationYearValid(foundationYear);
         isDescriptionValid = isCollaDescriptionValid(description);
+        isTypeValid = isCollaTypeValid(type);
+        isNeighbourhoodValid = isCollaNeighbourhoodValid(neighbourhood);
 
         setErrors({
             name: isNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
             entity: isEntityValid ? "" : dictionary[lang]?.collesEntityInvalid + ENTITY_MIN_LENGTH + " - " + ENTITY_MAX_LENGTH,
             foundationYear: isFoundationYearValid ? "" : dictionary[lang]?.collesFoundationYearInvalid + FOUNDATION_YEAR_MIN + " - " + FOUNDATION_YEAR_MAX,
             description: isDescriptionValid ? "" : dictionary[lang]?.collesDescriptionInvalid + " " + DESCRIPTION_MIN_LENGTH + " - " + DESCRIPTION_MAX_LENGTH,
+            type: isTypeValid ? "" : dictionary[lang]?.collesTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
+            neighbourhood: isNeighbourhoodValid ? "" : dictionary[lang]?.collesNeighbourhoodInvalid + " " + NEIGHBOURHOOD_MIN_LENGTH + " - " + NEIGHBOURHOOD_MAX_LENGTH,
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid) { return; }
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid) { return; }
         ev.preventDefault();
         submitForm({
             name: formData.name,
             entity: formData.entity,
             foundationYear: Number(formData.foundationYear),
             description: formData.description,
+            type: formData.type,
+            neighbourhood: formData.neighbourhood,
         });
     };
 
@@ -159,6 +179,34 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             />
                             {formData.description && errors.description && (
                                 <div style={{ color: "tomato" }}>{errors.description}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="type">{dictionary[lang]?.collaType}</label>
+                            <input
+                                type="text"
+                                id="type"
+                                name="type"
+                                value={formData.type}
+                                onChange={handleTypeChange}
+                            />
+                            {formData.type && errors.type && (
+                                <div style={{ color: "tomato" }}>{errors.type}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="neighbourhood">{dictionary[lang]?.collaNeighbourhood}</label>
+                            <input
+                                type="text"
+                                id="neighbourhood"
+                                name="neighbourhood"
+                                value={formData.neighbourhood}
+                                onChange={handleNeighbourhoodChange}
+                            />
+                            {formData.neighbourhood && errors.neighbourhood && (
+                                <div style={{ color: "tomato" }}>{errors.neighbourhood}</div>
                             )}
                         </div>
 

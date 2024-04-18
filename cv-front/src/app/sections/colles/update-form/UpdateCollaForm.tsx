@@ -1,26 +1,28 @@
 import React, {useEffect, useState} from "react";
-import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
-import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
-import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
 import {FormStatus, useUpdateCollaForm} from "@/app/sections/colles/update-form/useUpdateCollaForm";
 import { Spinner } from "@/app/sections/shared/Spinner";
 import {useUpdateCollaFormData} from "@/app/sections/colles/update-form/useUpdateCollaFormData";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
 import styles from "@/app/sections/colles/form/CollaForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
-import {
-    DESCRIPTION_MAX_LENGTH,
-    DESCRIPTION_MIN_LENGTH,
-    isCollaDescriptionValid
-} from "@/modules/colles/domain/colla-attributes/CollaDescription";
+
+import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
+import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
+import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
+import {isCollaDescriptionValid, DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaDescription";
+import {isCollaTypeValid, TYPE_MAX_LENGTH, TYPE_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaType";
+import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
+
 const initialState = {
     id: "",
     name: "",
     entity: "",
     foundationYear: "",
     description: "",
+    type: "",
+    neighbourhood: "",
 }
-export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid = false;
+export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid  = false;
 const lang = defaultLang;
 
 export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}) {
@@ -44,6 +46,8 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                     entity: collaData.entity,
                     foundationYear: collaData.foundationYear+"",
                     description: collaData.description,
+                    type: collaData.type,
+                    neighbourhood: collaData.neighbourhood,
                 });
             } catch (error) {
                 console.error(dictionary[lang]?.errorRetreivingCollaMessage + collaId);
@@ -76,12 +80,26 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         validateFormData({ ...formData, description: newDescription });
     };
 
-    const validateFormData = ({ id, name, entity, foundationYear, description }) => {
+    const handleTypeChange = (ev) => {
+        const newType = ev.target.value;
+        updateForm({ type: newType });
+        validateFormData({ ...formData, type: newType });
+    }
+
+    const handleNeighbourhoodChange = (ev) => {
+        const newNeighbourhood = ev.target.value;
+        updateForm({ neighbourhood: newNeighbourhood });
+        validateFormData({ ...formData, neighbourhood: newNeighbourhood });
+    }
+
+    const validateFormData = ({ id, name, entity, foundationYear, description, type, neighbourhood }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
         isFoundationYearValid = isCollaFoundationYearValid(foundationYear);
         isDescriptionValid = isCollaDescriptionValid(description);
+        isTypeValid = isCollaTypeValid(type);
+        isNeighbourhoodValid = isCollaNeighbourhoodValid(neighbourhood);
 
         setErrors({
             id: "",
@@ -89,11 +107,13 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             entity: isEntityValid ? "" : dictionary[lang]?.collesEntityInvalid + ENTITY_MIN_LENGTH + " - " + ENTITY_MAX_LENGTH,
             foundationYear: isFoundationYearValid ? "" : dictionary[lang]?.collesFoundationYearInvalid + FOUNDATION_YEAR_MIN + " - " + FOUNDATION_YEAR_MAX,
             description: isDescriptionValid ? "" : dictionary[lang]?.collesDescriptionInvalid + " " + DESCRIPTION_MIN_LENGTH + " - " + DESCRIPTION_MAX_LENGTH,
+            type: isTypeValid ? "" : dictionary[lang]?.collesTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
+            neighbourhood: isNeighbourhoodValid ? "" : dictionary[lang]?.collesNeighbourhoodInvalid + " " + NEIGHBOURHOOD_MIN_LENGTH + " - " + NEIGHBOURHOOD_MAX_LENGTH,
         });
     };
 
     const handleSubmit = (ev) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid) { return; }
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid) { return; }
         ev.preventDefault();
         submitForm({
             id: formData.id,
@@ -101,6 +121,8 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             entity: formData.entity,
             foundationYear: Number(formData.foundationYear),
             description: formData.description,
+            type: formData.type,
+            neighbourhood: formData.neighbourhood,
         });
     };
 
@@ -216,10 +238,38 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             )}
                         </div>
 
+                        <div className={styles.formGroup}>
+                            <label htmlFor="type">{dictionary[lang]?.collaType}</label>
+                            <input
+                                type="text"
+                                id="type"
+                                name="type"
+                                value={formData.type}
+                                onChange={handleTypeChange}
+                            />
+                            {formData.type && errors.type && (
+                                <div style={{ color: "tomato" }}>{errors.type}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="neighbourhood">{dictionary[lang]?.collaNeighbourhood}</label>
+                            <input
+                                type="text"
+                                id="neighbourhood"
+                                name="neighbourhood"
+                                value={formData.neighbourhood}
+                                onChange={handleNeighbourhoodChange}
+                            />
+                            {formData.neighbourhood && errors.neighbourhood && (
+                                <div style={{ color: "tomato" }}>{errors.neighbourhood}</div>
+                            )}
+                        </div>
+
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid}
+                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid ||!isTypeValid || !isNeighbourhoodValid}
                         >
                             {dictionary[lang]?.updateCollaButton}
                         </button>
