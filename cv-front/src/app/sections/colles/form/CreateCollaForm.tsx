@@ -11,18 +11,9 @@ import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/coll
 import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
 import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
 import {isCollaDescriptionValid, DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaDescription";
-import {
-    isCollaNeighbourhoodValid,
-    NEIGHBOURHOOD_MAX_LENGTH,
-    NEIGHBOURHOOD_MIN_LENGTH,
-    neighbourhoods
-} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
-import {
-    collaTypes,
-    isCollaTypeValid,
-    TYPE_MAX_LENGTH,
-    TYPE_MIN_LENGTH
-} from "@/modules/colles/domain/colla-attributes/CollaType";
+import {isCollaTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
+import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH, neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
+import {isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
 
 const initialState = {
     name: "",
@@ -31,8 +22,10 @@ const initialState = {
     description: "",
     type: "",
     neighbourhood: "",
+    primaryColour: "",
+    secondaryColour: "",
 }
-export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid = false;
+export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid, isPrimaryColourValid, isSecondaryColourValid = false;
 const lang = defaultLang;
 
 export function CreateCollaForm({ lang }: { lang: string }) {
@@ -81,7 +74,19 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, neighbourhood: newNeighbourhood });
     }
 
-    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood }) => {
+    const handlePrimaryColourChange = (ev) => {
+        const newPrimaryColour = ev.target.value;
+        updateForm({ primaryColour: newPrimaryColour });
+        validateFormData({ ...formData, primaryColour: newPrimaryColour });
+    }
+
+    const handleSecondaryColourChange = (ev) => {
+        const newSecondaryColour = ev.target.value;
+        updateForm({ secondaryColour: newSecondaryColour });
+        validateFormData({ ...formData, secondaryColour: newSecondaryColour });
+    }
+
+    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
@@ -89,6 +94,8 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         isDescriptionValid = isCollaDescriptionValid(description);
         isTypeValid = isCollaTypeValid(type);
         isNeighbourhoodValid = isCollaNeighbourhoodValid(neighbourhood);
+        isPrimaryColourValid = isCollaColourValid(primaryColour);
+        isSecondaryColourValid = isCollaColourValid(secondaryColour);
 
         setErrors({
             name: isNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
@@ -97,11 +104,13 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             description: isDescriptionValid ? "" : dictionary[lang]?.collesDescriptionInvalid + " " + DESCRIPTION_MIN_LENGTH + " - " + DESCRIPTION_MAX_LENGTH,
             type: isTypeValid ? "" : dictionary[lang]?.collesTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
             neighbourhood: isNeighbourhoodValid ? "" : dictionary[lang]?.collesNeighbourhoodInvalid + " " + NEIGHBOURHOOD_MIN_LENGTH + " - " + NEIGHBOURHOOD_MAX_LENGTH,
+            primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.collesPrimaryColourInvalid,
+            secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.collesSecondaryColourInvalid,
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid) { return; }
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid || !isPrimaryColourValid || !isSecondaryColourValid) { return; }
         ev.preventDefault();
         submitForm({
             name: formData.name,
@@ -110,6 +119,8 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             description: formData.description,
             type: formData.type,
             neighbourhood: formData.neighbourhood,
+            primaryColour: formData.primaryColour,
+            secondaryColour: formData.secondaryColour,
         });
     };
 
@@ -231,6 +242,35 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                                 <div style={{ color: "tomato" }}>{errors.neighbourhood}</div>
                             )}
                         </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="primaryColour">{dictionary[lang]?.collaNeighbourhood}</label>
+                            <input
+                                type="color"
+                                id="primaryColour"
+                                name="primaryColour"
+                                value={formData.primaryColour}
+                                onChange={handlePrimaryColourChange}
+                            />
+                            {errors.primaryColour && (
+                                <div style={{ color: "tomato" }}>{errors.primaryColour}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="secondaryColour">{dictionary[lang]?.collaNeighbourhood}</label>
+                            <input
+                                type="color"
+                                id="secondaryColour"
+                                name="secondaryColour"
+                                value={formData.secondaryColour}
+                                onChange={handleSecondaryColourChange}
+                            />
+                            {errors.secondaryColour && (
+                                <div style={{ color: "tomato" }}>{errors.secondaryColour}</div>
+                            )}
+                        </div>
+
 
                         <button
                             className={styles.actionButton}

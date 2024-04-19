@@ -25,6 +25,8 @@ async function storeColla(colla: Colla) {
                 description: colla.description,
                 type: colla.type,
                 neighbourhood: colla.neighbourhood,
+                primaryColour: colla.primaryColour,
+                secondaryColour: colla.secondaryColour
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error); }
@@ -93,6 +95,8 @@ async function updateColla(colla: Colla) {
                 description: colla.description,
                 type: colla.type,
                 neighbourhood: colla.neighbourhood,
+                primaryColour: colla.primaryColour,
+                secondaryColour: colla.secondaryColour
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut actualitzar la colla. \nMotiu: " + error); }

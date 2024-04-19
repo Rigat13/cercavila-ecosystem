@@ -15,6 +15,8 @@ interface DictionaryEntry {
     collaDescription: string;
     collaType: string;
     collaNeighbourhood: string;
+    collaPrimaryColour: string;
+    collaSecondaryColour: string;
 
     // COLLA TYPE
     selectCollaType: string;
@@ -61,6 +63,8 @@ interface DictionaryEntry {
     collesDescriptionInvalid: string;
     collesTypeInvalid: string;
     collesNeighbourhoodInvalid: string;
+    collesPrimaryColourInvalid: string;
+    collesSecondaryColourInvalid: string;
 
     successCreateCollaMessage: string;
     errorCreateCollaMessage: string;
@@ -98,6 +102,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaDescription: "Descripció",
         collaType: "Tipus",
         collaNeighbourhood: "Barri",
+        collaPrimaryColour: "Color primari",
+        collaSecondaryColour: "Color secundari",
 
         // COLLA TYPE
         selectCollaType: "Tipus de colla",
@@ -144,6 +150,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesDescriptionInvalid: "La descripció no és vàlida. Ha de tenir caràcters vàlids entre: ",
         collesTypeInvalid: "El tipus no és vàlid. Ha de tenir caràcters vàlids entre: ",
         collesNeighbourhoodInvalid: "El barri no és vàlid. Ha de tenir caràcters vàlids entre: ",
+        collesPrimaryColourInvalid: "El color primari no és vàlid. Ha de seguir el format hexadecimal.",
+        collesSecondaryColourInvalid: "El color secundari no és vàlid. Ha de seguir el format hexadecimal.",
 
         successCreateCollaMessage: "La colla s'ha creat amb èxit",
         errorCreateCollaMessage: "La colla no s'ha pogut crear. \nMotiu: ",
@@ -179,6 +187,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaDescription: "Descripción",
         collaType: "Tipo",
         collaNeighbourhood: "Barrio",
+        collaPrimaryColour: "Color primario",
+        collaSecondaryColour: "Color secundario",
 
         // COLLA TYPE
         selectCollaType: "Tipo de colla",
@@ -225,6 +235,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesDescriptionInvalid: "La descripción no es válida. Debe tener carácteres válidos entre: ",
         collesTypeInvalid: "El tipo no es válido. Debe tener carácteres válidos entre: ",
         collesNeighbourhoodInvalid: "El barrio no es válido. Debe tener carácteres válidos entre: ",
+        collesPrimaryColourInvalid: "El color primario no es válido. Debe seguir el formato hexadecimal.",
+        collesSecondaryColourInvalid: "El color secundario no es válido. Debe seguir el formato hexadecimal.",
 
         successCreateCollaMessage: "La colla se ha creado con éxito",
         errorCreateCollaMessage: "La colla no se ha podido crear. \nMotivo: ",
@@ -260,6 +272,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaDescription: "Description",
         collaType: "Type",
         collaNeighbourhood: "Neighbourhood",
+        collaPrimaryColour: "Primary colour",
+        collaSecondaryColour: "Secondary colour",
 
         // COLLA TYPE
         selectCollaType: "Colla type",
@@ -306,6 +320,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesDescriptionInvalid: "The description is not valid. It must have valid characters between: ",
         collesTypeInvalid: "The type is not valid. It must have valid characters between: ",
         collesNeighbourhoodInvalid: "The neighbourhood is not valid. It must have valid characters between: ",
+        collesPrimaryColourInvalid: "The primary colour is not valid. It must follow the hexadecimal format.",
+        collesSecondaryColourInvalid: "The secondary colour is not valid. It must follow the hexadecimal format.",
 
         successCreateCollaMessage: "The colla has been created successfully",
         errorCreateCollaMessage: "The colla could not be created. \nReason: ",
