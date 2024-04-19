@@ -128,8 +128,8 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             description: isDescriptionValid ? "" : dictionary[lang]?.collesDescriptionInvalid + " " + DESCRIPTION_MIN_LENGTH + " - " + DESCRIPTION_MAX_LENGTH,
             type: isTypeValid ? "" : dictionary[lang]?.collesTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
             neighbourhood: isNeighbourhoodValid ? "" : dictionary[lang]?.collesNeighbourhoodInvalid + " " + NEIGHBOURHOOD_MIN_LENGTH + " - " + NEIGHBOURHOOD_MAX_LENGTH,
-            primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.collesPrimaryColourInvalid,
-            secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.collesSecondaryColourInvalid,
+            primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.collesPrimaryColourInvalid + "",
+            secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.collesSecondaryColourInvalid + "",
         });
     };
 
@@ -302,7 +302,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="primaryColour">{dictionary[lang]?.collaNeighbourhood}</label>
+                            <label htmlFor="primaryColour">{dictionary[lang]?.collaPrimaryColour}</label>
                             <input
                                 type="color"
                                 id="primaryColour"
@@ -316,7 +316,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="secondaryColour">{dictionary[lang]?.collaNeighbourhood}</label>
+                            <label htmlFor="secondaryColour">{dictionary[lang]?.collaSecondaryColour}</label>
                             <input
                                 type="color"
                                 id="secondaryColour"

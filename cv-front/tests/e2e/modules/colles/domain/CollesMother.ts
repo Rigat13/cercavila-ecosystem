@@ -13,6 +13,8 @@ const CollaFactory = Factory.define<Colla>(() => ({
     description: faker.lorem.sentence(),
     type: faker.lorem.sentence(),
     neighbourhood: faker.lorem.sentence(),
+    primaryColour: '#ffffff',
+    secondaryColour: '#000000',
 }));
 
 export const CollaMother = {

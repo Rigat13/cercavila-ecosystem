@@ -62,7 +62,7 @@
 
   .colorCircles {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     margin-top: 10px;
   }
 
@@ -71,5 +71,6 @@
     height: 30px;
     border-radius: 50%;
     border: 1px solid #000;
+    margin-right: 5px;
   }
 }
