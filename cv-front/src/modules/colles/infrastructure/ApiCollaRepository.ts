@@ -8,7 +8,7 @@ export function createApiCollaRepository(): CollaRepository {
         getAllCollesByFoundationYear, getAllColles, updateColla, deleteColla
     };
 }
-
+/*
 async function storeColla(colla: Colla) {
     try {
         await fetch(URL_PREFIX + "/api/colles", {
@@ -28,7 +28,35 @@ async function storeColla(colla: Colla) {
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error); }
+}*/
+
+async function storeColla(colla: Colla) {
+    try {
+        const formData = new FormData();
+        formData.append("id", colla.id);
+        formData.append("name", colla.name);
+        formData.append("entity", colla.entity);
+        formData.append("foundationYear", colla.foundationYear.toString());
+        formData.append("description", colla.description);
+        formData.append("type", colla.type);
+        formData.append("neighbourhood", colla.neighbourhood);
+
+        if (colla.logo) {
+            formData.append("logo", colla.logo, colla.logo.name); // Make sure colla.logo is a File object
+        }
+
+        await fetch(URL_PREFIX + "/api/colles", {
+            method: "POST",
+            body: formData,
+            // Do not set Content-Type here, it will be set automatically by FormData
+        });
+    } catch (error) {
+        throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error);
+    }
 }
+
+
+
 
 async function getCollaById(id: string) {
     try {

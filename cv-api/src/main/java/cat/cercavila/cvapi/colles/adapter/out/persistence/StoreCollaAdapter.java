@@ -18,15 +18,19 @@ public class StoreCollaAdapter implements StoreCollaPort {
 
     @Override
     public void storeColla(CreateCollaCommand createCollaCommand) {
+        System.out.println("1. Entered storeColla");
+        System.out.println("Image file name is: " + createCollaCommand.logo().getOriginalFilename());
         CollaEntity collaEntity = createCollaCommand2CollaEntity(createCollaCommand);
-
+        System.out.println("2. Created collaEntity");
         // Save image to server and update collaEntity with image key
         if (createCollaCommand.logo() != null && !createCollaCommand.logo().isEmpty()) {
+            System.out.println("3. Saving image to server");
             MultipartFile imageFile = createCollaCommand.logo();
             String imageKey = saveImageToServer(imageFile);
             collaEntity.setLogoKey(imageKey);
-        }
-
+            System.out.println("4. Saved image to server");
+        } else System.out.println("3. No image to save");
+        System.out.println("5. Saving collaEntity to repository");
         collaRepository.save(createCollaCommand2CollaEntity(createCollaCommand));
     }
 
