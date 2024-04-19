@@ -26,6 +26,8 @@ public class StoreCollaAdapter implements StoreCollaPort {
         collaEntity.setDescription(createCollaCommand.description());
         collaEntity.setType(createCollaCommand.type());
         collaEntity.setNeighbourhood(createCollaCommand.neighbourhood());
+        collaEntity.setPrimaryColour(createCollaCommand.primaryColour());
+        collaEntity.setSecondaryColour(createCollaCommand.secondaryColour());
 
         return collaEntity;
     }

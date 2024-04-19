@@ -4,7 +4,7 @@ import cat.cercavila.cvapi.colles.domain.Colla;
 
 public class MapperCollaCollaEntity {
     public static Colla collaEntityToColla(CollaEntity collaEntity) {
-        Colla colla = new Colla(collaEntity.getName(), collaEntity.getEntity(), collaEntity.getFoundationYear(), collaEntity.getDescription(), collaEntity.getType(), collaEntity.getNeighbourhood());
+        Colla colla = new Colla(collaEntity.getName(), collaEntity.getEntity(), collaEntity.getFoundationYear(), collaEntity.getDescription(), collaEntity.getType(), collaEntity.getNeighbourhood(), collaEntity.getPrimaryColour(), collaEntity.getSecondaryColour());
         // NOTE: Created from zero, with new ID. // TODO Check if this is true
         return colla;
     }
@@ -18,6 +18,8 @@ public class MapperCollaCollaEntity {
         collaEntity.setDescription(colla.getDescription());
         collaEntity.setType(colla.getType());
         collaEntity.setNeighbourhood(colla.getNeighbourhood());
+        collaEntity.setPrimaryColour(colla.getPrimaryColour());
+        collaEntity.setSecondaryColour(colla.getSecondaryColour());
 
         return collaEntity;
     }

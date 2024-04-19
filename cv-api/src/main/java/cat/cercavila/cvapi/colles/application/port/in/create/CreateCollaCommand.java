@@ -53,5 +53,7 @@ public record CreateCollaCommand(
                     "|neighbourhoodVallveric)$",
             message = "El barri no és un dels valors permesos."
     )
-    String neighbourhood
+    String neighbourhood,
+    String primaryColour,
+    String secondaryColour
 ) {}

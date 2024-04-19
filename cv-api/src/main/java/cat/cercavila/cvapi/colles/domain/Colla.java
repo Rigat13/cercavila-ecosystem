@@ -10,10 +10,12 @@ public class Colla {
     private String description;
     private String type;
     private String neighbourhood;
+    private String primaryColour;
+    private String secondaryColour;
 
     public Colla() {}
 
-    public Colla(String name, String entity, int foundationYear, String description, String type, String neighbourhood) {
+    public Colla(String name, String entity, int foundationYear, String description, String type, String neighbourhood, String primaryColour, String secondaryColour) {
         this.id = UUID.randomUUID().toString(); // TODO: Note: this is correct for not web applications; but as Colles can be created from the front, the UUID is assigned between the front and the in port of persistence, and does not get to domain.
         this.name = name;
         this.entity = entity;
@@ -21,6 +23,8 @@ public class Colla {
         this.description = description;
         this.type = type;
         this.neighbourhood = neighbourhood;
+        this.primaryColour = primaryColour;
+        this.secondaryColour = secondaryColour;
     }
 
     public String getId() { return id; }
@@ -36,6 +40,10 @@ public class Colla {
     public void setType(String type) { this.type = type; }
     public String getNeighbourhood() { return neighbourhood; }
     public void setNeighbourhood(String neighbourhood) { this.neighbourhood = neighbourhood; }
+    public String getPrimaryColour() { return primaryColour; }
+    public void setPrimaryColour(String primaryColour) { this.primaryColour = primaryColour; }
+    public String getSecondaryColour() { return secondaryColour; }
+    public void setSecondaryColour(String secondaryColour) { this.secondaryColour = secondaryColour; }
     @Override
     public String toString() {
         return "Colla{" +
@@ -46,6 +54,8 @@ public class Colla {
                 ", description='" + description +
                 ", type='" + type +
                 ", neighbourhood='" + neighbourhood +
+                ", primaryColour='" + primaryColour +
+                ", secondaryColour='" + secondaryColour +
                 '}';
     }
 }
