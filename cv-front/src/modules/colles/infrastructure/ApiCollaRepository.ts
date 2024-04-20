@@ -41,9 +41,8 @@ async function storeColla(colla: Colla) {
         formData.append("type", colla.type);
         formData.append("neighbourhood", colla.neighbourhood);
 
-        if (colla.logo) {
-            formData.append("logo", colla.logo, colla.logo.name); // Make sure colla.logo is a File object
-        }
+        if (colla.logo) formData.append("logo", colla.logo, colla.logo.name); // Make sure colla.logo is a File object
+
 
         await fetch(URL_PREFIX + "/api/colles", {
             method: "POST",
