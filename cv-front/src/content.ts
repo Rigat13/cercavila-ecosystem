@@ -7,6 +7,7 @@ interface DictionaryEntry {
     errorFound: string;
     unreachablePage: string;
     retry: string;
+    maxFileSize: string;
 
     // COLLA
     collaName: string;
@@ -91,6 +92,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorFound: "Hi ha hagut un error",
         unreachablePage: "No s'esperava arribar aquí",
         retry: "Torna a intentar",
+        maxFileSize: "Mida màxima del fitxer: ",
 
         // COLLA
         collaName: "Nom",
@@ -173,6 +175,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorFound: "Ha habido un error",
         unreachablePage: "No se esperaba llegar aquí",
         retry: "Vuelve a intentar",
+        maxFileSize: "Tamaño máximo del archivo: ",
 
         // COLLA
         collaName: "Nombre",
@@ -255,6 +258,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorFound: "An error has occurred",
         unreachablePage: "Unexpected path",
         retry: "Retry",
+        maxFileSize: "Maximum file size: ",
 
         // COLLA
         collaName: "Name",

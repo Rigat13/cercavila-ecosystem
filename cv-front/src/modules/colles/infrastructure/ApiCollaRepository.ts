@@ -41,13 +41,12 @@ async function storeColla(colla: Colla) {
         formData.append("type", colla.type);
         formData.append("neighbourhood", colla.neighbourhood);
 
-        if (colla.logo) formData.append("logo", colla.logo, colla.logo.name); // Make sure colla.logo is a File object
+        if (colla.logo) formData.append("logo", colla.logo, colla.logo.name);
 
 
         await fetch(URL_PREFIX + "/api/colles", {
             method: "POST",
             body: formData,
-            // Do not set Content-Type here, it will be set automatically by FormData
         });
     } catch (error) {
         throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error);

@@ -10,18 +10,9 @@ import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/coll
 import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
 import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
 import {isCollaDescriptionValid, DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaDescription";
-import {
-    collaTypes,
-    isCollaTypeValid,
-    TYPE_MAX_LENGTH,
-    TYPE_MIN_LENGTH
-} from "@/modules/colles/domain/colla-attributes/CollaType";
-import {
-    isCollaNeighbourhoodValid,
-    NEIGHBOURHOOD_MAX_LENGTH,
-    NEIGHBOURHOOD_MIN_LENGTH,
-    neighbourhoods
-} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
+import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH, neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
+import {isCollaTypeValid, TYPE_MAX_LENGTH, TYPE_MIN_LENGTH, collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
+import {isCollaLogoValid, LOGO_MAX_MBS} from "@/modules/colles/domain/colla-attributes/CollaLogo";
 
 const initialState = {
     id: "",
@@ -31,8 +22,9 @@ const initialState = {
     description: "",
     type: "",
     neighbourhood: "",
+    logo: null as File | null,
 }
-export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid  = false;
+export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid, isLogoValid  = false;
 const lang = defaultLang;
 
 export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}) {
@@ -41,6 +33,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     const [errors, setErrors] = useState(initialState);
     const [isDeleted, setIsDeleted] = useState(false);
     const { colles } = useCollesContext();
+    const [logo, setImage] = useState<File | null>(null);
     lang = lang;
 
     useEffect(() => {
@@ -58,6 +51,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                     description: collaData.description,
                     type: collaData.type,
                     neighbourhood: collaData.neighbourhood,
+                    logo: collaData.logo,
                 });
             } catch (error) {
                 console.error(dictionary[lang]?.errorRetreivingCollaMessage + collaId);
@@ -102,7 +96,14 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         validateFormData({ ...formData, neighbourhood: newNeighbourhood });
     }
 
-    const validateFormData = ({ id, name, entity, foundationYear, description, type, neighbourhood }) => {
+    const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        const file = ev.target.files?.[0];
+        if (file !== undefined) setImage(file);
+        else setImage(null);
+        validateFormData({ ...formData, logo: file });
+    };
+
+    const validateFormData = ({ id, name, entity, foundationYear, description, type, neighbourhood, logo }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
@@ -110,6 +111,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         isDescriptionValid = isCollaDescriptionValid(description);
         isTypeValid = isCollaTypeValid(type);
         isNeighbourhoodValid = isCollaNeighbourhoodValid(neighbourhood);
+        isLogoValid = isCollaLogoValid(logo);
 
         setErrors({
             id: "",
@@ -119,11 +121,17 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             description: isDescriptionValid ? "" : dictionary[lang]?.collesDescriptionInvalid + " " + DESCRIPTION_MIN_LENGTH + " - " + DESCRIPTION_MAX_LENGTH,
             type: isTypeValid ? "" : dictionary[lang]?.collesTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
             neighbourhood: isNeighbourhoodValid ? "" : dictionary[lang]?.collesNeighbourhoodInvalid + " " + NEIGHBOURHOOD_MIN_LENGTH + " - " + NEIGHBOURHOOD_MAX_LENGTH,
+            logo: null,
         });
     };
 
     const handleSubmit = (ev) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid) { return; }
+        const formDataWithImage = { ...formData };
+        if (logo) {
+            formDataWithImage.logo = logo;
+        }
+
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid || !isLogoValid) { return; }
         ev.preventDefault();
         submitForm({
             id: formData.id,
@@ -133,6 +141,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             description: formData.description,
             type: formData.type,
             neighbourhood: formData.neighbourhood,
+            logo: formDataWithImage.logo,
         });
     };
 
@@ -288,10 +297,22 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             )}
                         </div>
 
+                        <div className={styles.formGroup}>
+                            <label htmlFor="logo">{dictionary[lang]?.collaLogo}</label>
+                            <input
+                                type="file"
+                                id="logo"
+                                name="logo"
+                                accept="image/*" // Specify accepted file types (images)
+                                onChange={handleLogoChange}
+                            />
+                            <label htmlFor="logo">{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</label>
+                        </div>
+
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid ||!isTypeValid || !isNeighbourhoodValid}
+                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid ||!isTypeValid || !isNeighbourhoodValid || !isLogoValid}
                         >
                             {dictionary[lang]?.updateCollaButton}
                         </button>

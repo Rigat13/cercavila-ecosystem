@@ -8,23 +8,18 @@ export const enum FormStatus {
 }
 
 export function useUpdateCollaForm(): {
-    submitForm: ({
-                     id,
-                     name,
-                     entity,
-                     foundationYear,
-                     description,
-                     type,
-                     neighbourhood,
-                 }: { id: string; name: string; entity: string; foundationYear: number; description: string, type: string; neighbourhood: string }) => void; formStatus: FormStatus; resetFormStatus: () => void
+    submitForm: ({id, name, entity, foundationYear, description, type, neighbourhood, logo}:
+                     { id: string; name: string; entity: string; foundationYear: number; description: string, type: string; neighbourhood: string; logo: File | null })
+        => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
     const { updateColla } = useCollesContext();
 
-    function submitForm({ id, name, entity, foundationYear, description, type, neighbourhood }: { id: string, name: string, entity: string, foundationYear: number, description: string, type: string; neighbourhood: string }) {
+    function submitForm({ id, name, entity, foundationYear, description, type, neighbourhood, logo }:
+                            { id: string, name: string, entity: string, foundationYear: number, description: string, type: string; neighbourhood: string; logo: File | null }) {
         setFormStatus(FormStatus.Loading);
         try {
-            updateColla({id, name, entity, foundationYear, description, type, neighbourhood, logo: null })
+            updateColla({id, name, entity, foundationYear, description, type, neighbourhood, logo })
                 .then(() => {
                     setFormStatus(FormStatus.Success);
                 })

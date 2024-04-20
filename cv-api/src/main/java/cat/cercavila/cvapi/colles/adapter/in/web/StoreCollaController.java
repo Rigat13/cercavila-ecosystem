@@ -15,9 +15,6 @@ public class StoreCollaController {
 
     @PostMapping("/api/colles")
     public void storeColla(@ModelAttribute CreateCollaCommand createCollaCommand) {
-        System.out.println("AARRIBA A STORE COLLA");
-        System.out.println("Nom: " + createCollaCommand.name());
-        System.out.println("Arxiu: " + createCollaCommand.logo().getName());
         createCollaUseCase.createColla(createCollaCommand);
     }
 }

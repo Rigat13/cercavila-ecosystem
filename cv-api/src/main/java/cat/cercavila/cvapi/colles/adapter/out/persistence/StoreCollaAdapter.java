@@ -1,6 +1,7 @@
 package cat.cercavila.cvapi.colles.adapter.out.persistence;
 
 import cat.cercavila.cvapi.colles.application.port.in.create.CreateCollaCommand;
+import cat.cercavila.cvapi.colles.application.port.in.update.UpdateCollaCommand;
 import cat.cercavila.cvapi.colles.application.port.out.StoreCollaPort;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,35 +19,13 @@ public class StoreCollaAdapter implements StoreCollaPort {
 
     @Override
     public void storeColla(CreateCollaCommand createCollaCommand) {
-        System.out.println("1. Entered storeColla");
-        System.out.println("Image file name is: " + createCollaCommand.logo().getOriginalFilename());
-        CollaEntity collaEntity = createCollaCommand2CollaEntity(createCollaCommand);
-        System.out.println("2. Created collaEntity");
-        // Save image to server and update collaEntity with image key
-        if (createCollaCommand.logo() != null && !createCollaCommand.logo().isEmpty()) {
-            System.out.println("3. Saving image to server");
-            MultipartFile imageFile = createCollaCommand.logo();
-            String imageKey = saveImageToServer(imageFile);
-            collaEntity.setLogoKey(imageKey);
-            System.out.println("4. Saved image to server");
-        } else System.out.println("3. No image to save");
-        System.out.println("5. Saving collaEntity to repository");
-        collaRepository.save(createCollaCommand2CollaEntity(createCollaCommand));
+        String logoKeyName = generateLogoKeyName(createCollaCommand);
+        System.out.println("Logo key name: " + logoKeyName);
+        if (!logoKeyName.equals("")) saveImageToServer(createCollaCommand.logo(), logoKeyName);
+        collaRepository.save(createCollaCommand2CollaEntity(createCollaCommand, logoKeyName));
     }
 
-    private String saveImageToServer(MultipartFile imageFile) {
-        try {
-            String filename = String.valueOf(UUID.randomUUID()); // Generate unique filename or UUID
-            Path filePath = Paths.get("/srv/cv-api/images", filename);
-            Files.copy(imageFile.getInputStream(), filePath);
-            return filename;
-        } catch (Exception e) {
-            // Handle exception
-            return null;
-        }
-    }
-
-    private CollaEntity createCollaCommand2CollaEntity(CreateCollaCommand createCollaCommand) {
+    private CollaEntity createCollaCommand2CollaEntity(CreateCollaCommand createCollaCommand, String logoKey) {
         CollaEntity collaEntity = new CollaEntity();
         collaEntity.setId(UUID.randomUUID().toString()); // IMPORTANT: This is to create a new Colla without an ID
         collaEntity.setName(createCollaCommand.name());
@@ -55,7 +34,27 @@ public class StoreCollaAdapter implements StoreCollaPort {
         collaEntity.setDescription(createCollaCommand.description());
         collaEntity.setType(createCollaCommand.type());
         collaEntity.setNeighbourhood(createCollaCommand.neighbourhood());
+        collaEntity.setLogoKey(logoKey);
 
         return collaEntity;
+    }
+
+    private String generateLogoKeyName(CreateCollaCommand createCollaCommand) {
+        if (createCollaCommand.logo() == null || createCollaCommand.logo().isEmpty()) return "";
+        String original = createCollaCommand.logo().getOriginalFilename();
+        String extension = original.substring(original.lastIndexOf("."));
+        String collaName = createCollaCommand.name();
+        collaName = collaName.replaceAll("[^a-zA-Z0-9.-]", "_");
+        return "logo_colla_" + collaName + "_" + UUID.randomUUID() + extension;
+    }
+
+    private void saveImageToServer(MultipartFile imageFile, String logoKeyName) {
+        if (imageFile == null || imageFile.isEmpty()) return;
+        try {
+            Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
+            Files.copy(imageFile.getInputStream(), filePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -18,7 +18,7 @@ public class CollaEntity {
     private String description;
     private String type;
     private String neighbourhood;
-    private String logoKey; // Field to store image key
+    private String logoKey;
 
     public void setId(String id) { this.id = id; }
     public String getId() { return id; }

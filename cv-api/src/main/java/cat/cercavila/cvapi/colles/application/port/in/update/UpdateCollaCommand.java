@@ -1,5 +1,7 @@
 package cat.cercavila.cvapi.colles.application.port.in.update;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.*;
 
 public record UpdateCollaCommand(
@@ -54,5 +56,6 @@ public record UpdateCollaCommand(
                     "|neighbourhoodVallveric)$",
             message = "El barri no és un dels valors permesos."
     )
-    String neighbourhood
+    String neighbourhood,
+    MultipartFile logo
     ) {}
