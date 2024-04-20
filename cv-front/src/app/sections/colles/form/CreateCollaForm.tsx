@@ -32,6 +32,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const { formStatus, submitForm, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
     const [logo, setImage] = useState<File | null>(null);
+    const [logoSize, setLogoSize] = useState(0);
     lang = lang;
 
     useEffect(() => {
@@ -78,6 +79,10 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         const file = ev.target.files?.[0];
         if (file !== undefined) setImage(file);
         else setImage(null);
+
+        const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
+        setLogoSize(fileSizeInMB);
+
         validateFormData({ ...formData, logo: file });
     };
 
@@ -249,7 +254,12 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                                 accept="image/*" // Specify accepted file types (images)
                                 onChange={handleLogoChange}
                             />
-                            <label htmlFor="logo">{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</label>
+                            {logoSize > LOGO_MAX_MBS && (
+                                <p style={{ color: 'red' }}>
+                                    {`File size (${logoSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                </p>
+                            )}
+                            <p htmlFor="logo">{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
 
                         <button
