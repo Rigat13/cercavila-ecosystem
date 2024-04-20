@@ -2,6 +2,7 @@ package cat.cercavila.cvapi.colles.application.service;
 
 import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
 import cat.cercavila.cvapi.colles.domain.Colla;
+import org.springframework.web.multipart.MultipartFile;
 
 public class MapperCollaCollaListing {
     public static Colla collaListingToColla (CollaListing collaListing) {
@@ -10,8 +11,8 @@ public class MapperCollaCollaListing {
         return colla;
     }
 
-    public static CollaListing collaToCollaListing (Colla colla) {
-        CollaListing collaListing = new CollaListing(colla.getId(), colla.getName(), colla.getEntity(), colla.getFoundationYear(), colla.getDescription(), colla.getType(), colla.getNeighbourhood(), colla.getLogoKey());
+    public static CollaListing collaToCollaListing (Colla colla, byte[] logo) {
+        CollaListing collaListing = new CollaListing(colla.getId(), colla.getName(), colla.getEntity(), colla.getFoundationYear(), colla.getDescription(), colla.getType(), colla.getNeighbourhood(), colla.getLogoKey(), logo );
         return collaListing;
     }
 }

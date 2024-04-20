@@ -8,27 +8,6 @@ export function createApiCollaRepository(): CollaRepository {
         getAllCollesByFoundationYear, getAllColles, updateColla, deleteColla
     };
 }
-/*
-async function storeColla(colla: Colla) {
-    try {
-        await fetch(URL_PREFIX + "/api/colles", {
-            method: "POST",
-            headers: new Headers({
-                accept: "application/json",
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify({
-                id: colla.id,
-                name: colla.name,
-                entity: colla.entity,
-                foundationYear: colla.foundationYear,
-                description: colla.description,
-                type: colla.type,
-                neighbourhood: colla.neighbourhood,
-            }),
-        });
-    } catch (error) { throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error); }
-}*/
 
 async function storeColla(colla: Colla) {
     try {
@@ -52,9 +31,6 @@ async function storeColla(colla: Colla) {
         throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error);
     }
 }
-
-
-
 
 async function getCollaById(id: string) {
     try {

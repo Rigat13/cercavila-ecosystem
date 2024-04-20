@@ -20,7 +20,6 @@ public class StoreCollaAdapter implements StoreCollaPort {
     @Override
     public void storeColla(CreateCollaCommand createCollaCommand) {
         String logoKeyName = generateLogoKeyName(createCollaCommand);
-        System.out.println("Logo key name: " + logoKeyName);
         if (!logoKeyName.equals("")) saveImageToServer(createCollaCommand.logo(), logoKeyName);
         collaRepository.save(createCollaCommand2CollaEntity(createCollaCommand, logoKeyName));
     }
@@ -53,8 +52,6 @@ public class StoreCollaAdapter implements StoreCollaPort {
         try {
             Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }
