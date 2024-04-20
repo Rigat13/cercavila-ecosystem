@@ -1,12 +1,12 @@
-import { Colla } from './Colla';
+import {Colla, CollaFromApi} from './Colla';
 
 export interface CollaRepository {
     storeColla: (colla: Colla) => Promise<void>;
-    getCollaById:(id: string) => Promise<Colla | null>;
-    getCollaByName:(name: string) => Promise<Colla | null>;
-    getAllCollesByName:() => Promise<Colla[]>;
-    getAllCollesByFoundationYear:() => Promise<Colla[]>;
-    getAllColles:() => Promise<Colla[]>;
+    getCollaById:(id: string) => Promise<CollaFromApi | null>;
+    getCollaByName:(name: string) => Promise<CollaFromApi | null>;
+    getAllCollesByName:() => Promise<CollaFromApi[]>;
+    getAllCollesByFoundationYear:() => Promise<CollaFromApi[]>;
+    getAllColles:() => Promise<CollaFromApi[]>;
     updateColla:(colla: Colla) => Promise<void>;
     deleteColla:(id: string) => Promise<void>;
 }

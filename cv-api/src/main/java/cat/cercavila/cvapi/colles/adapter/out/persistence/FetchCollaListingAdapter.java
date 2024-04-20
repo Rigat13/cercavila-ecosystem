@@ -58,7 +58,9 @@ public class FetchCollaListingAdapter implements ListCollaPort {
 
     private CollaListing createCollaListingFromListing(CollaListing collaListing) {
         // Fetch the image file using the logoKey
-        byte[] imageBytes = fetchImageFromServer(collaListing.logoKey());
+        System.out.println("Colla name-----"+collaListing.name());
+        System.out.println("COLLA LISTING-----"+collaListing);
+        byte[] imageBytes = (collaListing.logoKey() == null) ? null : fetchImageFromServer(collaListing.logoKey());
 
         // Create a CollaListing object with database fields and image data
         return new CollaListing(
@@ -76,7 +78,9 @@ public class FetchCollaListingAdapter implements ListCollaPort {
 
     private byte[] fetchImageFromServer(String logoKeyName) {
         try {
+            System.out.println("LOGO KEY NAME-----"+logoKeyName);
             Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
+            System.out.println("PATH-----"+filePath);
             return Files.readAllBytes(filePath);
         } catch (IOException e) { e.printStackTrace(); return null; }
     }

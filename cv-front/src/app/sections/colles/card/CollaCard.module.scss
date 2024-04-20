@@ -53,6 +53,19 @@
     font-size: 1rem;
   }
 
+  &__logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+  }
+
   .h2 {
     font-style: normal;
     font-weight: 700;

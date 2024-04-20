@@ -23,15 +23,38 @@ export interface Colla {
     description: string;
     type: string;
     neighbourhood: string;
-    logoKey: string | null;
     logo: File | null;
+}
+
+export interface CollaFromApi {
+    id: string;
+    name: string;
+    entity: string;
+    foundationYear: number;
+    description: string;
+    type: string;
+    neighbourhood: string;
+    logoKey: string | null;
+}
+
+export function collaFromApiToColla(collaFromApi: CollaFromApi): Colla {
+    return {
+        id: collaFromApi.id,
+        name: collaFromApi.name,
+        entity: collaFromApi.entity,
+        foundationYear: collaFromApi.foundationYear,
+        description: collaFromApi.description,
+        type: collaFromApi.type,
+        neighbourhood: collaFromApi.neighbourhood,
+        logo: null,
+    };
 }
 
 export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood, logoKey, logo}: Colla): void {
     if (!isCollaIdValid(id)) {
         throw CollaIdNotValidError(id);
     }
-    ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, logoKey, logo});
+    ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, logo});
 }
 
 export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, logoKey, logo}: Colla): void {
