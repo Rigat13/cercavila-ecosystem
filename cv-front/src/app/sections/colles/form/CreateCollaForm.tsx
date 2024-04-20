@@ -33,6 +33,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const [errors, setErrors] = useState(initialState);
     const [logo, setImage] = useState<File | null>(null);
     const [logoSize, setLogoSize] = useState(0);
+    const [logoPreview, setLogoPreview] = useState<string | null>(null);
     lang = lang;
 
     useEffect(() => {
@@ -83,6 +84,14 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
         setLogoSize(fileSizeInMB);
 
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const result = reader.result as string;
+                setLogoPreview(result);
+            };
+            reader.readAsDataURL(file);
+        }
         validateFormData({ ...formData, logo: file });
     };
 
@@ -247,6 +256,13 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="logo">{dictionary[lang]?.collaLogo}</label>
+                            <div className={styles.imagePreviewContainer}>
+                                {logoPreview && (
+                                    <div className={styles.imagePreview}>
+                                        <img src={logoPreview} alt="Logo Preview" />
+                                    </div>
+                                )}
+                            </div>
                             <input
                                 type="file"
                                 id="logo"
