@@ -36,15 +36,26 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     const [logo, setImage] = useState<File | null>(null);
     const [logoSize, setLogoSize] = useState(0);
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
+    const [logoUrl, setLogoUrl] = useState<string | null>(null);
     lang = lang;
 
     useEffect(() => {
+
         const fetchCollaData = async () => {
             try {
                 const collaData = colles.find((colla) => colla.id === collaId);
                 if (!collaData) {
                     throw new Error(dictionary[lang]?.collaNotFoundWithId + collaId);
                 }
+
+                let logoFile = null;
+                if (collaData.logo) {
+                    const blob = base64ToBlob(collaData.logo as string);
+                    logoFile = new File([blob], 'logo.jpg', { type: 'image/jpeg' });
+                }
+
+
+
                 updateForm({
                     id: collaData.id,
                     name: collaData.name,
@@ -53,14 +64,23 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                     description: collaData.description,
                     type: collaData.type,
                     neighbourhood: collaData.neighbourhood,
-                    logo: collaData.logo,
+                    logo: logoFile,
                 });
+
+                const syntheticEvent: { target: { files: any[] } } = {
+                    target: {
+                        files: [logoFile]
+                    }
+                };
+                handleLogoChange(syntheticEvent);
             } catch (error) {
-                console.error(dictionary[lang]?.errorRetreivingCollaMessage + collaId);
+                console.error(dictionary[lang]?.errorRetrievingCollaMessage + collaId);
             }
         };
         fetchCollaData();
     }, [collaId, colles]);
+
+
 
     const handleNameChange = (ev) => {
         const newName = ev.target.value;
@@ -98,7 +118,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         validateFormData({ ...formData, neighbourhood: newNeighbourhood });
     }
 
-    const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    const handleLogoChange = (ev: { target: { files: any[] } }) => {
         const file = ev.target.files?.[0];
         if (file !== undefined) setImage(file);
         else setImage(null);
@@ -386,4 +406,14 @@ function ErrorNotification({ lang, resetForm }: { lang: string; resetForm: () =>
 
 function assertUnreachable(x: never): never {
     throw new Error(""+dictionary[lang]?.unreachablePage);
+}
+
+function base64ToBlob(base64: string): Blob {
+    const binaryString = window.atob(base64);
+    const length = binaryString.length;
+    const bytes = new Uint8Array(length);
+    for (let i = 0; i < length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new Blob([bytes], { type: 'image/jpeg' });
 }

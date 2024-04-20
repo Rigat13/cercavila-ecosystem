@@ -82,7 +82,7 @@ interface DictionaryEntry {
     successDeleteCollaMessage: string;
     errorDeleteCollaMessage: string;
     collaNotFoundWithId: string;
-    errorRetreivingCollaMessage: string;
+    errorRetrievingCollaMessage: string;
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
@@ -167,7 +167,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         successDeleteCollaMessage: "La colla s'ha esborrat amb èxit",
         errorDeleteCollaMessage: "La colla no s'ha pogut esborrar. \nMotiu: ",
         collaNotFoundWithId: "No s'ha trobat la colla amb l'identificador: ",
-        errorRetreivingCollaMessage: "Error en obtenir la informació de la colla. \nMotiu: ",
+        errorRetrievingCollaMessage: "Error en obtenir la informació de la colla. \nMotiu: ",
     },
     es: {
         // GENERAL
@@ -250,7 +250,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         successDeleteCollaMessage: "La colla se ha borrado con éxito",
         errorDeleteCollaMessage: "La colla no se ha podido borrar. \nMotivo: ",
         collaNotFoundWithId: "No se ha encontrado la colla con el identificador: ",
-        errorRetreivingCollaMessage: "Error al obtener la información de la colla. \nMotivo: ",
+        errorRetrievingCollaMessage: "Error al obtener la información de la colla. \nMotivo: ",
     },
     en: {
         // GENERAL
@@ -333,6 +333,6 @@ export const dictionary: Record<string, DictionaryEntry> = {
         successDeleteCollaMessage: "The colla has been deleted successfully",
         errorDeleteCollaMessage: "The colla could not be deleted. \nReason: ",
         collaNotFoundWithId: "Colla not found with id: ",
-        errorRetreivingCollaMessage: "Error retrieving colla information. \nReason: ",
+        errorRetrievingCollaMessage: "Error retrieving colla information. \nReason: ",
     }
 }
