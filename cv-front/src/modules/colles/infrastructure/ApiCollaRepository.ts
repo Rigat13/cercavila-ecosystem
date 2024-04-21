@@ -19,6 +19,8 @@ async function storeColla(colla: Colla) {
         formData.append("description", colla.description);
         formData.append("type", colla.type);
         formData.append("neighbourhood", colla.neighbourhood);
+        formData.append("primaryColour", colla.primaryColour);
+        formData.append("secondaryColour", colla.secondaryColour);
 
         if (colla.logo) formData.append("logo", colla.logo, colla.logo.name);
 
@@ -88,6 +90,8 @@ async function updateColla(colla: Colla) {
         formData.append("description", colla.description);
         formData.append("type", colla.type);
         formData.append("neighbourhood", colla.neighbourhood);
+        formData.append("primaryColour", colla.primaryColour);
+        formData.append("secondaryColour", colla.secondaryColour);
 
         if (colla.logo) formData.append("logo", colla.logo, colla.logo.name);
 
