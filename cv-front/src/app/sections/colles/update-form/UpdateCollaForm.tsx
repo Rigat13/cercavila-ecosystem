@@ -40,6 +40,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     const [logoSize, setLogoSize] = useState(0);
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
     const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
+    const [isFirstTimeValidation, setIsFirstTimeValidation] = useState(true);
     lang = lang;
 
     useEffect(() => {
@@ -78,6 +79,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                     }
                 };
                 handleLogoChange(syntheticEvent);
+                setIsFirstTimeValidation(false);
             } catch (error) {
                 console.error(dictionary[lang]?.errorRetrievingCollaMessage + collaId);
             }
@@ -152,7 +154,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             };
             reader.readAsDataURL(file);
         }
-        validateFormData({ ...formData, logo: file });
+        if(!isFirstTimeValidation) validateFormData({ ...formData, logo: file });
     };
 
     const validateFormData = ({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo }) => {
