@@ -14,7 +14,6 @@ public class UpdateCollaController {
 
     @PutMapping("/api/colles")
     public void updateColla(@ModelAttribute UpdateCollaCommand updateCollaCommand) {
-        System.out.println("REACHING APIIIIIIIIIIIIIIIIIIIIIIIIII");
         updateCollaUseCase.updateColla(updateCollaCommand);
     }
 }

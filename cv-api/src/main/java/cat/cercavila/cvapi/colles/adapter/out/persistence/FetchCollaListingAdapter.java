@@ -70,6 +70,8 @@ public class FetchCollaListingAdapter implements ListCollaPort {
                 collaListing.description(),
                 collaListing.type(),
                 collaListing.neighbourhood(),
+                collaListing.primaryColour(),
+                collaListing.secondaryColour(),
                 collaListing.logoKey(),
                 imageBytes
         );
