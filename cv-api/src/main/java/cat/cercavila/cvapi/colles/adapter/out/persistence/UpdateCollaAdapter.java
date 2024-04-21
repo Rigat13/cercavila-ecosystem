@@ -21,13 +21,11 @@ public class UpdateCollaAdapter implements UpdateCollaPort {
 
     @Override
     public void updateColla(UpdateCollaCommand updateCollaCommand) {
-        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIIIIIIIIIIIIIII UpdateCollaAdapter.updateColla");
         String logoKeyName = generateLogoKeyName(updateCollaCommand);
         if (!logoKeyName.equals("")) {
             removeCurrentLogo(updateCollaCommand);
             saveImageToServer(updateCollaCommand.logo(), logoKeyName);
         }
-        System.out.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOW SAVING");
         collaRepository.save(updateCollaCommand2CollaEntity(updateCollaCommand, logoKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
     }
 
