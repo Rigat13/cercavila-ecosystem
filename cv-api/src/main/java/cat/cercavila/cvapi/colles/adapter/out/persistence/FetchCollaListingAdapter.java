@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class FetchCollaListingAdapter implements ListCollaPort {
@@ -58,8 +59,6 @@ public class FetchCollaListingAdapter implements ListCollaPort {
 
     private CollaListing createCollaListingFromListing(CollaListing collaListing) {
         // Fetch the image file using the logoKey
-        System.out.println("Colla name-----"+collaListing.name());
-        System.out.println("COLLA LISTING-----"+collaListing);
         byte[] imageBytes = (collaListing.logoKey() == null) ? null : fetchImageFromServer(collaListing.logoKey());
 
         // Create a CollaListing object with database fields and image data
@@ -78,11 +77,18 @@ public class FetchCollaListingAdapter implements ListCollaPort {
 
     private byte[] fetchImageFromServer(String logoKeyName) {
         try {
-            System.out.println("LOGO KEY NAME-----"+logoKeyName);
-            Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
-            System.out.println("PATH-----"+filePath);
-            return Files.readAllBytes(filePath);
-        } catch (IOException e) { e.printStackTrace(); return null; }
+            Path directoryPath = Paths.get("/srv/cv-api/images");
+            if (Files.isDirectory(directoryPath)) {
+                try (Stream<Path> paths = Files.list(directoryPath)) {
+                    Optional<Path> imagePathOptional = paths.filter(path -> path.getFileName().toString().equals(logoKeyName)).findFirst();
+                    if (imagePathOptional.isPresent()) {
+                        Path imagePath = imagePathOptional.get();
+                        System.out.println("IMAGE FILE PATH: " + imagePath);
+                        return Files.readAllBytes(imagePath);
+                    } else { System.out.println("Image file not found: " + logoKeyName); return null; }
+                }
+            } else { System.out.println("Directory not found: " + directoryPath); return null; }
+        } catch (IOException e) { System.err.println("Error reading image file: " + e.getMessage()); e.printStackTrace(); return null; }
     }
 }
 

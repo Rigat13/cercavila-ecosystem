@@ -21,17 +21,19 @@ public class UpdateCollaAdapter implements UpdateCollaPort {
 
     @Override
     public void updateColla(UpdateCollaCommand updateCollaCommand) {
+        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEIIIIIIIIIIIIIII UpdateCollaAdapter.updateColla");
         String logoKeyName = generateLogoKeyName(updateCollaCommand);
         if (!logoKeyName.equals("")) {
             removeCurrentLogo(updateCollaCommand);
             saveImageToServer(updateCollaCommand.logo(), logoKeyName);
         }
+        System.out.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOW SAVING");
         collaRepository.save(updateCollaCommand2CollaEntity(updateCollaCommand, logoKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
     }
 
     private CollaEntity updateCollaCommand2CollaEntity(UpdateCollaCommand updateCollaCommand, String logoKey) {
         CollaEntity collaEntity = new CollaEntity();
-        collaEntity.setId(UUID.randomUUID().toString()); // IMPORTANT: This is to create a new Colla without an ID
+        collaEntity.setId(updateCollaCommand.id());
         collaEntity.setName(updateCollaCommand.name());
         collaEntity.setEntity(updateCollaCommand.entity());
         collaEntity.setFoundationYear(updateCollaCommand.foundationYear());
@@ -74,8 +76,6 @@ public class UpdateCollaAdapter implements UpdateCollaPort {
         try {
             Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }

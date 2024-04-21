@@ -118,7 +118,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         validateFormData({ ...formData, neighbourhood: newNeighbourhood });
     }
 
-    const handleLogoChange = (ev: { target: { files: any[] } }) => {
+    const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement> | { target: { files: any[] } }) => {
         const file = ev.target.files?.[0];
         if (file !== undefined) setImage(file);
         else setImage(null);
@@ -159,7 +159,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         });
     };
 
-    const handleSubmit = (ev) => {
+    const handleSubmit = (ev: React.FormEvent) => {
         const formDataWithImage = { ...formData };
         if (logo) {
             formDataWithImage.logo = logo;
