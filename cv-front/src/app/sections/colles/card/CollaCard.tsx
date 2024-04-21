@@ -8,7 +8,7 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
 
     useEffect(() => {
         if (colla.logo) {
-            const blob = base64ToBlob(colla.logo as string);
+            const blob = base64ToBlob(colla.logo as unknown as string);
             const url = URL.createObjectURL(blob);
             setLogoUrl(url);
         }

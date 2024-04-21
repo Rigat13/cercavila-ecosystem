@@ -51,9 +51,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                     throw new Error(dictionary[lang]?.collaNotFoundWithId + collaId);
                 }
 
-                let logoFile = null;
+                let logoFile;
                 if (collaData.logo) {
-                    const blob = base64ToBlob(collaData.logo as string);
+                    const blob = base64ToBlob(collaData.logo as unknown as string);
                     logoFile = new File([blob], 'logo.jpg', { type: 'image/jpeg' });
                 }
 
@@ -404,7 +404,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                                     {`File size (${logoSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
                                 </p>
                             )}
-                            <p htmlFor="logo">{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
+                            <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
 
                         <button

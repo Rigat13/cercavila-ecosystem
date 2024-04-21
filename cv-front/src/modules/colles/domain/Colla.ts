@@ -20,14 +20,14 @@ export interface Colla {
     logo: File | null;
 }
 
-export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logoKey, logo}: Colla): void {
+export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo}: Colla): void {
     if (!isCollaIdValid(id)) {
         throw CollaIdNotValidError(id);
     }
     ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo});
 }
 
-export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logoKey, logo}: Colla): void {
+export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo}: Colla): void {
     if (!isCollaNameValid(name)) {
         throw CollaNameNotValidError(name);
     }

@@ -96,9 +96,9 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setLogoAlreadyValid(false);
         const file = ev.target.files?.[0];
-        if (file !== undefined) setImage(file);
-        else setImage(null);
+        if (file == undefined) { validateFormData({ ...formData, logo: file }); return; }
 
+        setImage(file);
         const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
         setLogoSize(fileSizeInMB);
 
@@ -325,7 +325,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                                     {`File size (${logoSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
                                 </p>
                             )}
-                            <p htmlFor="logo">{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
+                            <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
 
                         <button
