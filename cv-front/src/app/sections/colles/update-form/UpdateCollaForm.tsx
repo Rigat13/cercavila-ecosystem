@@ -208,8 +208,12 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     // ------------------ DELETE COLLA ------------------
     const { deleteColla } = useCollesContext();
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isGoToCollesVisible, setGoToCollesVisible] = useState(true);
+    const [isDeleteCollaVisible, setDeleteCollaVisible] = useState(true);
 
     const handleDeleteClick = () => {
+        setGoToCollesVisible(false);
+        setDeleteCollaVisible(false);
         setIsConfirmOpen(true);
     };
     if (isDeleted) {
@@ -231,6 +235,8 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
 
     const handleCancelDelete = () => {
         setIsConfirmOpen(false);
+        setGoToCollesVisible(true);
+        setDeleteCollaVisible(true);
     };
 
     if (isDeleted) {
@@ -417,13 +423,14 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             {dictionary[lang]?.updateCollaButton}
                         </button>
                     </form>
-                    <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
-                        <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
-                    </a>
-
-                    {/* "Delete" Button */}
-                    <button className={styles.deleteButton} onClick={handleDeleteClick} >{dictionary[lang]?.deleteCollaButton}</button>
-                    {/* Confirmation Dialog */}
+                    {isGoToCollesVisible && (
+                        <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
+                            <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
+                        </a>
+                    )}
+                    {isDeleteCollaVisible && (
+                        <button className={styles.deleteButton} onClick={handleDeleteClick} >{dictionary[lang]?.deleteCollaButton}</button>
+                    )}
                     {isConfirmOpen && (
                         <div className={styles.collaForm}>
                             <p className={styles.warningMessage}>{dictionary[lang]?.warningDeleteCollaMessage}</p>
