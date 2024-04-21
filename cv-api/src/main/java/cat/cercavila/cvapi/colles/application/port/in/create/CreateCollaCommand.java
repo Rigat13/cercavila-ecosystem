@@ -1,5 +1,7 @@
 package cat.cercavila.cvapi.colles.application.port.in.create;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.*;
 
 public record CreateCollaCommand(
@@ -55,5 +57,6 @@ public record CreateCollaCommand(
     )
     String neighbourhood,
     String primaryColour,
-    String secondaryColour
+    String secondaryColour,
+    MultipartFile logo
 ) {}

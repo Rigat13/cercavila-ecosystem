@@ -28,6 +28,12 @@
       border: 1px solid #000088;
       border-radius: 7px;
     }
+    p {
+      font-size: 0.9rem;
+      font-weight: 500;
+      font-style: italic;
+      color: #646464;
+    }
   }
 
 
@@ -96,5 +102,26 @@
     font-weight: 700;
     font-size: 1rem;
     color: #ff4646;
+  }
+
+  .imagePreviewContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .imagePreview {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  .imagePreview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }

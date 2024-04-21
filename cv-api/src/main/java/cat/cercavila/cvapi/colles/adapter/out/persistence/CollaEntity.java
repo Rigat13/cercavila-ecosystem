@@ -20,6 +20,7 @@ public class CollaEntity {
     private String neighbourhood;
     private String primaryColour;
     private String secondaryColour;
+    private String logoKey;
 
     public void setId(String id) { this.id = id; }
     public String getId() { return id; }
@@ -40,4 +41,7 @@ public class CollaEntity {
     public void setPrimaryColour(String primaryColour) { this.primaryColour = primaryColour; }
     public String getSecondaryColour() { return secondaryColour; }
     public void setSecondaryColour(String secondaryColour) { this.secondaryColour = secondaryColour; }
+    public String getLogoKey() { return logoKey; }
+    public void setLogoKey(String logoKey) { this.logoKey = logoKey; }
+
 }

@@ -11,25 +11,24 @@ export function createApiCollaRepository(): CollaRepository {
 
 async function storeColla(colla: Colla) {
     try {
+        const formData = new FormData();
+        formData.append("id", colla.id);
+        formData.append("name", colla.name);
+        formData.append("entity", colla.entity);
+        formData.append("foundationYear", colla.foundationYear.toString());
+        formData.append("description", colla.description);
+        formData.append("type", colla.type);
+        formData.append("neighbourhood", colla.neighbourhood);
+
+        if (colla.logo) formData.append("logo", colla.logo, colla.logo.name);
+
         await fetch(URL_PREFIX + "/api/colles", {
             method: "POST",
-            headers: new Headers({
-                accept: "application/json",
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify({
-                id: colla.id,
-                name: colla.name,
-                entity: colla.entity,
-                foundationYear: colla.foundationYear,
-                description: colla.description,
-                type: colla.type,
-                neighbourhood: colla.neighbourhood,
-                primaryColour: colla.primaryColour,
-                secondaryColour: colla.secondaryColour
-            }),
+            body: formData,
         });
-    } catch (error) { throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error); }
+    } catch (error) {
+        throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error);
+    }
 }
 
 async function getCollaById(id: string) {
@@ -81,23 +80,20 @@ async function getAllColles() {
 
 async function updateColla(colla: Colla) {
     try {
+        const formData = new FormData();
+        formData.append("id", colla.id);
+        formData.append("name", colla.name);
+        formData.append("entity", colla.entity);
+        formData.append("foundationYear", colla.foundationYear.toString());
+        formData.append("description", colla.description);
+        formData.append("type", colla.type);
+        formData.append("neighbourhood", colla.neighbourhood);
+
+        if (colla.logo) formData.append("logo", colla.logo, colla.logo.name);
+
         await fetch(URL_PREFIX + "/api/colles", {
             method: "PUT",
-            headers: new Headers({
-                accept: "application/json",
-                "Content-Type": "application/json"
-            }),
-            body: JSON.stringify({
-                id: colla.id,
-                name: colla.name,
-                entity: colla.entity,
-                foundationYear: colla.foundationYear,
-                description: colla.description,
-                type: colla.type,
-                neighbourhood: colla.neighbourhood,
-                primaryColour: colla.primaryColour,
-                secondaryColour: colla.secondaryColour
-            }),
+            body: formData,
         });
     } catch (error) { throw new Error("No s'ha pogut actualitzar la colla. \nMotiu: " + error); }
 }

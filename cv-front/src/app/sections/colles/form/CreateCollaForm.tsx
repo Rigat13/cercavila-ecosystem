@@ -14,6 +14,7 @@ import {isCollaDescriptionValid, DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH}
 import {isCollaTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
 import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH, neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
 import {isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
+import {isCollaLogoValid, LOGO_MAX_MBS} from "@/modules/colles/domain/colla-attributes/CollaLogo";
 
 const initialState = {
     name: "",
@@ -24,14 +25,20 @@ const initialState = {
     neighbourhood: "",
     primaryColour: "",
     secondaryColour: "",
+    logo: null as File | null,
 }
-export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid, isPrimaryColourValid, isSecondaryColourValid = false;
+
+export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid, isPrimaryColourValid, isSecondaryColourValid, isLogoValid = false;
 const lang = defaultLang;
 
 export function CreateCollaForm({ lang }: { lang: string }) {
     const { formData, updateForm, resetForm } = useCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
+    const [logo, setImage] = useState<File | null>(null);
+    const [logoSize, setLogoSize] = useState(0);
+    const [logoPreview, setLogoPreview] = useState<string | null>(null);
+    const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
     lang = lang;
 
     useEffect(() => {
@@ -86,7 +93,27 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, secondaryColour: newSecondaryColour });
     }
 
-    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour }) => {
+    const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        setLogoAlreadyValid(false);
+        const file = ev.target.files?.[0];
+        if (file !== undefined) setImage(file);
+        else setImage(null);
+
+        const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
+        setLogoSize(fileSizeInMB);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const result = reader.result as string;
+                setLogoPreview(result);
+            };
+            reader.readAsDataURL(file);
+        }
+        validateFormData({ ...formData, logo: file });
+    };
+
+    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
@@ -96,6 +123,8 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         isNeighbourhoodValid = isCollaNeighbourhoodValid(neighbourhood);
         isPrimaryColourValid = isCollaColourValid(primaryColour);
         isSecondaryColourValid = isCollaColourValid(secondaryColour);
+        if (!isLogoAlreadyValid) isLogoValid = isCollaLogoValid(logo);
+        setLogoAlreadyValid(isLogoValid);
 
         setErrors({
             name: isNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
@@ -106,11 +135,15 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             neighbourhood: isNeighbourhoodValid ? "" : dictionary[lang]?.collesNeighbourhoodInvalid + " " + NEIGHBOURHOOD_MIN_LENGTH + " - " + NEIGHBOURHOOD_MAX_LENGTH,
             primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.collesPrimaryColourInvalid + "",
             secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.collesSecondaryColourInvalid + "",
+            logo: null,
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid || !isPrimaryColourValid || !isSecondaryColourValid) { return; }
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid || !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid) { return; }
+
+        const formDataWithImage = { ...formData };
+        if (logo) { formDataWithImage.logo = logo; }
         ev.preventDefault();
         submitForm({
             name: formData.name,
@@ -121,6 +154,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             neighbourhood: formData.neighbourhood,
             primaryColour: formData.primaryColour,
             secondaryColour: formData.secondaryColour,
+            logo: formDataWithImage.logo,
         });
     };
 
@@ -270,12 +304,34 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                                 <div style={{ color: "tomato" }}>{errors.secondaryColour}</div>
                             )}
                         </div>
-
+                        <div className={styles.formGroup}>
+                            <label htmlFor="logo">{dictionary[lang]?.collaLogo}</label>
+                            <div className={styles.imagePreviewContainer}>
+                                {logoPreview && (
+                                    <div className={styles.imagePreview}>
+                                        <img src={logoPreview} alt="Logo Preview" />
+                                    </div>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                id="logo"
+                                name="logo"
+                                accept="image/*" // Specify accepted file types (images)
+                                onChange={handleLogoChange}
+                            />
+                            {logoSize > LOGO_MAX_MBS && (
+                                <p style={{ color: 'red' }}>
+                                    {`File size (${logoSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                </p>
+                            )}
+                            <p htmlFor="logo">{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
+                        </div>
 
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid}
+                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid || !isLogoValid}
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>

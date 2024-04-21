@@ -1,4 +1,4 @@
-import { Colla } from './Colla';
+import {Colla} from './Colla';
 
 export interface CollaRepository {
     storeColla: (colla: Colla) => Promise<void>;

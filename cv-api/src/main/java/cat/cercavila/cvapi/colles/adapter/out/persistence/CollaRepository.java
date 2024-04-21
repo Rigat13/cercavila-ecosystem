@@ -12,7 +12,8 @@ public interface CollaRepository extends JpaRepository<CollaEntity, Long> {
 
     @Query("""
             select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour)
+                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey)
+
             from colla c 
             where c.id = :id
         """)
@@ -20,7 +21,8 @@ public interface CollaRepository extends JpaRepository<CollaEntity, Long> {
 
     @Query("""
             select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour)
+                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey)
+
             from colla c 
             where c.name = :name
         """)
@@ -28,7 +30,7 @@ public interface CollaRepository extends JpaRepository<CollaEntity, Long> {
 
     @Query("""
             select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour)
+                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey)
             from colla c 
             order by c.name
         """)
@@ -36,7 +38,8 @@ public interface CollaRepository extends JpaRepository<CollaEntity, Long> {
 
     @Query("""
             select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour)
+                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey)
+
             from colla c 
             order by c.foundationYear
         """)
@@ -44,7 +47,8 @@ public interface CollaRepository extends JpaRepository<CollaEntity, Long> {
 
     @Query("""
             select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour)
+                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey)
+
                             from colla c
         """)
     List<CollaListing> findAllListing();

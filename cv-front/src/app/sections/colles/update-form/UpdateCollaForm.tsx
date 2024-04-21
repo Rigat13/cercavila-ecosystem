@@ -13,6 +13,7 @@ import {isCollaDescriptionValid, DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH}
 import {isCollaTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
 import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH, neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
 import {isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
+import {isCollaLogoValid, LOGO_MAX_MBS} from "@/modules/colles/domain/colla-attributes/CollaLogo";
 
 const initialState = {
     id: "",
@@ -24,8 +25,9 @@ const initialState = {
     neighbourhood: "",
     primaryColour: "",
     secondaryColour: "",
+    logo: null as File | null,
 }
-export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid, isPrimaryColourValid, isSecondaryColourValid  = false;
+export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid, isPrimaryColourValid, isSecondaryColourValid, isLogoValid  = false;
 const lang = defaultLang;
 
 export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}) {
@@ -34,15 +36,29 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     const [errors, setErrors] = useState(initialState);
     const [isDeleted, setIsDeleted] = useState(false);
     const { colles } = useCollesContext();
+    const [logo, setImage] = useState<File | null>(null);
+    const [logoSize, setLogoSize] = useState(0);
+    const [logoPreview, setLogoPreview] = useState<string | null>(null);
+    const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
     lang = lang;
 
     useEffect(() => {
+
         const fetchCollaData = async () => {
             try {
                 const collaData = colles.find((colla) => colla.id === collaId);
                 if (!collaData) {
                     throw new Error(dictionary[lang]?.collaNotFoundWithId + collaId);
                 }
+
+                let logoFile = null;
+                if (collaData.logo) {
+                    const blob = base64ToBlob(collaData.logo as string);
+                    logoFile = new File([blob], 'logo.jpg', { type: 'image/jpeg' });
+                }
+
+
+
                 updateForm({
                     id: collaData.id,
                     name: collaData.name,
@@ -53,13 +69,23 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                     neighbourhood: collaData.neighbourhood,
                     primaryColour: collaData.primaryColour,
                     secondaryColour: collaData.secondaryColour,
+                    logo: logoFile,
                 });
+
+                const syntheticEvent: { target: { files: any[] } } = {
+                    target: {
+                        files: [logoFile]
+                    }
+                };
+                handleLogoChange(syntheticEvent);
             } catch (error) {
-                console.error(dictionary[lang]?.errorRetreivingCollaMessage + collaId);
+                console.error(dictionary[lang]?.errorRetrievingCollaMessage + collaId);
             }
         };
         fetchCollaData();
     }, [collaId, colles]);
+
+
 
     const handleNameChange = (ev) => {
         const newName = ev.target.value;
@@ -109,7 +135,27 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         validateFormData({ ...formData, secondaryColour: newSecondaryColour });
     }
 
-    const validateFormData = ({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour }) => {
+    const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement> | { target: { files: any[] } }) => {
+        setLogoAlreadyValid(false);
+        const file = ev.target.files?.[0];
+        if (file !== undefined) setImage(file);
+        else setImage(null);
+
+        const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
+        setLogoSize(fileSizeInMB);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const result = reader.result as string;
+                setLogoPreview(result);
+            };
+            reader.readAsDataURL(file);
+        }
+        validateFormData({ ...formData, logo: file });
+    };
+
+    const validateFormData = ({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
@@ -119,6 +165,8 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         isNeighbourhoodValid = isCollaNeighbourhoodValid(neighbourhood);
         isPrimaryColourValid = isCollaColourValid(primaryColour);
         isSecondaryColourValid = isCollaColourValid(secondaryColour);
+        if (!isLogoAlreadyValid) isLogoValid = isCollaLogoValid(logo);
+        setLogoAlreadyValid(isLogoValid);
 
         setErrors({
             id: "",
@@ -130,11 +178,16 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             neighbourhood: isNeighbourhoodValid ? "" : dictionary[lang]?.collesNeighbourhoodInvalid + " " + NEIGHBOURHOOD_MIN_LENGTH + " - " + NEIGHBOURHOOD_MAX_LENGTH,
             primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.collesPrimaryColourInvalid + "",
             secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.collesSecondaryColourInvalid + "",
+            logo: null,
         });
     };
 
-    const handleSubmit = (ev) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid || !isPrimaryColourValid || !isSecondaryColourValid) { return; }
+    const handleSubmit = (ev: React.FormEvent) => {
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid || !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid) { return; }
+
+        const formDataWithImage = { ...formData };
+        if (logo) { formDataWithImage.logo = logo; }
+
         ev.preventDefault();
         submitForm({
             id: formData.id,
@@ -146,6 +199,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             neighbourhood: formData.neighbourhood,
             primaryColour: formData.primaryColour,
             secondaryColour: formData.secondaryColour,
+            logo: formDataWithImage.logo,
         });
     };
 
@@ -329,10 +383,34 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             )}
                         </div>
 
+                        <div className={styles.formGroup}>
+                            <label htmlFor="logo">{dictionary[lang]?.collaLogo}</label>
+                            <div className={styles.imagePreviewContainer}>
+                                {logoPreview && (
+                                    <div className={styles.imagePreview}>
+                                        <img src={logoPreview} alt="Logo Preview" />
+                                    </div>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                id="logo"
+                                name="logo"
+                                accept="image/*" // Specify accepted file types (images)
+                                onChange={handleLogoChange}
+                            />
+                            {logoSize > LOGO_MAX_MBS && (
+                                <p style={{ color: 'red' }}>
+                                    {`File size (${logoSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                </p>
+                            )}
+                            <p htmlFor="logo">{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
+                        </div>
+
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid ||!isTypeValid || !isNeighbourhoodValid}
+                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid ||!isTypeValid || !isNeighbourhoodValid || !isLogoValid}
                         >
                             {dictionary[lang]?.updateCollaButton}
                         </button>
@@ -380,4 +458,14 @@ function ErrorNotification({ lang, resetForm }: { lang: string; resetForm: () =>
 
 function assertUnreachable(x: never): never {
     throw new Error(""+dictionary[lang]?.unreachablePage);
+}
+
+function base64ToBlob(base64: string): Blob {
+    const binaryString = window.atob(base64);
+    const length = binaryString.length;
+    const bytes = new Uint8Array(length);
+    for (let i = 0; i < length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new Blob([bytes], { type: 'image/jpeg' });
 }

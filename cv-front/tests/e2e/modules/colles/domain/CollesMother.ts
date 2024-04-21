@@ -15,6 +15,7 @@ const CollaFactory = Factory.define<Colla>(() => ({
     neighbourhood: faker.lorem.sentence(),
     primaryColour: '#ffffff',
     secondaryColour: '#000000',
+    logo: null,
 }));
 
 export const CollaMother = {

@@ -9,17 +9,18 @@ export const enum FormStatus {
 
 export function useCollaForm(): {
     submitForm: ({name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour}:
-                     { name: string; entity: string; foundationYear: number; description: string; type: string; neighbourhood: string; primaryColour: string; secondaryColour: string })
+                     { name: string; entity: string; foundationYear: number; description: string; type: string; neighbourhood: string; primaryColour: string; secondaryColour: string; logo: File | null })
         => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
     const { createColla } = useCollesContext();
 
     function submitForm({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour }:
-                            { name: string, entity: string, foundationYear: number, description: string; type: string; neighbourhood: string; primaryColour: string; secondaryColour: string }) {
+                            { name: string, entity: string, foundationYear: number, description: string; type: string; neighbourhood: string; primaryColour: string; secondaryColour: string; logo: File | null }) {
         setFormStatus(FormStatus.Loading);
         try {
-            createColla({id: "", name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour })
+            createColla({id: "", name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo })
+
                 .then(() => {
                     setFormStatus(FormStatus.Success);
                 })

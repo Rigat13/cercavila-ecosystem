@@ -1,10 +1,12 @@
 package cat.cercavila.cvapi.colles.adapter.out.persistence;
 
+import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
 import cat.cercavila.cvapi.colles.domain.Colla;
 
 public class MapperCollaCollaEntity {
     public static Colla collaEntityToColla(CollaEntity collaEntity) {
-        Colla colla = new Colla(collaEntity.getName(), collaEntity.getEntity(), collaEntity.getFoundationYear(), collaEntity.getDescription(), collaEntity.getType(), collaEntity.getNeighbourhood(), collaEntity.getPrimaryColour(), collaEntity.getSecondaryColour());
+        Colla colla = new Colla(collaEntity.getName(), collaEntity.getEntity(), collaEntity.getFoundationYear(), collaEntity.getDescription(), collaEntity.getType(), collaEntity.getNeighbourhood(),
+                collaEntity.getPrimaryColour(), collaEntity.getSecondaryColour(), collaEntity.getLogoKey());
         // NOTE: Created from zero, with new ID. // TODO Check if this is true
         return colla;
     }
@@ -20,6 +22,23 @@ public class MapperCollaCollaEntity {
         collaEntity.setNeighbourhood(colla.getNeighbourhood());
         collaEntity.setPrimaryColour(colla.getPrimaryColour());
         collaEntity.setSecondaryColour(colla.getSecondaryColour());
+        collaEntity.setLogoKey(colla.getLogoKey());
+
+        return collaEntity;
+    }
+
+    public static CollaEntity collaListingToCollaEntity(CollaListing currentCollaListing) {
+        CollaEntity collaEntity = new CollaEntity();
+        collaEntity.setId(currentCollaListing.id());
+        collaEntity.setName(currentCollaListing.name());
+        collaEntity.setEntity(currentCollaListing.entity());
+        collaEntity.setFoundationYear(currentCollaListing.foundationYear());
+        collaEntity.setDescription(currentCollaListing.description());
+        collaEntity.setType(currentCollaListing.type());
+        collaEntity.setNeighbourhood(currentCollaListing.neighbourhood());
+        collaEntity.setPrimaryColour(currentCollaListing.primaryColour());
+        collaEntity.setSecondaryColour(currentCollaListing.secondaryColour());
+        collaEntity.setLogoKey(currentCollaListing.logoKey());
 
         return collaEntity;
     }

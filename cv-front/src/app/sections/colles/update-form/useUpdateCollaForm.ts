@@ -8,18 +8,18 @@ export const enum FormStatus {
 }
 
 export function useUpdateCollaForm(): {
-    submitForm: ({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour}:
-                     { id: string; name: string; entity: string; foundationYear: number; description: string, type: string; neighbourhood: string; primaryColour: string; secondaryColour: string })
+    submitForm: ({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo}:
+                     { id: string; name: string; entity: string; foundationYear: number; description: string, type: string; neighbourhood: string; primaryColour: string; secondaryColour: string; logo: File | null })
         => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
     const { updateColla } = useCollesContext();
 
-    function submitForm({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour }:
-                            { id: string, name: string, entity: string, foundationYear: number, description: string, type: string; neighbourhood: string; primaryColour: string; secondaryColour: string }) {
+    function submitForm({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo }:
+                            { id: string, name: string, entity: string, foundationYear: number, description: string, type: string; neighbourhood: string; primaryColour: string; secondaryColour: string; logo: File | null }) {
         setFormStatus(FormStatus.Loading);
         try {
-            updateColla({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour })
+            updateColla({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo })
                 .then(() => {
                     setFormStatus(FormStatus.Success);
                 })

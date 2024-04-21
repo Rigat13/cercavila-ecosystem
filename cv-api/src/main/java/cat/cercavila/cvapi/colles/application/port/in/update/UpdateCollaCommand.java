@@ -1,5 +1,7 @@
 package cat.cercavila.cvapi.colles.application.port.in.update;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.*;
 
 public record UpdateCollaCommand(
@@ -56,5 +58,6 @@ public record UpdateCollaCommand(
     )
     String neighbourhood,
     String primaryColour,
-    String secondaryColour
+    String secondaryColour,
+    MultipartFile logo
     ) {}
