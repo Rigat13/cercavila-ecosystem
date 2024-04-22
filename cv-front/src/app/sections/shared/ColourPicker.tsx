@@ -8,11 +8,12 @@ interface ColourPickerProps {
 
 const ColourPicker: React.FC<ColourPickerProps> = ({ value, onChange }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null!);
-    const [toneValue, setToneValue] = useState<number>(50); // State variable for tone slider value
+    const [hueValue, setHueValue] = useState<number>(50); // State variable for hue slider value
+    const [selectorPosition, setSelectorPosition] = useState<{ x: number; y: number } | null>(null); // State variable for selector position
 
     useEffect(() => {
         drawGradient();
-    }, [value, toneValue]); // Re-draw gradient when either the value or toneValue changes
+    }, [value, hueValue, selectorPosition]); // Re-draw gradient when either the value, hueValue, or selectorPosition changes
 
     const drawGradient = () => {
         const canvas = canvasRef.current;
@@ -31,7 +32,7 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ value, onChange }) => {
         const horizontalGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
         horizontalGradient.addColorStop(0, 'white');
         if (/^#[0-9A-F]{6}$/i.test(value)) { // Regular expression for hex color format
-            const adjustedValue = adjustColorTone(value, toneValue);
+            const adjustedValue = adjustColourHue(value, hueValue);
             horizontalGradient.addColorStop(1, adjustedValue);
         } else {
             // Default to black if value is not a valid color string
@@ -47,7 +48,7 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ value, onChange }) => {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     };
 
-    const adjustColorTone = (color: string, tone: number) => {
+    const adjustColourHue = (color: string, tone: number) => {
         // Adjust the color tone based on the tone value
         // For example, you can adjust the saturation or brightness of the color
         // Here, we simply adjust the brightness by modifying the lightness value in HSL color space
@@ -121,24 +122,79 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ value, onChange }) => {
         return hslToRgb(h, s, l);
     };
 
-    const handleToneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleHueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = parseInt(event.target.value); // Parse the new value to an integer
-        setToneValue(newValue); // Update the state variable
+        setHueValue(newValue); // Update the state variable
     };
 
     const handleTextInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         onChange(event);
     };
 
+    const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        // Get canvas bounding rectangle
+        const canvasRect = canvas.getBoundingClientRect();
+
+        // Calculate mouse position relative to canvas
+        const mouseX = event.clientX - canvasRect.left;
+        const mouseY = event.clientY - canvasRect.top;
+
+        // Set selector position
+        setSelectorPosition({ x: mouseX, y: mouseY });
+
+        // Get color value at clicked position
+        const color = getColorAtPosition(canvas, mouseX, mouseY);
+        onChangeColor(color);
+    };
+
+    const getColorAtPosition = (canvas: HTMLCanvasElement, x: number, y: number): string => {
+        // Get canvas context
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return '';
+
+        // Get image data at the clicked position
+        const imageData = ctx.getImageData(x, y, 1, 1);
+
+        // Extract RGB components
+        const [r, g, b] = imageData.data;
+
+        // Convert RGB to hexadecimal color
+        const colorHex = `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
+        return colorHex;
+    };
+
+    const onChangeColor = (color: string) => {
+        // Update color value
+        onChange({ target: { value: color } });
+    };
+
     return (
         <div className={styles.colourPicker}>
-            <canvas ref={canvasRef} className={styles.canvas} width={200} height={100}></canvas>
+            <canvas
+                ref={canvasRef}
+                className={styles.canvas}
+                width={200}
+                height={100}
+                onClick={handleCanvasClick}
+            ></canvas>
+            {selectorPosition && (
+                <div
+                    className={styles.selector}
+                    style={{
+                        top: selectorPosition.y - 5 + 'px',
+                        left: selectorPosition.x - 5 + 'px',
+                    }}
+                ></div>
+            )}
             <input
                 type="range"
                 min="0"
                 max="100"
-                value={toneValue} // Bind the value to the state variable
-                onChange={handleToneChange}
+                value={hueValue} // Bind the value to the state variable
+                onChange={handleHueChange}
                 className={styles.rangeInput}
             />
             <input
