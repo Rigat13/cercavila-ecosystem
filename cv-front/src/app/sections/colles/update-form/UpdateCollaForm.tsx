@@ -14,6 +14,7 @@ import {isCollaTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,collaTypes} from "@/mod
 import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH, neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
 import {isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
 import {isCollaLogoValid, LOGO_MAX_MBS} from "@/modules/colles/domain/colla-attributes/CollaLogo";
+import ColourPicker from "@/app/sections/shared/ColourPicker";
 
 const initialState = {
     id: "",
@@ -36,11 +37,18 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     const [errors, setErrors] = useState(initialState);
     const [isDeleted, setIsDeleted] = useState(false);
     const { colles } = useCollesContext();
+
+    const [isPrimaryColourPickerOpen, setIsPrimaryColourPickerOpen] = useState(false);
+    const [isSecondaryColourPickerOpen, setIsSecondaryColourPickerOpen] = useState(false);
+    const [primaryColour, setPrimaryColour] = useState('#FFFFFF');
+    const [secondaryColour, setSecondaryColour] = useState('#FFFFFF');
+
     const [logo, setImage] = useState<File | null>(null);
     const [logoSize, setLogoSize] = useState(0);
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
     const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
     const [isFirstTimeValidation, setIsFirstTimeValidation] = useState(true);
+
     lang = lang;
 
     useEffect(() => {
@@ -127,12 +135,14 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
 
     const handlePrimaryColourChange = (ev) => {
         const newPrimaryColour = ev.target.value;
+        setPrimaryColour(newPrimaryColour);
         updateForm({ primaryColour: newPrimaryColour });
         validateFormData({ ...formData, primaryColour: newPrimaryColour });
     }
 
     const handleSecondaryColourChange = (ev) => {
         const newSecondaryColour = ev.target.value;
+        setSecondaryColour(newSecondaryColour);
         updateForm({ secondaryColour: newSecondaryColour });
         validateFormData({ ...formData, secondaryColour: newSecondaryColour });
     }
@@ -365,13 +375,19 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
 
                         <div className={styles.formGroup}>
                             <label htmlFor="primaryColour">{dictionary[lang]?.collaPrimaryColour}</label>
-                            <input
-                                type="color"
-                                id="primaryColour"
-                                name="primaryColour"
-                                value={formData.primaryColour}
-                                onChange={handlePrimaryColourChange}
-                            />
+                            <button
+                                className={styles.colourPreviewButton}
+                                id="primaryColourPreviewButton"
+                                style={{ backgroundColor: primaryColour }}
+                                onClick={(event) => { event.preventDefault(); setIsPrimaryColourPickerOpen(!isPrimaryColourPickerOpen); }}/>
+                            {isPrimaryColourPickerOpen && (
+                                <ColourPicker
+                                    id="primaryColour"
+                                    name="primaryColour"
+                                    value={formData.primaryColour}
+                                    onChange={handlePrimaryColourChange}
+                                />
+                            )}
                             {errors.primaryColour && (
                                 <div style={{ color: "tomato" }}>{errors.primaryColour}</div>
                             )}
@@ -379,13 +395,19 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
 
                         <div className={styles.formGroup}>
                             <label htmlFor="secondaryColour">{dictionary[lang]?.collaSecondaryColour}</label>
-                            <input
-                                type="color"
-                                id="secondaryColour"
-                                name="secondaryColour"
-                                value={formData.secondaryColour}
-                                onChange={handleSecondaryColourChange}
-                            />
+                            <button
+                                className={styles.colourPreviewButton}
+                                id="secondaryColourPreviewButton"
+                                style={{ backgroundColor: secondaryColour }}
+                                onClick={(event) => { event.preventDefault(); setIsSecondaryColourPickerOpen(!isSecondaryColourPickerOpen); }}/>
+                            {isSecondaryColourPickerOpen && (
+                                <ColourPicker
+                                    id="secondaryColour"
+                                    name="secondaryColour"
+                                    value={formData.secondaryColour}
+                                    onChange={handleSecondaryColourChange}
+                                />
+                            )}
                             {errors.secondaryColour && (
                                 <div style={{ color: "tomato" }}>{errors.secondaryColour}</div>
                             )}

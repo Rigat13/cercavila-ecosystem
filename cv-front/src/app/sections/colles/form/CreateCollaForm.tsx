@@ -36,14 +36,17 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const { formData, updateForm, resetForm } = useCollaFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
-    const [logo, setImage] = useState<File | null>(null);
-    const [logoSize, setLogoSize] = useState(0);
-    const [logoPreview, setLogoPreview] = useState<string | null>(null);
-    const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
+
     const [isPrimaryColourPickerOpen, setIsPrimaryColourPickerOpen] = useState(false);
     const [isSecondaryColourPickerOpen, setIsSecondaryColourPickerOpen] = useState(false);
     const [primaryColour, setPrimaryColour] = useState('#FFFFFF');
     const [secondaryColour, setSecondaryColour] = useState('#FFFFFF');
+
+    const [logo, setImage] = useState<File | null>(null);
+    const [logoSize, setLogoSize] = useState(0);
+    const [logoPreview, setLogoPreview] = useState<string | null>(null);
+    const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
+
     lang = lang;
 
     useEffect(() => {
