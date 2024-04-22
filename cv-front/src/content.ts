@@ -57,6 +57,16 @@ interface DictionaryEntry {
     neighbourhoodLesCincSenies: string;
     neighbourhoodVallveric: string;
 
+    // MUSIC TYPES
+    selectMusic: string;
+    musicFlabiol: string;
+    musicGralla: string;
+    musicBatucada: string;
+    musicBand: string;
+    musicGrallaBand: string;
+    musicOther: string;
+    musicNone: string;
+
     // CREATE COLLA
     collesTitle: string;
     createCollaTitle: string;
@@ -119,7 +129,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaInstagram: "Enllaç o usuari d'Instagram",
 
         // COLLA TYPE
-        selectCollaType: "Tipus de colla",
+        selectCollaType: "-- Tipus de colla --",
         collaTypeInstitutional: "Institucional",
         collaTypeNeighbourhood: "Barri",
         collaTypeStreet: "Carrer",
@@ -134,7 +144,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaTypePrivate: "Particular",
 
         // COLLA NEIGHBOURHOOD
-        selectNeighbourhood: "Barri",
+        selectNeighbourhood: "-- Barri --",
         neighbourhoodCentre: "Centre",
         neighbourhoodEixample: "Eixample",
         neighbourhoodPlaDenBoet: "Pla d'en Boet",
@@ -152,6 +162,16 @@ export const dictionary: Record<string, DictionaryEntry> = {
         neighbourhoodLesCincSenies: "Les Cinc Sénies",
         neighbourhoodVallveric: "Vallveric",
 
+        // MUSIC TYPES
+        selectMusic: "-- Acompanyament musical --",
+        musicFlabiol: "Flabiol i tamborí",
+        musicGralla: "Gralla i percussió",
+        musicBatucada: "Batucada",
+        musicBand: "Banda",
+        musicGrallaBand: "Gralla i banda",
+        musicOther: "Altres",
+        musicNone: "Sense música",
+
         // CREATE COLLA
         collesTitle: "Colles registrades",
         createCollaTitle: "Crea una nova colla",
@@ -161,11 +181,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesEntityInvalid: "L'entitat no és vàlida. Ha de començar en majúscula i tenir caràcters entre: ",
         collesFoundationYearInvalid: "L'any de fundació no és vàlid. Ha de ser un número entre: ",
         collesDescriptionInvalid: "La descripció no és vàlida. Ha de tenir caràcters vàlids entre: ",
-        collesTypeInvalid: "El tipus no és vàlid. Ha de tenir caràcters vàlids entre: ",
-        collesNeighbourhoodInvalid: "El barri no és vàlid. Ha de tenir caràcters vàlids entre: ",
+        collesTypeInvalid: "El tipus no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+        collesNeighbourhoodInvalid: "El barri no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
         collesPrimaryColourInvalid: "El color primari no és vàlid. Ha de seguir el format hexadecimal.",
         collesSecondaryColourInvalid: "El color secundari no és vàlid. Ha de seguir el format hexadecimal.",
-        collesMusicInvalid: "L'acompanyament musical no és vàlid. Ha de tenir caràcters vàlids entre: ",
+        collesMusicInvalid: "L'acompanyament musical no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
         collesEmailInvalid: "El correu electrònic no és vàlid. Ha de seguir el format de correu amb caràcters vàlids entre: ",
         collesInstagramInvalid: "L'enllaç o usuari d'Instagram no és vàlid. Ha de tenir caràcters vàlids entre: ",
 
@@ -212,7 +232,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaInstagram: "Enlace o usuario de Instagram",
 
         // COLLA TYPE
-        selectCollaType: "Tipo de colla",
+        selectCollaType: "-- Tipo de colla --",
         collaTypeInstitutional: "Institucional",
         collaTypeNeighbourhood: "Barrio",
         collaTypeStreet: "Calle",
@@ -227,7 +247,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaTypePrivate: "Particular",
 
         // COLLA NEIGHBOURHOOD
-        selectNeighbourhood: "Barrio",
+        selectNeighbourhood: "-- Barrio --",
         neighbourhoodCentre: "Centre",
         neighbourhoodEixample: "Eixample",
         neighbourhoodPlaDenBoet: "Pla d'en Boet",
@@ -245,6 +265,16 @@ export const dictionary: Record<string, DictionaryEntry> = {
         neighbourhoodLesCincSenies: "Les Cinc Sénies",
         neighbourhoodVallveric: "Vallveric",
 
+        // MUSIC TYPES
+        selectMusic: "-- Acompañamiento musical --",
+        musicFlabiol: "Flabiol y tamborí",
+        musicGralla: "Gralla y percusión",
+        musicBatucada: "Batucada",
+        musicBand: "Banda",
+        musicGrallaBand: "Gralla y banda",
+        musicOther: "Otros",
+        musicNone: "Sin música",
+
         // CREATE COLLA
         collesTitle: "Collas registradas",
         createCollaTitle: "Crea una nueva colla",
@@ -254,11 +284,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesEntityInvalid: "La entidad no es válida. Debe empezar en mayúscula y tener carácteres entre: ",
         collesFoundationYearInvalid: "El año de fundación no es válido. Debe ser un número entre: ",
         collesDescriptionInvalid: "La descripción no es válida. Debe tener carácteres válidos entre: ",
-        collesTypeInvalid: "El tipo no es válido. Debe tener carácteres válidos entre: ",
-        collesNeighbourhoodInvalid: "El barrio no es válido. Debe tener carácteres válidos entre: ",
+        collesTypeInvalid: "El tipo no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+        collesNeighbourhoodInvalid: "El barrio no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
         collesPrimaryColourInvalid: "El color primario no es válido. Debe seguir el formato hexadecimal.",
         collesSecondaryColourInvalid: "El color secundario no es válido. Debe seguir el formato hexadecimal.",
-        collesMusicInvalid: "El acompañamiento musical no es válido. Debe tener carácteres válidos entre: ",
+        collesMusicInvalid: "El acompañamiento musical no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
         collesEmailInvalid: "El correo electrónico no es válido. Debe seguir el formato de correo con carácteres válidos entre: ",
         collesInstagramInvalid: "El enlace o usuario de Instagram no es válido. Debe tener carácteres válidos entre: ",
 
@@ -305,7 +335,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaInstagram: "Instagram link or user",
 
         // COLLA TYPE
-        selectCollaType: "Colla type",
+        selectCollaType: "-- Colla type --",
         collaTypeInstitutional: "Institutional",
         collaTypeNeighbourhood: "Neighbourhood",
         collaTypeStreet: "Street",
@@ -320,7 +350,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaTypePrivate: "Private",
 
         // COLLA NEIGHBOURHOOD
-        selectNeighbourhood: "Neighbourhood",
+        selectNeighbourhood: "-- Neighbourhood --",
         neighbourhoodCentre: "Centre",
         neighbourhoodEixample: "Eixample",
         neighbourhoodPlaDenBoet: "Pla d'en Boet",
@@ -338,6 +368,16 @@ export const dictionary: Record<string, DictionaryEntry> = {
         neighbourhoodLesCincSenies: "Les Cinc Sénies",
         neighbourhoodVallveric: "Vallveric",
 
+        // MUSIC TYPES
+        selectMusic: "-- Music --",
+        musicFlabiol: "Flabiol and tamborí",
+        musicGralla: "Gralla and percussion",
+        musicBatucada: "Batucada",
+        musicBand: "Band",
+        musicGrallaBand: "Gralla and band",
+        musicOther: "Other",
+        musicNone: "No music",
+
         // CREATE COLLA
         collesTitle: "Registered colles",
         createCollaTitle: "Create a new colla",
@@ -347,11 +387,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesEntityInvalid: "The entity is not valid. It must start with an uppercase letter and have characters between: ",
         collesFoundationYearInvalid: "The foundation year is not valid. It must be a number between: ",
         collesDescriptionInvalid: "The description is not valid. It must have valid characters between: ",
-        collesTypeInvalid: "The type is not valid. It must have valid characters between: ",
-        collesNeighbourhoodInvalid: "The neighbourhood is not valid. It must have valid characters between: ",
+        collesTypeInvalid: "The type is not valid. It must be one from the list, with valid characters between: ",
+        collesNeighbourhoodInvalid: "The neighbourhood is not valid. It must be one from the list, with valid characters between: ",
         collesPrimaryColourInvalid: "The primary colour is not valid. It must follow the hexadecimal format.",
         collesSecondaryColourInvalid: "The secondary colour is not valid. It must follow the hexadecimal format.",
-        collesMusicInvalid: "The music is not valid. It must have valid characters between: ",
+        collesMusicInvalid: "The music is not valid. It must be one from the list, with valid characters between: ",
         collesEmailInvalid: "The email is not valid. It must follow the email format with valid characters between: ",
         collesInstagramInvalid: "The Instagram link or user is not valid. It must have valid characters between: ",
 

@@ -16,7 +16,7 @@ import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_L
 import {isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
 import {isCollaLogoValid, LOGO_MAX_MBS} from "@/modules/colles/domain/colla-attributes/CollaLogo";
 import ColourPicker from "@/app/sections/shared/ColourPicker";
-import {isCollaMusicValid} from "@/modules/colles/domain/colla-attributes/CollaMusic";
+import {isCollaMusicValid, musics} from "@/modules/colles/domain/colla-attributes/CollaMusic";
 import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
 import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
 
@@ -156,13 +156,13 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         isEntityValid = isCollaEntityValid(entity);
         isFoundationYearValid = !isNaN(foundationYear) && isCollaFoundationYearValid(foundationYear);
         isDescriptionValid = isCollaDescriptionValid(description);
-        isTypeValid = isCollaTypeValid(type);
-        isNeighbourhoodValid = isCollaNeighbourhoodValid(neighbourhood);
+        isTypeValid = isCollaTypeValid(type, dictionary[lang]?.selectCollaType+"");
+        isNeighbourhoodValid = isCollaNeighbourhoodValid(neighbourhood, dictionary[lang]?.selectNeighbourhood+"");
         isPrimaryColourValid = isCollaColourValid(primaryColour);
         isSecondaryColourValid = isCollaColourValid(secondaryColour);
         if (!isLogoAlreadyValid) isLogoValid = isCollaLogoValid(logo);
         setLogoAlreadyValid(isLogoValid);
-        isMusicValid = isCollaMusicValid(music);
+        isMusicValid = isCollaMusicValid(music, dictionary[lang]?.selectMusic+"");
         isEmailValid = isCollaEmailValid(email);
         isInstagramValid = isCollaInstagramValid(instagram) || instagram === "" || instagram == null; // Optional field
 
@@ -389,13 +389,19 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="music">{dictionary[lang]?.collaMusic}</label>
-                            <input
-                                type="text"
+                            <select
                                 id="music"
                                 name="music"
                                 value={formData.music}
                                 onChange={handleMusicChange}
-                            />
+                            >
+                                <option value="">{dictionary[lang]?.selectMusic}</option>
+                                {musics.map(option => (
+                                    <option key={option.labelKey} value={option.labelKey}>
+                                        {dictionary[lang]?.[option.labelKey]}
+                                    </option>
+                                ))}
+                            </select>
                             {formData.music && errors.music && (
                                 <div style={{ color: "tomato" }}>{errors.music}</div>
                             )}

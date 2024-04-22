@@ -59,7 +59,19 @@ public record CreateCollaCommand(
     String primaryColour,
     String secondaryColour,
     MultipartFile logo,
+
+    @Pattern(regexp =
+            "^(musicFlabiol" +
+                    "|musicGralla" +
+                    "|musicBatucada" +
+                    "|musicBand" +
+                    "|musicGrallaBand" +
+                    "|musicOther" +
+                    "|musicNone)$",
+            message = "El tipus de música no és un dels valors permesos."
+    )
     String music,
+
     String email,
     String instagram
 ) {}
