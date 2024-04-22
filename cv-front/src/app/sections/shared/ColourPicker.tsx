@@ -58,6 +58,10 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ value: initialValue, onChan
 
     const handleTextInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         onChange(event);
+        // Update the hue:
+        const newColor = event.target.value;
+        const [hue, , ] = hexToHSL(newColor);
+        setHueValue(hue);
     };
 
     const moveSelector = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -69,9 +73,6 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ value: initialValue, onChan
             const y = event.clientY - rect.top;
             selector.style.left = `${x}px`;
             selector.style.top = `${y}px`;
-            // Calculate hue value based on selector position and update state
-            // Update hueValue based on the selector's position
-            // Update value based on the color at the selector's position
             const color = getColorAtPosition(canvas, x, y);
             onChangeColor(color);
         }
@@ -96,41 +97,70 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ value: initialValue, onChan
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        // Get canvas bounding rectangle
         const canvasRect = canvas.getBoundingClientRect();
-
-        // Calculate mouse position relative to canvas
         const mouseX = event.clientX - canvasRect.left;
         const mouseY = event.clientY - canvasRect.top;
-
-        // Set selector position
         setSelectorPosition({ x: mouseX, y: mouseY });
 
-        // Get color value at clicked position
         const color = getColorAtPosition(canvas, mouseX, mouseY);
         onChangeColor(color);
     };
 
     const getColorAtPosition = (canvas: HTMLCanvasElement, x: number, y: number): string => {
-        // Get canvas context
         const ctx = canvas.getContext('2d');
         if (!ctx) return '';
 
-        // Get image data at the clicked position
         const imageData = ctx.getImageData(x, y, 1, 1);
 
-        // Extract RGB components
         const [r, g, b] = imageData.data;
-
-        // Convert RGB to hexadecimal color
         const colorHex = `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
         return colorHex;
     };
 
     const onChangeColor = (color: string) => {
-        // Update color value
         onChange({ target: { value: color } });
         setValue(color);
+    };
+
+    const hexToHSL = (hex: string): number[] => {
+        // Convert hexadecimal color to HSL (Hue, Saturation, Lightness) color space
+        // Remove '#' from hex string if present
+        hex = hex.replace('#', '');
+
+        // Convert hex to RGB
+        const bigint = parseInt(hex, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+
+        // Convert RGB to HSL
+        let h, s, l;
+        const rr = r / 255,
+            gg = g / 255,
+            bb = b / 255;
+        const max = Math.max(rr, gg, bb);
+        const min = Math.min(rr, gg, bb);
+        l = (max + min) / 2;
+
+        if (max === min) {
+            h = s = 0; // achromatic
+        } else {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case rr:
+                    h = (gg - bb) / d + (gg < bb ? 6 : 0);
+                    break;
+                case gg:
+                    h = (bb - rr) / d + 2;
+                    break;
+                case bb:
+                    h = (rr - gg) / d + 4;
+                    break;
+            }
+            h /= 6;
+        }
+        return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
     };
 
     return (
