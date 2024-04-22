@@ -130,6 +130,7 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ value: initialValue, onChan
     const onChangeColor = (color: string) => {
         // Update color value
         onChange({ target: { value: color } });
+        setValue(color);
     };
 
     return (
