@@ -6,7 +6,7 @@ import cat.cercavila.cvapi.colles.domain.Colla;
 public class MapperCollaCollaEntity {
     public static Colla collaEntityToColla(CollaEntity collaEntity) {
         Colla colla = new Colla(collaEntity.getName(), collaEntity.getEntity(), collaEntity.getFoundationYear(), collaEntity.getDescription(), collaEntity.getType(), collaEntity.getNeighbourhood(),
-                collaEntity.getPrimaryColour(), collaEntity.getSecondaryColour(), collaEntity.getLogoKey());
+                collaEntity.getPrimaryColour(), collaEntity.getSecondaryColour(), collaEntity.getLogoKey(), collaEntity.getMusic());
         // NOTE: Created from zero, with new ID. // TODO Check if this is true
         return colla;
     }
@@ -23,6 +23,7 @@ public class MapperCollaCollaEntity {
         collaEntity.setPrimaryColour(colla.getPrimaryColour());
         collaEntity.setSecondaryColour(colla.getSecondaryColour());
         collaEntity.setLogoKey(colla.getLogoKey());
+        collaEntity.setMusic(colla.getMusic());
 
         return collaEntity;
     }
@@ -39,6 +40,7 @@ public class MapperCollaCollaEntity {
         collaEntity.setPrimaryColour(currentCollaListing.primaryColour());
         collaEntity.setSecondaryColour(currentCollaListing.secondaryColour());
         collaEntity.setLogoKey(currentCollaListing.logoKey());
+        collaEntity.setMusic(currentCollaListing.music());
 
         return collaEntity;
     }

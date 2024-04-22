@@ -36,6 +36,7 @@ public class StoreCollaAdapter implements StoreCollaPort {
         collaEntity.setPrimaryColour(createCollaCommand.primaryColour());
         collaEntity.setSecondaryColour(createCollaCommand.secondaryColour());
         collaEntity.setLogoKey(logoKey);
+        collaEntity.setMusic(createCollaCommand.music());
 
         return collaEntity;
     }

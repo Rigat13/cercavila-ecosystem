@@ -41,6 +41,7 @@ public class UpdateCollaAdapter implements UpdateCollaPort {
         collaEntity.setPrimaryColour(updateCollaCommand.primaryColour());
         collaEntity.setSecondaryColour(updateCollaCommand.secondaryColour());
         collaEntity.setLogoKey(logoKey);
+        collaEntity.setMusic(updateCollaCommand.music());
 
         return collaEntity;
     }

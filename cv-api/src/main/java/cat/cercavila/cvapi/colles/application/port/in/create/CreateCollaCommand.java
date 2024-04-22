@@ -58,5 +58,6 @@ public record CreateCollaCommand(
     String neighbourhood,
     String primaryColour,
     String secondaryColour,
-    MultipartFile logo
+    MultipartFile logo,
+    String music
 ) {}

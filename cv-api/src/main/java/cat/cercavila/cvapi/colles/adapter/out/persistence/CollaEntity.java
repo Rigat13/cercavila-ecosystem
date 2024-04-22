@@ -21,6 +21,7 @@ public class CollaEntity {
     private String primaryColour;
     private String secondaryColour;
     private String logoKey;
+    private String music;
 
     public void setId(String id) { this.id = id; }
     public String getId() { return id; }
@@ -43,5 +44,7 @@ public class CollaEntity {
     public void setSecondaryColour(String secondaryColour) { this.secondaryColour = secondaryColour; }
     public String getLogoKey() { return logoKey; }
     public void setLogoKey(String logoKey) { this.logoKey = logoKey; }
+    public String getMusic() { return music; }
+    public void setMusic(String music) { this.music = music; }
 
 }
