@@ -26,7 +26,7 @@ function HomeContent() {
     <main>
       <div className={stylesSidebar.sidebar}>
         <button className={stylesSidebar.sidebarButton} onClick={toggleSidebar}>
-          <img src="/icons/logo-burger.svg" alt="Side bar" />
+          <img src="/icons/icon-burger.svg" alt="Side bar" />
         </button>
         <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
       </div>

@@ -4,8 +4,7 @@ export const INSTAGRAM_ERROR_MESSAGE = `L'usuari d'Instagram no és vàlid. Ha d
 
 export function isCollaInstagramValid(instagram: string): boolean {
     if (!instagram || instagram.length <= INSTAGRAM_MIN_LENGTH || instagram.length > INSTAGRAM_MAX_LENGTH+1) return false;
-    const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
-    return regexExp.test(instagram);
+    return true;
 }
 
 export function CollaInstagramNotValidError(instagram: string): Error {

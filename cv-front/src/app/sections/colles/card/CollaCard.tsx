@@ -18,7 +18,7 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
         <div className={styles.collaCard}>
             <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                 <button className={styles.updateButton}>
-                    <img src="/icons/edit.svg" alt="Editar" />
+                    <img src="/icons/icon-edit.svg" alt="Editar" />
                 </button>
             </a>
             <h3 className={styles.collaCard__name}>{colla.name}</h3>
@@ -43,8 +43,30 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
                     className={styles.collaCard__logo}
                 />
             )}
+
+            {colla.instagram && (
+                <a href={getInstagramUrl(colla.instagram)}>
+                    <button className={styles.outerLink}>
+                        <img src="/icons/icon-instagram.png" alt="Editar" />
+                    </button>
+                </a>
+            )}
         </div>
     );
+}
+
+function getInstagramUrl(usernameOrUrl: string): string {
+    if (usernameOrUrl.startsWith('http')) {
+        return usernameOrUrl;
+    } else if (usernameOrUrl.startsWith('www.')) {
+        return `https://${usernameOrUrl}`;
+    } else if (usernameOrUrl.startsWith('instagram.com')) {
+        return `https://${usernameOrUrl}`;
+    }
+    else if (usernameOrUrl.startsWith('@')) {
+        return `https://www.instagram.com/${usernameOrUrl.slice(1)}`;
+    }
+    return `https://www.instagram.com/${usernameOrUrl}`;
 }
 
 function base64ToBlob(base64: string): Blob {
