@@ -269,7 +269,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     if (isDeleted) {
         return (
             <section className={styles.collaForm}>
-                <h2 className={styles.h2}>{dictionary[lang]?.successUpdateCollaMessage}</h2>
+                <h2 className={styles.h2}>{dictionary[lang]?.successDeleteCollaMessage}</h2>
                 <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`} className={styles.h2}>
                     <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
                 </a>
@@ -529,7 +529,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             className={styles.actionButton}
                             type="submit"
                             disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid ||
-                                !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid || !isMusicValid || !isEmailValid || !isInstagramValid}
+                                !isPrimaryColourValid || !isSecondaryColourValid || (logoSize > LOGO_MAX_MBS) || !isMusicValid || !isEmailValid || !isInstagramValid}
                         >
                             {dictionary[lang]?.updateCollaButton}
                         </button>

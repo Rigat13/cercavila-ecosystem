@@ -48,10 +48,10 @@ export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, des
     if (!isCollaDescriptionValid(description)) {
         throw CollaDescriptionNotValidError(description);
     }
-    if (!isCollaTypeValid(type)) {
+    if (!isCollaTypeValid(type, "")) {
         throw CollaTypeNotValidError(type);
     }
-    if (!isCollaNeighbourhoodValid(neighbourhood)) {
+    if (!isCollaNeighbourhoodValid(neighbourhood, "")) {
         throw CollaNeighbourhoodNotValidError(neighbourhood);
     }
     if (!isCollaColourValid(primaryColour)) {
@@ -63,7 +63,7 @@ export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, des
     if (!isCollaLogoValid(logo)) {
         throw CollaLogoNotValidError(logo);
     }
-    if (!isCollaMusicValid(music)) {
+    if (!isCollaMusicValid(music, "")) {
         throw CollaMusicNotValidError(music);
     }
     if (!isCollaEmailValid(email)) {
