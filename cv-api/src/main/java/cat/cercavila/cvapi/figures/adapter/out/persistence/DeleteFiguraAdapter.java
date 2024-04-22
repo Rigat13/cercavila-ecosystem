@@ -1,11 +1,11 @@
 package cat.cercavila.cvapi.figures.adapter.out.persistence;
 
-import cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity;
-import cat.cercavila.cvapi.colles.adapter.out.persistence.CollaRepository;
-import cat.cercavila.cvapi.colles.adapter.out.persistence.MapperCollaCollaEntity;
-import cat.cercavila.cvapi.colles.application.port.in.delete.DeleteCollaCommand;
-import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
-import cat.cercavila.cvapi.colles.application.port.out.DeleteCollaPort;
+import cat.cercavila.cvapi.figures.adapter.out.persistence.FiguraEntity;
+import cat.cercavila.cvapi.figures.adapter.out.persistence.FiguraRepository;
+import cat.cercavila.cvapi.figures.adapter.out.persistence.MapperFiguraFiguraEntity;
+import cat.cercavila.cvapi.figures.application.port.in.delete.DeleteFiguraCommand;
+import cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing;
+import cat.cercavila.cvapi.figures.application.port.out.DeleteFiguraPort;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Files;
@@ -13,36 +13,36 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Component
-public class DeleteFiguraAdapter implements DeleteCollaPort {
-    private final cat.cercavila.cvapi.colles.adapter.out.persistence.CollaRepository collaRepository;
+public class DeleteFiguraAdapter implements DeleteFiguraPort {
+    private final FiguraRepository figuraRepository;
 
-    public DeleteFiguraAdapter(CollaRepository collaRepository) { this.collaRepository = collaRepository; }
+    public DeleteFiguraAdapter(FiguraRepository figuraRepository) { this.figuraRepository = figuraRepository; }
 
     @Override
-    public void deleteColla(DeleteCollaCommand deleteCollaCommand) {
-        removeCurrentLogo(deleteCollaCommand);
-        collaRepository.delete(deleteCollaCommand2CollaEntity(deleteCollaCommand));
+    public void deleteFigura(DeleteFiguraCommand deleteFiguraCommand) {
+        removeCurrentImage(deleteFiguraCommand);
+        figuraRepository.delete(deleteFiguraCommand2FiguraEntity(deleteFiguraCommand));
     }
 
-    private cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity deleteCollaCommand2CollaEntity(DeleteCollaCommand deleteCollaCommand) {
-        cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity collaEntity = new cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity();
-        collaEntity.setId(deleteCollaCommand.id()); // IMPORTANT: Here, an existing ID is used to delete the Figura
+    private FiguraEntity deleteFiguraCommand2FiguraEntity(DeleteFiguraCommand deleteFiguraCommand) {
+        FiguraEntity figuraEntity = new FiguraEntity();
+        figuraEntity.setId(deleteFiguraCommand.id()); // IMPORTANT: Here, an existing ID is used to delete the Figura
         // The other fields are not necessary for the deletion
-        return collaEntity;
+        return figuraEntity;
     }
 
-    private void removeCurrentLogo(DeleteCollaCommand deleteCollaCommand) {
-        String collaId = deleteCollaCommand.id();
+    private void removeCurrentImage(DeleteFiguraCommand deleteFiguraCommand) {
+        String figuraId = deleteFiguraCommand.id();
 
-        CollaListing currentCollaListing;
-        try { currentCollaListing = collaRepository.getById(collaId).orElseThrow(); }
+        FiguraListing currentFiguraListing;
+        try { currentFiguraListing = figuraRepository.getById(figuraId).orElseThrow(); }
         catch (Exception e) { e.printStackTrace(); return; }
-        CollaEntity currentColla = MapperCollaCollaEntity.collaListingToCollaEntity(currentCollaListing);
+        FiguraEntity currentFigura = MapperFiguraFiguraEntity.figuraListingToFiguraEntity(currentFiguraListing);
 
-        String currentLogoKey = currentColla.getLogoKey();
-        if (currentLogoKey != null && !currentLogoKey.isEmpty()) {
+        String currentImageKey = currentFigura.getImageKey();
+        if (currentImageKey != null && !currentImageKey.isEmpty()) {
             try {
-                Path logoPath = Paths.get("/srv/cv-api/images", currentLogoKey);
+                Path logoPath = Paths.get("/srv/cv-api/images/figures", currentImageKey);
                 Files.deleteIfExists(logoPath);
             } catch (Exception e) { e.printStackTrace(); }
         }

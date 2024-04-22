@@ -1,19 +1,19 @@
 package cat.cercavila.cvapi.figures.adapter.in.web;
 
-import cat.cercavila.cvapi.colles.application.port.in.update.UpdateCollaCommand;
-import cat.cercavila.cvapi.colles.application.port.in.update.UpdateCollaUseCase;
+import cat.cercavila.cvapi.figures.application.port.in.update.UpdateFiguraCommand;
+import cat.cercavila.cvapi.figures.application.port.in.update.UpdateFiguraUseCase;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UpdateFiguraController {
-    private UpdateCollaUseCase updateCollaUseCase;
+    private UpdateFiguraUseCase updateFiguraUseCase;
 
-    public UpdateFiguraController(UpdateCollaUseCase updateCollaUseCase) { this.updateCollaUseCase = updateCollaUseCase; }
+    public UpdateFiguraController(UpdateFiguraUseCase updateFiguraUseCase) { this.updateFiguraUseCase = updateFiguraUseCase; }
 
-    @PutMapping("/api/colles")
-    public void updateColla(@ModelAttribute UpdateCollaCommand updateCollaCommand) {
-        updateCollaUseCase.updateColla(updateCollaCommand);
+    @PutMapping("/api/figures")
+    public void updateFigura(@ModelAttribute UpdateFiguraCommand updateFiguraCommand) {
+        updateFiguraUseCase.updateFigura(updateFiguraCommand);
     }
 }

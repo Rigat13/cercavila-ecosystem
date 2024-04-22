@@ -1,7 +1,7 @@
 package cat.cercavila.cvapi.figures.application.port.out;
 
-import cat.cercavila.cvapi.colles.application.port.in.delete.DeleteCollaCommand;
+import cat.cercavila.cvapi.figures.application.port.in.delete.DeleteFiguraCommand;
 
 public interface DeleteFiguraPort {
-    public void deleteColla(DeleteCollaCommand deleteCollaCommand);
+    public void deleteFigura(DeleteFiguraCommand deleteFiguraCommand);
 }

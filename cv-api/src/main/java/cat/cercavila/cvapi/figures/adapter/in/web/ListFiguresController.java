@@ -1,7 +1,7 @@
 package cat.cercavila.cvapi.figures.adapter.in.web;
 
-import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
-import cat.cercavila.cvapi.colles.application.port.in.list.ListColles;
+import cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing;
+import cat.cercavila.cvapi.figures.application.port.in.list.ListFigures;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,26 +9,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@ComponentScan({"cat.cercavila.cvapi.colles.application.port.in.list.ListFigura"})
+@ComponentScan({"cat.cercavila.cvapi.figures.application.port.in.list.ListFigures"})
 @RestController
 public class ListFiguresController {
-    private final ListColles listColles;
+    private final ListFigures listFigures;
 
 
-    public ListFiguresController(ListColles listColles) { this.listColles = listColles; }
+    public ListFiguresController(ListFigures listFigures) { this.listFigures = listFigures; }
 
-    @GetMapping("/api/colles/id/{id}")
-    public CollaListing getCollaById(@PathVariable String id) { return listColles.getCollaById(id); }
+    @GetMapping("/api/figures/id/{id}")
+    public FiguraListing getFiguraById(@PathVariable String id) { return listFigures.getFiguraById(id); }
 
-    @GetMapping("/api/colles/name/{name}")
-    public CollaListing getCollaByName(@PathVariable String name) { return listColles.getCollaByName(name); }
+    @GetMapping("/api/figures/name/{name}")
+    public FiguraListing getFiguraByName(@PathVariable String name) { return listFigures.getFiguraByName(name); }
 
-    @GetMapping("/api/colles/name")
-    public List<CollaListing> getAllCollesByName() { return listColles.getAllCollesByName(); }
+    @GetMapping("/api/figures/name")
+    public List<FiguraListing> getAllFiguresByName() { return listFigures.getAllFiguresByName(); }
 
-    @GetMapping("/api/colles/foundationYear")
-    public List<CollaListing> getAllCollesByFoundationYear() { return listColles.getAllCollesByFoundationYear(); }
+    @GetMapping("/api/figures/year")
+    public List<FiguraListing> getAllFiguresByYear() { return listFigures.getAllFiguresByYear(); }
 
-    @GetMapping("/api/colles")
-    public List<CollaListing> getAllColles() { return listColles.getAllColles(); }
+    @GetMapping("/api/figures/type")
+    public List<FiguraListing> getAllFiguresByType() { return listFigures.getAllFiguresByType(); }
+
+    @GetMapping("/api/figures")
+    public List<FiguraListing> getAllFigures() { return listFigures.getAllFigures(); }
 }

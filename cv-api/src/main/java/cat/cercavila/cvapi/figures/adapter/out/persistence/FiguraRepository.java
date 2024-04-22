@@ -1,7 +1,7 @@
 package cat.cercavila.cvapi.figures.adapter.out.persistence;
 
-import cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity;
-import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
+import cat.cercavila.cvapi.figures.adapter.out.persistence.FiguraEntity;
+import cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,48 +9,55 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface FiguraRepository extends JpaRepository<CollaEntity, Long> {
+public interface FiguraRepository extends JpaRepository<FiguraEntity, Long> {
 
     @Query("""
-            select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey, c.music, c.email, c.instagram)
+            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
+                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
 
-            from colla c 
-            where c.id = :id
+            from figura f 
+            where f.id = :id
         """)
-    Optional<CollaListing> getById(@Param("id") String nom);
+    Optional<FiguraListing> getById(@Param("id") String nom);
 
     @Query("""
-            select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey, c.music, c.email, c.instagram)
+            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
+                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
 
-            from colla c 
-            where c.name = :name
+            from figura f 
+            where f.name = :name
         """)
-    Optional<CollaListing> getByName(@Param("name") String name);
+    Optional<FiguraListing> getByName(@Param("name") String name);
 
     @Query("""
-            select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey, c.music, c.email, c.instagram)
-            from colla c 
-            order by c.name
+            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
+                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
+            from figura f 
+            order by f.name
         """)
-    List<CollaListing> loadAllCollesByName();
+    List<FiguraListing> loadAllFiguresByName();
 
     @Query("""
-            select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey, c.music, c.email, c.instagram)
-
-            from colla c 
-            order by c.foundationYear
+            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
+                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
+            from figura f 
+            order by f.year
         """)
-    List<CollaListing> loadAllCollesByFoundationYear();
+    List<FiguraListing> loadAllFiguresByYear();
 
     @Query("""
-            select new cat.cercavila.cvapi.colles.application.port.in.list.CollaListing(
-                            c.id, c.name, c.entity, c.foundationYear, c.description, c.type, c.neighbourhood, c.primaryColour, c.secondaryColour, c.logoKey, c.music, c.email, c.instagram)
-
-                            from colla c
+            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
+                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
+            from figura f 
+            order by f.type
         """)
-    List<CollaListing> findAllListing();
+    List<FiguraListing> loadAllFiguresByType();
+
+    @Query("""
+            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
+                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
+
+                            from figura f
+        """)
+    List<FiguraListing> findAllListing();
 }

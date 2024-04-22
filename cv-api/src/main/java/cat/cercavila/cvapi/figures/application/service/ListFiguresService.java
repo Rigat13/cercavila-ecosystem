@@ -1,38 +1,41 @@
 package cat.cercavila.cvapi.figures.application.service;
 
-import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
-import cat.cercavila.cvapi.colles.application.port.in.list.ListColles;
-import cat.cercavila.cvapi.colles.application.port.out.ListCollaPort;
-import cat.cercavila.cvapi.colles.application.service.exception.CollaNotFound;
+import cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing;
+import cat.cercavila.cvapi.figures.application.port.in.list.ListFigures;
+import cat.cercavila.cvapi.figures.application.port.out.ListFiguraPort;
+import cat.cercavila.cvapi.figures.application.service.exception.FiguraNotFound;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ListFiguresService implements ListColles {
-    private final ListCollaPort listCollesPort;
+public class ListFiguresService implements ListFigures {
+    private final ListFiguraPort listFiguresPort;
 
-    ListFiguresService(ListCollaPort listCollesPort) { this.listCollesPort = listCollesPort; }
+    ListFiguresService(ListFiguraPort listFiguresPort) { this.listFiguresPort = listFiguresPort; }
 
     @Override
-    public CollaListing getCollaById(String id) {
-        return listCollesPort.loadCollaById(id)
-                .orElseThrow(() -> new CollaNotFound(id));
+    public FiguraListing getFiguraById(String id) {
+        return listFiguresPort.loadFiguraById(id)
+                .orElseThrow(() -> new FiguraNotFound(id));
     }
 
     @Override
-    public CollaListing getCollaByName(String name) {
-        return listCollesPort.loadCollaByName(name)
-                .orElseThrow(() -> new CollaNotFound(name));
+    public FiguraListing getFiguraByName(String name) {
+        return listFiguresPort.loadFiguraByName(name)
+                .orElseThrow(() -> new FiguraNotFound(name));
     }
 
     @Override
-    public List<CollaListing> getAllCollesByName() { return listCollesPort.loadAllCollesByName(); }
+    public List<FiguraListing> getAllFiguresByName() { return listFiguresPort.loadAllFiguresByName(); }
 
     @Override
-    public List<CollaListing> getAllCollesByFoundationYear() { return listCollesPort.loadAllCollesByFoundationYear(); }
+    public List<FiguraListing> getAllFiguresByYear() { return listFiguresPort.loadAllFiguresByYear(); }
 
     @Override
-    public List<CollaListing> getAllColles() { return listCollesPort.loadAllColles(); }
+    public List<FiguraListing> getAllFiguresByType() { return listFiguresPort.loadAllFiguresByType(); }
+
+    @Override
+    public List<FiguraListing> getAllFigures() { return listFiguresPort.loadAllFigures(); }
 
 }

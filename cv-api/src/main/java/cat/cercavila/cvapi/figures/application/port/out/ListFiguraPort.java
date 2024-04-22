@@ -1,15 +1,16 @@
 package cat.cercavila.cvapi.figures.application.port.out;
 
-import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
+import cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ListFiguraPort {
-    Optional<CollaListing> loadCollaById(String id);
-    Optional<CollaListing> loadCollaByName(String name);
+    Optional<FiguraListing> loadFiguraById(String id);
+    Optional<FiguraListing> loadFiguraByName(String name);
 
-    List<CollaListing> loadAllCollesByName();
-    List<CollaListing> loadAllCollesByFoundationYear();
-    List<CollaListing> loadAllColles();
+    List<FiguraListing> loadAllFiguresByName();
+    List<FiguraListing> loadAllFiguresByYear();
+    List<FiguraListing> loadAllFiguresByType();
+    List<FiguraListing> loadAllFigures();
 }

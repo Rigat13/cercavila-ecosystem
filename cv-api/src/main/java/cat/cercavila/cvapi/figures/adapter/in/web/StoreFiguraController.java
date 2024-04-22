@@ -1,19 +1,19 @@
 package cat.cercavila.cvapi.figures.adapter.in.web;
 
-import cat.cercavila.cvapi.colles.application.port.in.create.CreateCollaUseCase;
-import cat.cercavila.cvapi.colles.application.port.in.create.CreateCollaCommand;
+import cat.cercavila.cvapi.figures.application.port.in.create.CreateFiguraUseCase;
+import cat.cercavila.cvapi.figures.application.port.in.create.CreateFiguraCommand;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class StoreFiguraController {
-    private CreateCollaUseCase createCollaUseCase;
+    private CreateFiguraUseCase createFiguraUseCase;
 
-    public StoreFiguraController(CreateCollaUseCase createCollaUseCase) {
-        this.createCollaUseCase = createCollaUseCase;
+    public StoreFiguraController(CreateFiguraUseCase createFiguraUseCase) {
+        this.createFiguraUseCase = createFiguraUseCase;
     }
 
-    @PostMapping("/api/colles")
-    public void storeColla(@ModelAttribute CreateCollaCommand createCollaCommand) {
-        createCollaUseCase.createColla(createCollaCommand);
+    @PostMapping("/api/figures")
+    public void storeFigura(@ModelAttribute CreateFiguraCommand createFiguraCommand) {
+        createFiguraUseCase.createFigura(createFiguraCommand);
     }
 }

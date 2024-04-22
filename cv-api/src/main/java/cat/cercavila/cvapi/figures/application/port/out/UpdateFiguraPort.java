@@ -1,7 +1,7 @@
 package cat.cercavila.cvapi.figures.application.port.out;
 
-import cat.cercavila.cvapi.colles.application.port.in.update.UpdateCollaCommand;
+import cat.cercavila.cvapi.figures.application.port.in.update.UpdateFiguraCommand;
 
 public interface UpdateFiguraPort {
-    public void updateColla(UpdateCollaCommand updateCollaCommand);
+    public void updateFigura(UpdateFiguraCommand updateFiguraCommand);
 }

@@ -1,8 +1,8 @@
 package cat.cercavila.cvapi.figures.adapter.out.persistence;
 
-import cat.cercavila.cvapi.colles.adapter.out.persistence.CollaRepository;
-import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
-import cat.cercavila.cvapi.colles.application.port.out.ListCollaPort;
+import cat.cercavila.cvapi.figures.adapter.out.persistence.FiguraRepository;
+import cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing;
+import cat.cercavila.cvapi.figures.application.port.out.ListFiguraPort;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -15,83 +15,84 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
-public class FetchFiguraListingAdapter implements ListCollaPort {
-    cat.cercavila.cvapi.colles.adapter.out.persistence.CollaRepository collaRepository;
+public class FetchFiguraListingAdapter implements ListFiguraPort {
+    FiguraRepository figuraRepository;
 
-    public FetchFiguraListingAdapter(CollaRepository collaRepository) {
-        this.collaRepository = collaRepository;
+    public FetchFiguraListingAdapter(FiguraRepository figuraRepository) {
+        this.figuraRepository = figuraRepository;
     }
 
     @Override
-    public Optional<CollaListing> loadCollaById(String id) {
-        Optional<CollaListing> collaListingOptional = collaRepository.getById(id);
-        return collaListingOptional.map(this::createCollaListingFromListing);
+    public Optional<FiguraListing> loadFiguraById(String id) {
+        Optional<FiguraListing> figuraListingOptional = figuraRepository.getById(id);
+        return figuraListingOptional.map(this::createFiguraListingFromListing);
     }
 
     @Override
-    public Optional<CollaListing> loadCollaByName(String name) {
-        Optional<CollaListing> collaListingOptional = collaRepository.getByName(name);
-        return collaListingOptional.map(this::createCollaListingFromListing);
+    public Optional<FiguraListing> loadFiguraByName(String name) {
+        Optional<FiguraListing> figuraListingOptional = figuraRepository.getByName(name);
+        return figuraListingOptional.map(this::createFiguraListingFromListing);
     }
 
     @Override
-    public List<CollaListing> loadAllCollesByName() {
-        List<CollaListing> collaListings = collaRepository.loadAllCollesByName();
-        return collaListings.stream()
-                .map(this::createCollaListingFromListing)
+    public List<FiguraListing> loadAllFiguresByName() {
+        List<FiguraListing> figuraListings = figuraRepository.loadAllFiguresByName();
+        return figuraListings.stream()
+                .map(this::createFiguraListingFromListing)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<CollaListing> loadAllCollesByFoundationYear() {
-        List<CollaListing> collaListings = collaRepository.loadAllCollesByFoundationYear();
-        return collaListings.stream()
-                .map(this::createCollaListingFromListing)
+    public List<FiguraListing> loadAllFiguresByYear() {
+        List<FiguraListing> figuraListings = figuraRepository.loadAllFiguresByYear();
+        return figuraListings.stream()
+                .map(this::createFiguraListingFromListing)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<FiguraListing> loadAllFiguresByType() {
+        List<FiguraListing> figuraListings = figuraRepository.loadAllFiguresByType();
+        return figuraListings.stream()
+                .map(this::createFiguraListingFromListing)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<CollaListing> loadAllColles() {
-        List<CollaListing> collaListings = collaRepository.findAllListing();
-        return collaListings.stream()
-                .map(this::createCollaListingFromListing)
+    public List<FiguraListing> loadAllFigures() {
+        List<FiguraListing> figuraListings = figuraRepository.findAllListing();
+        return figuraListings.stream()
+                .map(this::createFiguraListingFromListing)
                 .collect(Collectors.toList());
     }
 
-    private CollaListing createCollaListingFromListing(CollaListing collaListing) {
-        // Fetch the image file using the logoKey
-        byte[] imageBytes = (collaListing.logoKey() == null) ? null : fetchImageFromServer(collaListing.logoKey());
+    private FiguraListing createFiguraListingFromListing(FiguraListing figuraListing) {
+        // Fetch the image file using the imageKey
+        byte[] imageBytes = (figuraListing.imageKey() == null) ? null : fetchImageFromServer(figuraListing.imageKey());
 
         // Create a FiguraListing object with database fields and image data
-        return new CollaListing(
-                collaListing.id(),
-                collaListing.name(),
-                collaListing.entity(),
-                collaListing.foundationYear(),
-                collaListing.description(),
-                collaListing.type(),
-                collaListing.neighbourhood(),
-                collaListing.primaryColour(),
-                collaListing.secondaryColour(),
-                collaListing.logoKey(),
+        return new FiguraListing(
+                figuraListing.id(),
+                figuraListing.name(),
+                figuraListing.year(),
+                figuraListing.type(),
+                figuraListing.imageKey(),
                 imageBytes,
-                collaListing.music(),
-                collaListing.email(),
-                collaListing.instagram()
+                figuraListing.webUrl()
         );
     }
 
-    private byte[] fetchImageFromServer(String logoKeyName) {
+    private byte[] fetchImageFromServer(String imageKeyName) {
         try {
-            Path directoryPath = Paths.get("/srv/cv-api/images");
+            Path directoryPath = Paths.get("/srv/cv-api/images/figures");
             if (Files.isDirectory(directoryPath)) {
                 try (Stream<Path> paths = Files.list(directoryPath)) {
-                    Optional<Path> imagePathOptional = paths.filter(path -> path.getFileName().toString().equals(logoKeyName)).findFirst();
+                    Optional<Path> imagePathOptional = paths.filter(path -> path.getFileName().toString().equals(imageKeyName)).findFirst();
                     if (imagePathOptional.isPresent()) {
                         Path imagePath = imagePathOptional.get();
                         System.out.println("IMAGE FILE PATH: " + imagePath);
                         return Files.readAllBytes(imagePath);
-                    } else { System.out.println("Image file not found: " + logoKeyName); return null; }
+                    } else { System.out.println("Image file not found: " + imageKeyName); return null; }
                 }
             } else { System.out.println("Directory not found: " + directoryPath); return null; }
         } catch (IOException e) { System.err.println("Error reading image file: " + e.getMessage()); e.printStackTrace(); return null; }

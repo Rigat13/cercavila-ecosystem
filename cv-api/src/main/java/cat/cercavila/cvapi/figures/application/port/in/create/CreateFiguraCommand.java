@@ -6,72 +6,28 @@ import javax.validation.constraints.*;
 
 public record CreateFiguraCommand(
     String id,
+
     @NotNull (message = "El nom no pot ser nul.")
     @Size(min=3, max=255, message="El nom ha de tenir entre 3 i 255 caràcters.")
     String name,
-    @NotNull (message = "L'entitat no pot ser nul·la.")
-    @Size(min=3, max=255, message="L'entitat ha de tenir entre 3 i 255 caràcters.")
-    String entity,
-    @NotNull (message = "L'any de fundació no pot ser nul.")
-    @Min(value = 1400, message = "L'any de fundació ha de ser superior a 1400.")
-    @Max(value = 2400, message = "L'any de fundació no pot ser superior a 2400.")
-    int foundationYear,
-    String description,
+
+    @NotNull (message = "L'any d'estrena no pot ser nul.")
+    @Min(value = 1400, message = "L'any d'estrena ha de ser superior a 1400.")
+    @Max(value = 2400, message = "L'any d'estrena no pot ser superior a 2400.")
+    int year,
 
     @Pattern(regexp =
-            "^(collaTypeInstitutional" +
-             "|collaTypeNeighbourhood" +
-             "|collaTypeStreet" +
-             "|collaTypeEntity" +
-             "|collaTypeTheatrical" +
-             "|collaTypeScout" +
-             "|collaTypeNursingHome" +
-             "|collaTypeSportsClub" +
-             "|collaTypeSchool" +
-             "|collaTypeInstitute" +
-             "|collaTypeNursery" +
-             "|collaTypePrivate)$",
+            "^(figuraTypeGegant" +
+             "|figuraTypeGeganto" +
+             "|figuraTypeCapgros" +
+             "|figuraTypeNan" +
+             "|figuraTypeBestia" +
+             "|figuraTypeMotxilla)$",
             message = "El tipus no és un dels valors permesos."
     )
     String type,
 
+    MultipartFile image,
 
-    @Pattern(regexp =
-            "^(neighbourhoodCentre" +
-                    "|neighbourhoodEixample" +
-                    "|neighbourhoodPlaDenBoet" +
-                    "|neighbourhoodCerdanyola" +
-                    "|neighbourhoodPeramasEsmandies" +
-                    "|neighbourhoodLaLlantia" +
-                    "|neighbourhoodViaEuropaNouParcCentral" +
-                    "|neighbourhoodCirera" +
-                    "|neighbourhoodElsMolins" +
-                    "|neighbourhoodVistaAlegre" +
-                    "|neighbourhoodRocafonda" +
-                    "|neighbourhoodElPalau" +
-                    "|neighbourhoodLesSantesEscorxador" +
-                    "|neighbourhoodLHavana" +
-                    "|neighbourhoodLesCincSenies" +
-                    "|neighbourhoodVallveric)$",
-            message = "El barri no és un dels valors permesos."
-    )
-    String neighbourhood,
-    String primaryColour,
-    String secondaryColour,
-    MultipartFile logo,
-
-    @Pattern(regexp =
-            "^(musicFlabiol" +
-                    "|musicGralla" +
-                    "|musicBatucada" +
-                    "|musicBand" +
-                    "|musicGrallaBand" +
-                    "|musicOther" +
-                    "|musicNone)$",
-            message = "El tipus de música no és un dels valors permesos."
-    )
-    String music,
-
-    String email,
-    String instagram
+    String webUrl
 ) {}

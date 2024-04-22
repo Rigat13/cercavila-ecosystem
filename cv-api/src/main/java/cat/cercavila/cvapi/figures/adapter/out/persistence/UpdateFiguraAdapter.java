@@ -1,12 +1,11 @@
 package cat.cercavila.cvapi.figures.adapter.out.persistence;
 
-
-import cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity;
-import cat.cercavila.cvapi.colles.adapter.out.persistence.CollaRepository;
-import cat.cercavila.cvapi.colles.adapter.out.persistence.MapperCollaCollaEntity;
-import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
-import cat.cercavila.cvapi.colles.application.port.in.update.UpdateCollaCommand;
-import cat.cercavila.cvapi.colles.application.port.out.UpdateCollaPort;
+import cat.cercavila.cvapi.figures.adapter.out.persistence.FiguraEntity;
+import cat.cercavila.cvapi.figures.adapter.out.persistence.FiguraRepository;
+import cat.cercavila.cvapi.figures.adapter.out.persistence.MapperFiguraFiguraEntity;
+import cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing;
+import cat.cercavila.cvapi.figures.application.port.in.update.UpdateFiguraCommand;
+import cat.cercavila.cvapi.figures.application.port.out.UpdateFiguraPort;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,70 +15,63 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Component
-public class UpdateFiguraAdapter implements UpdateCollaPort {
-    private final cat.cercavila.cvapi.colles.adapter.out.persistence.CollaRepository collaRepository;
+public class UpdateFiguraAdapter implements UpdateFiguraPort {
+    private final cat.cercavila.cvapi.figures.adapter.out.persistence.FiguraRepository figuraRepository;
 
-    public UpdateFiguraAdapter(CollaRepository collaRepository) { this.collaRepository = collaRepository; }
+    public UpdateFiguraAdapter(FiguraRepository figuraRepository) { this.figuraRepository = figuraRepository; }
 
     @Override
-    public void updateColla(UpdateCollaCommand updateCollaCommand) {
-        String logoKeyName = generateLogoKeyName(updateCollaCommand);
-        if (!logoKeyName.equals("")) {
-            removeCurrentLogo(updateCollaCommand);
-            saveImageToServer(updateCollaCommand.logo(), logoKeyName);
+    public void updateFigura(UpdateFiguraCommand updateFiguraCommand) {
+        String imageKeyName = generateImageKeyName(updateFiguraCommand);
+        if (!imageKeyName.equals("")) {
+            removeCurrentImage(updateFiguraCommand);
+            saveImageToServer(updateFiguraCommand.image(), imageKeyName);
         }
-        collaRepository.save(updateCollaCommand2CollaEntity(updateCollaCommand, logoKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
+        figuraRepository.save(updateFiguraCommand2FiguraEntity(updateFiguraCommand, imageKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
     }
 
-    private cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity updateCollaCommand2CollaEntity(UpdateCollaCommand updateCollaCommand, String logoKey) {
-        cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity collaEntity = new cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity();
-        collaEntity.setId(updateCollaCommand.id());
-        collaEntity.setName(updateCollaCommand.name());
-        collaEntity.setEntity(updateCollaCommand.entity());
-        collaEntity.setFoundationYear(updateCollaCommand.foundationYear());
-        collaEntity.setDescription(updateCollaCommand.description());
-        collaEntity.setType(updateCollaCommand.type());
-        collaEntity.setNeighbourhood(updateCollaCommand.neighbourhood());
-        collaEntity.setPrimaryColour(updateCollaCommand.primaryColour());
-        collaEntity.setSecondaryColour(updateCollaCommand.secondaryColour());
-        collaEntity.setLogoKey(logoKey);
-        collaEntity.setMusic(updateCollaCommand.music());
-        collaEntity.setEmail(updateCollaCommand.email());
-        collaEntity.setInstagram(updateCollaCommand.instagram());
+    private FiguraEntity updateFiguraCommand2FiguraEntity(UpdateFiguraCommand updateFiguraCommand, String imageKey) {
+        FiguraEntity figuraEntity = new FiguraEntity();
+        figuraEntity.setId(updateFiguraCommand.id());
+        figuraEntity.setName(updateFiguraCommand.name());
+        figuraEntity.setYear(updateFiguraCommand.year());
+        figuraEntity.setType(updateFiguraCommand.type());
+        figuraEntity.setImageKey(imageKey);
+        figuraEntity.setWebUrl(updateFiguraCommand.webUrl());
 
-        return collaEntity;
+        return figuraEntity;
     }
 
-    private String generateLogoKeyName(UpdateCollaCommand updateCollaCommand) {
-        if (updateCollaCommand.logo() == null || updateCollaCommand.logo().isEmpty()) return "";
-        String original = updateCollaCommand.logo().getOriginalFilename();
+    private String generateImageKeyName(UpdateFiguraCommand updateFiguraCommand) {
+        if (updateFiguraCommand.image() == null || updateFiguraCommand.image().isEmpty()) return "";
+        String original = updateFiguraCommand.image().getOriginalFilename();
         String extension = original.substring(original.lastIndexOf("."));
-        String collaName = updateCollaCommand.name();
-        collaName = collaName.replaceAll("[^a-zA-Z0-9.-]", "_");
-        return "logo_colla_" + collaName + "_" + UUID.randomUUID() + extension;
+        String figuraName = updateFiguraCommand.name();
+        figuraName = figuraName.replaceAll("[^a-zA-Z0-9.-]", "_");
+        return "image_figura_" + figuraName + "_" + UUID.randomUUID() + extension;
     }
 
-    private void removeCurrentLogo(UpdateCollaCommand updateCollaCommand) {
-        String collaId = updateCollaCommand.id();
+    private void removeCurrentImage(UpdateFiguraCommand updateFiguraCommand) {
+        String figuraId = updateFiguraCommand.id();
 
-        CollaListing currentCollaListing;
-        try { currentCollaListing = collaRepository.getById(collaId).orElseThrow(); }
+        FiguraListing currentFiguraListing;
+        try { currentFiguraListing = figuraRepository.getById(figuraId).orElseThrow(); }
         catch (Exception e) { e.printStackTrace(); return; }
-        CollaEntity currentColla = MapperCollaCollaEntity.collaListingToCollaEntity(currentCollaListing);
+        FiguraEntity currentFigura = MapperFiguraFiguraEntity.figuraListingToFiguraEntity(currentFiguraListing);
 
-        String currentLogoKey = currentColla.getLogoKey();
-        if (currentLogoKey != null && !currentLogoKey.isEmpty()) {
+        String currentImageKey = currentFigura.getImageKey();
+        if (currentImageKey != null && !currentImageKey.isEmpty()) {
             try {
-                Path logoPath = Paths.get("/srv/cv-api/images", currentLogoKey);
-                Files.deleteIfExists(logoPath);
+                Path imagePath = Paths.get("/srv/cv-api/images/figures", currentImageKey);
+                Files.deleteIfExists(imagePath);
             } catch (Exception e) { e.printStackTrace(); }
         }
     }
 
-    private void saveImageToServer(MultipartFile imageFile, String logoKeyName) {
+    private void saveImageToServer(MultipartFile imageFile, String imageKeyName) {
         if (imageFile == null || imageFile.isEmpty()) return;
         try {
-            Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
+            Path filePath = Paths.get("/srv/cv-api/images/figures", imageKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (Exception e) { e.printStackTrace(); }
     }

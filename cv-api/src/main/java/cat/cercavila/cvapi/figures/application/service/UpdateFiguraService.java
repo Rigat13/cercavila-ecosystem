@@ -1,21 +1,21 @@
 package cat.cercavila.cvapi.figures.application.service;
 
-import cat.cercavila.cvapi.colles.application.port.in.update.UpdateCollaCommand;
-import cat.cercavila.cvapi.colles.application.port.in.update.UpdateCollaUseCase;
-import cat.cercavila.cvapi.colles.application.port.out.UpdateCollaPort;
+import cat.cercavila.cvapi.figures.application.port.in.update.UpdateFiguraCommand;
+import cat.cercavila.cvapi.figures.application.port.in.update.UpdateFiguraUseCase;
+import cat.cercavila.cvapi.figures.application.port.out.UpdateFiguraPort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UpdateFiguraService implements UpdateCollaUseCase {
-    private final UpdateCollaPort updateCollaPort;
+public class UpdateFiguraService implements UpdateFiguraUseCase {
+    private final UpdateFiguraPort updateFiguraPort;
 
-    public UpdateFiguraService(UpdateCollaPort updateCollaPort) {
-        this.updateCollaPort = updateCollaPort;
+    public UpdateFiguraService(UpdateFiguraPort updateFiguraPort) {
+        this.updateFiguraPort = updateFiguraPort;
     }
 
     @Override
-    public void updateColla(UpdateCollaCommand updateCollaCommand) {
+    public void updateFigura(UpdateFiguraCommand updateFiguraCommand) {
         // TODO perform checks
-        updateCollaPort.updateColla(updateCollaCommand);
+        updateFiguraPort.updateFigura(updateFiguraCommand);
     }
 }

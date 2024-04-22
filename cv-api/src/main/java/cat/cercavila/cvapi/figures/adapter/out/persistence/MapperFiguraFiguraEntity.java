@@ -1,52 +1,37 @@
 package cat.cercavila.cvapi.figures.adapter.out.persistence;
 
-import cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity;
-import cat.cercavila.cvapi.colles.application.port.in.list.CollaListing;
-import cat.cercavila.cvapi.colles.domain.Colla;
+import cat.cercavila.cvapi.figures.adapter.out.persistence.FiguraEntity;
+import cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing;
+import cat.cercavila.cvapi.figures.domain.Figura;
 
 public class MapperFiguraFiguraEntity {
-    public static Colla collaEntityToColla(cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity collaEntity) {
-        Colla colla = new Colla(collaEntity.getName(), collaEntity.getEntity(), collaEntity.getFoundationYear(), collaEntity.getDescription(), collaEntity.getType(), collaEntity.getNeighbourhood(),
-                collaEntity.getPrimaryColour(), collaEntity.getSecondaryColour(), collaEntity.getLogoKey(), collaEntity.getMusic(), collaEntity.getEmail(), collaEntity.getInstagram());
+    public static Figura figuraEntityToFigura(cat.cercavila.cvapi.figures.adapter.out.persistence.FiguraEntity figuraEntity) {
+        Figura figura = new Figura(figuraEntity.getName(), figuraEntity.getYear(), figuraEntity.getType(), figuraEntity.getImageKey(), figuraEntity.getWebUrl());
         // NOTE: Created from zero, with new ID. // TODO Check if this is true
-        return colla;
+        return figura;
     }
 
-    public static cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity collaToCollaEntity(Colla colla) {
-        cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity collaEntity = new cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity();
-        collaEntity.setId(colla.getId());
-        collaEntity.setName(colla.getName());
-        collaEntity.setEntity(colla.getEntity());
-        collaEntity.setFoundationYear(colla.getFoundationYear());
-        collaEntity.setDescription(colla.getDescription());
-        collaEntity.setType(colla.getType());
-        collaEntity.setNeighbourhood(colla.getNeighbourhood());
-        collaEntity.setPrimaryColour(colla.getPrimaryColour());
-        collaEntity.setSecondaryColour(colla.getSecondaryColour());
-        collaEntity.setLogoKey(colla.getLogoKey());
-        collaEntity.setMusic(colla.getMusic());
-        collaEntity.setEmail(colla.getEmail());
-        collaEntity.setInstagram(colla.getInstagram());
+    public static FiguraEntity figuraToFiguraEntity(Figura figura) {
+        FiguraEntity figuraEntity = new FiguraEntity();
+        figuraEntity.setId(figura.getId());
+        figuraEntity.setName(figura.getName());
+        figuraEntity.setYear(figura.getYear());
+        figuraEntity.setType(figura.getType());
+        figuraEntity.setImageKey(figura.getImageKey());
+        figuraEntity.setWebUrl(figura.getWebUrl());
 
-        return collaEntity;
+        return figuraEntity;
     }
 
-    public static cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity collaListingToCollaEntity(CollaListing currentCollaListing) {
-        cat.cercavila.cvapi.colles.adapter.out.persistence.CollaEntity collaEntity = new CollaEntity();
-        collaEntity.setId(currentCollaListing.id());
-        collaEntity.setName(currentCollaListing.name());
-        collaEntity.setEntity(currentCollaListing.entity());
-        collaEntity.setFoundationYear(currentCollaListing.foundationYear());
-        collaEntity.setDescription(currentCollaListing.description());
-        collaEntity.setType(currentCollaListing.type());
-        collaEntity.setNeighbourhood(currentCollaListing.neighbourhood());
-        collaEntity.setPrimaryColour(currentCollaListing.primaryColour());
-        collaEntity.setSecondaryColour(currentCollaListing.secondaryColour());
-        collaEntity.setLogoKey(currentCollaListing.logoKey());
-        collaEntity.setMusic(currentCollaListing.music());
-        collaEntity.setEmail(currentCollaListing.email());
-        collaEntity.setInstagram(currentCollaListing.instagram());
+    public static FiguraEntity figuraListingToFiguraEntity(FiguraListing currentFiguraListing) {
+        FiguraEntity figuraEntity = new FiguraEntity();
+        figuraEntity.setId(currentFiguraListing.id());
+        figuraEntity.setName(currentFiguraListing.name());
+        figuraEntity.setYear(currentFiguraListing.year());
+        figuraEntity.setType(currentFiguraListing.type());
+        figuraEntity.setImageKey(currentFiguraListing.imageKey());
+        figuraEntity.setWebUrl(currentFiguraListing.webUrl());
 
-        return collaEntity;
+        return figuraEntity;
     }
 }

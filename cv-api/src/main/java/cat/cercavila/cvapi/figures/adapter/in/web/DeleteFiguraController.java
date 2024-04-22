@@ -1,19 +1,19 @@
 package cat.cercavila.cvapi.figures.adapter.in.web;
 
-import cat.cercavila.cvapi.colles.application.port.in.delete.DeleteCollaCommand;
-import cat.cercavila.cvapi.colles.application.port.in.delete.DeleteCollaUseCase;
+import cat.cercavila.cvapi.figures.application.port.in.delete.DeleteFiguraCommand;
+import cat.cercavila.cvapi.figures.application.port.in.delete.DeleteFiguraUseCase;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class DeleteFiguraController {
-    private DeleteCollaUseCase deleteCollaUseCase;
+    private DeleteFiguraUseCase deleteFiguraUseCase;
 
-    public DeleteFiguraController(DeleteCollaUseCase deleteCollaUseCase) { this.deleteCollaUseCase = deleteCollaUseCase; }
+    public DeleteFiguraController(DeleteFiguraUseCase deleteFiguraUseCase) { this.deleteFiguraUseCase = deleteFiguraUseCase; }
 
-    @DeleteMapping("/api/colles")
-    public void deleteColla(@RequestBody DeleteCollaCommand deleteCollaCommand) {
-        deleteCollaUseCase.deleteColla(deleteCollaCommand);
+    @DeleteMapping("/api/figures")
+    public void deleteFigura(@RequestBody DeleteFiguraCommand deleteFiguraCommand) {
+        deleteFiguraUseCase.deleteFigura(deleteFiguraCommand);
     }
 }
