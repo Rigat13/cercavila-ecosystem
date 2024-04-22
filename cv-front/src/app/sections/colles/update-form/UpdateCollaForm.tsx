@@ -15,6 +15,9 @@ import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_L
 import {isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
 import {isCollaLogoValid, LOGO_MAX_MBS} from "@/modules/colles/domain/colla-attributes/CollaLogo";
 import ColourPicker from "@/app/sections/shared/ColourPicker";
+import {isCollaMusicValid} from "@/modules/colles/domain/colla-attributes/CollaMusic";
+import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
+import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
 
 const initialState = {
     id: "",
@@ -27,9 +30,14 @@ const initialState = {
     primaryColour: "",
     secondaryColour: "",
     logo: null as File | null,
+    music: "",
+    email: "",
+    instagram: "",
 }
-export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid, isPrimaryColourValid, isSecondaryColourValid, isLogoValid  = false;
+export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid,
+    isPrimaryColourValid, isSecondaryColourValid, isLogoValid, isMusicValid, isEmailValid  = false;
 const lang = defaultLang;
+export let isInstagramValid = true; // Optional fields
 
 export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}) {
     const { formData, updateForm, resetForm } = useUpdateCollaFormData(initialState);
@@ -77,6 +85,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                     primaryColour: collaData.primaryColour,
                     secondaryColour: collaData.secondaryColour,
                     logo: logoFile,
+                    music: collaData.music,
+                    email: collaData.email,
+                    instagram: collaData.instagram,
                 });
 
                 const syntheticEvent: { target: { files: any[] } } = {
@@ -168,7 +179,25 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         if(!isFirstTimeValidation) validateFormData({ ...formData, logo: file });
     };
 
-    const validateFormData = ({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo }) => {
+    const handleMusicChange = (ev) => {
+        const newMusic = ev.target.value;
+        updateForm({ music: newMusic });
+        validateFormData({ ...formData, music: newMusic });
+    }
+
+    const handleEmailChange = (ev) => {
+        const newEmail = ev.target.value;
+        updateForm({ email: newEmail });
+        validateFormData({ ...formData, email: newEmail });
+    }
+
+    const handleInstagramChange = (ev) => {
+        const newInstagram = ev.target.value;
+        updateForm({ instagram: newInstagram });
+        validateFormData({ ...formData, instagram: newInstagram });
+    }
+
+    const validateFormData = ({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
@@ -180,6 +209,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         isSecondaryColourValid = isCollaColourValid(secondaryColour);
         if (!isLogoAlreadyValid) isLogoValid = isCollaLogoValid(logo);
         setLogoAlreadyValid(isLogoValid);
+        isMusicValid = isCollaMusicValid(music);
+        isEmailValid = isCollaEmailValid(email);
+        isInstagramValid = isCollaInstagramValid(instagram) || instagram === ""; // Optional field
 
         setErrors({
             id: "",
@@ -192,11 +224,15 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.collesPrimaryColourInvalid + "",
             secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.collesSecondaryColourInvalid + "",
             logo: null,
+            music: isMusicValid ? "" : dictionary[lang]?.collesMusicInvalid + "",
+            email: isEmailValid ? "" : dictionary[lang]?.collesEmailInvalid + "",
+            instagram: isInstagramValid ? "" : dictionary[lang]?.collesInstagramInvalid + "",
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid || !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid) { return; }
+        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid ||
+            !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid || !isMusicValid || !isEmailValid || !isInstagramValid) { return; }
 
         const formDataWithImage = { ...formData };
         if (logo) { formDataWithImage.logo = logo; }
@@ -213,6 +249,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             primaryColour: formData.primaryColour,
             secondaryColour: formData.secondaryColour,
             logo: formDataWithImage.logo,
+            music: formData.music,
+            email: formData.email,
+            instagram: formData.instagram,
         });
     };
 
@@ -438,10 +477,53 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
 
+                        <div className={styles.formGroup}>
+                            <label htmlFor="music">{dictionary[lang]?.collaMusic}</label>
+                            <input
+                                type="text"
+                                id="music"
+                                name="music"
+                                value={formData.music}
+                                onChange={handleMusicChange}
+                            />
+                            {formData.music && errors.music && (
+                                <div style={{ color: "tomato" }}>{errors.music}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="email">{dictionary[lang]?.collaEmail}</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleEmailChange}
+                            />
+                            {formData.email && errors.email && (
+                                <div style={{ color: "tomato" }}>{errors.email}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="instagram">{dictionary[lang]?.collaInstagram}</label>
+                            <input
+                                type="text"
+                                id="instagram"
+                                name="instagram"
+                                value={formData.instagram}
+                                onChange={handleInstagramChange}
+                            />
+                            {formData.instagram && errors.instagram && (
+                                <div style={{ color: "tomato" }}>{errors.instagram}</div>
+                            )}
+                        </div>
+
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid ||!isTypeValid || !isNeighbourhoodValid || !isLogoValid}
+                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid ||
+                                !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid || !isMusicValid || !isEmailValid || !isInstagramValid}
                         >
                             {dictionary[lang]?.updateCollaButton}
                         </button>

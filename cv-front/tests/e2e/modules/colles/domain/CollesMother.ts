@@ -16,6 +16,9 @@ const CollaFactory = Factory.define<Colla>(() => ({
     primaryColour: '#ffffff',
     secondaryColour: '#000000',
     logo: null,
+    music: faker.lorem.sentence(),
+    email: faker.internet.email(),
+    instagram: faker.internet.url(),
 }));
 
 export const CollaMother = {

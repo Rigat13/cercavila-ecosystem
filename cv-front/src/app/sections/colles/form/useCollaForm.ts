@@ -8,18 +8,20 @@ export const enum FormStatus {
 }
 
 export function useCollaForm(): {
-    submitForm: ({name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo}:
-                     { name: string; entity: string; foundationYear: number; description: string; type: string; neighbourhood: string; primaryColour: string; secondaryColour: string; logo: File | null })
+    submitForm: ({name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram}:
+                     { name: string; entity: string; foundationYear: number; description: string; type: string; neighbourhood: string;
+                         primaryColour: string; secondaryColour: string; logo: File | null; music: string; email: string; instagram: string; })
         => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
     const { createColla } = useCollesContext();
 
-    function submitForm({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo }:
-                            { name: string, entity: string, foundationYear: number, description: string; type: string; neighbourhood: string; primaryColour: string; secondaryColour: string; logo: File | null }) {
+    function submitForm({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram }:
+                            { name: string, entity: string, foundationYear: number, description: string; type: string; neighbourhood: string;
+                                primaryColour: string; secondaryColour: string; logo: File | null; music: string; email: string; instagram: string; }) {
         setFormStatus(FormStatus.Loading);
         try {
-            createColla({id: "", name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo })
+            createColla({id: "", name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram})
 
                 .then(() => {
                     setFormStatus(FormStatus.Success);
