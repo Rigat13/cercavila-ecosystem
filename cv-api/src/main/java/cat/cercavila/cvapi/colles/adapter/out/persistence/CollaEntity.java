@@ -22,6 +22,8 @@ public class CollaEntity {
     private String secondaryColour;
     private String logoKey;
     private String music;
+    private String email;
+    private String instagram;
 
     public void setId(String id) { this.id = id; }
     public String getId() { return id; }
@@ -46,5 +48,9 @@ public class CollaEntity {
     public void setLogoKey(String logoKey) { this.logoKey = logoKey; }
     public String getMusic() { return music; }
     public void setMusic(String music) { this.music = music; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getInstagram() { return instagram; }
+    public void setInstagram(String instagram) { this.instagram = instagram; }
 
 }

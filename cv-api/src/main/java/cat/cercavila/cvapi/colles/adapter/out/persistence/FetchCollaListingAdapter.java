@@ -73,7 +73,10 @@ public class FetchCollaListingAdapter implements ListCollaPort {
                 collaListing.primaryColour(),
                 collaListing.secondaryColour(),
                 collaListing.logoKey(),
-                imageBytes
+                imageBytes,
+                collaListing.music(),
+                collaListing.email(),
+                collaListing.instagram()
         );
     }
 

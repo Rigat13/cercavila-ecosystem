@@ -59,5 +59,7 @@ public record CreateCollaCommand(
     String primaryColour,
     String secondaryColour,
     MultipartFile logo,
-    String music
+    String music,
+    String email,
+    String instagram
 ) {}

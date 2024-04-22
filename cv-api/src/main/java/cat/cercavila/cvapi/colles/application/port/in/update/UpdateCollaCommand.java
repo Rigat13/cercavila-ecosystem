@@ -60,5 +60,7 @@ public record UpdateCollaCommand(
     String primaryColour,
     String secondaryColour,
     MultipartFile logo,
-    String music
+    String music,
+    String email,
+    String instagram
     ) {}

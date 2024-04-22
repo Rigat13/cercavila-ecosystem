@@ -14,10 +14,12 @@ public class Colla {
     private String secondaryColour;
     private String logoKey;
     private String music;
+    private String email;
+    private String instagram;
 
     public Colla() {}
 
-    public Colla(String name, String entity, int foundationYear, String description, String type, String neighbourhood, String primaryColour, String secondaryColour, String logoKey, String music) {
+    public Colla(String name, String entity, int foundationYear, String description, String type, String neighbourhood, String primaryColour, String secondaryColour, String logoKey, String music, String email, String instagram) {
         this.id = UUID.randomUUID().toString(); // TODO: Note: this is correct for not web applications; but as Colles can be created from the front, the UUID is assigned between the front and the in port of persistence, and does not get to domain.
         this.name = name;
         this.entity = entity;
@@ -29,6 +31,8 @@ public class Colla {
         this.secondaryColour = secondaryColour;
         this.logoKey = logoKey;
         this.music = music;
+        this.email = email;
+        this.instagram = instagram;
     }
 
     public String getId() { return id; }
@@ -52,6 +56,10 @@ public class Colla {
     public void setLogoKey(String logoKey) { this.logoKey = logoKey; }
     public String getMusic() { return music; }
     public void setMusic(String music) { this.music = music; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getInstagram() { return instagram; }
+    public void setInstagram(String instagram) { this.instagram = instagram; }
 
     @Override
     public String toString() {
@@ -67,6 +75,8 @@ public class Colla {
                 ", secondaryColour='" + secondaryColour +
                 ", logoKey='" + logoKey +
                 ", music='" + music +
+                ", email='" + email +
+                ", instagram='" + instagram +
                 '}';
     }
 }
