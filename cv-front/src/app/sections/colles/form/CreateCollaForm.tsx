@@ -40,6 +40,10 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const [logoSize, setLogoSize] = useState(0);
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
     const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
+    const [isPrimaryColourPickerOpen, setIsPrimaryColourPickerOpen] = useState(false);
+    const [isSecondaryColourPickerOpen, setIsSecondaryColourPickerOpen] = useState(false);
+    const [primaryColour, setPrimaryColour] = useState('#FFFFFF');
+    const [secondaryColour, setSecondaryColour] = useState('#FFFFFF');
     lang = lang;
 
     useEffect(() => {
@@ -84,12 +88,14 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 
     const handlePrimaryColourChange = (ev) => {
         const newPrimaryColour = ev.target.value;
+        setPrimaryColour(newPrimaryColour);
         updateForm({ primaryColour: newPrimaryColour });
         validateFormData({ ...formData, primaryColour: newPrimaryColour });
     }
 
     const handleSecondaryColourChange = (ev) => {
         const newSecondaryColour = ev.target.value;
+        setSecondaryColour(newSecondaryColour);
         updateForm({ secondaryColour: newSecondaryColour });
         validateFormData({ ...formData, secondaryColour: newSecondaryColour });
     }
@@ -280,12 +286,19 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="primaryColour">{dictionary[lang]?.collaPrimaryColour}</label>
-                            <ColourPicker
-                                id="primaryColour"
-                                name="primaryColour"
-                                value={formData.primaryColour}
-                                onChange={handlePrimaryColourChange}
-                            />
+                            <button
+                                className={styles.colourPreviewButton}
+                                id="primaryColourPreviewButton"
+                                style={{ backgroundColor: primaryColour }}
+                                onClick={(event) => { event.preventDefault(); setIsPrimaryColourPickerOpen(!isPrimaryColourPickerOpen); }}/>
+                            {isPrimaryColourPickerOpen && (
+                                <ColourPicker
+                                    id="primaryColour"
+                                    name="primaryColour"
+                                    value={formData.primaryColour}
+                                    onChange={handlePrimaryColourChange}
+                                />
+                            )}
                             {errors.primaryColour && (
                                 <div style={{ color: "tomato" }}>{errors.primaryColour}</div>
                             )}
@@ -293,12 +306,19 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="secondaryColour">{dictionary[lang]?.collaSecondaryColour}</label>
-                            <ColourPicker
-                                id="secondaryColour"
-                                name="secondaryColour"
-                                value={formData.secondaryColour}
-                                onChange={handleSecondaryColourChange}
-                            />
+                            <button
+                                className={styles.colourPreviewButton}
+                                id="secondaryColourPreviewButton"
+                                style={{ backgroundColor: secondaryColour }}
+                                onClick={(event) => { event.preventDefault(); setIsSecondaryColourPickerOpen(!isSecondaryColourPickerOpen); }}/>
+                            {isSecondaryColourPickerOpen && (
+                                <ColourPicker
+                                    id="secondaryColour"
+                                    name="secondaryColour"
+                                    value={formData.secondaryColour}
+                                    onChange={handleSecondaryColourChange}
+                                />
+                            )}
                             {errors.secondaryColour && (
                                 <div style={{ color: "tomato" }}>{errors.secondaryColour}</div>
                             )}

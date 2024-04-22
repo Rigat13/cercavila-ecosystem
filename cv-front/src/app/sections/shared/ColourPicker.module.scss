@@ -1,0 +1,24 @@
+// ColourPicker.module.scss
+
+.colourPicker {
+  position: relative;
+  width: 200px; /* Adjust width as needed */
+}
+
+.canvas {
+  width: 100%;
+  height: 100px; /* Adjust height as needed */
+  border: 1px solid #ccc; /* Add a border for visualization */
+}
+
+.rangeInput {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.textInput {
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px;
+  box-sizing: border-box;
+}
