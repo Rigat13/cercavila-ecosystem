@@ -66,8 +66,6 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                     logoFile = new File([blob], 'logo.jpg', { type: 'image/jpeg' });
                 }
 
-
-
                 updateForm({
                     id: collaData.id,
                     name: collaData.name,
@@ -86,6 +84,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                         files: [logoFile]
                     }
                 };
+                setPrimaryColour(collaData.primaryColour);
+                setSecondaryColour(collaData.secondaryColour);
+
                 handleLogoChange(syntheticEvent);
                 setIsFirstTimeValidation(false);
             } catch (error) {

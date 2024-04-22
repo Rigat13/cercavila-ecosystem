@@ -2,6 +2,8 @@ import styles from "./ColourPicker.module.scss";
 import React, { useEffect, useRef, useState } from 'react';
 
 interface ColourPickerProps {
+    id?: string;
+    name?: string;
     value: string;
     onChange: (Event) => void;
 }
@@ -112,7 +114,7 @@ const ColourPicker: React.FC<ColourPickerProps> = ({ value: initialValue, onChan
 
         const imageData = ctx.getImageData(x, y, 1, 1);
 
-        const [r, g, b] = imageData.data;
+        const [r, g, b] = Array.from(imageData.data);
         const colorHex = `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
         return colorHex;
     };
