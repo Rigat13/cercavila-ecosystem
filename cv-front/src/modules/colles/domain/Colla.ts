@@ -6,6 +6,10 @@ import {CollaDescriptionNotValidError, isCollaDescriptionValid} from "@/modules/
 import {CollaTypeNotValidError, isCollaTypeValid} from "@/modules/colles/domain/colla-attributes/CollaType";
 import {CollaNeighbourhoodNotValidError, isCollaNeighbourhoodValid} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
 import {CollaColourNotValidError, isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
+import {CollaLogoNotValidError, isCollaLogoValid} from "@/modules/colles/domain/colla-attributes/CollaLogo";
+import {CollaMusicNotValidError, isCollaMusicValid} from "@/modules/colles/domain/colla-attributes/CollaMusic";
+import {CollaEmailNotValidError, isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
+import {CollaInstagramNotValidError, isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
 
 export interface Colla {
     id: string;
@@ -18,16 +22,20 @@ export interface Colla {
     primaryColour: string;
     secondaryColour: string;
     logo: File | null;
+    music: string;
+    email: string;
+    instagram: string;
 }
 
-export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo}: Colla): void {
+export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram}: Colla): void {
     if (!isCollaIdValid(id)) {
         throw CollaIdNotValidError(id);
     }
-    ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo});
+    ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood,
+        primaryColour, secondaryColour, logo, music, email, instagram});
 }
 
-export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo}: Colla): void {
+export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram}: Colla): void {
     if (!isCollaNameValid(name)) {
         throw CollaNameNotValidError(name);
     }
@@ -51,6 +59,18 @@ export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, des
     }
     if (!isCollaColourValid(secondaryColour)) {
         throw CollaColourNotValidError(secondaryColour);
+    }
+    if (!isCollaLogoValid(logo)) {
+        throw CollaLogoNotValidError(logo);
+    }
+    if (!isCollaMusicValid(music)) {
+        throw CollaMusicNotValidError(music);
+    }
+    if (!isCollaEmailValid(email)) {
+        throw CollaEmailNotValidError(email);
+    }
+    if (!isCollaInstagramValid(instagram)) {
+        throw CollaInstagramNotValidError(instagram);
     }
 }
 

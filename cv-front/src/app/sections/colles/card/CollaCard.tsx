@@ -27,6 +27,9 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
             <p className={styles.collaCard__description}>{colla.description}</p>
             <p className={styles.collaCard__type}>{dictionary[lang]?.[colla.type]}</p>
             <p className={styles.collaCard__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
+            <p className={styles.collaCard__music}>{colla.music}</p>
+            <p className={styles.collaCard__email}>{colla.email}</p>
+            <p className={styles.collaCard__instagram}>{colla.instagram}</p>
 
             <div className={styles.colorCircles}>
                 <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>

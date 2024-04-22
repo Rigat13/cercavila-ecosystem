@@ -21,8 +21,10 @@ async function storeColla(colla: Colla) {
         formData.append("neighbourhood", colla.neighbourhood);
         formData.append("primaryColour", colla.primaryColour);
         formData.append("secondaryColour", colla.secondaryColour);
-
         if (colla.logo) formData.append("logo", colla.logo, colla.logo.name);
+        formData.append("music", colla.music);
+        formData.append("email", colla.email);
+        formData.append("instagram", colla.instagram);
 
         await fetch(URL_PREFIX + "/api/colles", {
             method: "POST",
@@ -92,8 +94,10 @@ async function updateColla(colla: Colla) {
         formData.append("neighbourhood", colla.neighbourhood);
         formData.append("primaryColour", colla.primaryColour);
         formData.append("secondaryColour", colla.secondaryColour);
-
         if (colla.logo) formData.append("logo", colla.logo, colla.logo.name);
+        formData.append("music", colla.music);
+        formData.append("email", colla.email);
+        formData.append("instagram", colla.instagram);
 
         await fetch(URL_PREFIX + "/api/colles", {
             method: "PUT",
