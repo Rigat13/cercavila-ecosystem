@@ -15,6 +15,7 @@ import {isCollaTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,collaTypes} from "@/mod
 import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH, neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
 import {isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
 import {isCollaLogoValid, LOGO_MAX_MBS} from "@/modules/colles/domain/colla-attributes/CollaLogo";
+import ColourPicker from "@/app/sections/shared/ColourPicker";
 
 const initialState = {
     name: "",
@@ -279,8 +280,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="primaryColour">{dictionary[lang]?.collaPrimaryColour}</label>
-                            <input
-                                type="color"
+                            <ColourPicker
                                 id="primaryColour"
                                 name="primaryColour"
                                 value={formData.primaryColour}
@@ -293,8 +293,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="secondaryColour">{dictionary[lang]?.collaSecondaryColour}</label>
-                            <input
-                                type="color"
+                            <ColourPicker
                                 id="secondaryColour"
                                 name="secondaryColour"
                                 value={formData.secondaryColour}
