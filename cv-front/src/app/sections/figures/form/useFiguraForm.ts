@@ -8,15 +8,15 @@ export const enum FormStatus {
 }
 
 export function useFiguraForm(): {
-    submitForm: ({ id, name, year, type, image, webUrl }:
-                     { id: string; name: string; year: number; type: string; image: File | null; webUrl: string; })
+    submitForm: ({ name, year, type, image, webUrl }:
+                     { name: string; year: number; type: string; image: File | null; webUrl: string; })
         => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
     const [formStatus, setFormStatus] = useState(FormStatus.Initial);
     const { createFigura } = useFiguresContext();
 
-    function submitForm({ id, name, year, type, image, webUrl }:
-                            { id: string; name: string; year: number; type: string; image: File | null; webUrl: string; }) {
+    function submitForm({ name, year, type, image, webUrl }:
+                            { name: string; year: number; type: string; image: File | null; webUrl: string; }) {
         setFormStatus(FormStatus.Loading);
         try {
             createFigura({id: "", name, year, type, image, webUrl })

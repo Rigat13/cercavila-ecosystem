@@ -2,14 +2,14 @@ export const lang = ["ca", "es", "en"];
 export const defaultLang = "ca";
 
 interface DictionaryEntry {
-    // GENERAL
+    // -------------------------------------------------------------------------------------------- GENERAL
     cercavilaTitle: string;
     errorFound: string;
     unreachablePage: string;
     retry: string;
     maxFileSize: string;
 
-    // COLLA
+    // -------------------------------------------------------------------------------------------- COLLA
     collaName: string;
     collaEntity: string;
     collaFoundationYear: string;
@@ -103,18 +103,65 @@ interface DictionaryEntry {
     errorDeleteCollaMessage: string;
     collaNotFoundWithId: string;
     errorRetrievingCollaMessage: string;
+
+    // -------------------------------------------------------------------------------------------- FIGURA
+    figuraName: string;
+    figuraYear: string;
+    figuraType: string;
+    figuraImage: string;
+    figuraWebUrl: string;
+
+    // FIGURA TYPE
+    selectFiguraType: string;
+    figuraTypeGegant: string;
+    figuraTypeGeganto: string;
+    figuraTypeCapgros: string;
+    figuraTypeNan: string;
+    figuraTypeBestia: string;
+    figuraTypeMotxilla: string;
+
+    // CREATE FIGURA
+    figuresTitle: string;
+    createFiguraTitle: string;
+    createFiguraButton: string;
+
+    figuraNameInvalid: string;
+    figuraYearInvalid: string;
+    figuraTypeInvalid: string;
+    figuraImageInvalid: string;
+    figuraWebUrlInvalid: string;
+
+    successCreateFiguraMessage: string;
+    errorCreateFiguraMessage: string;
+    createAnotherFiguraButton: string;
+    retryCreateFiguraButton: string;
+
+    // UPDATE FIGURA
+    updateFiguraTitle: string;
+    updateFiguraButton: string;
+    goToFiguresButton: string;
+    deleteFiguraButton: string;
+    warningDeleteFiguraMessage: string;
+    cancelDeleteFiguraButton: string;
+    confirmDeleteFiguraButton: string;
+    successUpdateFiguraMessage: string;
+    errorUpdateFiguraMessage: string;
+    successDeleteFiguraMessage: string;
+    errorDeleteFiguraMessage: string;
+    figuraNotFoundWithId: string;
+    errorRetrievingFiguraMessage: string;
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
     ca: {
-        // GENERAL
+        // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
         errorFound: "Hi ha hagut un error",
         unreachablePage: "No s'esperava arribar aquí",
         retry: "Torna a intentar",
         maxFileSize: "Mida màxima del fitxer: ",
 
-        // COLLA
+        // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Nom",
         collaEntity: "Entitat",
         collaFoundationYear: "Any de fundació",
@@ -208,6 +255,53 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteCollaMessage: "La colla no s'ha pogut esborrar. \nMotiu: ",
         collaNotFoundWithId: "No s'ha trobat la colla amb l'identificador: ",
         errorRetrievingCollaMessage: "Error en obtenir la informació de la colla. \nMotiu: ",
+
+        // -------------------------------------------------------------------------------------------- FIGURA
+        figuraName: "Nom",
+        figuraYear: "Any",
+        figuraType: "Tipus",
+        figuraImage: "Imatge",
+        figuraWebUrl: "Enllaç d'història",
+
+        // FIGURA TYPE
+        selectFiguraType: "-- Tipus de figura --",
+        figuraTypeGegant: "Gegant",
+        figuraTypeGeganto: "Gegantó",
+        figuraTypeCapgros: "Capgròs",
+        figuraTypeNan: "Nan",
+        figuraTypeBestia: "Bestiari",
+        figuraTypeMotxilla: "Motxilla",
+
+        // CREATE FIGURA
+        figuresTitle: "Figures registrades",
+        createFiguraTitle: "Crea una nova figura",
+        createFiguraButton: "Crea la figura",
+
+        figuraNameInvalid: "El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
+        figuraYearInvalid: "L'any no és vàlid. Ha de ser un número entre: ",
+        figuraTypeInvalid: "El tipus no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+        figuraImageInvalid: "La imatge no és vàlida. Ha de ser un fitxer vàlid amb mida inferior a: ",
+        figuraWebUrlInvalid: "L'enllaç d'història no és vàlid. Ha de tenir caràcters vàlids entre: ",
+
+        successCreateFiguraMessage: "La figura s'ha creat amb èxit",
+        errorCreateFiguraMessage: "La figura no s'ha pogut crear. \nMotiu: ",
+        createAnotherFiguraButton: "Crear una altra figura",
+        retryCreateFiguraButton: "Torna a intentar",
+
+        // UPDATE FIGURA
+        updateFiguraTitle: "Edita la figura",
+        updateFiguraButton: "Edita la figura",
+        goToFiguresButton: "Torna a les figures",
+        deleteFiguraButton: "Esborrar la figura",
+        warningDeleteFiguraMessage: "Voleu esborrar la figura de manera permanent? No es pot desfer aquesta acció.",
+        cancelDeleteFiguraButton: "Cancel·lar",
+        confirmDeleteFiguraButton: "Esborrar permanentment",
+        successUpdateFiguraMessage: "La figura s'ha editat amb èxit",
+        errorUpdateFiguraMessage: "La figura no s'ha pogut editar. \nMotiu: ",
+        successDeleteFiguraMessage: "La figura s'ha esborrat amb èxit",
+        errorDeleteFiguraMessage: "La figura no s'ha pogut esborrar. \nMotiu: ",
+        figuraNotFoundWithId: "Figura no trobada amb id: ",
+        errorRetrievingFiguraMessage: "Error en obtenir la informació de la figura. \nMotiu: ",
     },
     es: {
         // GENERAL
@@ -311,6 +405,53 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteCollaMessage: "La colla no se ha podido borrar. \nMotivo: ",
         collaNotFoundWithId: "No se ha encontrado la colla con el identificador: ",
         errorRetrievingCollaMessage: "Error al obtener la información de la colla. \nMotivo: ",
+
+        // -------------------------------------------------------------------------------------------- FIGURA
+        figuraName: "Nombre",
+        figuraYear: "Año",
+        figuraType: "Tipo",
+        figuraImage: "Imagen",
+        figuraWebUrl: "Enlace de historia",
+
+        // FIGURA TYPE
+        selectFiguraType: "-- Tipo de figura --",
+        figuraTypeGegant: "Gigante",
+        figuraTypeGeganto: "Gigantón",
+        figuraTypeCapgros: "Cabezudo",
+        figuraTypeNan: "Enano",
+        figuraTypeBestia: "Bestiario",
+        figuraTypeMotxilla: "Mochila",
+
+        // CREATE FIGURA
+        figuresTitle: "Figuras registradas",
+        createFiguraTitle: "Crea una nueva figura",
+        createFiguraButton: "Crea la figura",
+
+        figuraNameInvalid: "El nombre no es válido. Debe contener carácteres válidos y tener entre: ",
+        figuraYearInvalid: "El año no es válido. Debe ser un número entre: ",
+        figuraTypeInvalid: "El tipo no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+        figuraImageInvalid: "La imagen no es válida. Debe ser un archivo válido con tamaño inferior a: ",
+        figuraWebUrlInvalid: "El enlace de historia no es válido. Debe tener carácteres válidos entre: ",
+
+        successCreateFiguraMessage: "La figura se ha creado con éxito",
+        errorCreateFiguraMessage: "La figura no se ha podido crear. \nMotivo: ",
+        createAnotherFiguraButton: "Crear otra figura",
+        retryCreateFiguraButton: "Volver a intentar",
+
+        // UPDATE FIGURA
+        updateFiguraTitle: "Edita la figura",
+        updateFiguraButton: "Edita la figura",
+        goToFiguresButton: "Vuelve a las figures",
+        deleteFiguraButton: "Borrar la figura",
+        warningDeleteFiguraMessage: "¿Quieres borrar la figura de manera permanente? No se puede deshacer esta acción.",
+        cancelDeleteFiguraButton: "Cancelar",
+        confirmDeleteFiguraButton: "Borrar permanentemente",
+        successUpdateFiguraMessage: "La figura se ha editado con éxito",
+        errorUpdateFiguraMessage: "La figura no se ha podido editar. \nMotivo: ",
+        successDeleteFiguraMessage: "La figura se ha borrado con éxito",
+        errorDeleteFiguraMessage: "La figura no se ha podido borrar. \nMotivo: ",
+        figuraNotFoundWithId: "Figura no encontrada con id: ",
+        errorRetrievingFiguraMessage: "Error al obtener la información de la figura. \nMotivo: ",
     },
     en: {
         // GENERAL
@@ -414,5 +555,52 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteCollaMessage: "The colla could not be deleted. \nReason: ",
         collaNotFoundWithId: "Colla not found with id: ",
         errorRetrievingCollaMessage: "Error retrieving colla information. \nReason: ",
+
+        // -------------------------------------------------------------------------------------------- FIGURA
+        figuraName: "Name",
+        figuraYear: "Year",
+        figuraType: "Type",
+        figuraImage: "Image",
+        figuraWebUrl: "History link",
+
+        // FIGURA TYPE
+        selectFiguraType: "-- Figura type --",
+        figuraTypeGegant: "Gegant",
+        figuraTypeGeganto: "Gegantó",
+        figuraTypeCapgros: "Capgròs",
+        figuraTypeNan: "Nan",
+        figuraTypeBestia: "Beast",
+        figuraTypeMotxilla: "Backpack",
+
+        // CREATE FIGURA
+        figuresTitle: "Registered figures",
+        createFiguraTitle: "Create a new figure",
+        createFiguraButton: "Create figure",
+
+        figuraNameInvalid: "The name is not valid. It must contain valid characters and be between: ",
+        figuraYearInvalid: "The year is not valid. It must be a number between: ",
+        figuraTypeInvalid: "The type is not valid. It must be one from the list, with valid characters between: ",
+        figuraImageInvalid: "The image is not valid. It must be a valid file with size lower than: ",
+        figuraWebUrlInvalid: "The history link is not valid. It must have valid characters between: ",
+
+        successCreateFiguraMessage: "The figure has been created successfully",
+        errorCreateFiguraMessage: "The figure could not be created. \nReason: ",
+        createAnotherFiguraButton: "Create another figure",
+        retryCreateFiguraButton: "Retry",
+
+        // UPDATE FIGURA
+        updateFiguraTitle: "Edit figure",
+        updateFiguraButton: "Edit figure",
+        goToFiguresButton: "Go back to figures",
+        deleteFiguraButton: "Delete figure",
+        warningDeleteFiguraMessage: "Do you want to delete the figure permanently? This action cannot be undone.",
+        cancelDeleteFiguraButton: "Cancel",
+        confirmDeleteFiguraButton: "Delete permanently",
+        successUpdateFiguraMessage: "The figure has been edited successfully",
+        errorUpdateFiguraMessage: "The figure could not be edited. \nReason: ",
+        successDeleteFiguraMessage: "The figure has been deleted successfully",
+        errorDeleteFiguraMessage: "The figure could not be deleted. \nReason: ",
+        figuraNotFoundWithId: "Figure not found with id: ",
+        errorRetrievingFiguraMessage: "Error retrieving figure information. \nReason: ",
     }
 }

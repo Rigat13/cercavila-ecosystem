@@ -4,15 +4,15 @@ import { defaultLang, dictionary } from "@/content";
 import {useEffect, useState} from "react";
 
 export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
-    const [logoUrl, setLogoUrl] = useState<string | null>(null);
+    const [imageUrl, setLogoUrl] = useState<string | null>(null);
 
     useEffect(() => {
-        if (figura.logo) {
-            const blob = base64ToBlob(figura.logo as unknown as string);
+        if (figura.image) {
+            const blob = base64ToBlob(figura.image as unknown as string);
             const url = URL.createObjectURL(blob);
             setLogoUrl(url);
         }
-    }, [figura.logo]);
+    }, [figura.image]);
 
     return (
         <div className={styles.figuraCard}>
@@ -22,31 +22,21 @@ export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
                 </button>
             </a>
             <h3 className={styles.figuraCard__name}>{figura.name}</h3>
-            <h6 className={styles.figuraCard__entity}>{figura.entity}</h6>
-            <p className={styles.figuraCard__foundationYear}>{figura.foundationYear}</p>
-            <p className={styles.figuraCard__description}>{figura.description}</p>
+            <p className={styles.figuraCard__year}>{figura.year}</p>
             <p className={styles.figuraCard__type}>{dictionary[lang]?.[figura.type]}</p>
-            <p className={styles.figuraCard__neighbourhood}>{dictionary[lang]?.[figura.neighbourhood]}</p>
-            <p className={styles.figuraCard__music}>{dictionary[lang]?.[figura.music]}</p>
-            <p className={styles.figuraCard__email}>{figura.email}</p>
 
-            <div className={styles.colorCircles}>
-                <div className={styles.colorCircle} style={{ backgroundColor: figura.primaryColour }}></div>
-                <div className={styles.colorCircle} style={{ backgroundColor: figura.secondaryColour }}></div>
-            </div>
-
-            {logoUrl && (
+            {imageUrl && (
                 <img
-                    src={logoUrl}
+                    src={imageUrl}
                     alt={`Logo de ${figura.name}`}
-                    className={styles.figuraCard__logo}
+                    className={styles.figuraCard__image}
                 />
             )}
 
-            {figura.instagram && (
-                <a href={getInstagramUrl(figura.instagram)}>
+            {figura.webUrl && (
+                <a href={getWebUrl(figura.webUrl)}>
                     <button className={styles.outerLink}>
-                        <img src="/icons/icon-instagram.png" alt="Editar" />
+                        <img src="/icons/icon-web.png" alt="Història" />
                     </button>
                 </a>
             )}
@@ -54,18 +44,15 @@ export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
     );
 }
 
-function getInstagramUrl(usernameOrUrl: string): string {
-    if (usernameOrUrl.startsWith('http')) {
-        return usernameOrUrl;
-    } else if (usernameOrUrl.startsWith('www.')) {
-        return `https://${usernameOrUrl}`;
-    } else if (usernameOrUrl.startsWith('instagram.com')) {
-        return `https://${usernameOrUrl}`;
+function getWebUrl(url: string): string {
+    if (url.startsWith('http:')) {
+        return url;
+    } else if (url.startsWith('www.gegantsmataro')) {
+        return `http://${url}`;
+    } else if (url.startsWith('gegantsmataro.cat')) {
+        return `http://${url}`;
     }
-    else if (usernameOrUrl.startsWith('@')) {
-        return `https://www.instagram.com/${usernameOrUrl.slice(1)}`;
-    }
-    return `https://www.instagram.com/${usernameOrUrl}`;
+    return url;
 }
 
 function base64ToBlob(base64: string): Blob {

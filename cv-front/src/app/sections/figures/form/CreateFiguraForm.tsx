@@ -8,36 +8,21 @@ import styles from "@/app/sections/figures/form/FiguraForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
 
 import {isFiguraNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/figures/domain/figura-attributes/FiguraName";
-import {isFiguraEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/figures/domain/figura-attributes/FiguraEntity";
-import {isFiguraFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/figures/domain/figura-attributes/FiguraFoundationYear";
-import {isFiguraDescriptionValid, DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH} from "@/modules/figures/domain/figura-attributes/FiguraDescription";
+import {isFiguraYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/figures/domain/figura-attributes/FiguraYear";
 import {isFiguraTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,figuraTypes} from "@/modules/figures/domain/figura-attributes/FiguraType";
-import {isFiguraNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH, neighbourhoods} from "@/modules/figures/domain/figura-attributes/FiguraNeighbourhood";
-import {isFiguraColourValid} from "@/modules/figures/domain/figura-attributes/FiguraColours";
 import {isFiguraImageValid, LOGO_MAX_MBS} from "@/modules/figures/domain/figura-attributes/FiguraImage";
-import ColourPicker from "@/app/sections/shared/ColourPicker";
-import {isFiguraMusicValid, musics} from "@/modules/figures/domain/figura-attributes/FiguraMusic";
-import {isFiguraEmailValid} from "@/modules/figures/domain/figura-attributes/FiguraEmail";
-import {isFiguraInstagramValid} from "@/modules/figures/domain/figura-attributes/FiguraInstagram";
+import {isFiguraWebUrlValid} from "@/modules/figures/domain/figura-attributes/FiguraWebUrl";
 
 const initialState = {
     name: "",
-    entity: "",
-    foundationYear: "",
-    description: "",
+    year: "",
     type: "",
-    neighbourhood: "",
-    primaryColour: "",
-    secondaryColour: "",
     image: null as File | null,
-    music: "",
-    email: "",
-    instagram: "",
+    webUrl: "",
 }
 
-export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid,
-    isPrimaryColourValid, isSecondaryColourValid, isImageValid, isMusicValid, isEmailValid = false;
-export let isInstagramValid = true; // Optional fields
+export let isNameValid, isYearValid, isTypeValid, isImageValid = false;
+export let isWebUrlValid = true; // Optional fields
 
 const lang = defaultLang;
 
@@ -45,11 +30,6 @@ export function CreateFiguraForm({ lang }: { lang: string }) {
     const { formData, updateForm, resetForm } = useFiguraFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useFiguraForm();
     const [errors, setErrors] = useState(initialState);
-
-    const [isPrimaryColourPickerOpen, setIsPrimaryColourPickerOpen] = useState(false);
-    const [isSecondaryColourPickerOpen, setIsSecondaryColourPickerOpen] = useState(false);
-    const [primaryColour, setPrimaryColour] = useState('#FFFFFF');
-    const [secondaryColour, setSecondaryColour] = useState('#FFFFFF');
 
     const [image, setImage] = useState<File | null>(null);
     const [imageSize, setImageSize] = useState(0);
@@ -68,49 +48,17 @@ export function CreateFiguraForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, name: newName });
     };
 
-    const handleEntityChange = (ev) => {
-        const newEntity = ev.target.value;
-        updateForm({ entity: newEntity });
-        validateFormData({ ...formData, entity: newEntity });
-    };
-
-    const handleFoundationYearChange = (ev) => {
-        const newFoundationYear = Number(ev.target.value);
-        updateForm({ foundationYear: newFoundationYear+"" });
-        validateFormData({ ...formData, foundationYear: newFoundationYear });
-    };
-
-    const handleDescriptionChange = (ev) => {
-        const newDescription = ev.target.value;
-        updateForm({ description: newDescription });
-        validateFormData({ ...formData, description: newDescription });
+    const handleYearChange = (ev) => {
+        const newYear = Number(ev.target.value);
+        updateForm({ year: newYear+"" });
+        validateFormData({ ...formData, year: newYear });
     };
 
     const handleTypeChange = (ev) => {
         const newType = ev.target.value;
         updateForm({ type: newType });
         validateFormData({ ...formData, type: newType });
-    }
-
-    const handleNeighbourhoodChange = (ev) => {
-        const newNeighbourhood = ev.target.value;
-        updateForm({ neighbourhood: newNeighbourhood });
-        validateFormData({ ...formData, neighbourhood: newNeighbourhood });
-    }
-
-    const handlePrimaryColourChange = (ev) => {
-        const newPrimaryColour = ev.target.value;
-        setPrimaryColour(newPrimaryColour);
-        updateForm({ primaryColour: newPrimaryColour });
-        validateFormData({ ...formData, primaryColour: newPrimaryColour });
-    }
-
-    const handleSecondaryColourChange = (ev) => {
-        const newSecondaryColour = ev.target.value;
-        setSecondaryColour(newSecondaryColour);
-        updateForm({ secondaryColour: newSecondaryColour });
-        validateFormData({ ...formData, secondaryColour: newSecondaryColour });
-    }
+    };
 
     const handleImageChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setImageAlreadyValid(false);
@@ -132,76 +80,42 @@ export function CreateFiguraForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, image: file });
     };
 
-    const handleMusicChange = (ev) => {
-        const newMusic = ev.target.value;
-        updateForm({ music: newMusic });
-        validateFormData({ ...formData, music: newMusic });
-    }
+    const handleWebUrlChange = (ev) => {
+        const newWebUrl = ev.target.value;
+        updateForm({ webUrl: newWebUrl });
+        validateFormData({ ...formData, webUrl: newWebUrl });
+    };
 
-    const handleEmailChange = (ev) => {
-        const newEmail = ev.target.value;
-        updateForm({ email: newEmail });
-        validateFormData({ ...formData, email: newEmail });
-    }
-
-    const handleInstagramChange = (ev) => {
-        const newInstagram = ev.target.value;
-        updateForm({ instagram: newInstagram });
-        validateFormData({ ...formData, instagram: newInstagram });
-    }
-
-    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, image, music, email, instagram }) => {
+    const validateFormData = ({ name, year, type, image, webUrl }) => {
         // Perform validation based on the provided data
         isNameValid = isFiguraNameValid(name);
-        isEntityValid = isFiguraEntityValid(entity);
-        isFoundationYearValid = !isNaN(foundationYear) && isFiguraFoundationYearValid(foundationYear);
-        isDescriptionValid = isFiguraDescriptionValid(description);
+        isYearValid = !isNaN(year) && isFiguraYearValid(year);
         isTypeValid = isFiguraTypeValid(type, dictionary[lang]?.selectFiguraType+"");
-        isNeighbourhoodValid = isFiguraNeighbourhoodValid(neighbourhood, dictionary[lang]?.selectNeighbourhood+"");
-        isPrimaryColourValid = isFiguraColourValid(primaryColour);
-        isSecondaryColourValid = isFiguraColourValid(secondaryColour);
         if (!isImageAlreadyValid) isImageValid = isFiguraImageValid(image);
         setImageAlreadyValid(isImageValid);
-        isMusicValid = isFiguraMusicValid(music, dictionary[lang]?.selectMusic+"");
-        isEmailValid = isFiguraEmailValid(email);
-        isInstagramValid = isFiguraInstagramValid(instagram) || instagram === "" || instagram == null; // Optional field
+        isWebUrlValid = isFiguraWebUrlValid(webUrl) || webUrl === "" || webUrl == null; // Optional field
 
         setErrors({
-            name: isNameValid ? "" : dictionary[lang]?.figuresNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
-            entity: isEntityValid ? "" : dictionary[lang]?.figuresEntityInvalid + ENTITY_MIN_LENGTH + " - " + ENTITY_MAX_LENGTH,
-            foundationYear: isFoundationYearValid ? "" : dictionary[lang]?.figuresFoundationYearInvalid + FOUNDATION_YEAR_MIN + " - " + FOUNDATION_YEAR_MAX,
-            description: isDescriptionValid ? "" : dictionary[lang]?.figuresDescriptionInvalid + " " + DESCRIPTION_MIN_LENGTH + " - " + DESCRIPTION_MAX_LENGTH,
-            type: isTypeValid ? "" : dictionary[lang]?.figuresTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
-            neighbourhood: isNeighbourhoodValid ? "" : dictionary[lang]?.figuresNeighbourhoodInvalid + " " + NEIGHBOURHOOD_MIN_LENGTH + " - " + NEIGHBOURHOOD_MAX_LENGTH,
-            primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.figuresPrimaryColourInvalid + "",
-            secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.figuresSecondaryColourInvalid + "",
+            name: isNameValid ? "" : dictionary[lang]?.figuraNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
+            year: isYearValid ? "" : dictionary[lang]?.figuraYearInvalid + FOUNDATION_YEAR_MIN + " - " + FOUNDATION_YEAR_MAX,
+            type: isTypeValid ? "" : dictionary[lang]?.figuraTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
             image: null,
-            music: isMusicValid ? "" : dictionary[lang]?.figuresMusicInvalid + "",
-            email: isEmailValid ? "" : dictionary[lang]?.figuresEmailInvalid + "",
-            instagram: isInstagramValid ? "" : dictionary[lang]?.figuresInstagramInvalid + "",
+            webUrl: isWebUrlValid ? "" : dictionary[lang]?.figuraWebUrlInvalid + "",
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid ||
-            !isPrimaryColourValid || !isSecondaryColourValid || !isImageValid || !isMusicValid || !isEmailValid || !isInstagramValid) { return; }
+        if (!isNameValid || !isYearValid || !isTypeValid || !isImageValid || !isWebUrlValid) { return; }
 
         const formDataWithImage = { ...formData };
         if (image) { formDataWithImage.image = image; }
         ev.preventDefault();
         submitForm({
             name: formData.name,
-            entity: formData.entity,
-            foundationYear: Number(formData.foundationYear),
-            description: formData.description,
+            year: Number(formData.year),
             type: formData.type,
-            neighbourhood: formData.neighbourhood,
-            primaryColour: formData.primaryColour,
-            secondaryColour: formData.secondaryColour,
             image: formDataWithImage.image,
-            music: formData.music,
-            email: formData.email,
-            instagram: formData.instagram,
+            webUrl: formData.webUrl,
         });
     };
 
@@ -244,43 +158,16 @@ export function CreateFiguraForm({ lang }: { lang: string }) {
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="entity">{dictionary[lang]?.figuraEntity}</label>
-                            <input
-                                type="text"
-                                id="entity"
-                                name="entity"
-                                value={formData.entity}
-                                onChange={handleEntityChange}
-                            />
-                            {formData.entity && errors.entity && (
-                                <div style={{ color: "tomato" }}>{errors.entity}</div>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="foundationYear">{dictionary[lang]?.figuraFoundationYear}</label>
+                            <label htmlFor="year">{dictionary[lang]?.figuraYear}</label>
                             <input
                                 type="number"
-                                id="foundationYear"
-                                name="foundationYear"
-                                value={formData.foundationYear}
-                                onChange={handleFoundationYearChange}
+                                id="year"
+                                name="year"
+                                value={formData.year}
+                                onChange={handleYearChange}
                             />
-                            {formData.foundationYear && errors.foundationYear && (
-                                <div style={{ color: "tomato" }}>{errors.foundationYear}</div>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="description">{dictionary[lang]?.figuraDescription}</label>
-                            <textarea
-                                id="description"
-                                name="description"
-                                value={formData.description}
-                                onChange={handleDescriptionChange}
-                            />
-                            {formData.description && errors.description && (
-                                <div style={{ color: "tomato" }}>{errors.description}</div>
+                            {formData.year && errors.year && (
+                                <div style={{ color: "tomato" }}>{errors.year}</div>
                             )}
                         </div>
 
@@ -304,65 +191,6 @@ export function CreateFiguraForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
-                            <label htmlFor="neighbourhood">{dictionary[lang]?.figuraNeighbourhood}</label>
-                            <select
-                                id="neighbourhood"
-                                name="neighbourhood"
-                                value={formData.neighbourhood}
-                                onChange={handleNeighbourhoodChange}
-                            >
-                                <option value="">{dictionary[lang]?.selectNeighbourhood}</option>
-                                {neighbourhoods.map(option => (
-                                    <option key={option.labelKey} value={option.labelKey}>
-                                        {dictionary[lang]?.[option.labelKey]}
-                                    </option>
-                                ))}
-                            </select>
-                            {formData.neighbourhood && errors.neighbourhood && (
-                                <div style={{ color: "tomato" }}>{errors.neighbourhood}</div>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="primaryColour">{dictionary[lang]?.figuraPrimaryColour}</label>
-                            <button
-                                className={styles.colourPreviewButton}
-                                id="primaryColourPreviewButton"
-                                style={{ backgroundColor: primaryColour }}
-                                onClick={(event) => { event.preventDefault(); setIsPrimaryColourPickerOpen(!isPrimaryColourPickerOpen); }}/>
-                            {isPrimaryColourPickerOpen && (
-                                <ColourPicker
-                                    id="primaryColour"
-                                    name="primaryColour"
-                                    value={formData.primaryColour}
-                                    onChange={handlePrimaryColourChange}
-                                />
-                            )}
-                            {errors.primaryColour && (
-                                <div style={{ color: "tomato" }}>{errors.primaryColour}</div>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="secondaryColour">{dictionary[lang]?.figuraSecondaryColour}</label>
-                            <button
-                                className={styles.colourPreviewButton}
-                                id="secondaryColourPreviewButton"
-                                style={{ backgroundColor: secondaryColour }}
-                                onClick={(event) => { event.preventDefault(); setIsSecondaryColourPickerOpen(!isSecondaryColourPickerOpen); }}/>
-                            {isSecondaryColourPickerOpen && (
-                                <ColourPicker
-                                    id="secondaryColour"
-                                    name="secondaryColour"
-                                    value={formData.secondaryColour}
-                                    onChange={handleSecondaryColourChange}
-                                />
-                            )}
-                            {errors.secondaryColour && (
-                                <div style={{ color: "tomato" }}>{errors.secondaryColour}</div>
-                            )}
-                        </div>
                         <div className={styles.formGroup}>
                             <label htmlFor="image">{dictionary[lang]?.figuraImage}</label>
                             <div className={styles.imagePreviewContainer}>
@@ -388,58 +216,23 @@ export function CreateFiguraForm({ lang }: { lang: string }) {
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="music">{dictionary[lang]?.figuraMusic}</label>
-                            <select
-                                id="music"
-                                name="music"
-                                value={formData.music}
-                                onChange={handleMusicChange}
-                            >
-                                <option value="">{dictionary[lang]?.selectMusic}</option>
-                                {musics.map(option => (
-                                    <option key={option.labelKey} value={option.labelKey}>
-                                        {dictionary[lang]?.[option.labelKey]}
-                                    </option>
-                                ))}
-                            </select>
-                            {formData.music && errors.music && (
-                                <div style={{ color: "tomato" }}>{errors.music}</div>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="email">{dictionary[lang]?.figuraEmail}</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleEmailChange}
-                            />
-                            {formData.email && errors.email && (
-                                <div style={{ color: "tomato" }}>{errors.email}</div>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="instagram">{dictionary[lang]?.figuraInstagram}</label>
+                            <label htmlFor="webUrl">{dictionary[lang]?.figuraWebUrl}</label>
                             <input
                                 type="text"
-                                id="instagram"
-                                name="instagram"
-                                value={formData.instagram}
-                                onChange={handleInstagramChange}
+                                id="webUrl"
+                                name="webUrl"
+                                value={formData.webUrl}
+                                onChange={handleWebUrlChange}
                             />
-                            {formData.instagram && errors.instagram && (
-                                <div style={{ color: "tomato" }}>{errors.instagram}</div>
+                            {formData.webUrl && errors.webUrl && (
+                                <div style={{ color: "tomato" }}>{errors.webUrl}</div>
                             )}
                         </div>
 
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid ||
-                                !isPrimaryColourValid || !isSecondaryColourValid || !isImageValid || !isMusicValid || !isEmailValid || !isInstagramValid}
+                            disabled={!isNameValid || !isYearValid || !isTypeValid || !isImageValid || !isWebUrlValid}
                         >
                             {dictionary[lang]?.createFiguraButton}
                         </button>

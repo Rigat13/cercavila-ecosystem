@@ -46,7 +46,7 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
             {colla.instagram && (
                 <a href={getInstagramUrl(colla.instagram)}>
                     <button className={styles.outerLink}>
-                        <img src="/icons/icon-instagram.png" alt="Editar" />
+                        <img src="/icons/icon-instagram.png" alt="Instagram" />
                     </button>
                 </a>
             )}

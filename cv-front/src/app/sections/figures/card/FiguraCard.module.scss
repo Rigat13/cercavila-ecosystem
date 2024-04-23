@@ -42,20 +42,9 @@
     font-weight: 900;
   }
 
-  &__entity {
-    margin-top: 0.5em;
-    font-size: 1.5rem;
-    font-style: italic;
-  }
-
-  &__foundation-year {
+  &__year {
     margin-top: 0.5em;
     font-size: 0.5rem;
-  }
-
-  &__description {
-    margin-top: 0.5em;
-    font-size: 1rem;
   }
 
   &__type {
@@ -63,12 +52,7 @@
     font-size: 1rem;
   }
 
-  &__neighbourhood {
-    margin-top: 0.5em;
-    font-size: 1rem;
-  }
-
-  &__logo {
+  &__image {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -82,17 +66,7 @@
         }
   }
 
-  &__music {
-    margin-top: 0.5em;
-    font-size: 1rem;
-  }
-
-  &__email {
-    margin-top: 0.5em;
-    font-size: 1rem;
-  }
-
-  &__instagram {
+  &__webUrl {
     margin-top: 0.5em;
     font-size: 1rem;
   }
@@ -102,20 +76,6 @@
     font-weight: 700;
     font-size: 1.875rem;
     padding: 1rem;
-  }
-
-  .colorCircles {
-    display: flex;
-    justify-content: left;
-    margin-top: 10px;
-  }
-
-  .colorCircle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid #000;
-    margin-right: 5px;
   }
 
   .imagePreviewContainer {
