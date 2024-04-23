@@ -1,4 +1,4 @@
-export const IMAGE_MAX_MBS = 2; // 2MB
+export const IMAGE_MAX_MBS = 5; // 5MB
 
 export function isFiguraImageValid(image: File | null): boolean {
     if (!image) return false;

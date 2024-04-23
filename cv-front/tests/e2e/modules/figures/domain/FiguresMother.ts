@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { Factory } from "fishery";
-import { NAME_MIN_LENGTH, NAME_MAX_LENGTH } from "@/modules/figures/domain/colla-attributes/FiguraName";
-import { YEAR_MIN, YEAR_MAX } from "@/modules/figures/domain/colla-attributes/FiguraFoundationYear";
+import { NAME_MIN_LENGTH, NAME_MAX_LENGTH } from "@/modules/figures/domain/figura-attributes/FiguraName";
+import { YEAR_MIN, YEAR_MAX } from "@/modules/figures/domain/figura-attributes/FiguraYear";
 import {Figura} from "@/modules/figures/domain/Figura";
 
 const FiguraFactory = Factory.define<Figura>(() => ({
@@ -32,12 +32,12 @@ export const FiguraMother = {
     },
     createWithTooSmallYear: (): Figura => {
         return FiguraFactory.build({
-            foundationYear: YEAR_MIN - 1,
+            year: YEAR_MIN - 1,
         });
     },
     createWithTooBigYear: (): Figura => {
         return FiguraFactory.build({
-            foundationYear: YEAR_MAX + 1,
+            year: YEAR_MAX + 1,
         });
     },
     createWithTooShortType: (): Figura => {

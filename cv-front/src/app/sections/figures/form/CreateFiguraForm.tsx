@@ -8,9 +8,9 @@ import styles from "@/app/sections/figures/form/FiguraForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
 
 import {isFiguraNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/figures/domain/figura-attributes/FiguraName";
-import {isFiguraYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/figures/domain/figura-attributes/FiguraYear";
+import {isFiguraYearValid, YEAR_MIN, YEAR_MAX} from "@/modules/figures/domain/figura-attributes/FiguraYear";
 import {isFiguraTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,figuraTypes} from "@/modules/figures/domain/figura-attributes/FiguraType";
-import {isFiguraImageValid, LOGO_MAX_MBS} from "@/modules/figures/domain/figura-attributes/FiguraImage";
+import {isFiguraImageValid, IMAGE_MAX_MBS} from "@/modules/figures/domain/figura-attributes/FiguraImage";
 import {isFiguraWebUrlValid} from "@/modules/figures/domain/figura-attributes/FiguraWebUrl";
 
 const initialState = {
@@ -97,7 +97,7 @@ export function CreateFiguraForm({ lang }: { lang: string }) {
 
         setErrors({
             name: isNameValid ? "" : dictionary[lang]?.figuraNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
-            year: isYearValid ? "" : dictionary[lang]?.figuraYearInvalid + FOUNDATION_YEAR_MIN + " - " + FOUNDATION_YEAR_MAX,
+            year: isYearValid ? "" : dictionary[lang]?.figuraYearInvalid + YEAR_MIN + " - " + YEAR_MAX,
             type: isTypeValid ? "" : dictionary[lang]?.figuraTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
             image: null,
             webUrl: isWebUrlValid ? "" : dictionary[lang]?.figuraWebUrlInvalid + "",
@@ -207,12 +207,12 @@ export function CreateFiguraForm({ lang }: { lang: string }) {
                                 accept="image/*" // Specify accepted file types (images)
                                 onChange={handleImageChange}
                             />
-                            {imageSize > LOGO_MAX_MBS && (
+                            {imageSize > IMAGE_MAX_MBS && (
                                 <p style={{ color: 'red' }}>
-                                    {`File size (${imageSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                    {`File size (${imageSize.toFixed(2)} MB) exceeds the maximum allowed size of ${IMAGE_MAX_MBS} MB`}
                                 </p>
                             )}
-                            <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
+                            <p>{dictionary[lang]?.maxFileSize + IMAGE_MAX_MBS + "MB"}</p>
                         </div>
 
                         <div className={styles.formGroup}>
