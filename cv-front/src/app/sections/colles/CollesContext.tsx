@@ -10,9 +10,9 @@ import {deleteColla} from "@/modules/colles/application/delete/deleteColla";
 
 export interface ContextState {
     colles: Colla[];
-    createColla: (colla: { id: string; name: string; entity: string, foundationYear: number, description: string; type: string, neighbourhood:
+    createColla: (colla: { id: string; name: string; entity: string, foundationYear: number; description: string; type: string; neighbourhood:
             string; primaryColour: string; secondaryColour: string; logo: File | null; music: string; email: string; instagram: string; }) => Promise<void>;
-    updateColla: (colla: { id: string; name: string; entity: string, foundationYear: number, description: string; type: string, neighbourhood:
+    updateColla: (colla: { id: string; name: string; entity: string, foundationYear: number; description: string; type: string; neighbourhood:
             string; primaryColour: string; secondaryColour: string; logo: File | null; music: string; email: string; instagram: string; }) => Promise<void>;
     deleteColla: (collaId: string) => Promise<void>;
 }

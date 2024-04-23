@@ -1,0 +1,141 @@
+.figuraCard {
+  position: relative;
+
+  .updateButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 10;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .outerLink {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 10;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  padding: 1rem;
+  overflow: hidden;
+  background: #f8f1f1;
+  color: #000088;
+
+  &__name {
+    margin-top: 0.5em;
+    font-size: 2.5rem;
+    font-weight: 900;
+  }
+
+  &__entity {
+    margin-top: 0.5em;
+    font-size: 1.5rem;
+    font-style: italic;
+  }
+
+  &__foundation-year {
+    margin-top: 0.5em;
+    font-size: 0.5rem;
+  }
+
+  &__description {
+    margin-top: 0.5em;
+    font-size: 1rem;
+  }
+
+  &__type {
+    margin-top: 0.5em;
+    font-size: 1rem;
+  }
+
+  &__neighbourhood {
+    margin-top: 0.5em;
+    font-size: 1rem;
+  }
+
+  &__logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    overflow: hidden;
+    margin-top: 10px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+  }
+
+  &__music {
+    margin-top: 0.5em;
+    font-size: 1rem;
+  }
+
+  &__email {
+    margin-top: 0.5em;
+    font-size: 1rem;
+  }
+
+  &__instagram {
+    margin-top: 0.5em;
+    font-size: 1rem;
+  }
+
+  .h2 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.875rem;
+    padding: 1rem;
+  }
+
+  .colorCircles {
+    display: flex;
+    justify-content: left;
+    margin-top: 10px;
+  }
+
+  .colorCircle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    margin-right: 5px;
+  }
+
+  .imagePreviewContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .imagePreview {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  .imagePreview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
