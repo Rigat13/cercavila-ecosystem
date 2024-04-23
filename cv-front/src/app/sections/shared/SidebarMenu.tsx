@@ -17,6 +17,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose, lang }) => {
             <div className={styles.menu}>
                 <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/" : `/?lang=${lang}`}>{dictionary[lang]?.cercavilaTitle}</a>
                 <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>{dictionary[lang]?.collesTitle}</a>
+                <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/figures.html" : `/figures.html?lang=${lang}`}>{dictionary[lang]?.figuresTitle}</a>
             </div>
             <div className={styles.languageSelector}>
                 <button className={styles.languageButton}>{lang}</button>
