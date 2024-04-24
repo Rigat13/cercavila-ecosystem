@@ -34,9 +34,9 @@ export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
             )}
 
             {figura.webUrl && (
-                <a href={getWebUrl(figura.webUrl)}>
+                <a href={getWebUrl(figura.webUrl)} target="_blank">
                     <button className={styles.outerLink}>
-                        <img src="/icons/icon-web.png" alt="Història" />
+                        <img src="/icons/icon-web.png" alt="Història"/>
                     </button>
                 </a>
             )}
