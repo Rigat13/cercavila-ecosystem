@@ -18,7 +18,7 @@ import ColourPicker from "@/app/sections/shared/ColourPicker";
 import {isCollaMusicValid, musics} from "@/modules/colles/domain/colla-attributes/CollaMusic";
 import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
 import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
-import {isCollaFiguresValid} from "@/modules/colles/domain/colla-attributes/CollaFigures";
+import {concatenateFigures, isCollaFiguresValid} from "@/modules/colles/domain/colla-attributes/CollaFigures";
 
 const initialState = {
     id: "",
@@ -47,7 +47,6 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     const [errors, setErrors] = useState(initialState);
     const [isDeleted, setIsDeleted] = useState(false);
     const { colles } = useCollesContext();
-    const { figuresNoImage } = useCollesContext();
 
     const [isPrimaryColourPickerOpen, setIsPrimaryColourPickerOpen] = useState(false);
     const [isSecondaryColourPickerOpen, setIsSecondaryColourPickerOpen] = useState(false);
@@ -59,6 +58,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
     const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
     const [isFirstTimeValidation, setIsFirstTimeValidation] = useState(true);
+
+    const { figuresNoImage } = useCollesContext();
+    const [selectedFigures, setSelectedFigures] = useState([]);
 
     lang = lang;
 
@@ -202,10 +204,26 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     }
 
     const handleFiguresChange = (ev) => {
-        const newFigures = ev.target.value;
-        updateForm({ figures: newFigures });
-        validateFormData({ ...formData, figures: newFigures });
+        const selectedId = ev.target.value;
+        const selectedFigure = figuresNoImage.find(option => option.id === selectedId);
+        if (selectedFigure) {
+            setSelectedFigures([...selectedFigures, selectedFigure]);
+            const newFigures = concatenateFigures([...selectedFigures, selectedFigure]);
+            updateForm({ figures: newFigures });
+            validateFormData({ ...formData, figures: newFigures });
+        }
     }
+
+    const handleDeleteFigure = (index) => {
+        setSelectedFigures((prevSelectedFigures) => {
+            const newSelectedFigures = [...prevSelectedFigures];
+            newSelectedFigures.splice(index, 1);
+            const newFigures = concatenateFigures(newSelectedFigures);
+            updateForm({ figures: newFigures });
+            validateFormData({ ...formData, figures: newFigures });
+            return newSelectedFigures;
+        });
+    };
 
     const validateFormData = ({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram, figures }) => {
         // Perform validation based on the provided data
@@ -548,12 +566,24 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             >
                                 <option value="">{dictionary[lang]?.selectFigures}</option>
                                 {figuresNoImage.map(option => (
-                                    <option key={option.id} value={option.id}> {option.name} </option>
+                                    <option
+                                        key={option.id}
+                                        value={option.id}
+                                        disabled={selectedFigures.some(figure => figure.id === option.id)}
+                                    > {option.name} </option>
                                 ))}
                             </select>
                             {formData.figures && errors.figures && (
                                 <div style={{ color: "tomato" }}>{errors.figures}</div>
                             )}
+                        </div>
+                        <div className={styles.selectedFigures}>
+                            {selectedFigures.map((figure, index) => (
+                                <div key={figure.id} className={styles.selectedFigure}>
+                                    <span>{figure.name}</span>
+                                    <button onClick={() => handleDeleteFigure(index)}>×</button>
+                                </div>
+                            ))}
                         </div>
 
                         <button

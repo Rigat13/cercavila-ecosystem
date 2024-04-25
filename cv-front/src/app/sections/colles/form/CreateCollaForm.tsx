@@ -62,7 +62,6 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const { figuresNoImage } = useCollesContext();
     const [selectedFigures, setSelectedFigures] = useState([]);
 
-
     lang = lang;
 
     useEffect(() => {
