@@ -168,10 +168,17 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         }
     }
 
-    const handleDeleteFigure = (ev, id) => {
-        ev.preventDefault();
-        setSelectedFigures(selectedFigures.filter(figure => figure.id !== id));
+    const handleDeleteFigure = (index) => {
+        setSelectedFigures((prevSelectedFigures) => {
+            const newSelectedFigures = [...prevSelectedFigures];
+            newSelectedFigures.splice(index, 1);
+            const newFigures = concatenateFigures(newSelectedFigures);
+            updateForm({ figures: newFigures });
+            validateFormData({ ...formData, figures: newFigures });
+            return newSelectedFigures;
+        });
     };
+
 
     const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram, figures }) => {
         // Perform validation based on the provided data
@@ -497,7 +504,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             {selectedFigures.map((figure, index) => (
                                 <div key={figure.id} className={styles.selectedFigure}>
                                     <span>{figure.name}</span>
-                                    <button onClick={(ev) => handleDeleteFigure(ev, index)}>×</button>
+                                    <button onClick={() => handleDeleteFigure(index)}>×</button>
                                 </div>
                             ))}
                         </div>
