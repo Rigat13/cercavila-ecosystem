@@ -19,7 +19,7 @@ import ColourPicker from "@/app/sections/shared/ColourPicker";
 import {isCollaMusicValid, musics} from "@/modules/colles/domain/colla-attributes/CollaMusic";
 import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
 import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
-import {isCollaFiguresValid} from "@/modules/colles/domain/colla-attributes/CollaFigures";
+import {isCollaFiguresValid, concatenateFigures} from "@/modules/colles/domain/colla-attributes/CollaFigures";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
 
 const initialState = {
@@ -60,6 +60,8 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
 
     const { figuresNoImage } = useCollesContext();
+    const [selectedFigures, setSelectedFigures] = useState([]);
+
 
     lang = lang;
 
@@ -156,10 +158,20 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     }
 
     const handleFiguresChange = (ev) => {
-        const newFigures = ev.target.value;
-        updateForm({ figures: newFigures });
-        validateFormData({ ...formData, figures: newFigures });
+        const selectedId = ev.target.value;
+        const selectedFigure = figuresNoImage.find(option => option.id === selectedId);
+        if (selectedFigure) {
+            setSelectedFigures([...selectedFigures, selectedFigure]);
+            const newFigures = [...selectedFigures, selectedFigure].toString();
+            updateForm({ figures: newFigures });
+            validateFormData({ ...formData, figures: newFigures });
+        }
     }
+
+    const handleDeleteFigure = (ev, id) => {
+        ev.preventDefault();
+        setSelectedFigures(selectedFigures.filter(figure => figure.id !== id));
+    };
 
     const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram, figures }) => {
         // Perform validation based on the provided data
@@ -202,6 +214,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         const formDataWithImage = { ...formData };
         if (logo) { formDataWithImage.logo = logo; }
         ev.preventDefault();
+        const concatenatedFigures = concatenateFigures(selectedFigures);
         submitForm({
             name: formData.name,
             entity: formData.entity,
@@ -215,7 +228,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             music: formData.music,
             email: formData.email,
             instagram: formData.instagram,
-            figures: formData.figures,
+            figures: concatenatedFigures,
         });
     };
 
@@ -479,6 +492,14 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             {formData.figures && errors.figures && (
                                 <div style={{ color: "tomato" }}>{errors.figures}</div>
                             )}
+                        </div>
+                        <div className={styles.selectedFigures}>
+                            {selectedFigures.map((figure, index) => (
+                                <div key={figure.id} className={styles.selectedFigure}>
+                                    <span>{figure.name}</span>
+                                    <button onClick={(ev) => handleDeleteFigure(ev, index)}>×</button>
+                                </div>
+                            ))}
                         </div>
 
                         <button

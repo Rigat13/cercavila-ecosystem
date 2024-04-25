@@ -36,6 +36,7 @@
     }
   }
 
+  /* ---------------------------------------------------- Buttons ---------------------------------------------------- */
 
   .actionButton {
     padding: 0.5rem 1rem;
@@ -104,6 +105,8 @@
     color: #ff4646;
   }
 
+  /* ---------------------------------------------------- Image Preview ---------------------------------------------------- */
+
   .imagePreviewContainer {
     display: flex;
     align-items: center;
@@ -125,6 +128,8 @@
     object-fit: cover;
   }
 
+  /* ---------------------------------------------------- Colour Preview ---------------------------------------------------- */
+
   .colourPreviewButton {
     width: 50px;
     height: 50px;
@@ -133,4 +138,34 @@
     overflow: hidden;
     margin: 0 0.5rem 0.5rem 0rem;
   }
+
+  /* ---------------------------------------------------- Selected Figures ---------------------------------------------------- */
+
+  .selectedFigures {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .selectedFigure {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin: 4px;
+    display: flex;
+    align-items: center;
+  }
+
+  .selectedFigure span {
+    margin-right: 8px;
+  }
+
+  .selectedFigure button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #999;
+  }
+
 }
