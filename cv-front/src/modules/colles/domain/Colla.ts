@@ -25,17 +25,18 @@ export interface Colla {
     music: string;
     email: string;
     instagram: string;
+    figures: string;
 }
 
-export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram}: Colla): void {
+export function ensureCollaIsValid({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram, figures}: Colla): void {
     if (!isCollaIdValid(id)) {
         throw CollaIdNotValidError(id);
     }
     ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood,
-        primaryColour, secondaryColour, logo, music, email, instagram});
+        primaryColour, secondaryColour, logo, music, email, instagram, figures});
 }
 
-export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram}: Colla): void {
+export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram, figures}: Colla): void {
     if (!isCollaNameValid(name)) {
         throw CollaNameNotValidError(name);
     }
@@ -71,6 +72,9 @@ export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, des
     }
     if (!isCollaInstagramValid(instagram)) {
         throw CollaInstagramNotValidError(instagram);
+    }
+    if (!isCollaNameValid(figures)) {
+        throw CollaNameNotValidError(figures);
     }
 }
 

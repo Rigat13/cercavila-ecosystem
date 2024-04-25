@@ -22,6 +22,7 @@ interface DictionaryEntry {
     collaMusic: string;
     collaEmail: string;
     collaInstagram: string;
+    collaFigures: string;
 
     // COLLA TYPE
     selectCollaType: string;
@@ -83,6 +84,7 @@ interface DictionaryEntry {
     collesMusicInvalid: string;
     collesEmailInvalid: string;
     collesInstagramInvalid: string;
+    collesFiguresInvalid: string;
 
     successCreateCollaMessage: string;
     errorCreateCollaMessage: string;
@@ -174,6 +176,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaMusic: "Acompanyament musical",
         collaEmail: "Correu electrònic",
         collaInstagram: "Enllaç o usuari d'Instagram",
+        collaFigures: "Figures",
 
         // COLLA TYPE
         selectCollaType: "-- Tipus de colla --",
@@ -235,6 +238,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesMusicInvalid: "L'acompanyament musical no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
         collesEmailInvalid: "El correu electrònic no és vàlid. Ha de seguir el format de correu amb caràcters vàlids entre: ",
         collesInstagramInvalid: "L'enllaç o usuari d'Instagram no és vàlid. Ha de tenir caràcters vàlids entre: ",
+        collesFiguresInvalid: "Les figures no són vàlides.",
 
         successCreateCollaMessage: "La colla s'ha creat amb èxit",
         errorCreateCollaMessage: "La colla no s'ha pogut crear. \nMotiu: ",
@@ -324,6 +328,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaMusic: "Acompañamiento musical",
         collaEmail: "Correo electrónico",
         collaInstagram: "Enlace o usuario de Instagram",
+        collaFigures: "Figuras",
 
         // COLLA TYPE
         selectCollaType: "-- Tipo de colla --",
@@ -385,6 +390,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesMusicInvalid: "El acompañamiento musical no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
         collesEmailInvalid: "El correo electrónico no es válido. Debe seguir el formato de correo con carácteres válidos entre: ",
         collesInstagramInvalid: "El enlace o usuario de Instagram no es válido. Debe tener carácteres válidos entre: ",
+        collesFiguresInvalid: "Las figuras no son válidas.",
 
         successCreateCollaMessage: "La colla se ha creado con éxito",
         errorCreateCollaMessage: "La colla no se ha podido crear. \nMotivo: ",
@@ -474,6 +480,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaMusic: "Music",
         collaEmail: "Email",
         collaInstagram: "Instagram link or user",
+        collaFigures: "Figures",
 
         // COLLA TYPE
         selectCollaType: "-- Colla type --",
@@ -535,6 +542,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collesMusicInvalid: "The music is not valid. It must be one from the list, with valid characters between: ",
         collesEmailInvalid: "The email is not valid. It must follow the email format with valid characters between: ",
         collesInstagramInvalid: "The Instagram link or user is not valid. It must have valid characters between: ",
+        collesFiguresInvalid: "The figures are not valid.",
 
         successCreateCollaMessage: "The colla has been created successfully",
         errorCreateCollaMessage: "The colla could not be created. \nReason: ",

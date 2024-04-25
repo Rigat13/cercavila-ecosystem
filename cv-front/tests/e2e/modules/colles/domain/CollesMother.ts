@@ -19,6 +19,7 @@ const CollaFactory = Factory.define<Colla>(() => ({
     music: faker.lorem.sentence(),
     email: faker.internet.email(),
     instagram: faker.internet.url(),
+    figures: faker.lorem.sentence(),
 }));
 
 export const CollaMother = {

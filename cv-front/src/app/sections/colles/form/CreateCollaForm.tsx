@@ -19,6 +19,7 @@ import ColourPicker from "@/app/sections/shared/ColourPicker";
 import {isCollaMusicValid, musics} from "@/modules/colles/domain/colla-attributes/CollaMusic";
 import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
 import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
+import {isCollaFiguresValid} from "@/modules/colles/domain/colla-attributes/CollaFigures";
 
 const initialState = {
     name: "",
@@ -33,10 +34,11 @@ const initialState = {
     music: "",
     email: "",
     instagram: "",
+    figures: "",
 }
 
 export let isNameValid, isEntityValid, isFoundationYearValid, isDescriptionValid, isTypeValid, isNeighbourhoodValid,
-    isPrimaryColourValid, isSecondaryColourValid, isLogoValid, isMusicValid, isEmailValid = false;
+    isPrimaryColourValid, isSecondaryColourValid, isLogoValid, isMusicValid, isEmailValid, isFiguresValid = false;
 export let isInstagramValid = true; // Optional fields
 
 const lang = defaultLang;
@@ -150,7 +152,13 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, instagram: newInstagram });
     }
 
-    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram }) => {
+    const handleFiguresChange = (ev) => {
+        const newFigures = ev.target.value;
+        updateForm({ figures: newFigures });
+        validateFormData({ ...formData, figures: newFigures });
+    }
+
+    const validateFormData = ({ name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram, figures }) => {
         // Perform validation based on the provided data
         isNameValid = isCollaNameValid(name);
         isEntityValid = isCollaEntityValid(entity);
@@ -165,6 +173,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         isMusicValid = isCollaMusicValid(music, dictionary[lang]?.selectMusic+"");
         isEmailValid = isCollaEmailValid(email);
         isInstagramValid = isCollaInstagramValid(instagram) || instagram === "" || instagram == null; // Optional field
+        isFiguresValid = isCollaFiguresValid(figures);
 
         setErrors({
             name: isNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
@@ -179,12 +188,13 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             music: isMusicValid ? "" : dictionary[lang]?.collesMusicInvalid + "",
             email: isEmailValid ? "" : dictionary[lang]?.collesEmailInvalid + "",
             instagram: isInstagramValid ? "" : dictionary[lang]?.collesInstagramInvalid + "",
+            figures: isFiguresValid ? "" : dictionary[lang]?.collesFiguresInvalid + "",
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
         if (!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid ||
-            !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid || !isMusicValid || !isEmailValid || !isInstagramValid) { return; }
+            !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid || !isMusicValid || !isEmailValid || !isInstagramValid || !isFiguresValid) { return; }
 
         const formDataWithImage = { ...formData };
         if (logo) { formDataWithImage.logo = logo; }
@@ -202,6 +212,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
             music: formData.music,
             email: formData.email,
             instagram: formData.instagram,
+            figures: formData.figures,
         });
     };
 
@@ -435,11 +446,25 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
+                        <div className={styles.formGroup}>
+                            <label htmlFor="figures">{dictionary[lang]?.collaFigures}</label>
+                            <input
+                                type="text"
+                                id="figures"
+                                name="figures"
+                                value={formData.figures}
+                                onChange={handleFiguresChange}
+                            />
+                            {formData.figures && errors.figures && (
+                                <div style={{ color: "tomato" }}>{errors.figures}</div>
+                            )}
+                        </div>
+
                         <button
                             className={styles.actionButton}
                             type="submit"
                             disabled={!isNameValid || !isEntityValid || !isFoundationYearValid || !isDescriptionValid || !isTypeValid || !isNeighbourhoodValid ||
-                                !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid || !isMusicValid || !isEmailValid || !isInstagramValid}
+                                !isPrimaryColourValid || !isSecondaryColourValid || !isLogoValid || !isMusicValid || !isEmailValid || !isInstagramValid || !isFiguresValid}
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>
