@@ -12,6 +12,6 @@ export function CollaFiguresNotValidError(figures: string): Error {
     return new Error(FIGURES_ERROR_MESSAGE);
 }
 
-export function concatenateFigures (selectedFigures: Figura[]) {
+export function concatenateFigures (selectedFigures) {
     return selectedFigures.map(figure => figure.id).join(',')
 }

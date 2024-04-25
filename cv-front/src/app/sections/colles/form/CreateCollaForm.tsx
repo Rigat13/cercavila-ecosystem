@@ -162,8 +162,8 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         const selectedFigure = figuresNoImage.find(option => option.id === selectedId);
         if (selectedFigure) {
             setSelectedFigures([...selectedFigures, selectedFigure]);
-            const newFigures = [...selectedFigures, selectedFigure].toString();
-            updateForm({ figures: newFigures });
+            const newFigures = [...selectedFigures, selectedFigure];
+            updateForm({ figures: concatenateFigures(newFigures) });
             validateFormData({ ...formData, figures: newFigures });
         }
     }
