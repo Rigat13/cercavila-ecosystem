@@ -8,6 +8,7 @@ export interface FiguraRepository {
     getAllFiguresByYear:() => Promise<Figura[]>;
     getAllFiguresByType:() => Promise<Figura[]>;
     getAllFigures:() => Promise<Figura[]>;
+    getAllFiguresNoImage:() => Promise<Figura[]>;
     updateFigura:(figura: Figura) => Promise<void>;
     deleteFigura:(id: string) => Promise<void>;
 }

@@ -5,7 +5,7 @@ import {URL_PREFIX} from "@/modules/figures/infrastructure/configuration";
 export function createApiFiguraRepository(): FiguraRepository {
     return {
         storeFigura, getFiguraById, getFiguraByName, getAllFiguresByName,
-        getAllFiguresByYear, getAllFiguresByType, getAllFigures, updateFigura, deleteFigura
+        getAllFiguresByYear, getAllFiguresByType, getAllFigures, updateFigura, deleteFigura, getAllFiguresNoImage
     };
 }
 
@@ -82,6 +82,17 @@ async function getAllFigures() {
         return figures;
     } catch (error) {
         throw new Error("No s'ha pogut obtenir totes les figures. \nMotiu: " + error);
+    }
+}
+
+async function getAllFiguresNoImage() {
+    try {
+        const figures = await fetch(URL_PREFIX + `/api/figures/noimage`).then(
+            (response) => response.json() as Promise<Figura[]>
+        );
+        return figures;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir totes les figures sense imatge. \nMotiu: " + error);
     }
 }
 

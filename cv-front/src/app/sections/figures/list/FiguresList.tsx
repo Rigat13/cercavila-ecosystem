@@ -4,12 +4,12 @@ import styles from "./FiguresList.module.scss";
 import {dictionary} from "@/content";
 
 export function FiguresList({ lang }: { lang: string }) {
-    const { figures } = useFiguresContext();
+    const { figuresNoImage } = useFiguresContext();
     return (
         <section>
             <h2 className={styles.h2}>{dictionary[lang]?.figuresTitle}</h2>
             <div className={styles.list}>
-                {figures.map((figura) => (
+                {figuresNoImage.map((figura) => (
                     <FiguraCard key={figura.id} figura={figura} lang={lang}/>
                 ))}
             </div>

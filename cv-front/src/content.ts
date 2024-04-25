@@ -24,7 +24,7 @@ interface DictionaryEntry {
     collaInstagram: string;
     collaFigures: string;
 
-    // COLLA TYPE
+    // --- COLLA TYPE
     selectCollaType: string;
     collaTypeInstitutional: string;
     collaTypeNeighbourhood: string;
@@ -39,7 +39,7 @@ interface DictionaryEntry {
     collaTypeNursery: string;
     collaTypePrivate: string;
 
-    // COLLA NEIGHBOURHOOD
+    // --- COLLA NEIGHBOURHOOD
     selectNeighbourhood: string;
     neighbourhoodCentre: string;
     neighbourhoodEixample: string;
@@ -58,7 +58,7 @@ interface DictionaryEntry {
     neighbourhoodLesCincSenies: string;
     neighbourhoodVallveric: string;
 
-    // MUSIC TYPES
+    // --- MUSIC TYPES
     selectMusic: string;
     musicFlabiol: string;
     musicGralla: string;
@@ -67,6 +67,8 @@ interface DictionaryEntry {
     musicGrallaBand: string;
     musicOther: string;
     musicNone: string;
+
+    selectFigures: string;
 
     // CREATE COLLA
     collesTitle: string;
@@ -113,7 +115,7 @@ interface DictionaryEntry {
     figuraImage: string;
     figuraWebUrl: string;
 
-    // FIGURA TYPE
+    // --- FIGURA TYPE
     selectFiguraType: string;
     figuraTypeGegant: string;
     figuraTypeGeganto: string;
@@ -152,6 +154,7 @@ interface DictionaryEntry {
     errorDeleteFiguraMessage: string;
     figuraNotFoundWithId: string;
     errorRetrievingFiguraMessage: string;
+    errorRetrievingFiguresMessage: string;
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
@@ -178,7 +181,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaInstagram: "Enllaç o usuari d'Instagram",
         collaFigures: "Figures",
 
-        // COLLA TYPE
+        // --- COLLA TYPE
         selectCollaType: "-- Tipus de colla --",
         collaTypeInstitutional: "Institucional",
         collaTypeNeighbourhood: "Barri",
@@ -193,7 +196,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaTypeNursery: "Escola bressol",
         collaTypePrivate: "Particular",
 
-        // COLLA NEIGHBOURHOOD
+        // --- COLLA NEIGHBOURHOOD
         selectNeighbourhood: "-- Barri --",
         neighbourhoodCentre: "Centre",
         neighbourhoodEixample: "Eixample",
@@ -212,7 +215,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         neighbourhoodLesCincSenies: "Les Cinc Sénies",
         neighbourhoodVallveric: "Vallveric",
 
-        // MUSIC TYPES
+        // --- MUSIC TYPES
         selectMusic: "-- Acompanyament musical --",
         musicFlabiol: "Flabiol i tamborí",
         musicGralla: "Gralla i percussió",
@@ -221,6 +224,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         musicGrallaBand: "Gralla i banda",
         musicOther: "Altres",
         musicNone: "Sense música",
+
+        selectFigures: "-- Figura --",
 
         // CREATE COLLA
         collesTitle: "Colles registrades",
@@ -267,7 +272,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         figuraImage: "Imatge",
         figuraWebUrl: "Enllaç d'història",
 
-        // FIGURA TYPE
+        // --- FIGURA TYPE
         selectFiguraType: "-- Tipus de figura --",
         figuraTypeGegant: "Gegant",
         figuraTypeGeganto: "Gegantó",
@@ -306,6 +311,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteFiguraMessage: "La figura no s'ha pogut esborrar. \nMotiu: ",
         figuraNotFoundWithId: "Figura no trobada amb id: ",
         errorRetrievingFiguraMessage: "Error en obtenir la informació de la figura. \nMotiu: ",
+        errorRetrievingFiguresMessage: "Error en obtenir la informació de les figures. \nMotiu:"
     },
     es: {
         // GENERAL
@@ -330,7 +336,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaInstagram: "Enlace o usuario de Instagram",
         collaFigures: "Figuras",
 
-        // COLLA TYPE
+        // --- COLLA TYPE
         selectCollaType: "-- Tipo de colla --",
         collaTypeInstitutional: "Institucional",
         collaTypeNeighbourhood: "Barrio",
@@ -345,7 +351,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaTypeNursery: "Guardería",
         collaTypePrivate: "Particular",
 
-        // COLLA NEIGHBOURHOOD
+        // --- COLLA NEIGHBOURHOOD
         selectNeighbourhood: "-- Barrio --",
         neighbourhoodCentre: "Centre",
         neighbourhoodEixample: "Eixample",
@@ -364,7 +370,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         neighbourhoodLesCincSenies: "Les Cinc Sénies",
         neighbourhoodVallveric: "Vallveric",
 
-        // MUSIC TYPES
+        // --- MUSIC TYPES
         selectMusic: "-- Acompañamiento musical --",
         musicFlabiol: "Flabiol y tamborí",
         musicGralla: "Gralla y percusión",
@@ -373,6 +379,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         musicGrallaBand: "Gralla y banda",
         musicOther: "Otros",
         musicNone: "Sin música",
+
+        selectFigures: "-- Figura --",
 
         // CREATE COLLA
         collesTitle: "Collas registradas",
@@ -419,7 +427,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         figuraImage: "Imagen",
         figuraWebUrl: "Enlace de historia",
 
-        // FIGURA TYPE
+        // --- FIGURA TYPE
         selectFiguraType: "-- Tipo de figura --",
         figuraTypeGegant: "Gigante",
         figuraTypeGeganto: "Gigantón",
@@ -458,6 +466,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteFiguraMessage: "La figura no se ha podido borrar. \nMotivo: ",
         figuraNotFoundWithId: "Figura no encontrada con id: ",
         errorRetrievingFiguraMessage: "Error al obtener la información de la figura. \nMotivo: ",
+        errorRetrievingFiguresMessage: "Error al obtener la información de las figuras. \nMotivo: "
     },
     en: {
         // GENERAL
@@ -482,7 +491,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaInstagram: "Instagram link or user",
         collaFigures: "Figures",
 
-        // COLLA TYPE
+        // --- COLLA TYPE
         selectCollaType: "-- Colla type --",
         collaTypeInstitutional: "Institutional",
         collaTypeNeighbourhood: "Neighbourhood",
@@ -497,7 +506,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaTypeNursery: "Nursery",
         collaTypePrivate: "Private",
 
-        // COLLA NEIGHBOURHOOD
+        // --- COLLA NEIGHBOURHOOD
         selectNeighbourhood: "-- Neighbourhood --",
         neighbourhoodCentre: "Centre",
         neighbourhoodEixample: "Eixample",
@@ -516,7 +525,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         neighbourhoodLesCincSenies: "Les Cinc Sénies",
         neighbourhoodVallveric: "Vallveric",
 
-        // MUSIC TYPES
+        // --- MUSIC TYPES
         selectMusic: "-- Music --",
         musicFlabiol: "Flabiol and tamborí",
         musicGralla: "Gralla and percussion",
@@ -525,6 +534,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         musicGrallaBand: "Gralla and band",
         musicOther: "Other",
         musicNone: "No music",
+
+        selectFigures: "-- Figure --",
 
         // CREATE COLLA
         collesTitle: "Registered colles",
@@ -571,7 +582,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         figuraImage: "Image",
         figuraWebUrl: "History link",
 
-        // FIGURA TYPE
+        // --- FIGURA TYPE
         selectFiguraType: "-- Figura type --",
         figuraTypeGegant: "Gegant",
         figuraTypeGeganto: "Gegantó",
@@ -610,5 +621,6 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteFiguraMessage: "The figure could not be deleted. \nReason: ",
         figuraNotFoundWithId: "Figure not found with id: ",
         errorRetrievingFiguraMessage: "Error retrieving figure information. \nReason: ",
+        errorRetrievingFiguresMessage: "Error retrieving figures information. \nReason: "
     }
 }
