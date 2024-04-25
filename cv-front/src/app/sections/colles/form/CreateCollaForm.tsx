@@ -493,7 +493,11 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             >
                                 <option value="">{dictionary[lang]?.selectFigures}</option>
                                 {figuresNoImage.map(option => (
-                                    <option key={option.id} value={option.id}> {option.name} </option>
+                                    <option
+                                        key={option.id}
+                                        value={option.id}
+                                        disabled={selectedFigures.some(figure => figure.id === option.id)}
+                                    > {option.name} </option>
                                 ))}
                             </select>
                             {formData.figures && errors.figures && (

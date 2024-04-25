@@ -147,9 +147,10 @@
   }
 
   .selectedFigure {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    background-color: #000088;
+    color: #f8f1f1;
+    border: 0px solid transparent;
+    border-radius: 1rem;
     padding: 4px 8px;
     margin: 4px;
     display: flex;
@@ -164,8 +165,14 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 14px;
-    color: #999;
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+    align-self: center;
   }
 
+  option:disabled {
+    color: #ffffff;
+    background-color: #b5b5da;
+  }
 }
