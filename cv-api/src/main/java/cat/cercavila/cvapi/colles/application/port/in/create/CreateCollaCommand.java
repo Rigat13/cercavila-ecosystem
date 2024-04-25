@@ -73,5 +73,6 @@ public record CreateCollaCommand(
     String music,
 
     String email,
-    String instagram
+    String instagram,
+    String figures
 ) {}

@@ -39,6 +39,7 @@ public class StoreCollaAdapter implements StoreCollaPort {
         collaEntity.setMusic(createCollaCommand.music());
         collaEntity.setEmail(createCollaCommand.email());
         collaEntity.setInstagram(createCollaCommand.instagram());
+        collaEntity.setFigures(createCollaCommand.figures());
 
         return collaEntity;
     }

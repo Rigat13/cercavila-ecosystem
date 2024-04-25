@@ -76,7 +76,8 @@ public class FetchCollaListingAdapter implements ListCollaPort {
                 imageBytes,
                 collaListing.music(),
                 collaListing.email(),
-                collaListing.instagram()
+                collaListing.instagram(),
+                collaListing.figures()
         );
     }
 

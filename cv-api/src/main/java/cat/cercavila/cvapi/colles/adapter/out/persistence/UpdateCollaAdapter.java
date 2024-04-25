@@ -44,6 +44,7 @@ public class UpdateCollaAdapter implements UpdateCollaPort {
         collaEntity.setMusic(updateCollaCommand.music());
         collaEntity.setEmail(updateCollaCommand.email());
         collaEntity.setInstagram(updateCollaCommand.instagram());
+        collaEntity.setFigures(updateCollaCommand.figures());
 
         return collaEntity;
     }

@@ -24,6 +24,7 @@ public class CollaEntity {
     private String music;
     private String email;
     private String instagram;
+    private String figures;
 
     public void setId(String id) { this.id = id; }
     public String getId() { return id; }
@@ -52,5 +53,7 @@ public class CollaEntity {
     public void setEmail(String email) { this.email = email; }
     public String getInstagram() { return instagram; }
     public void setInstagram(String instagram) { this.instagram = instagram; }
+    public String getFigures() { return figures; }
+    public void setFigures(String figures) { this.figures = figures; }
 
 }

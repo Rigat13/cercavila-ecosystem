@@ -74,5 +74,6 @@ public record UpdateCollaCommand(
     String music,
 
     String email,
-    String instagram
+    String instagram,
+    String figures
     ) {}
