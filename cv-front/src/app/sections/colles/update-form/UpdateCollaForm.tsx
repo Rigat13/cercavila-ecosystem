@@ -18,7 +18,6 @@ import ColourPicker from "@/app/sections/shared/ColourPicker";
 import {isCollaMusicValid, musics} from "@/modules/colles/domain/colla-attributes/CollaMusic";
 import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
 import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
-import {isFiguresValid} from "@/app/sections/colles/form/CreateCollaForm";
 import {isCollaFiguresValid} from "@/modules/colles/domain/colla-attributes/CollaFigures";
 
 const initialState = {

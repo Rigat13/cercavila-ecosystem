@@ -5,7 +5,8 @@ export const MUSIC_ERROR_MESSAGE = `El tipus d'acompanyament musical no és vàl
 export function isCollaMusicValid(music: string, defaultMusic: string): boolean {
     if (!music || music.length <= MUSIC_MIN_LENGTH || music.length > MUSIC_MAX_LENGTH+1 || music === defaultMusic) return false;
     const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
-    return regexExp.test(music);
+    const musicsLabels = musics.map(music => music.labelKey);
+    return regexExp.test(music) && musicsLabels.includes(music);
 }
 
 export function CollaMusicNotValidError(music: string): Error {

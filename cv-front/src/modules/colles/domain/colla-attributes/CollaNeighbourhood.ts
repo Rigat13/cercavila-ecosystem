@@ -5,7 +5,8 @@ export const NEIGHBOURHOOD_ERROR_MESSAGE = `El barri no és vàlid. El barri ha 
 export function isCollaNeighbourhoodValid(neighbourhood: string, defaultNeighbourhood: string): boolean {
     if (neighbourhood.length <= NEIGHBOURHOOD_MIN_LENGTH || neighbourhood.length > NEIGHBOURHOOD_MAX_LENGTH+1 || neighbourhood === defaultNeighbourhood) return false;
     const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
-    return regexExp.test(neighbourhood);
+    const neighbourhoodLabels = neighbourhoods.map(neigh => neigh.labelKey);
+    return regexExp.test(neighbourhood) && neighbourhoodLabels.includes(neighbourhood);
 }
 
 export function CollaNeighbourhoodNotValidError(neighbourhood: string): Error {

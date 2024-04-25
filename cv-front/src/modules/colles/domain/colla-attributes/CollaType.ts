@@ -5,7 +5,8 @@ export const TYPE_ERROR_MESSAGE = `El tipus no és vàlid. El tipus ha de tenir 
 export function isCollaTypeValid(type: string, defaultType: string) : boolean {
     if (type.length <= TYPE_MIN_LENGTH || type.length > TYPE_MAX_LENGTH+1 || type === defaultType) return false;
     const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
-    return regexExp.test(type);
+    const collaTypesLabels = collaTypes.map(collaType => collaType.labelKey);
+    return regexExp.test(type) && collaTypesLabels.includes(type);
 }
 
 export function CollaTypeNotValidError(type: string): Error {
