@@ -69,9 +69,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
         const fetchCollaData = async () => {
             try {
                 const collaData = colles.find((colla) => colla.id === collaId);
-                if (!collaData) {
-                    throw new Error(dictionary[lang]?.collaNotFoundWithId + collaId);
-                }
+                if (!collaData) { throw new Error(dictionary[lang]?.collaNotFoundWithId + collaId); }
 
                 let logoFile;
                 if (collaData.logo) {
@@ -97,15 +95,21 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                 });
 
                 const syntheticEvent: { target: { files: any[] } } = {
-                    target: {
-                        files: [logoFile]
-                    }
+                    target: { files: [logoFile] }
                 };
+
+                const figureIds = collaData.figures.split(',');
+                const selectedFigures = figureIds.map(figureId => {
+                    return figuresNoImage.find(figure => figure.id === figureId) || {};
+                });
+
                 setPrimaryColour(collaData.primaryColour);
                 setSecondaryColour(collaData.secondaryColour);
 
                 handleLogoChange(syntheticEvent);
                 setIsFirstTimeValidation(false);
+
+                setSelectedFigures(selectedFigures);
             } catch (error) {
                 console.error(dictionary[lang]?.errorRetrievingCollaMessage + collaId);
             }
