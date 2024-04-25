@@ -162,8 +162,8 @@ export function CreateCollaForm({ lang }: { lang: string }) {
         const selectedFigure = figuresNoImage.find(option => option.id === selectedId);
         if (selectedFigure) {
             setSelectedFigures([...selectedFigures, selectedFigure]);
-            const newFigures = [...selectedFigures, selectedFigure];
-            updateForm({ figures: concatenateFigures(newFigures) });
+            const newFigures = concatenateFigures([...selectedFigures, selectedFigure]);
+            updateForm({ figures: newFigures });
             validateFormData({ ...formData, figures: newFigures });
         }
     }
@@ -466,20 +466,6 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             />
                             {formData.instagram && errors.instagram && (
                                 <div style={{ color: "tomato" }}>{errors.instagram}</div>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="figures">{dictionary[lang]?.collaFigures}</label>
-                            <input
-                                type="text"
-                                id="figures"
-                                name="figures"
-                                value={formData.figures}
-                                onChange={handleFiguresChange}
-                            />
-                            {formData.figures && errors.figures && (
-                                <div style={{ color: "tomato" }}>{errors.figures}</div>
                             )}
                         </div>
 
