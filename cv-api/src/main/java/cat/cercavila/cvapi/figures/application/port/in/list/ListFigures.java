@@ -9,4 +9,5 @@ public interface ListFigures {
     List<FiguraListing> getAllFiguresByYear();
     List<FiguraListing> getAllFiguresByType();
     List<FiguraListing> getAllFigures();
+    List<FiguraListing> getAllFiguresNoImage();
 }

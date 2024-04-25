@@ -38,4 +38,6 @@ public class ListFiguresService implements ListFigures {
     @Override
     public List<FiguraListing> getAllFigures() { return listFiguresPort.loadAllFigures(); }
 
+    @Override
+    public List<FiguraListing> getAllFiguresNoImage() { return listFiguresPort.loadAllFiguresNoImage(); }
 }

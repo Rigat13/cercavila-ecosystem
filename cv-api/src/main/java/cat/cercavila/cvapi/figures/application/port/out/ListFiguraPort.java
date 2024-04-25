@@ -13,4 +13,5 @@ public interface ListFiguraPort {
     List<FiguraListing> loadAllFiguresByYear();
     List<FiguraListing> loadAllFiguresByType();
     List<FiguraListing> loadAllFigures();
+    List<FiguraListing> loadAllFiguresNoImage();
 }

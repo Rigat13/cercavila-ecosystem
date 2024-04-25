@@ -34,4 +34,7 @@ public class ListFiguresController {
 
     @GetMapping("/api/figures")
     public List<FiguraListing> getAllFigures() { return listFigures.getAllFigures(); }
+
+    @GetMapping("/api/figures/noimage")
+    public List<FiguraListing> getAllFiguresNoImage() { return listFigures.getAllFiguresNoImage(); }
 }

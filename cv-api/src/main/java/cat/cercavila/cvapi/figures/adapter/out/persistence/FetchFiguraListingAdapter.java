@@ -66,6 +66,12 @@ public class FetchFiguraListingAdapter implements ListFiguraPort {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<FiguraListing> loadAllFiguresNoImage() {
+        List<FiguraListing> figuraListings = figuraRepository.findAllListing();
+        return figuraListings;
+    }
+
     private FiguraListing createFiguraListingFromListing(FiguraListing figuraListing) {
         // Fetch the image file using the imageKey
         byte[] imageBytes = (figuraListing.imageKey() == null) ? null : fetchImageFromServer(figuraListing.imageKey());
