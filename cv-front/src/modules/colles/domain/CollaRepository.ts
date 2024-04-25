@@ -1,4 +1,5 @@
 import {Colla} from './Colla';
+import {Figura} from "@/modules/figures/domain/Figura";
 
 export interface CollaRepository {
     storeColla: (colla: Colla) => Promise<void>;
@@ -9,4 +10,6 @@ export interface CollaRepository {
     getAllColles:() => Promise<Colla[]>;
     updateColla:(colla: Colla) => Promise<void>;
     deleteColla:(id: string) => Promise<void>;
+
+    getAllFiguresNoImage:() => Promise<Figura[]>;
 }

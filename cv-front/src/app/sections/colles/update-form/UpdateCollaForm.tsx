@@ -47,6 +47,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     const [errors, setErrors] = useState(initialState);
     const [isDeleted, setIsDeleted] = useState(false);
     const { colles } = useCollesContext();
+    const { figuresNoImage } = useCollesContext();
 
     const [isPrimaryColourPickerOpen, setIsPrimaryColourPickerOpen] = useState(false);
     const [isSecondaryColourPickerOpen, setIsSecondaryColourPickerOpen] = useState(false);
@@ -539,13 +540,17 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
 
                         <div className={styles.formGroup}>
                             <label htmlFor="figures">{dictionary[lang]?.collaFigures}</label>
-                            <input
-                                type="text"
+                            <select
                                 id="figures"
                                 name="figures"
                                 value={formData.figures}
                                 onChange={handleFiguresChange}
-                            />
+                            >
+                                <option value="">{dictionary[lang]?.selectFigures}</option>
+                                {figuresNoImage.map(option => (
+                                    <option key={option.id} value={option.id}> {option.name} </option>
+                                ))}
+                            </select>
                             {formData.figures && errors.figures && (
                                 <div style={{ color: "tomato" }}>{errors.figures}</div>
                             )}

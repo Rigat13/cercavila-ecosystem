@@ -2,6 +2,7 @@ import {FiguraCard} from "@/app/sections/figures/card/FiguraCard";
 import {useFiguresContext} from "@/app/sections/figures/FiguresContext";
 import styles from "./FiguresList.module.scss";
 import {dictionary} from "@/content";
+import {useCollesContext} from "@/app/sections/colles/CollesContext";
 
 export function FiguresList({ lang }: { lang: string }) {
     const { figuresNoImage } = useFiguresContext();

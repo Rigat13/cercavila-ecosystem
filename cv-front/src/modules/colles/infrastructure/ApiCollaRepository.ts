@@ -1,11 +1,12 @@
 import {CollaRepository} from "@/modules/colles/domain/CollaRepository";
 import {Colla} from "@/modules/colles/domain/Colla";
 import {URL_PREFIX} from "@/modules/colles/infrastructure/configuration";
+import {Figura} from "@/modules/figures/domain/Figura";
 
 export function createApiCollaRepository(): CollaRepository {
     return {
         storeColla, getCollaById, getCollaByName, getAllCollesByName,
-        getAllCollesByFoundationYear, getAllColles, updateColla, deleteColla
+        getAllCollesByFoundationYear, getAllColles, updateColla, deleteColla, getAllFiguresNoImage
     };
 }
 
@@ -121,4 +122,16 @@ async function deleteColla(id: string) {
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut eliminar la colla. \nMotiu: " + error); }
+}
+
+
+async function getAllFiguresNoImage() {
+    try {
+        const figures = await fetch(URL_PREFIX + `/api/figures/noimage`).then(
+            (response) => response.json() as Promise<Figura[]>
+        );
+        return figures;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir totes les figures sense imatge. \nMotiu: " + error);
+    }
 }

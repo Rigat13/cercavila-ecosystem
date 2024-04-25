@@ -20,6 +20,7 @@ import {isCollaMusicValid, musics} from "@/modules/colles/domain/colla-attribute
 import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
 import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
 import {isCollaFiguresValid} from "@/modules/colles/domain/colla-attributes/CollaFigures";
+import {useCollesContext} from "@/app/sections/colles/CollesContext";
 
 const initialState = {
     name: "",
@@ -57,6 +58,8 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const [logoSize, setLogoSize] = useState(0);
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
     const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
+
+    const { figuresNoImage } = useCollesContext();
 
     lang = lang;
 
@@ -455,6 +458,24 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                                 value={formData.figures}
                                 onChange={handleFiguresChange}
                             />
+                            {formData.figures && errors.figures && (
+                                <div style={{ color: "tomato" }}>{errors.figures}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="figures">{dictionary[lang]?.collaFigures}</label>
+                            <select
+                                id="figures"
+                                name="figures"
+                                value={formData.figures}
+                                onChange={handleFiguresChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectFigures}</option>
+                                {figuresNoImage.map(option => (
+                                    <option key={option.id} value={option.id}> {option.name} </option>
+                                ))}
+                            </select>
                             {formData.figures && errors.figures && (
                                 <div style={{ color: "tomato" }}>{errors.figures}</div>
                             )}
