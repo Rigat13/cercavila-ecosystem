@@ -74,5 +74,7 @@ public record CreateCollaCommand(
 
     String email,
     String instagram,
+
+    @Pattern(regexp = "^[a-fA-F0-9]{32}(,[a-fA-F0-9]{32})*$", message = "La cadena de figures no és vàlida.")
     String figures
 ) {}
