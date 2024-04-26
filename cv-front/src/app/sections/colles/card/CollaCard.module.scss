@@ -1,7 +1,7 @@
 .collaCard {
   position: relative;
 
-  .updateButton {
+  .outerLink {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -16,7 +16,7 @@
     }
   }
 
-  .outerLink {
+  .updateButton {
     position: absolute;
     bottom: 0.5rem;
     right: 0.5rem;

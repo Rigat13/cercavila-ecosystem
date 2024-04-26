@@ -16,15 +16,6 @@ export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
 
     return (
         <div className={styles.figuraCard}>
-            <a href={`figures/update.html?figuraId=${figura.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
-                <button className={styles.updateButton}>
-                    <img src="/icons/icon-edit.svg" alt="Editar" />
-                </button>
-            </a>
-            <h3 className={styles.figuraCard__name}>{figura.name}</h3>
-            <p className={styles.figuraCard__year}>{figura.year}</p>
-            <p className={styles.figuraCard__type}>{dictionary[lang]?.[figura.type]}</p>
-
             {imageUrl && (
                 <div className={styles.figuraCard__image}>
                     <img
@@ -33,14 +24,24 @@ export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
                     />
                 </div>
             )}
-
-            {figura.webUrl && (
-                <a href={getWebUrl(figura.webUrl)} target="_blank">
-                    <button className={styles.outerLink}>
-                        <img src="/icons/icon-web.png" alt="Història"/>
+            <div className={styles.figuraCard__info}>
+                <a href={`figures/update.html?figuraId=${figura.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                    <button className={styles.updateButton}>
+                        <img src="/icons/icon-edit.svg" alt="Editar" />
                     </button>
                 </a>
-            )}
+                <h3 className={styles.figuraCard__name}>{figura.name}</h3>
+                <p className={styles.figuraCard__year}>{figura.year}</p>
+                <p className={styles.figuraCard__type}>{dictionary[lang]?.[figura.type]}</p>
+
+                {figura.webUrl && (
+                    <a href={getWebUrl(figura.webUrl)} target="_blank">
+                        <button className={styles.outerLink}>
+                            <img src="/icons/icon-web.png" alt="Història"/>
+                        </button>
+                    </a>
+                )}
+            </div>
         </div>
     );
 }
