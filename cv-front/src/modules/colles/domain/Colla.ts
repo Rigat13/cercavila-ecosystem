@@ -10,6 +10,7 @@ import {CollaLogoNotValidError, isCollaLogoValid} from "@/modules/colles/domain/
 import {CollaMusicNotValidError, isCollaMusicValid} from "@/modules/colles/domain/colla-attributes/CollaMusic";
 import {CollaEmailNotValidError, isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
 import {CollaInstagramNotValidError, isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
+import {isCollaFiguresValid} from "@/modules/colles/domain/colla-attributes/CollaFigures";
 
 export interface Colla {
     id: string;
@@ -73,7 +74,7 @@ export function ensureCollaIsValidEmptyId({id, name, entity, foundationYear, des
     if (!isCollaInstagramValid(instagram)) {
         throw CollaInstagramNotValidError(instagram);
     }
-    if (!isCollaNameValid(figures)) {
+    if (!isCollaFiguresValid(figures)) {
         throw CollaNameNotValidError(figures);
     }
 }
