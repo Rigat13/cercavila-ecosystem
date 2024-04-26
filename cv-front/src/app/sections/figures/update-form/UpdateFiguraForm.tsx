@@ -284,7 +284,7 @@ export function UpdateFiguraForm({figuraId, lang}: {figuraId: string; lang: stri
                                 type="file"
                                 id="image"
                                 name="image"
-                                accept="image/*" // Specify accepted file types (images)
+                                accept="image/*,.avif" // Specify accepted file types (images)
                                 onChange={handleImageChange}
                             />
                             {imageSize > IMAGE_MAX_MBS && (

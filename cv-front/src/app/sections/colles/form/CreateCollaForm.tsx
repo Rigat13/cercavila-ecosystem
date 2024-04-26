@@ -411,7 +411,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                                 type="file"
                                 id="logo"
                                 name="logo"
-                                accept="image/*" // Specify accepted file types (images)
+                                accept="image/*,.avif" // Specify accepted file types (images)
                                 onChange={handleLogoChange}
                             />
                             {logoSize > LOGO_MAX_MBS && (
