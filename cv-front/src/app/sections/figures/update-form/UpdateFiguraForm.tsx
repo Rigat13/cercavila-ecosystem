@@ -51,8 +51,12 @@ export function UpdateFiguraForm({figuraId, lang}: {figuraId: string; lang: stri
                 let imageFile;
                 if (figuraData.image) {
                     const blob = base64ToBlob(figuraData.image as unknown as string);
-                    imageFile = new File([blob], 'image.jpg', { type: 'image/jpeg' });
+                    let originalMimeType = blob.type || 'image/jpeg';
+                    const fileName = `image${getFileExtension(originalMimeType)}`
+                    imageFile = new File([blob], fileName, { type: originalMimeType });
                 }
+
+
 
                 updateForm({
                     id: figuraData.id,
@@ -371,4 +375,19 @@ function base64ToBlob(base64: string): Blob {
         bytes[i] = binaryString.charCodeAt(i);
     }
     return new Blob([bytes], { type: 'image/jpeg' });
+}
+
+function getFileExtension(mimeType) {
+    switch (mimeType) {
+        case 'image/jpeg':
+            return '.jpg';
+        case 'image/png':
+            return '.png';
+        case 'image/gif':
+            return '.gif';
+        case 'image/avif':
+            return '.avif';
+        default:
+            return '.jpg'; // Default to .jpg if MIME type is unknown or not supported
+    }
 }

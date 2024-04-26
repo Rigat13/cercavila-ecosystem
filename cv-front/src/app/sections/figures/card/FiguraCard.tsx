@@ -4,13 +4,13 @@ import { defaultLang, dictionary } from "@/content";
 import {useEffect, useState} from "react";
 
 export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
-    const [imageUrl, setLogoUrl] = useState<string | null>(null);
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     useEffect(() => {
         if (figura.image) {
             const blob = base64ToBlob(figura.image as unknown as string);
             const url = URL.createObjectURL(blob);
-            setLogoUrl(url);
+            setImageUrl(url);
         }
     }, [figura.image]);
 
