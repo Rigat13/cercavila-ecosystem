@@ -1,10 +1,13 @@
 import { Colla } from "@/modules/colles/domain/Colla";
 import styles from "./CollaCard.module.scss";
 import { defaultLang, dictionary } from "@/content";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useCollesContext} from "@/app/sections/colles/CollesContext";
 
 export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
+    const [figureNames, setFigureNames] = useState<string[]>([]);
+    const { figuresNoImage } = useCollesContext();
 
     useEffect(() => {
         if (colla.logo) {
@@ -12,7 +15,16 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
             const url = URL.createObjectURL(blob);
             setLogoUrl(url);
         }
-    }, [colla.logo]);
+
+        if(colla.figures) {
+            const figureIds = colla.figures.split(',');
+            const fetchedFigureNames = figureIds.map(id => {
+                const figure = figuresNoImage.find(figure => figure.id === id);
+                return figure ? figure.name : '';
+            });
+            setFigureNames(fetchedFigureNames);
+        }
+    }, [colla.logo, colla.figures, figuresNoImage]);
 
     return (
         <div className={styles.collaCard}>
@@ -50,6 +62,13 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
                         <img src="/icons/icon-instagram.png" alt="Instagram"/>
                     </button>
                 </a>
+            )}
+            {figureNames.length > 0 && (
+                <div className={styles.selectedFigures}>
+                    {figureNames.map((figureName, index) => (
+                        <span key={index} className={styles.selectedFigure}>{figureName}</span>
+                    ))}
+                </div>
             )}
         </div>
     );

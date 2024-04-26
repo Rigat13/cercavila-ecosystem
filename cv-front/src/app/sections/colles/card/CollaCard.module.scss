@@ -143,4 +143,23 @@
     height: 100%;
     object-fit: cover;
   }
+
+  /* ---------------------------------------------------- Selected Figures ---------------------------------------------------- */
+
+  .selectedFigures {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .selectedFigure {
+    background-color: #000088;
+    color: #f8f1f1;
+    border: 0px solid transparent;
+    border-radius: 1rem;
+    padding: 4px 8px;
+    margin: 4px;
+    display: flex;
+    align-items: center;
+  }
+
 }
