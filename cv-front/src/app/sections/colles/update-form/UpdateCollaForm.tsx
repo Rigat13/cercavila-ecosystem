@@ -19,6 +19,7 @@ import {isCollaMusicValid, musics} from "@/modules/colles/domain/colla-attribute
 import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
 import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
 import {concatenateFigures, isCollaFiguresValid} from "@/modules/colles/domain/colla-attributes/CollaFigures";
+import {Figura} from "@/modules/figures/domain/Figura";
 
 const initialState = {
     id: "",
@@ -99,9 +100,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                 };
 
                 const figureIds = collaData.figures.split(',');
-                const selectedFigures = figureIds.map(figureId => {
-                    return figuresNoImage.find(figure => figure.id === figureId) || {};
-                });
+                const selectedFigures: Figura[] = figureIds.map(figureId => {
+                    return figuresNoImage.find(figure => figure.id === figureId);
+                }).filter((figure): figure is Figura => !!figure);
 
                 setPrimaryColour(collaData.primaryColour);
                 setSecondaryColour(collaData.secondaryColour);
@@ -109,7 +110,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                 handleLogoChange(syntheticEvent);
                 setIsFirstTimeValidation(false);
 
-                setSelectedFigures(selectedFigures);
+                setSelectedFigures(selectedFigures as Figura[]);
             } catch (error) {
                 console.error(dictionary[lang]?.errorRetrievingCollaMessage + collaId);
             }

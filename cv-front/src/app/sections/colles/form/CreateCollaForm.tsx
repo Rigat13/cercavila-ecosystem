@@ -21,6 +21,7 @@ import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaE
 import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
 import {isCollaFiguresValid, concatenateFigures} from "@/modules/colles/domain/colla-attributes/CollaFigures";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
+import {Figura} from "@/modules/figures/domain/Figura";
 
 const initialState = {
     name: "",
@@ -159,8 +160,9 @@ export function CreateCollaForm({ lang }: { lang: string }) {
     const handleFiguresChange = (ev) => {
         const selectedId = ev.target.value;
         const selectedFigure = figuresNoImage.find(option => option.id === selectedId);
+        (selectedFigures as Figura[]).push(selectedFigure as Figura);
         if (selectedFigure) {
-            setSelectedFigures([...selectedFigures, selectedFigure]);
+            setSelectedFigures(selectedFigures);
             const newFigures = concatenateFigures([...selectedFigures, selectedFigure]);
             updateForm({ figures: newFigures });
             validateFormData({ ...formData, figures: newFigures });
@@ -481,7 +483,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                                     <option
                                         key={option.id}
                                         value={option.id}
-                                        disabled={selectedFigures.some(figure => figure.id === option.id)}
+                                        disabled={selectedFigures.some(figure => (figure as Figura).id === option.id)}
                                     > {option.name} </option>
                                 ))}
                             </select>
@@ -491,8 +493,8 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                         </div>
                         <div className={styles.selectedFigures}>
                             {selectedFigures.map((figure, index) => (
-                                <div key={figure.id} className={styles.selectedFigure}>
-                                    <span>{figure.name}</span>
+                                <div key={(figure as Figura).id} className={styles.selectedFigure}>
+                                    <span>{(figure as Figura).name}</span>
                                     <button onClick={() => handleDeleteFigure(index)}>×</button>
                                 </div>
                             ))}
