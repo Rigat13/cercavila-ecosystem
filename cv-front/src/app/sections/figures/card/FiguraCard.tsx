@@ -26,11 +26,12 @@ export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
             <p className={styles.figuraCard__type}>{dictionary[lang]?.[figura.type]}</p>
 
             {imageUrl && (
-                <img
-                    src={imageUrl}
-                    alt={`Logo de ${figura.name}`}
-                    className={styles.figuraCard__image}
-                />
+                <div className={styles.figuraCard__image}>
+                    <img
+                        src={imageUrl}
+                        alt={`Imatge de ${figura.name}`}
+                    />
+                </div>
             )}
 
             {figura.webUrl && (
