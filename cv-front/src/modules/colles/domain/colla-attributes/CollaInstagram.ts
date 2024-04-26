@@ -3,7 +3,7 @@ export const INSTAGRAM_MAX_LENGTH = 120;
 export const INSTAGRAM_ERROR_MESSAGE = `L'usuari d'Instagram no és vàlid. Ha de tenir entre ${INSTAGRAM_MIN_LENGTH} i ${INSTAGRAM_MAX_LENGTH} caràcters vàlids.`;
 
 export function isCollaInstagramValid(instagram: string): boolean {
-    if (!instagram || instagram.length <= INSTAGRAM_MIN_LENGTH || instagram.length > INSTAGRAM_MAX_LENGTH+1) return false;
+    if (!instagram || instagram.length < INSTAGRAM_MIN_LENGTH || instagram.length > INSTAGRAM_MAX_LENGTH+1) return false;
     return true;
 }
 
