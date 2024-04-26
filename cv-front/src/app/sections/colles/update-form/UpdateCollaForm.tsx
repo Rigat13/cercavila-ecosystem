@@ -75,7 +75,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                 let logoFile;
                 if (collaData.logo) {
                     const blob = base64ToBlob(collaData.logo as unknown as string);
-                    let originalMimeType = blob.type || 'image/jpeg';
+                    let originalMimeType = blob.type || 'image/avif';
                     const fileName = `image${getFileExtension(originalMimeType)}`
                     logoFile = new File([blob], fileName, { type: originalMimeType });
                 }
@@ -655,7 +655,7 @@ function base64ToBlob(base64: string): Blob {
     for (let i = 0; i < length; i++) {
         bytes[i] = binaryString.charCodeAt(i);
     }
-    return new Blob([bytes], { type: 'image/jpeg' });
+    return new Blob([bytes], { type: 'image/avif' });
 }
 
 function getFileExtension(mimeType) {

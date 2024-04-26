@@ -51,7 +51,7 @@ export function UpdateFiguraForm({figuraId, lang}: {figuraId: string; lang: stri
                 let imageFile;
                 if (figuraData.image) {
                     const blob = base64ToBlob(figuraData.image as unknown as string);
-                    let originalMimeType = blob.type || 'image/jpeg';
+                    let originalMimeType = blob.type || 'image/avif';
                     const fileName = `image${getFileExtension(originalMimeType)}`
                     imageFile = new File([blob], fileName, { type: originalMimeType });
                 }
@@ -374,7 +374,7 @@ function base64ToBlob(base64: string): Blob {
     for (let i = 0; i < length; i++) {
         bytes[i] = binaryString.charCodeAt(i);
     }
-    return new Blob([bytes], { type: 'image/jpeg' });
+    return new Blob([bytes], { type: 'image/avif' });
 }
 
 function getFileExtension(mimeType) {
