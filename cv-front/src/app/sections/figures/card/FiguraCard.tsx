@@ -17,12 +17,14 @@ export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
     return (
         <div className={styles.figuraCard}>
             {imageUrl && (
-                <div className={styles.figuraCard__image}>
-                    <img
-                        src={imageUrl}
-                        alt={`Imatge de ${figura.name}`}
-                    />
-                </div>
+                <a href={getWebUrl(figura.webUrl)} target="_blank" className={styles.figuraCard__aImage}>
+                    <div className={styles.figuraCard__image}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${figura.name}`}
+                        />
+                    </div>
+                </a>
             )}
             <div className={styles.figuraCard__info}>
                 <a href={`figures/update.html?figuraId=${figura.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
