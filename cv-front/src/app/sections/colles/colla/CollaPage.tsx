@@ -1,10 +1,10 @@
 import { Colla } from "@/modules/colles/domain/Colla";
-import styles from "./CollaCard.module.scss";
+import styles from "./CollaPage.module.scss";
 import { defaultLang, dictionary } from "@/content";
 import React, {useEffect, useState} from "react";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
 
-export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
+export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
     const [figureNames, setFigureNames] = useState<string[]>([]);
     const { figuresNoImage } = useCollesContext();
@@ -27,20 +27,20 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
     }, [colla.logo, colla.figures, figuresNoImage]);
 
     return (
-        <div className={styles.collaCard}>
+        <div className={styles.collaPage}>
             <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                 <button className={styles.updateButton}>
                     <img src="/icons/icon-edit.svg" alt="Editar" />
                 </button>
             </a>
-            <h3 className={styles.collaCard__name}>{colla.name}</h3>
-            <h6 className={styles.collaCard__entity}>{colla.entity}</h6>
-            <p className={styles.collaCard__foundationYear}>{colla.foundationYear}</p>
-            <p className={styles.collaCard__description}>{colla.description}</p>
-            <p className={styles.collaCard__type}>{dictionary[lang]?.[colla.type]}</p>
-            <p className={styles.collaCard__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
-            <p className={styles.collaCard__music}>{dictionary[lang]?.[colla.music]}</p>
-            <p className={styles.collaCard__email}>{colla.email}</p>
+            <h3 className={styles.collaPage__name}>{colla.name}</h3>
+            <h6 className={styles.collaPage__entity}>{colla.entity}</h6>
+            <p className={styles.collaPage__foundationYear}>{colla.foundationYear}</p>
+            <p className={styles.collaPage__description}>{colla.description}</p>
+            <p className={styles.collaPage__type}>{dictionary[lang]?.[colla.type]}</p>
+            <p className={styles.collaPage__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
+            <p className={styles.collaPage__music}>{dictionary[lang]?.[colla.music]}</p>
+            <p className={styles.collaPage__email}>{colla.email}</p>
 
             <div className={styles.colorCircles}>
                 <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>
@@ -52,7 +52,7 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
                     <img
                         src={logoUrl}
                         alt={`Logo de ${colla.name}`}
-                        className={styles.collaCard__logo}
+                        className={styles.collaPage__logo}
                     />
                 </a>
             )}
