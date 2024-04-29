@@ -28,7 +28,7 @@ function HomeContent() {
         <button className={stylesSidebar.sidebarButton} onClick={toggleSidebar}>
           <img src="/icons/icon-burger.svg" alt="Side bar" />
         </button>
-        <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
+        <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang} otherParams={""}/>
       </div>
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="z-9 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">

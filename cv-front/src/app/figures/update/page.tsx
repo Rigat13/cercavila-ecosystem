@@ -26,6 +26,7 @@ function PageContent() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => { setIsSidebarOpen(!isSidebarOpen); };
     const repository = createApiFiguraRepository();
+    const existingParams = getExistingParams(searchParams);
 
     return (
         <FiguresContextProvider repository={repository}>
@@ -37,7 +38,7 @@ function PageContent() {
                 <button className={stylesSidebar.sidebarButton} onClick={toggleSidebar}>
                     <img src="/icons/icon-burger.svg" alt="Side bar" />
                 </button>
-                <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
+                <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang} otherParams={existingParams}/>
             </div>
 
             <div className = "Figures">
@@ -47,4 +48,14 @@ function PageContent() {
                 </Suspense>
         </FiguresContextProvider>
     )
+}
+
+function getExistingParams(searchParams) {
+    let otherExistingParams = '';
+    searchParams.forEach((value, key) => {
+        if (key !== 'lang') {
+            otherExistingParams += `${key}=${value}&`;
+        }
+    });
+    return otherExistingParams.slice(0, -1); // Remove the last '&'
 }

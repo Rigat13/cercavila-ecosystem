@@ -36,7 +36,7 @@ function PageContent() {
                 <button className={stylesSidebar.sidebarButton} onClick={toggleSidebar}>
                     <img src="/icons/icon-burger.svg" alt="Side bar" />
                 </button>
-                <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
+                <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang} otherParams={""}/>
             </div>
 
             <div className = "Colles">
