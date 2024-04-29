@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {defaultLang, dictionary} from "@/content";
 import styles from "./SidebarMenu.module.scss";
+import {useSearchParams} from "next/navigation";
 
 interface SidebarMenuProps {
     isOpen: boolean;
@@ -8,7 +9,17 @@ interface SidebarMenuProps {
     lang: string;
 }
 
-const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose, lang }) => {
+export default function SidebarMenu({ isOpen, onClose, lang }: SidebarMenuProps) {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <SidebarMenuContent isOpen={isOpen} onClose={onClose} lang={lang}/>
+        </Suspense>
+    );
+}
+
+function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
+    const searchParams = useSearchParams();
+    const existingParams = getExistingParams(searchParams);
     return (
         <div className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
             <button className={styles.sidebarButton} onClick={onClose}>
@@ -22,13 +33,22 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose, lang }) => {
             <div className={styles.languageSelector}>
                 <button className={styles.languageButton}>{lang}</button>
                 <div className={styles.dropdownContent}>
-                    {lang !== defaultLang && <a href="?lang=ca">{defaultLang}</a>}
-                    {lang !== 'en' && <a href="?lang=en">en</a>}
-                    {lang !== 'es' && <a href="?lang=es">es</a>}
+                    {lang !== defaultLang && <a href={`?${existingParams}&lang=ca`}>{defaultLang}</a>}
+                    {lang !== 'en' && <a href={`?${existingParams}&lang=en`}>en</a>}
+                    {lang !== 'es' && <a href={`?${existingParams}&lang=es`}>es</a>}
                 </div>
             </div>
         </div>
     );
 };
 
-export default SidebarMenu;
+
+function getExistingParams(searchParams) {
+    let existingParams = '';
+    searchParams.forEach((value, key) => {
+        if (key !== 'lang') {
+            existingParams += `${key}=${value}&`;
+        }
+    });
+    return existingParams.slice(0, -1); // Remove the last '&'
+}
