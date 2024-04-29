@@ -31,9 +31,26 @@
     }
   }
 
+  .backgroundPanelHorizontal, .backgroundPanelVertical {
+    position: fixed;
+    right: 0;
+    width: 500%;
+    height: 200%;
+    background-color: #ea5d5d;
+    z-index: -1;
+    transform-origin: bottom right;
+    transform: rotate(-45deg) translate(50%, 50%);
+  }
+  .backgroundPanelVertical {
+    bottom: -80%;
+  }
+  .backgroundPanelHorizontal {
+    bottom: 0;
+  }
+
   padding: 1rem;
   overflow: hidden;
-  background: #f8f1f1;
+  background: transparent;
   color: #000088;
 
   &__name {
