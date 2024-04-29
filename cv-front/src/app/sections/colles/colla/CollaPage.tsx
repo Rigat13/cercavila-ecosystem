@@ -9,7 +9,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     const [figureNames, setFigureNames] = useState<string[]>([]);
     const { figuresNoImage } = useCollesContext();
     const isHorizontal = window.innerWidth > window.innerHeight;
-    const backgroundPanelClass = isHorizontal ? styles.backgroundPanelHorizontal : styles.backgroundPanelVertical;
+    const backPrimaryColourPanelClass = isHorizontal ? styles.backPrimaryColourPanelHorizontal : styles.backPrimaryColourPanelVertical;
 
 
     useEffect(() => {
@@ -36,7 +36,8 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                     <img src="/icons/icon-edit.svg" alt="Editar" />
                 </button>
             </a>
-            <div className={backgroundPanelClass} style={{ backgroundColor: colla.primaryColour }}></div>
+            <div className={backPrimaryColourPanelClass} style={{ backgroundColor: colla.primaryColour }}></div>
+            <div className={styles.backSecondaryColourPanelClass} style={{ backgroundColor: colla.secondaryColour }}></div>
 
             <h3 className={styles.collaPage__name}>{colla.name}</h3>
             <h6 className={styles.collaPage__entity}>{colla.entity}</h6>
