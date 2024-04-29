@@ -47,7 +47,7 @@
     bottom: 0;
   }
 
-  .backSecondaryColourPanelClass{
+  .backSecondaryColourPanel {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -56,31 +56,48 @@
     z-index: -1;
   }
 
+
   padding: 1rem;
+  padding-left: 5rem;
   overflow: hidden;
   background: transparent;
-  color: #000088;
+  color: #000000;
 
   &__name {
     margin-top: 0.5em;
-    font-size: 2.5rem;
+    font-size: 4rem;
     font-weight: 900;
   }
 
   &__entity {
-    margin-top: 0.5em;
+    margin-top: -0.5em;
     font-size: 1.5rem;
     font-style: italic;
+    text-transform: uppercase;
   }
 
-  &__foundation-year {
-    margin-top: 0.5em;
-    font-size: 0.5rem;
+  &__foundationYear {
+    margin-top: -0.3em;
+    font-size: 3rem;
+    font-weight: 800;
+    transform: scaleX(0.7);
+    transform-origin: left; /* Set transform origin to the left side */
   }
 
-  &__description {
+  &__descriptionLight, &__descriptionDark {
+    position: fixed;
     margin-top: 0.5em;
     font-size: 1rem;
+    bottom: 5%;
+    font-size: 1rem;
+  }
+
+  &__descriptionLight {
+    color: white;
+  }
+
+  &__descriptionDark {
+    color: black;
   }
 
   &__type {

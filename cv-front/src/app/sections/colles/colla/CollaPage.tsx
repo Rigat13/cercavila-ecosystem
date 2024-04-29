@@ -8,9 +8,10 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
     const [figureNames, setFigureNames] = useState<string[]>([]);
     const { figuresNoImage } = useCollesContext();
-    const isHorizontal = window.innerWidth > window.innerHeight;
-    const backPrimaryColourPanelClass = isHorizontal ? styles.backPrimaryColourPanelHorizontal : styles.backPrimaryColourPanelVertical;
 
+    const isHorizontal = window.innerWidth > window.innerHeight;
+    const backPrimaryColourPanel = isHorizontal ? styles.backPrimaryColourPanelHorizontal : styles.backPrimaryColourPanelVertical;
+    const descriptionStyle = getContrastTextColor(colla.secondaryColour) === 'light' ? styles.collaPage__descriptionLight : styles.collaPage__descriptionDark;
 
     useEffect(() => {
         if (colla.logo) {
@@ -36,17 +37,19 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                     <img src="/icons/icon-edit.svg" alt="Editar" />
                 </button>
             </a>
-            <div className={backPrimaryColourPanelClass} style={{ backgroundColor: colla.primaryColour }}></div>
-            <div className={styles.backSecondaryColourPanelClass} style={{ backgroundColor: colla.secondaryColour }}></div>
+            <div className={backPrimaryColourPanel} style={{ backgroundColor: colla.primaryColour }}></div>
+            <div className={styles.backSecondaryColourPanel} style={{ backgroundColor: colla.secondaryColour }}></div>
 
             <h3 className={styles.collaPage__name}>{colla.name}</h3>
             <h6 className={styles.collaPage__entity}>{colla.entity}</h6>
             <p className={styles.collaPage__foundationYear}>{colla.foundationYear}</p>
-            <p className={styles.collaPage__description}>{colla.description}</p>
+            <div className={descriptionStyle}>{colla.description}
+                <p className={styles.collaPage__email}>{colla.email}</p>
+            </div>
             <p className={styles.collaPage__type}>{dictionary[lang]?.[colla.type]}</p>
             <p className={styles.collaPage__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
             <p className={styles.collaPage__music}>{dictionary[lang]?.[colla.music]}</p>
-            <p className={styles.collaPage__email}>{colla.email}</p>
+
 
             <div className={styles.colorCircles}>
                 <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>
@@ -103,4 +106,23 @@ function base64ToBlob(base64: string): Blob {
         bytes[i] = binaryString.charCodeAt(i);
     }
     return new Blob([bytes], { type: 'image/jpeg' });
+}
+
+function getContrastTextColor(backgroundColor) {
+    // Validate input format (e.g., '#f6e9e9')
+    const colorPattern = /^#[0-9a-fA-F]{6}$/;
+    if (!colorPattern.test(backgroundColor)) {
+        throw new Error('Invalid background color format:'+ backgroundColor);
+        return 'unknown';
+    }
+    // Extract RGB components from the background color string
+    const rgbMatch = backgroundColor.match(/[0-9a-fA-F]{2}/g);
+    if (!rgbMatch || rgbMatch.length !== 3) {
+        throw new Error('Unable to extract RGB components from color:'+ backgroundColor);
+        return 'unknown';
+    }
+
+    const [r, g, b] = rgbMatch.map(hex => parseInt(hex, 16));
+    const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+    return luminance > 0.5 ? 'dark' : 'light';
 }
