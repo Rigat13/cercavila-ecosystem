@@ -2,10 +2,17 @@ import { Figura } from "@/modules/figures/domain/Figura";
 import styles from "./CollaFiguraCard.module.scss";
 import { defaultLang, dictionary } from "@/content";
 import {useEffect, useState} from "react";
+import { figuraTypesFixed } from "@/modules/figures/domain/figura-attributes/FiguraType";
 
 export function CollaFiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
-
+    let figuraImageStyle = styles.collaFiguraCard__imageGegant;
+    switch (figura.type) {
+        case figuraTypesFixed.figuraTypeGegant: figuraImageStyle = styles.collaFiguraCard__imageGegant; break;
+        case figuraTypesFixed.figuraTypeGeganto: case figuraTypesFixed.figuraTypeMotxilla: figuraImageStyle = styles.collaFiguraCard__imageGeganto; break;
+        case figuraTypesFixed.figuraTypeCapgros: case figuraTypesFixed.figuraTypeNan: figuraImageStyle = styles.collaFiguraCard__imageCapgros; break;
+        case figuraTypesFixed.figuraTypeBestia: figuraImageStyle = styles.collaFiguraCard__imageBestia; break;
+    }
     useEffect(() => {
         if (figura.image) {
             const blob = base64ToBlob(figura.image as unknown as string);
@@ -17,7 +24,7 @@ export function CollaFiguraCard({ figura, lang }: { figura: Figura; lang: string
     return (
         <div className={styles.collaFiguraCard}>
             {imageUrl && (
-                <div className={styles.collaFiguraCard__image}>
+                <div className={figuraImageStyle}>
                     <img
                         src={imageUrl}
                         alt={`Imatge de ${figura.name}`}

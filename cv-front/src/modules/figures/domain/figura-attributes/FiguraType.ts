@@ -20,3 +20,12 @@ export const figuraTypes = [
     { labelKey: 'figuraTypeBestia' },
     { labelKey: 'figuraTypeMotxilla' },
 ]
+
+export const figuraTypesFixed = {
+    figuraTypeGegant: 'figuraTypeGegant',
+    figuraTypeGeganto: 'figuraTypeGeganto',
+    figuraTypeCapgros: 'figuraTypeCapgros',
+    figuraTypeNan: 'figuraTypeNan',
+    figuraTypeBestia: 'figuraTypeBestia',
+    figuraTypeMotxilla: 'figuraTypeMotxilla',
+};

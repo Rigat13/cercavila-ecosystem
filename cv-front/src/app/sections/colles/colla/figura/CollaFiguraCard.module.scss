@@ -86,23 +86,33 @@
     z-index: 2;
   }
 
-  &__image {
-    width: 15rem;
-    height: 40rem;
+  &__imageGegant, &__imageGeganto, &__imageCapgros, &__imageBestia {
     background: transparent;
     transition: transform 0.3s ease;
     z-index: 2;
+    width: 15rem;
+    height: 40rem;
   }
+  &__imageGegant {}
+  &__imageGeganto {
+    transform-origin: bottom;
+    transform: scale(0.7);
+  }
+  &__imageCapgros {
+    transform-origin: bottom;
+    transform: scale(0.6);
+  }
+  &__imageBestia {}
 
-  &__image img {
+  &__imageGegant img, &__imageGeganto img, &__imageCapgros img, &__imageBestia img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    object-position: top;
+    object-position: bottom;
     transition: transform 0.8s ease;
   }
 
-  &__image img:hover {
+  &__imageGegant img:hover, &__imageGeganto img:hover, &__imageCapgros img:hover, &__imageBestia img:hover {
     animation: figuraAnimation 1s infinite alternate;
   }
 
