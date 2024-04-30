@@ -3,11 +3,13 @@ import styles from "./CollaPage.module.scss";
 import { defaultLang, dictionary } from "@/content";
 import React, {useEffect, useState} from "react";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
+import {CollaFiguraCard} from "@/app/sections/colles/colla/figura/CollaFiguraCard";
+import {Figura} from "@/modules/figures/domain/Figura";
 
 export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
-    const [figureNames, setFigureNames] = useState<string[]>([]);
-    const { figuresNoImage } = useCollesContext();
+    const [collaFigures, setCollaFigures] = useState<Figura[]>([]);
+    const { figures } = useCollesContext();
 
     const isHorizontal = window.innerWidth > window.innerHeight;
     const backPrimaryColourPanel = isHorizontal ? styles.backPrimaryColourPanelHorizontal : styles.backPrimaryColourPanelVertical;
@@ -22,13 +24,10 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
 
         if(colla.figures) {
             const figureIds = colla.figures.split(',');
-            const fetchedFigureNames = figureIds.map(id => {
-                const figure = figuresNoImage.find(figure => figure.id === id);
-                return figure ? figure.name : '';
-            });
-            setFigureNames(fetchedFigureNames);
+            const fetchedCollaFigures = figures.filter(figure => figureIds.includes(figure.id));
+            setCollaFigures(fetchedCollaFigures);
         }
-    }, [colla.logo, colla.figures, figuresNoImage]);
+    }, [colla.logo, colla.figures, figures]);
 
     return (
         <div className={styles.collaPage}>
@@ -73,13 +72,9 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                     </button>
                 </a>
             )}
-            {figureNames.length > 0 && (
-                <div className={styles.selectedFigures}>
-                    {figureNames.map((figureName, index) => (
-                        <span key={index} className={styles.selectedFigure}>{figureName}</span>
-                    ))}
-                </div>
-            )}
+            {collaFigures && collaFigures.map((loadedFigure) => (
+                <CollaFiguraCard key={loadedFigure.id} figura={loadedFigure} lang={lang}/>
+            ))}
         </div>
     );
 }

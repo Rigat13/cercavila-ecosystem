@@ -6,7 +6,7 @@ import {Figura} from "@/modules/figures/domain/Figura";
 export function createApiCollaRepository(): CollaRepository {
     return {
         storeColla, getCollaById, getCollaByName, getAllCollesByName,
-        getAllCollesByFoundationYear, getAllColles, updateColla, deleteColla, getAllFiguresNoImage
+        getAllCollesByFoundationYear, getAllColles, updateColla, deleteColla, getAllFiguresNoImage, getAllFigures
     };
 }
 
@@ -133,5 +133,16 @@ async function getAllFiguresNoImage() {
         return figures;
     } catch (error) {
         throw new Error("No s'ha pogut obtenir totes les figures sense imatge. \nMotiu: " + error);
+    }
+}
+
+async function getAllFigures() {
+    try {
+        const figures = await fetch(URL_PREFIX + `/api/figures`).then(
+            (response) => response.json() as Promise<Figura[]>
+        );
+        return figures;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir totes les figures. \nMotiu: " + error);
     }
 }

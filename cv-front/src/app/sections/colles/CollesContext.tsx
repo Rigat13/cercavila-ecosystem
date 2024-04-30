@@ -9,10 +9,12 @@ import {updateColla} from "@/modules/colles/application/update/updateColla";
 import {deleteColla} from "@/modules/colles/application/delete/deleteColla";
 import {Figura} from "@/modules/figures/domain/Figura";
 import {getAllFiguresNoImage_collaRepo} from "@/modules/figures/application/get-all/getAllFiguresNoImage";
+import {getAllFigures_collaRepo} from "@/modules/figures/application/get-all/getAllFigures";
 
 export interface ContextState {
     colles: Colla[];
     figuresNoImage: Figura[];
+    figures: Figura[];
     createColla: (colla: { id: string; name: string; entity: string, foundationYear: number; description: string; type: string; neighbourhood:
             string; primaryColour: string; secondaryColour: string; logo: File | null; music: string; email: string; instagram: string; figures: string; }) => Promise<void>;
     updateColla: (colla: { id: string; name: string; entity: string, foundationYear: number; description: string; type: string; neighbourhood:
@@ -28,6 +30,7 @@ export const CollesContextProvider = ({
 }: React.PropsWithChildren<{ repository: CollaRepository }>) => {
     const [colles, setColles] = useState<Colla[]>([]);
     const [figuresNoImage, setFiguresNoImage] = useState<Figura[]>([]);
+    const [figures, setFigures] = useState<Figura[]>([]);
 
     async function create({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram, figures }:
         { id: string; name: string; entity: string; foundationYear: number; description: string; type: string, neighbourhood:
@@ -48,6 +51,12 @@ export const CollesContextProvider = ({
         });
     }
 
+    async function getFigures() {
+        return getAllFigures_collaRepo(repository).then((figures) => {
+            setFigures(figures);
+        });
+    }
+
     async function update({ id, name, entity, foundationYear, description, type, neighbourhood, primaryColour, secondaryColour, logo, music, email, instagram, figures }:
         { id: string; name: string; entity: string; foundationYear: number; description: string; type: string, neighbourhood:
                 string; primaryColour: string; secondaryColour: string; logo: File | null; music: string; email: string; instagram: string; figures: string }) {
@@ -62,10 +71,11 @@ export const CollesContextProvider = ({
     useEffect(() => {
         getColles();
         getFiguresNoImage();
+        getFigures();
     }, []);
 
     return (
-        <CollesContext.Provider value={{ colles, figuresNoImage, createColla: create, updateColla: update, deleteColla: deleteC }}>
+        <CollesContext.Provider value={{ colles, figuresNoImage, figures, createColla: create, updateColla: update, deleteColla: deleteC }}>
             {children}
         </CollesContext.Provider>
     );

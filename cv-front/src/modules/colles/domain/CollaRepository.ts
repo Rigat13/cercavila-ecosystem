@@ -12,4 +12,5 @@ export interface CollaRepository {
     deleteColla:(id: string) => Promise<void>;
 
     getAllFiguresNoImage:() => Promise<Figura[]>;
+    getAllFigures:() => Promise<Figura[]>;
 }
