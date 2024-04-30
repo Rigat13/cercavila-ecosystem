@@ -189,7 +189,7 @@
   /* ---------------------------------------------------- Selected Figures ---------------------------------------------------- */
 
   &__figuresContainer {
-    width: 50%;
+    width: 100%;
     overflow-x: auto; /* Enable horizontal scrolling */
     display: flex;
     flex-wrap: nowrap; /* Ensure figures stay in a single line */
@@ -200,4 +200,32 @@
     display: flex;
     gap: 10px; /* Adjust as needed for spacing between figures */
   }
+
+  /* ---------------------------------------------------- Page wrapper ---------------------------------------------------- */
+  .pageWrapper {
+    display: flex;
+    flex-direction: column; /* Stack items vertically by default */
+
+    @media (min-width: 768px) {
+      flex-direction: row; /* Arrange items side by side on wider screens */
+    }
+  }
+
+  .leftContent, .rightContent {
+    width: 100%; /* Initially, each content section occupies full width */
+    padding: 10px; /* Adjust padding as needed */
+  }
+
+  @media (min-width: 768px) {
+    .leftContent {
+      width: 50%; /* Left content takes 50% width on wider screens */
+      order: 1; /* Display left content first in the flex order */
+    }
+
+    .rightContent {
+      width: 50%; /* Right content takes 50% width on wider screens */
+      order: 2; /* Display right content second in the flex order */
+    }
+  }
+
 }

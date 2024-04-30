@@ -31,52 +31,58 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
 
     return (
         <div className={styles.collaPage}>
-            <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
-                <button className={styles.updateButton}>
-                    <img src="/icons/icon-edit.svg" alt="Editar" />
-                </button>
-            </a>
-            <div className={backPrimaryColourPanel} style={{ backgroundColor: colla.primaryColour }}></div>
-            <div className={styles.backSecondaryColourPanel} style={{ backgroundColor: colla.secondaryColour }}></div>
+            <div className={styles.pageWrapper}>
+                <div className={styles.leftContent}>
+                    <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                        <button className={styles.updateButton}>
+                            <img src="/icons/icon-edit.svg" alt="Editar" />
+                        </button>
+                    </a>
+                    <div className={backPrimaryColourPanel} style={{ backgroundColor: colla.primaryColour }}></div>
+                    <div className={styles.backSecondaryColourPanel} style={{ backgroundColor: colla.secondaryColour }}></div>
 
-            <h3 className={styles.collaPage__name}>{colla.name}</h3>
-            <h6 className={styles.collaPage__entity}>{colla.entity}</h6>
-            <p className={styles.collaPage__foundationYear}>{colla.foundationYear}</p>
-            <div className={descriptionStyle}>{colla.description}
-                <p className={styles.collaPage__email}>{colla.email}</p>
-            </div>
-            <p className={styles.collaPage__type}>{dictionary[lang]?.[colla.type]}</p>
-            <p className={styles.collaPage__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
-            <p className={styles.collaPage__music}>{dictionary[lang]?.[colla.music]}</p>
+                    <h3 className={styles.collaPage__name}>{colla.name}</h3>
+                    <h6 className={styles.collaPage__entity}>{colla.entity}</h6>
+                    <p className={styles.collaPage__foundationYear}>{colla.foundationYear}</p>
+                    <div className={descriptionStyle}>{colla.description}
+                        <p className={styles.collaPage__email}>{colla.email}</p>
+                    </div>
+                    <p className={styles.collaPage__type}>{dictionary[lang]?.[colla.type]}</p>
+                    <p className={styles.collaPage__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
+                    <p className={styles.collaPage__music}>{dictionary[lang]?.[colla.music]}</p>
 
 
-            <div className={styles.colorCircles}>
-                <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>
-                <div className={styles.colorCircle} style={{ backgroundColor: colla.secondaryColour }}></div>
-            </div>
+                    <div className={styles.colorCircles}>
+                        <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>
+                        <div className={styles.colorCircle} style={{ backgroundColor: colla.secondaryColour }}></div>
+                    </div>
 
-            {logoUrl && (
-                <a href={`colles/colla.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
-                    <img
-                        src={logoUrl}
-                        alt={`Logo de ${colla.name}`}
-                        className={styles.collaPage__logo}
-                    />
-                </a>
-            )}
+                    {logoUrl && (
+                        <a href={`colles/colla.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                            <img
+                                src={logoUrl}
+                                alt={`Logo de ${colla.name}`}
+                                className={styles.collaPage__logo}
+                            />
+                        </a>
+                    )}
 
-            {colla.instagram && (
-                <a href={getInstagramUrl(colla.instagram)} target="_blank">
-                    <button className={styles.outerLink}>
-                        <img src="/icons/icon-instagram.png" alt="Instagram"/>
-                    </button>
-                </a>
-            )}
-            <div className={styles.collaPage__figuresContainer}>
-                <div className={styles.collaPage__figuresWrapper}>
-                    {collaFigures && collaFigures.map((loadedFigure) => (
-                        <CollaFiguraCard key={loadedFigure.id} figura={loadedFigure} lang={lang}/>
-                    ))}
+                    {colla.instagram && (
+                        <a href={getInstagramUrl(colla.instagram)} target="_blank">
+                            <button className={styles.outerLink}>
+                                <img src="/icons/icon-instagram.png" alt="Instagram"/>
+                            </button>
+                        </a>
+                    )}
+                </div>
+                <div className={styles.rightContent}>
+                    <div className={styles.collaPage__figuresContainer}>
+                        <div className={styles.collaPage__figuresWrapper}>
+                            {collaFigures && collaFigures.map((loadedFigure) => (
+                                <CollaFiguraCard key={loadedFigure.id} figura={loadedFigure} lang={lang}/>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
