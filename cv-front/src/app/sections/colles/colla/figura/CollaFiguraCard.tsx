@@ -17,14 +17,12 @@ export function CollaFiguraCard({ figura, lang }: { figura: Figura; lang: string
     return (
         <div className={styles.collaFiguraCard}>
             {imageUrl && (
-                <a href={getWebUrl(figura.webUrl)} target="_blank" className={styles.collaFiguraCard__aImage}>
-                    <div className={styles.collaFiguraCard__image}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${figura.name}`}
-                        />
-                    </div>
-                </a>
+                <div className={styles.collaFiguraCard__image}>
+                    <img
+                        src={imageUrl}
+                        alt={`Imatge de ${figura.name}`}
+                    />
+                </div>
             )}
             <div className={styles.collaFiguraCard__info}>
                 <a href={`figures/update.html?figuraId=${figura.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>

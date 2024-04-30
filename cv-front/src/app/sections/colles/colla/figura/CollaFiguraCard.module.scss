@@ -87,32 +87,41 @@
   }
 
   &__image {
-    width: 9rem;
-    height: 9rem;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 0.6rem solid #000088;
-    overflow: hidden;
+    width: 15rem;
+    height: 40rem;
+    background: transparent;
     transition: transform 0.3s ease;
+    z-index: 2;
   }
 
   &__image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: top;
-    transition: transform 0.3s ease;
-  }
-
-  &__image:hover {
-    transform: scale(1.1);
+    transition: transform 0.8s ease;
   }
 
   &__image img:hover {
-    transform: scale(1.4);
+    animation: figuraAnimation 1s infinite alternate;
+  }
+
+  @keyframes figuraAnimation {
+    0% {
+      transform: translateY(0rem) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-1.4rem) rotate(-5deg);
+    }
+    50% {
+      transform: translateY(0rem) rotate(0deg);
+    }
+    75% {
+      transform: translateY(-1.4rem) rotate(5deg);
+    }
+    100% {
+      transform: translateY(0rem) rotate(0deg);
+    }
   }
 
   .imagePreviewContainer {

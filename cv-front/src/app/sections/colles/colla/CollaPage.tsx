@@ -72,9 +72,13 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                     </button>
                 </a>
             )}
-            {collaFigures && collaFigures.map((loadedFigure) => (
-                <CollaFiguraCard key={loadedFigure.id} figura={loadedFigure} lang={lang}/>
-            ))}
+            <div className={styles.collaPage__figuresContainer}>
+                <div className={styles.collaPage__figuresWrapper}>
+                    {collaFigures && collaFigures.map((loadedFigure) => (
+                        <CollaFiguraCard key={loadedFigure.id} figura={loadedFigure} lang={lang}/>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }

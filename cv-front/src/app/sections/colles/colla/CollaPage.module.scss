@@ -188,20 +188,16 @@
 
   /* ---------------------------------------------------- Selected Figures ---------------------------------------------------- */
 
-  .selectedFigures {
+  &__figuresContainer {
+    width: 50%;
+    overflow-x: auto; /* Enable horizontal scrolling */
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* Ensure figures stay in a single line */
+    padding: 10px 0; /* Optional: Add padding for spacing */
   }
 
-  .selectedFigure {
-    background-color: #000088;
-    color: #f8f1f1;
-    border: 0px solid transparent;
-    border-radius: 1rem;
-    padding: 4px 8px;
-    margin: 4px;
+  &__figuresWrapper {
     display: flex;
-    align-items: center;
+    gap: 10px; /* Adjust as needed for spacing between figures */
   }
-
 }
