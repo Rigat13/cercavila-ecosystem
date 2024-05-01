@@ -178,6 +178,8 @@
     .leftLeftContent {
       padding-left: 5rem;
       padding-right: 2rem;
+      padding-top: 8%;
+
       width: 18rem; /* Logo width + padding aprox. */
       order: 1; /* Display left left content first in the flex order */
     }
@@ -185,6 +187,7 @@
     .leftContent {
       padding-left: 0rem;
       padding-right: 2rem;
+      padding-top: 8%;
       width: 35%;
       order: 2;
     }
