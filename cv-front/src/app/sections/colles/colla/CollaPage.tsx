@@ -14,7 +14,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
 
     const isHorizontal = window.innerWidth > window.innerHeight;
     const backPrimaryColourPanel = isHorizontal ? styles.backPrimaryColourPanelHorizontal : styles.backPrimaryColourPanelVertical;
-    const isLightContrast = getIsLightContrast(colla.primaryColour);
+    const isLightContrast = getIsLightContrast(colla.secondaryColour);
     const contrastTextColour = getContrastTextColour(isLightContrast);
     const contrastTextColourAndBackground = { ...contrastTextColour, backgroundColor: colla.secondaryColour };
     const contrastBackgroundAndTextColour = getContrastBackgroundAndTextColour(isLightContrast);
@@ -56,8 +56,8 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                     <div className={backPrimaryColourPanel} style={{ backgroundColor: colla.primaryColour }}></div>
                     <div className={styles.backSecondaryColourPanel} style={{ backgroundColor: colla.secondaryColour }}></div>
 
-                    <h3 className={styles.collaPage__name} style={contrastTextColour} >{colla.name}</h3>
-                    <h6 className={styles.collaPage__entity} style={contrastTextColour} >{colla.entity}</h6>
+                    <h3 className={styles.collaPage__name} style={contrastTextColourAndBackground} >{colla.name}</h3>
+                    <h6 className={styles.collaPage__entity} style={contrastTextColourAndBackground} >{colla.entity}</h6>
                     <p className={styles.collaPage__foundationYear} style={contrastTextColour} >{colla.foundationYear}</p>
 
                     <div classname={styles.collaPage__characteristics}>
@@ -85,7 +85,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                         </a>
                     </div>
 
-                    <div className={styles.collaPage__description}  style={contrastTextColourAndBackground} >{colla.description}
+                    <div className={styles.collaPage__description} style={contrastTextColourAndBackground} >{colla.description}
                         <p className={styles.collaPage__email}  >{colla.email}</p>
                     </div>
                 </div>
@@ -142,7 +142,7 @@ function getIsLightContrast (backgroundColor: string): boolean {
 
     const [r, g, b] = rgbMatch.map(hex => parseInt(hex, 16));
     const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-    return luminance < 0.5;
+    return luminance > 0.5;
 }
 
 function getContrastTextColour (isLight: boolean): React.CSSProperties {
