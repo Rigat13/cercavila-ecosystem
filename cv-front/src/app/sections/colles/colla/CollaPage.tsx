@@ -85,9 +85,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                         </a>
                     </div>
 
-                    <div className={styles.collaPage__description} style={contrastTextColourAndBackground} >{colla.description}
-                        <p className={styles.collaPage__email}  >{colla.email}</p>
-                    </div>
+                    <div className={styles.collaPage__description} style={contrastTextColourAndBackground} >{colla.description}</div>
                 </div>
                 <div className={styles.rightContent}>
                     <div className={styles.collaPage__figuresContainer}>
