@@ -9,6 +9,10 @@ interface DictionaryEntry {
     retry: string;
     maxFileSize: string;
 
+    // -------------------------------------------------------------------------------------------- CCGM
+    ccgmAcronym: string;
+    ccgmName: string;
+
     // -------------------------------------------------------------------------------------------- COLLA
     collaName: string;
     collaEntity: string;
@@ -167,6 +171,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         retry: "Torna a intentar",
         maxFileSize: "Mida màxima del fitxer: ",
 
+        // -------------------------------------------------------------------------------------------- CCGM
+        ccgmAcronym: "CCGM",
+        ccgmName: "Coordinadora de Colles Geganteres de Mataró",
+
         // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Nom",
         collaEntity: "Entitat",
@@ -316,14 +324,18 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorRetrievingFiguresMessage: "Error en obtenir la informació de les figures. \nMotiu:"
     },
     es: {
-        // GENERAL
+        // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
         errorFound: "Ha habido un error",
         unreachablePage: "No se esperaba llegar aquí",
         retry: "Vuelve a intentar",
         maxFileSize: "Tamaño máximo del archivo: ",
 
-        // COLLA
+        // -------------------------------------------------------------------------------------------- CCGM
+        ccgmAcronym: "CCGM",
+        ccgmName: "Coordinadora de Colles Geganteres de Mataró",
+
+        // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Nombre",
         collaEntity: "Entidad",
         collaFoundationYear: "Año de fundación",
@@ -472,14 +484,18 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorRetrievingFiguresMessage: "Error al obtener la información de las figuras. \nMotivo: "
     },
     en: {
-        // GENERAL
+        // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
         errorFound: "An error has occurred",
         unreachablePage: "Unexpected path",
         retry: "Retry",
         maxFileSize: "Maximum file size: ",
 
-        // COLLA
+        // -------------------------------------------------------------------------------------------- CCGM
+        ccgmAcronym: "CCGM",
+        ccgmName: "Coordinadora de Colles Geganteres de Mataró",
+
+        // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Name",
         collaEntity: "Entity",
         collaFoundationYear: "Foundation year",
