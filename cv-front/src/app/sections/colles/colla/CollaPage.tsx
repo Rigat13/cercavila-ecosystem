@@ -17,9 +17,14 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     const isLightContrast = getIsLightContrast(colla.primaryColour);
     const contrastTextColour = getContrastTextColour(isLightContrast);
     const contrastTextColourAndBackground = { ...contrastTextColour, backgroundColor: colla.secondaryColour };
+    const contrastBackgroundAndTextColour = getContrastBackgroundAndTextColour(isLightContrast);
+
     const instagramLogo = isLightContrast ? "/icons/dark-icon-instagram.png" : "/icons/icon-instagram.png";
     const updateLogo = isLightContrast ? "/icons/dark-icon-edit.svg" : "/icons/icon-edit.svg";
+    const emailLogo = isLightContrast ? "/icons/dark-icon-email.svg" : "/icons/icon-email.svg";
 
+    const [isInstagramVisible, setIsInstagramVisible] = useState<boolean>(false);
+    const [isEmailVisible, setIsEmailVisible] = useState<boolean>(false);
 
     useEffect(() => {
         if (colla.logo) {
@@ -59,16 +64,23 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                         <p className={styles.collaPage__type} style={getTypeAdditionalStyle(colla.type) } > {dictionary[lang]?.[colla.type]} </p>
                         <p className={styles.collaPage__neighbourhood} > {dictionary[lang]?.[colla.neighbourhood]} </p>
                         <p className={styles.collaPage__music} style={getMusicAdditionalStyle(colla.music) } > {dictionary[lang]?.[colla.music]} </p>
-                        {colla.instagram && (
-                            <a href={getInstagramUrl(colla.instagram)} target="_blank">
-                                <button className={styles.outerLink}>
-                                    <img src={instagramLogo} alt="Instagram"/>
-                                </button>
-                            </a>
-                        )}
+                    </div>
+                    <div className={styles.collaPage__characteristics}>
+                        {colla.instagram && ( <button className={styles.outerLink} onClick={() => setIsInstagramVisible(!isInstagramVisible)}>
+                                <img src={instagramLogo} alt="Instagram"/>
+                            </button> )}
+                        {colla.instagram && isInstagramVisible && ( <a href={getInstagramUrl(colla.instagram)} target="_blank">
+                                <p className={styles.collaPage__additionalTextButton} style={contrastBackgroundAndTextColour}>{colla.instagram}</p>
+                            </a> )}
+                        {colla.email && ( <button className={styles.outerLink} onClick={() => setIsEmailVisible(!isEmailVisible)}>
+                                <img src={emailLogo} alt="Email"/>
+                            </button> )}
+                        {colla.email && isEmailVisible && ( <a href={`mailto:${colla.email}`} target="_blank">
+                                <p className={styles.collaPage__additionalTextButton} style={contrastBackgroundAndTextColour}>{colla.email}</p>
+                            </a> )}
                         <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                             <button className={styles.updateButton}>
-                                <img src={updateLogo} alt="Editar" />
+                                <img src={updateLogo} alt="Editar"/>
                             </button>
                         </a>
                     </div>
@@ -139,6 +151,15 @@ function getContrastTextColour (isLight: boolean): React.CSSProperties {
 
     const color = isLight ? darkColour : lightColour;
     return {color};
+}
+
+function getContrastBackgroundAndTextColour (isLight: boolean): React.CSSProperties {
+    const lightColour = "#b2b2b2";
+    const darkColour = "#3b3b3b";
+
+    const backgroundColor = isLight ? darkColour : lightColour;
+    const color = isLight ? lightColour : darkColour;
+    return {backgroundColor, color};
 }
 
 function getTypeAdditionalStyle(type: string): React.CSSProperties {
