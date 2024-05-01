@@ -16,6 +16,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     const backPrimaryColourPanel = isHorizontal ? styles.backPrimaryColourPanelHorizontal : styles.backPrimaryColourPanelVertical;
     const isLightContrast = getIsLightContrast(colla.primaryColour);
     const contrastTextColour = getContrastTextColour(isLightContrast);
+    const contrastTextColourAndBackground = { ...contrastTextColour, backgroundColor: colla.secondaryColour };
     const instagramLogo = isLightContrast ? "/icons/dark-icon-instagram.png" : "/icons/icon-instagram.png";
     const updateLogo = isLightContrast ? "/icons/dark-icon-edit.svg" : "/icons/icon-edit.svg";
 
@@ -53,9 +54,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                     <h3 className={styles.collaPage__name} style={contrastTextColour} >{colla.name}</h3>
                     <h6 className={styles.collaPage__entity} style={contrastTextColour} >{colla.entity}</h6>
                     <p className={styles.collaPage__foundationYear} style={contrastTextColour} >{colla.foundationYear}</p>
-                    <div className={styles.collaPage__description}  style={contrastTextColour} >{colla.description}
-                        <p className={styles.collaPage__email}  >{colla.email}</p>
-                    </div>
+
                     <div classname={styles.collaPage__characteristics}>
                         <p className={styles.collaPage__type} style={getTypeAdditionalStyle(colla.type) } > {dictionary[lang]?.[colla.type]} </p>
                         <p className={styles.collaPage__neighbourhood} > {dictionary[lang]?.[colla.neighbourhood]} </p>
@@ -72,6 +71,10 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                                 <img src={updateLogo} alt="Editar" />
                             </button>
                         </a>
+                    </div>
+
+                    <div className={styles.collaPage__description}  style={contrastTextColourAndBackground} >{colla.description}
+                        <p className={styles.collaPage__email}  >{colla.email}</p>
                     </div>
                 </div>
                 <div className={styles.rightContent}>
