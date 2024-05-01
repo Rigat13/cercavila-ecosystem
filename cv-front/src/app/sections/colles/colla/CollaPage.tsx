@@ -14,7 +14,12 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
 
     const isHorizontal = window.innerWidth > window.innerHeight;
     const backPrimaryColourPanel = isHorizontal ? styles.backPrimaryColourPanelHorizontal : styles.backPrimaryColourPanelVertical;
-    const descriptionStyle = getContrastTextColor(colla.secondaryColour) === 'light' ? styles.collaPage__descriptionLight : styles.collaPage__descriptionDark;
+    const isLightContrast = getIsLightContrast(colla.primaryColour);
+    const contrastTextColour = getContrastTextColour(isLightContrast);
+    const instagramLogo = isLightContrast ? "/icons/dark-icon-instagram.png" : "/icons/icon-instagram.png";
+    const updateLogo = isLightContrast ? "/icons/dark-icon-edit.svg" : "/icons/icon-edit.svg";
+
+
     useEffect(() => {
         if (colla.logo) {
             const blob = base64ToBlob(colla.logo as unknown as string);
@@ -32,28 +37,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     return (
         <div className={styles.collaPage}>
             <div className={styles.pageWrapper}>
-                <div className={styles.leftContent}>
-                    <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
-                        <button className={styles.updateButton}>
-                            <img src="/icons/icon-edit.svg" alt="Editar" />
-                        </button>
-                    </a>
-                    <div className={backPrimaryColourPanel} style={{ backgroundColor: colla.primaryColour }}></div>
-                    <div className={styles.backSecondaryColourPanel} style={{ backgroundColor: colla.secondaryColour }}></div>
-
-                    <h3 className={styles.collaPage__name}>{colla.name}</h3>
-                    <h6 className={styles.collaPage__entity}>{colla.entity}</h6>
-                    <p className={styles.collaPage__foundationYear}>{colla.foundationYear}</p>
-                    <div className={descriptionStyle}>{colla.description}
-                        <p className={styles.collaPage__email}>{colla.email}</p>
-                    </div>
-                    <div classname={styles.collaPage__characteristics}>
-                        <p className={styles.collaPage__type} style={getTypeAdditionalStyle(colla.type) } > {dictionary[lang]?.[colla.type]} </p>
-                        <p className={styles.collaPage__neighbourhood} > {dictionary[lang]?.[colla.neighbourhood]} </p>
-                        <p className={styles.collaPage__music} style={getMusicAdditionalStyle(colla.music) } > {dictionary[lang]?.[colla.music]} </p>
-                    </div>
-
-
+                <div className = {styles.leftLeftContent}>
                     {logoUrl && (
                         <img
                             src={logoUrl}
@@ -61,14 +45,34 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                             className={styles.collaPage__logo}
                         />
                     )}
+                </div>
+                <div className={styles.leftContent}>
+                    <div className={backPrimaryColourPanel} style={{ backgroundColor: colla.primaryColour }}></div>
+                    <div className={styles.backSecondaryColourPanel} style={{ backgroundColor: colla.secondaryColour }}></div>
 
-                    {colla.instagram && (
-                        <a href={getInstagramUrl(colla.instagram)} target="_blank">
-                            <button className={styles.outerLink}>
-                                <img src="/icons/icon-instagram.png" alt="Instagram"/>
+                    <h3 className={styles.collaPage__name} style={contrastTextColour} >{colla.name}</h3>
+                    <h6 className={styles.collaPage__entity} style={contrastTextColour} >{colla.entity}</h6>
+                    <p className={styles.collaPage__foundationYear} style={contrastTextColour} >{colla.foundationYear}</p>
+                    <div className={styles.collaPage__description}  style={contrastTextColour} >{colla.description}
+                        <p className={styles.collaPage__email}  >{colla.email}</p>
+                    </div>
+                    <div classname={styles.collaPage__characteristics}>
+                        <p className={styles.collaPage__type} style={getTypeAdditionalStyle(colla.type) } > {dictionary[lang]?.[colla.type]} </p>
+                        <p className={styles.collaPage__neighbourhood} > {dictionary[lang]?.[colla.neighbourhood]} </p>
+                        <p className={styles.collaPage__music} style={getMusicAdditionalStyle(colla.music) } > {dictionary[lang]?.[colla.music]} </p>
+                        {colla.instagram && (
+                            <a href={getInstagramUrl(colla.instagram)} target="_blank">
+                                <button className={styles.outerLink}>
+                                    <img src={instagramLogo} alt="Instagram"/>
+                                </button>
+                            </a>
+                        )}
+                        <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                            <button className={styles.updateButton}>
+                                <img src={updateLogo} alt="Editar" />
                             </button>
                         </a>
-                    )}
+                    </div>
                 </div>
                 <div className={styles.rightContent}>
                     <div className={styles.collaPage__figuresContainer}>
@@ -108,23 +112,30 @@ function base64ToBlob(base64: string): Blob {
     return new Blob([bytes], { type: 'image/jpeg' });
 }
 
-function getContrastTextColor(backgroundColor) {
-    // Validate input format (e.g., '#f6e9e9')
+function getIsLightContrast (backgroundColor: string): boolean {
     const colorPattern = /^#[0-9a-fA-F]{6}$/;
     if (!colorPattern.test(backgroundColor)) {
         throw new Error('Invalid background color format:'+ backgroundColor);
-        return 'unknown';
+        return false;
     }
     // Extract RGB components from the background color string
     const rgbMatch = backgroundColor.match(/[0-9a-fA-F]{2}/g);
     if (!rgbMatch || rgbMatch.length !== 3) {
         throw new Error('Unable to extract RGB components from color:'+ backgroundColor);
-        return 'unknown';
+        return false;
     }
 
     const [r, g, b] = rgbMatch.map(hex => parseInt(hex, 16));
     const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-    return luminance > 0.5 ? 'dark' : 'light';
+    return luminance < 0.5;
+}
+
+function getContrastTextColour (isLight: boolean): React.CSSProperties {
+    const lightColour = "#ffffff";
+    const darkColour = "#000000";
+
+    const color = isLight ? darkColour : lightColour;
+    return {color};
 }
 
 function getTypeAdditionalStyle(type: string): React.CSSProperties {

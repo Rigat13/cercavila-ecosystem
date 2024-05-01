@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 129 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-168,0)">
+        <g id="inverted-email" transform="matrix(1,0,0,1,168.314,0)">
+            <rect x="0" y="0" width="128" height="128" style="fill:none;"/>
+            <clipPath id="_clip1">
+                <rect x="0" y="0" width="128" height="128"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(1,0,0,1,-168.314,0)">
+                    <path d="M304.647,-11.573L161.306,-11.573L161.306,138.321L304.647,138.321L304.647,-11.573ZM232.806,-0C268.129,-0 296.806,28.677 296.806,64C296.806,99.323 268.129,128 232.806,128C197.483,128 168.806,99.323 168.806,64C168.806,28.677 197.483,-0 232.806,-0ZM197.481,31.684C194.914,31.684 192.833,33.765 192.833,36.332L192.833,91.668C192.833,94.235 194.914,96.316 197.481,96.316L268.131,96.316C270.698,96.316 272.779,94.235 272.779,91.668L272.779,36.332C272.779,33.765 270.698,31.684 268.131,31.684L197.481,31.684ZM263.482,45.536L235.273,73.744C233.458,75.56 230.515,75.56 228.699,73.744L202.13,47.175L202.13,87.019C202.13,87.019 263.482,87.019 263.482,87.019L263.482,45.536ZM231.986,63.884L254.889,40.981L209.084,40.981L231.986,63.884Z" style="fill:white;"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
