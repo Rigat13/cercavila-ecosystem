@@ -33,12 +33,12 @@
   color: #000000;
 
   &__name {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 900;
     line-height: 1;
     width: fit-content;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 1rem;
   }
 
   &__entity {
@@ -48,11 +48,11 @@
     text-transform: uppercase;
     width: fit-content;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0rem 1rem 0rem 1rem;
   }
 
   &__foundationYear {
-    margin-top: -0.3em;
+    margin-top: 0rem;
     font-size: 3rem;
     font-weight: 800;
     transform: scaleX(0.7);
@@ -172,6 +172,9 @@
                         /* --- Scale for desktop ---------------------------------------------------- */
 
   @media (min-width: 1024px) {
+    &__name {
+      font-size: 4rem;
+    }
     .pageWrapper {
       flex-direction: row; /* Arrange items side by side on wider screens */
     }
