@@ -23,24 +23,30 @@ export function CollaFiguraCard({ figura, lang }: { figura: Figura; lang: string
 
     return (
         <div className={styles.collaFiguraCard}>
-            {imageUrl && (
-                <div className={figuraImageStyle}>
-                    <img
-                        src={imageUrl}
-                        alt={`Imatge de ${figura.name}`}
-                    />
-                </div>
-            )}
-            <div className={styles.collaFiguraCard__info}>
+            <div className={styles.collaFiguraCard__imageWrapper}>
+                {imageUrl && (
+                    <div className={figuraImageStyle}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${figura.name}`}
+                        />
+                    </div>
+                )}
                 <a href={`figures/update.html?figuraId=${figura.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                     <button className={styles.updateButton}>
                         <img src="/icons/icon-edit.svg" alt="Editar" />
                     </button>
                 </a>
-                <h3 className={styles.collaFiguraCard__name}>{figura.name}</h3>
-                <p className={styles.collaFiguraCard__year}>{figura.year}</p>
-                <p className={styles.collaFiguraCard__type}>{dictionary[lang]?.[figura.type]}</p>
+            </div>
+            <div className={styles.collaFiguraCard__info}>
 
+                <h3 className={styles.collaFiguraCard__name}>{figura.name}</h3>
+                <div className={styles.collaFiguraCard__nameYearContainer}>
+                    <p className={styles.collaFiguraCard__year}>{figura.year}</p>
+                    <p className={styles.collaFiguraCard__type}>{dictionary[lang]?.[figura.type]}</p>
+                </div>
+
+                <p className={styles.collaFiguraCard__webUrl}> {dictionary[lang]?.figuraWebUrl+":"} </p>
                 {figura.webUrl && (
                     <a href={getWebUrl(figura.webUrl)} target="_blank">
                         <button className={styles.outerLink}>

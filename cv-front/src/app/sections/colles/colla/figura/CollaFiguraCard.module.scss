@@ -1,6 +1,6 @@
 .collaFiguraCard {
-  position: relative;
   display: flex;
+  flex-direction: column;
   padding: 0.5rem;
   overflow: hidden;
   background: transparent;
@@ -9,26 +9,29 @@
   /* ---------------------------------------------------- Info ---------------------------------------------------- */
 
   &__info {
-    flex: 1;
-    height: 70%;
-    width: 70%;
-    background: #000088;
+    background-color: #0a0a0a;
     color: white;
-    border-radius: 0rem 2rem 2rem 0rem;
-    position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding-right: 1rem;
-    padding-left: 4.5rem;
-    margin-left: 4.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.7rem;
+    border-radius: 1em;
+  }
+
+  &__nameYearContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
   }
 
   &__name {
-    margin: 2.3rem 2.3rem 0rem 2.3rem;
-    font-size: 1.5rem;
+    margin: 0rem 2.3rem 0rem 2.3rem;
+    font-size: 3rem;
     font-weight: 900;
+    bottom: 0;
+    position: relative;
   }
 
   &__year {
@@ -37,7 +40,6 @@
   }
 
   &__type {
-    margin-top: 0.5em;
     font-size: 1.2rem;
     background: #1f1f1f;
     border-radius: 10px;
@@ -45,7 +47,7 @@
   }
 
   &__webUrl {
-    margin-top: 0.5em;
+    margin: 0.5em;
     font-size: 1rem;
   }
 
@@ -58,40 +60,55 @@
 
   /* ---------------------------------------------------- Buttons ---------------------------------------------------- */
 
-  .updateButton,
+  .updateButton {
+    position: relative;
+    background-color: #0a0a0a;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    margin-bottom: 0.3rem;
+    z-index: 10;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 60%;
+      height: 60%;
+    }
+  }
   .outerLink {
-    position: absolute;
+    position: relative;
     background-color: transparent;
-    border: none;
-    padding: 0;
     cursor: pointer;
     z-index: 10;
     img {
-      width: 30px;
-      height: 30px;
+      width: 3rem;
+      height: 3rem;
     }
   }
   .updateButton {
-    top: 0.8rem;
-    right: 0.8rem;
   }
 
   .outerLink {
-    bottom: 0.8rem;
-    right: 0.8rem;
   }
 
-  /* ---------------------------------------------------- Image Preview ---------------------------------------------------- */
-  &__aImage {
-    z-index: 2;
+  /* ---------------------------------------------------- Figura Image ---------------------------------------------------- */
+  &__imageWrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    background: transparent;
   }
 
   &__imageGegant, &__imageGeganto, &__imageCapgros, &__imageBestia {
+    position: relative;
     background: transparent;
     transition: transform 0.3s ease;
     z-index: 2;
-    width: 15rem;
+    width: 20rem;
     height: 40rem;
+    overflow: visible;
   }
   &__imageGegant {}
   &__imageGeganto {
@@ -137,26 +154,5 @@
       transform-origin: bottom;
       transform: translateY(0rem) rotate(0deg);
     }
-  }
-
-  .imagePreviewContainer {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  .imagePreview {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid #000;
-    overflow: hidden;
-  }
-
-  .imagePreview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 }
