@@ -1,7 +1,6 @@
 // FilteredCollesList.module.scss
 
 .filter {
-  margin-bottom: 20px; // Adjust margin as needed
   display: flex;
   align-items: center;
 
@@ -10,27 +9,74 @@
   }
 
   select {
-    width: 200px; // Adjust width as needed
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px; // Adjust font size as needed
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #000088;
+    border-radius: 7px;
   }
 
-  button {
-    margin-left: 10px; // Spacing between select element and button
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff; // Primary button color
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px; // Adjust font size as needed
+  option:disabled {
+    color: #ffffff;
+    background-color: #b5b5da;
+  }
 
+  .filterTitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-right: 1rem;
+  }
+
+  .addFilterButton {
+    padding: 0rem 1rem 0rem 1rem;
+    margin: 0rem;
+    font-size: 2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 50%;
+    background: #000088;
+    color: #f8f1f1;
+    cursor: pointer;
+    transition: all 0.3s;
     &:hover {
-      background-color: #0056b3; // Darker shade on hover
+      background: #f8f1f1;
+      color: #000088;
+    }
+    &:disabled {
+      background-color: #c0c0c0;
+      color: #808080;
+      cursor: not-allowed;
+    }
+
+    .addFilterButton{
+      font-size: 2rem;
+      margin: 0rem;
+      padding: 0rem;
     }
   }
+
+
+  /* ---------------------------------------------------- Page wrapper ---------------------------------------------------- */
+  .filtersWrapper {
+    display: flex;
+    flex-direction: row; /* Stack items horizontally by default */
+    margin: 2rem;
+  }
+
+  .filterSection {
+    display: flex;
+    flex-direction: column; /* Stack items vertically by default */
+    margin-right: 20px; /* Space between filter sections */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filterInnerSection {
+    display: flex;
+    flex-direction: row;
+  }
+
 }
 
 .h2 {
@@ -42,33 +88,40 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); // Responsive grid layout
   gap: 20px; // Spacing between grid items
+  margin: 2rem;
 }
 
-.selectedTypes {
-  margin-top: 20px; // Space above selected types section
+.selectedFilters {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0rem 0rem 0rem 2rem;
 
-  .selectedType {
-    display: inline-block;
-    margin-right: 10px; // Spacing between selected type items
+  .selectedFilter {
+    background-color: #000088;
+    color: #f8f1f1;
+    border: 0px solid transparent;
+    border-radius: 1rem;
+    padding: 0.2rem 0.5rem 0.2rem 1rem;
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
 
     span {
-      background-color: #007bff; // Background color for type label
-      color: #fff;
-      padding: 4px 8px;
-      border-radius: 4px;
-      margin-right: 5px; // Spacing between type label and delete button
     }
 
-    button {
-      background-color: #dc3545; // Delete button color
-      color: #fff;
+    .selectedFilterButton {
+      background: none;
       border: none;
-      border-radius: 50%;
-      padding: 4px;
       cursor: pointer;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      align-self: center;
+      padding: 0rem 0.6rem 0rem 0.6rem;
+      border-radius: 50%;
 
       &:hover {
-        background-color: #bd2130; // Darker shade on hover
+        background-color: #f32336; // Darker shade on hover
       }
     }
   }
