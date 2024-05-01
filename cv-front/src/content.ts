@@ -97,6 +97,7 @@ interface DictionaryEntry {
     updateCollaTitle: string;
     updateCollaButton: string;
     goToCollesButton: string;
+    goToCollaPageButton: string;
     deleteCollaButton: string;
     warningDeleteCollaMessage: string;
     cancelDeleteCollaButton: string;
@@ -253,7 +254,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // UPDATE COLLA
         updateCollaTitle: "Edita la colla",
         updateCollaButton: "Edita la colla",
-        goToCollesButton: "Torna a les colles",
+        goToCollesButton: "Pàgina de Colles",
+        goToCollaPageButton: "Pàgina de la Colla",
         deleteCollaButton: "Esborrar la colla",
         warningDeleteCollaMessage: "Voleu esborrar la colla de manera permanent? No es pot desfer aquesta acció.",
         cancelDeleteCollaButton: "Cancel·lar",
@@ -408,7 +410,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // UPDATE COLLA
         updateCollaTitle: "Edita la colla",
         updateCollaButton: "Edita la colla",
-        goToCollesButton: "Vuelve a las colles",
+        goToCollesButton: "Página de Colles",
+        goToCollaPageButton: "Página de la Colla",
         deleteCollaButton: "Borrar la colla",
         warningDeleteCollaMessage: "¿Quieres borrar la colla de manera permanente? No se puede deshacer esta acción.",
         cancelDeleteCollaButton: "Cancelar",
@@ -563,7 +566,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // UPDATE COLLA
         updateCollaTitle: "Edit colla",
         updateCollaButton: "Edit colla",
-        goToCollesButton: "Go back to colles",
+        goToCollesButton: "Go to Colles page",
+        goToCollaPageButton: "Go to Colla page",
         deleteCollaButton: "Delete colla",
         warningDeleteCollaMessage: "Do you want to delete the colla permanently? This action cannot be undone.",
         cancelDeleteCollaButton: "Cancel",

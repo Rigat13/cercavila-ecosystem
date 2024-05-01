@@ -342,7 +342,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
             return <Spinner />;
         case FormStatus.Success:
             return (
-                <SuccessNotification lang={lang}/>
+                <SuccessNotification lang={lang} collaId={collaId}/>
         );
         case FormStatus.Error:
             return <ErrorNotification lang={lang} resetForm={resetFormStatus} />;
@@ -607,6 +607,11 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
                         </a>
                     )}
+                    {isGoToCollesVisible && (
+                        <a href={lang === defaultLang ? `/colles/colla.html?collaId=${collaId}` : `/colles/colla.html?collaId=${collaId}&lang=${lang}`}>
+                            <button className={styles.actionButton}>{dictionary[lang]?.goToCollaPageButton}</button>
+                        </a>
+                    )}
                     {isDeleteCollaVisible && (
                         <button className={styles.deleteButton} onClick={handleDeleteClick} >{dictionary[lang]?.deleteCollaButton}</button>
                     )}
@@ -624,12 +629,15 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     }
 }
 
-function SuccessNotification({ lang }: { lang: string}) {
+function SuccessNotification({ lang, collaId }: { lang: string, collaId: string}) {
     return (
         <section className={styles.collaForm}>
             <h2 className={styles.h2}>{dictionary[lang]?.successUpdateCollaMessage}</h2>
             <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
                 <button className={styles.actionButton}>{dictionary[lang]?.goToCollesButton}</button>
+            </a>
+            <a href={lang === defaultLang ? `/colles/colla.html?collaId=${collaId}` : `/colles/colla.html?collaId=${collaId}&lang=${lang}`}>
+                <button className={styles.actionButton}>{dictionary[lang]?.goToCollaPageButton}</button>
             </a>
         </section>
     );

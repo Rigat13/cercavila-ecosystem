@@ -78,7 +78,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                         {colla.email && isEmailVisible && ( <a href={`mailto:${colla.email}`} target="_blank">
                                 <p className={styles.collaPage__additionalTextButton} style={contrastBackgroundAndTextColour}>{colla.email}</p>
                             </a> )}
-                        <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                        <a href={`/colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                             <button className={styles.updateButton}>
                                 <img src={updateLogo} alt="Editar"/>
                             </button>
