@@ -75,7 +75,7 @@
     display: flex;
     flex-wrap: wrap;
     z-index: 3;
-    padding-left: 1rem;
+    margin-left: 1rem;
   }
 
   &__type, &__neighbourhood, &__music, &__instagramText {
@@ -83,7 +83,7 @@
     color: #f8f1f1;
     border-radius: 1rem;
     padding: 0.15rem 0.7rem;
-    margin-left: 1rem;
+    margin-right: 0.5rem;
     display: inline-flex; /* Ensure each characteristic behaves as inline flex */
     align-items: center;
     white-space: nowrap; /* Prevent text wrapping within the characteristic */
@@ -94,14 +94,14 @@
 
   &__additionalTextButton {
     padding: 0.15rem 0.7rem;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
     border-radius: 0.1rem 1rem 1rem 0.1rem;
     width: fit-content;
   }
 
   .outerLink, .updateButton {
     cursor: pointer;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
     vertical-align: middle;
     img {
       width: 30px;
@@ -158,10 +158,6 @@
   .pageWrapper {
     display: flex;
     flex-direction: column; /* Stack items vertically by default */
-
-    @media (min-width: 1024px) {
-      flex-direction: row; /* Arrange items side by side on wider screens */
-    }
   }
 
   .leftLeftContent, .leftContent, .rightContent {
@@ -173,8 +169,13 @@
     padding-right: 2rem;
     width: auto;
   }
+                        /* --- Scale for desktop ---------------------------------------------------- */
 
   @media (min-width: 1024px) {
+    .pageWrapper {
+      flex-direction: row; /* Arrange items side by side on wider screens */
+    }
+
     .leftLeftContent {
       padding-left: 5rem;
       padding-right: 2rem;

@@ -60,7 +60,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                     <h6 className={styles.collaPage__entity} style={contrastTextColourAndBackground} >{colla.entity}</h6>
                     <p className={styles.collaPage__foundationYear} style={contrastTextColour} >{colla.foundationYear}</p>
 
-                    <div classname={styles.collaPage__characteristics}>
+                    <div className={styles.collaPage__characteristics}>
                         <p className={styles.collaPage__type} style={getTypeAdditionalStyle(colla.type) } > {dictionary[lang]?.[colla.type]} </p>
                         <p className={styles.collaPage__neighbourhood} > {dictionary[lang]?.[colla.neighbourhood]} </p>
                         <p className={styles.collaPage__music} style={getMusicAdditionalStyle(colla.music) } > {dictionary[lang]?.[colla.music]} </p>
