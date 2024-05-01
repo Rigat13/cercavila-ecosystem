@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
 import {CollaFiguraCard} from "@/app/sections/colles/colla/figura/CollaFiguraCard";
 import {Figura} from "@/modules/figures/domain/Figura";
+import {collaTypesFixed} from "@/modules/colles/domain/colla-attributes/CollaType";
 
 export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
@@ -14,7 +15,6 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     const isHorizontal = window.innerWidth > window.innerHeight;
     const backPrimaryColourPanel = isHorizontal ? styles.backPrimaryColourPanelHorizontal : styles.backPrimaryColourPanelVertical;
     const descriptionStyle = getContrastTextColor(colla.secondaryColour) === 'light' ? styles.collaPage__descriptionLight : styles.collaPage__descriptionDark;
-
     useEffect(() => {
         if (colla.logo) {
             const blob = base64ToBlob(colla.logo as unknown as string);
@@ -48,9 +48,9 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                         <p className={styles.collaPage__email}>{colla.email}</p>
                     </div>
                     <div classname={styles.collaPage__characteristics}>
-                        <p className={styles.collaPage__type}>{dictionary[lang]?.[colla.type]}</p>
-                        <p className={styles.collaPage__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
-                        <p className={styles.collaPage__music}>{dictionary[lang]?.[colla.music]}</p>
+                        <p className={styles.collaPage__type} style={getTypeAdditionalStyle(colla.type) } > {dictionary[lang]?.[colla.type]} </p>
+                        <p className={styles.collaPage__neighbourhood} > {dictionary[lang]?.[colla.neighbourhood]} </p>
+                        <p className={styles.collaPage__music} style={getMusicAdditionalStyle(colla.music) } > {dictionary[lang]?.[colla.music]} </p>
                     </div>
 
 
@@ -125,4 +125,109 @@ function getContrastTextColor(backgroundColor) {
     const [r, g, b] = rgbMatch.map(hex => parseInt(hex, 16));
     const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
     return luminance > 0.5 ? 'dark' : 'light';
+}
+
+function getTypeAdditionalStyle(type: string): React.CSSProperties {
+    let backgroundColor = "#000000";
+    let color = "#FFFFFF";
+
+    switch (type) {
+        case 'collaTypeInstitutional':
+            backgroundColor = "#1c167e";
+            color = "#ff9f9f";
+            break;
+        case 'collaTypeNeighbourhood':
+            backgroundColor = "#234bd5";
+            color = "#ffffff";
+            break;
+        case 'collaTypeStreet':
+            backgroundColor = "#00805a";
+            color = "#FFFFFF";
+            break;
+        case 'collaTypeEntity':
+            backgroundColor = "#6028ef";
+            color = "#FFFFFF";
+            break;
+        case 'collaTypeTheatrical':
+            backgroundColor = "#800080";
+            color = "#FFFFFF";
+            break;
+        case 'collaTypeScout':
+            backgroundColor = "#4682B4";
+            color = "#FFFFFF";
+            break;
+        case 'collaTypeNursingHome':
+            backgroundColor = "#FF6347";
+            color = "#FFFFFF";
+            break;
+        case 'collaTypeSportsClub':
+            backgroundColor = "#111111";
+            color = "#ffdd50";
+            break;
+        case 'collaTypeSchool':
+            backgroundColor = "#e74848";
+            color = "#ffffff";
+            break;
+        case 'collaTypeInstitute':
+            backgroundColor = "#88073e";
+            color = "#FFFFFF";
+            break;
+        case 'collaTypeNursery':
+            backgroundColor = "#c77441";
+            color = "#FFFFFF";
+            break;
+        case 'collaTypePrivate':
+            backgroundColor = "#a5e855";
+            color = "#000000";
+            break;
+        default:
+            // Default style if type is not matched
+            backgroundColor = "#000000";
+            color = "#FFFFFF";
+            break;
+    }
+    return { backgroundColor, color };
+}
+
+function getMusicAdditionalStyle(musicType: string): React.CSSProperties {
+    let backgroundColor = "#000000";
+    let color = "#FFFFFF";
+
+    switch (musicType) {
+        case 'musicFlabiol':
+            backgroundColor = "#e0823c";
+            color = "#0a0a0a";
+            break;
+        case 'musicGralla':
+            backgroundColor = "#572a15";
+            color = "#FFFFFF";
+            break;
+        case 'musicBatucada':
+            backgroundColor = "#ff1466";
+            color = "#FFFFFF";
+            break;
+        case 'musicBand':
+            backgroundColor = "#FFD700";
+            color = "#000000";
+            break;
+        case 'musicGrallaBand':
+            backgroundColor = "#008000";
+            color = "#FFFFFF";
+            break;
+        case 'musicOther':
+            backgroundColor = "#4b166c";
+            color = "#FFFFFF";
+            break;
+        case 'musicNone':
+            backgroundColor = "#77777c";
+            color = "#FFFFFF";
+            break;
+        default:
+            // Default style if music type is not recognized
+            backgroundColor = "#000000";
+            color = "#FFFFFF";
+            break;
+    }
+
+    return { backgroundColor, color };
 }

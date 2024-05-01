@@ -31,3 +31,22 @@ export const collaTypes = [
 
     { labelKey: 'collaTypePrivate' },
 ]
+
+export const collaTypesFixed = {
+    collaTypeInstitutional: 'collaTypeInstitutional',
+    collaTypeNeighbourhood: 'collaTypeNeighbourhood',
+    collaTypeStreet: 'collaTypeStreet',
+
+    collaTypeEntity: 'collaTypeEntity',
+    collaTypeTheatrical: 'collaTypeTheatrical',
+    collaTypeScout: 'collaTypeScout',
+
+    collaTypeNursingHome: 'collaTypeNursingHome',
+    collaTypeSportsClub: 'collaTypeSportsClub',
+
+    collaTypeSchool: 'collaTypeSchool',
+    collaTypeInstitute: 'collaTypeInstitute',
+    collaTypeNursery: 'collaTypeNursery',
+
+    collaTypePrivate: 'collaTypePrivate',
+}

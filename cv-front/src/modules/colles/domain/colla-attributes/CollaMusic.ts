@@ -22,3 +22,13 @@ export const musics = [
     { labelKey: 'musicOther' },
     { labelKey: 'musicNone' },
 ]
+
+export const musicsFixed = {
+    musicFlabiol: 'musicFlabiol',
+    musicGralla: 'musicGralla',
+    musicBatucada: 'musicBatucada',
+    musicBand: 'musicBand',
+    musicGrallaBand: 'musicGrallaBand',
+    musicOther: 'musicOther',
+    musicNone: 'musicNone',
+}

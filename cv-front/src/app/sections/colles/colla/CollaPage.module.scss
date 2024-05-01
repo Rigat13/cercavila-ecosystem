@@ -105,11 +105,11 @@
   }
 
   &__type, &__neighbourhood, &__music {
-    background-color: #000088;
+    background-color: #0a0a0a;
     color: #f8f1f1;
     border-radius: 1rem;
-    padding: 4px 8px;
-    margin: 4px;
+    padding: 0.15rem 0.7rem;
+    margin-right: 0.5rem;
     display: inline-flex; /* Ensure each characteristic behaves as inline flex */
     align-items: center;
     white-space: nowrap; /* Prevent text wrapping within the characteristic */
