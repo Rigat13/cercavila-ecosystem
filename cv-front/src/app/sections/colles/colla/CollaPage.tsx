@@ -47,24 +47,19 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
                     <div className={descriptionStyle}>{colla.description}
                         <p className={styles.collaPage__email}>{colla.email}</p>
                     </div>
-                    <p className={styles.collaPage__type}>{dictionary[lang]?.[colla.type]}</p>
-                    <p className={styles.collaPage__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
-                    <p className={styles.collaPage__music}>{dictionary[lang]?.[colla.music]}</p>
-
-
-                    <div className={styles.colorCircles}>
-                        <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>
-                        <div className={styles.colorCircle} style={{ backgroundColor: colla.secondaryColour }}></div>
+                    <div classname={styles.collaPage__characteristics}>
+                        <p className={styles.collaPage__type}>{dictionary[lang]?.[colla.type]}</p>
+                        <p className={styles.collaPage__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
+                        <p className={styles.collaPage__music}>{dictionary[lang]?.[colla.music]}</p>
                     </div>
 
+
                     {logoUrl && (
-                        <a href={`colles/colla.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
-                            <img
-                                src={logoUrl}
-                                alt={`Logo de ${colla.name}`}
-                                className={styles.collaPage__logo}
-                            />
-                        </a>
+                        <img
+                            src={logoUrl}
+                            alt={`Logo de ${colla.name}`}
+                            className={styles.collaPage__logo}
+                        />
                     )}
 
                     {colla.instagram && (

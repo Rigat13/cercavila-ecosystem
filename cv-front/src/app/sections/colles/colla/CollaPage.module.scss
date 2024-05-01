@@ -98,19 +98,30 @@
     color: black;
   }
 
-  &__type {
-    margin-top: 0.5em;
-    font-size: 1rem;
+  /* ---------------------------------------------------- Characteristics labels ---------------------------------------------------- */
+  &__characteristics {
+    display: flex;
+    flex-wrap: wrap;
   }
 
-  &__neighbourhood {
-    margin-top: 0.5em;
-    font-size: 1rem;
+  &__type, &__neighbourhood, &__music {
+    background-color: #000088;
+    color: #f8f1f1;
+    border-radius: 1rem;
+    padding: 4px 8px;
+    margin: 4px;
+    display: inline-flex; /* Ensure each characteristic behaves as inline flex */
+    align-items: center;
+    white-space: nowrap; /* Prevent text wrapping within the characteristic */
+    overflow: hidden; /* Hide overflow if content exceeds the characteristic's width */
+    text-overflow: ellipsis; /* Show ellipsis (...) for overflowed text */
   }
+
+  /* ---------------------------------------------------- Logo ---------------------------------------------------- */
 
   &__logo {
-    width: 50px;
-    height: 50px;
+    width: 8rem;
+    height: 8rem;
     border-radius: 50%;
     border: 1px solid #000;
     overflow: hidden;
@@ -120,11 +131,6 @@
         height: 100%;
         object-fit: cover;
         }
-  }
-
-  &__music {
-    margin-top: 0.5em;
-    font-size: 1rem;
   }
 
   &__email {
@@ -147,41 +153,6 @@
     font-weight: 700;
     font-size: 1.875rem;
     padding: 1rem;
-  }
-
-  .colorCircles {
-    display: flex;
-    justify-content: left;
-    margin-top: 10px;
-  }
-
-  .colorCircle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid #000;
-    margin-right: 5px;
-  }
-
-  .imagePreviewContainer {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  .imagePreview {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid #000;
-    overflow: hidden;
-  }
-
-  .imagePreview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 
   /* ---------------------------------------------------- Selected Figures ---------------------------------------------------- */
