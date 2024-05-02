@@ -165,10 +165,16 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1.4rem;
     font-weight: 800;
     color: #ffffff;
     align-self: center;
+    padding: 0rem 0.6rem 0rem 0.6rem;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: #f32336; // Darker shade on hover
+    }
   }
 
   option:disabled {
