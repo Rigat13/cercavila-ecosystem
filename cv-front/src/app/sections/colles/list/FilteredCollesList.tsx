@@ -7,6 +7,7 @@ import {getMusicAdditionalStyle, musics} from "@/modules/colles/domain/colla-att
 import {collaTypes, getTypeAdditionalStyle} from "@/modules/colles/domain/colla-attributes/CollaType";
 import {Figura} from "@/modules/figures/domain/Figura";
 import {neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
+import {collaIsCCGM} from "@/modules/colles/domain/Colla";
 
 export function FilteredCollesList({ lang }: { lang: string }) {
     const { colles } = useCollesContext();
@@ -140,6 +141,7 @@ export function FilteredCollesList({ lang }: { lang: string }) {
             <div className={styles.list}>
                 {colles
                     .filter(colla =>
+                        (!collaIsCCGM(colla.id)) &&
                         (searchTerm.trim() === '' || colla.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
                         (selectedTypes.length === 0 || selectedTypes.includes(colla.type)) &&
                         (selectedNeighbourhoods.length === 0 || selectedNeighbourhoods.includes(colla.neighbourhood)) &&
