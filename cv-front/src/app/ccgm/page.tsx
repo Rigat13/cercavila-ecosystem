@@ -10,6 +10,7 @@ import React, {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import { Suspense } from 'react';
+import {CCGMCardHolder} from "@/app/sections/colles/list/CCGMCardHolder";
 
 export default function Page() {
     return (
@@ -38,6 +39,7 @@ function PageContent() {
             </div>
 
             <div className = "CCGM">
+                <CCGMCardHolder lang={lang}/>
                 <FilteredCollesList lang={lang}/>
             </div>
         </CollesContextProvider>
