@@ -20,6 +20,7 @@ import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaE
 import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
 import {concatenateFigures, isCollaFiguresValid} from "@/modules/colles/domain/colla-attributes/CollaFigures";
 import {Figura} from "@/modules/figures/domain/Figura";
+import {collaIsCCGM} from "@/modules/colles/domain/Colla";
 
 const initialState = {
     id: "",
@@ -64,6 +65,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
     const [selectedFigures, setSelectedFigures] = useState([]);
 
     lang = lang;
+
+    let isTypeVisible, isNeighbourhoodVisible, isMusicVisible, areFiguresVisible, isDeleteAvailable = !collaIsCCGM(collaId);
+
 
     useEffect(() => {
 
@@ -411,7 +415,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        {isTypeVisible && (<div className={styles.formGroup}>
                             <label htmlFor="type">{dictionary[lang]?.collaType}</label>
                             <select
                                 id="type"
@@ -429,9 +433,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             {formData.type && errors.type && (
                                 <div style={{ color: "tomato" }}>{errors.type}</div>
                             )}
-                        </div>
+                        </div>)}
 
-                        <div className={styles.formGroup}>
+                        {isNeighbourhoodVisible && (<div className={styles.formGroup}>
                             <label htmlFor="neighbourhood">{dictionary[lang]?.collaNeighbourhood}</label>
                             <select
                                 id="neighbourhood"
@@ -449,7 +453,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             {formData.neighbourhood && errors.neighbourhood && (
                                 <div style={{ color: "tomato" }}>{errors.neighbourhood}</div>
                             )}
-                        </div>
+                        </div>)}
 
                         <div className={styles.formGroup}>
                             <label htmlFor="primaryColour">{dictionary[lang]?.collaPrimaryColour}</label>
@@ -515,7 +519,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
 
-                        <div className={styles.formGroup}>
+                        {isMusicVisible && (<div className={styles.formGroup}>
                             <label htmlFor="music">{dictionary[lang]?.collaMusic}</label>
                             <select
                                 id="music"
@@ -533,7 +537,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             {formData.music && errors.music && (
                                 <div style={{ color: "tomato" }}>{errors.music}</div>
                             )}
-                        </div>
+                        </div>)}
 
                         <div className={styles.formGroup}>
                             <label htmlFor="email">{dictionary[lang]?.collaEmail}</label>
@@ -563,7 +567,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        {areFiguresVisible && (<div className={styles.formGroup}>
                             <label htmlFor="figures">{dictionary[lang]?.collaFigures}</label>
                             <select
                                 id="figures"
@@ -583,15 +587,15 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             {formData.figures && errors.figures && (
                                 <div style={{ color: "tomato" }}>{errors.figures}</div>
                             )}
-                        </div>
-                        <div className={styles.selectedFigures}>
+                        </div>)}
+                        {areFiguresVisible && (<div className={styles.selectedFigures}>
                             {selectedFigures.map((figure, index) => (
                                 <div key={figure.id} className={styles.selectedFigure}>
                                     <span>{figure.name}</span>
                                     <button onClick={() => handleDeleteFigure(index)}>×</button>
                                 </div>
                             ))}
-                        </div>
+                        </div>)}
 
                         <button
                             className={styles.actionButton}
@@ -612,7 +616,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             <button className={styles.actionButton}>{dictionary[lang]?.goToCollaPageButton}</button>
                         </a>
                     )}
-                    {isDeleteCollaVisible && (
+                    {isDeleteAvailable && isDeleteCollaVisible && (
                         <button className={styles.deleteButton} onClick={handleDeleteClick} >{dictionary[lang]?.deleteCollaButton}</button>
                     )}
                     {isConfirmOpen && (
