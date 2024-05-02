@@ -5,7 +5,8 @@ import React, {useEffect, useState} from "react";
 import {useCollesContext} from "@/app/sections/colles/CollesContext";
 import {CollaFiguraCard} from "@/app/sections/colles/colla/figura/CollaFiguraCard";
 import {Figura} from "@/modules/figures/domain/Figura";
-import {collaTypesFixed} from "@/modules/colles/domain/colla-attributes/CollaType";
+import {getTypeAdditionalStyle} from "@/modules/colles/domain/colla-attributes/CollaType";
+import {getMusicAdditionalStyle} from "@/modules/colles/domain/colla-attributes/CollaMusic";
 
 export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
     const [logoUrl, setLogoUrl] = useState<string | null>(null);
@@ -158,109 +159,4 @@ function getContrastBackgroundAndTextColour (isLight: boolean): React.CSSPropert
     const backgroundColor = isLight ? darkColour : lightColour;
     const color = isLight ? lightColour : darkColour;
     return {backgroundColor, color};
-}
-
-function getTypeAdditionalStyle(type: string): React.CSSProperties {
-    let backgroundColor = "#000000";
-    let color = "#FFFFFF";
-
-    switch (type) {
-        case 'collaTypeInstitutional':
-            backgroundColor = "#1c167e";
-            color = "#ff9f9f";
-            break;
-        case 'collaTypeNeighbourhood':
-            backgroundColor = "#234bd5";
-            color = "#ffffff";
-            break;
-        case 'collaTypeStreet':
-            backgroundColor = "#00805a";
-            color = "#FFFFFF";
-            break;
-        case 'collaTypeEntity':
-            backgroundColor = "#6028ef";
-            color = "#FFFFFF";
-            break;
-        case 'collaTypeTheatrical':
-            backgroundColor = "#800080";
-            color = "#FFFFFF";
-            break;
-        case 'collaTypeScout':
-            backgroundColor = "#4682B4";
-            color = "#FFFFFF";
-            break;
-        case 'collaTypeNursingHome':
-            backgroundColor = "#FF6347";
-            color = "#FFFFFF";
-            break;
-        case 'collaTypeSportsClub':
-            backgroundColor = "#111111";
-            color = "#ffdd50";
-            break;
-        case 'collaTypeSchool':
-            backgroundColor = "#e74848";
-            color = "#ffffff";
-            break;
-        case 'collaTypeInstitute':
-            backgroundColor = "#88073e";
-            color = "#FFFFFF";
-            break;
-        case 'collaTypeNursery':
-            backgroundColor = "#c77441";
-            color = "#FFFFFF";
-            break;
-        case 'collaTypePrivate':
-            backgroundColor = "#a5e855";
-            color = "#000000";
-            break;
-        default:
-            // Default style if type is not matched
-            backgroundColor = "#000000";
-            color = "#FFFFFF";
-            break;
-    }
-    return { backgroundColor, color };
-}
-
-function getMusicAdditionalStyle(musicType: string): React.CSSProperties {
-    let backgroundColor = "#000000";
-    let color = "#FFFFFF";
-
-    switch (musicType) {
-        case 'musicFlabiol':
-            backgroundColor = "#e0823c";
-            color = "#0a0a0a";
-            break;
-        case 'musicGralla':
-            backgroundColor = "#572a15";
-            color = "#FFFFFF";
-            break;
-        case 'musicBatucada':
-            backgroundColor = "#ff1466";
-            color = "#FFFFFF";
-            break;
-        case 'musicBand':
-            backgroundColor = "#FFD700";
-            color = "#000000";
-            break;
-        case 'musicGrallaBand':
-            backgroundColor = "#008000";
-            color = "#FFFFFF";
-            break;
-        case 'musicOther':
-            backgroundColor = "#4b166c";
-            color = "#FFFFFF";
-            break;
-        case 'musicNone':
-            backgroundColor = "#77777c";
-            color = "#FFFFFF";
-            break;
-        default:
-            // Default style if music type is not recognized
-            backgroundColor = "#000000";
-            color = "#FFFFFF";
-            break;
-    }
-
-    return { backgroundColor, color };
 }

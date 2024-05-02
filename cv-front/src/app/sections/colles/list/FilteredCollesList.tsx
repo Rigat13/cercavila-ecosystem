@@ -3,8 +3,8 @@ import { CollaCard } from '@/app/sections/colles/card/CollaCard';
 import { useCollesContext } from '@/app/sections/colles/CollesContext';
 import styles from './FilteredCollesList.module.scss';
 import { dictionary } from '@/content';
-import {musics} from "@/modules/colles/domain/colla-attributes/CollaMusic";
-import {collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
+import {getMusicAdditionalStyle, musics} from "@/modules/colles/domain/colla-attributes/CollaMusic";
+import {collaTypes, getTypeAdditionalStyle} from "@/modules/colles/domain/colla-attributes/CollaType";
 import {Figura} from "@/modules/figures/domain/Figura";
 import {neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
 
@@ -37,6 +37,15 @@ export function FilteredCollesList({ lang }: { lang: string }) {
             default: console.error(`Invalid category: ${category}`); break;
         }
     };
+
+    const getAdditionalStyle = (type: string, category: string) => {
+        switch (category) {
+            case 'type': return getTypeAdditionalStyle(type);
+            case 'neighbourhood': return {backgroundColor: "#000088", color: "#f8f1f1"};
+            case 'musicType': return getMusicAdditionalStyle(type);
+            default: return {};
+        }
+    }
 
     return (
         <section>
@@ -100,14 +109,9 @@ export function FilteredCollesList({ lang }: { lang: string }) {
                     ...selectedNeighbourhoods.map(neighbourhood => ({ type: neighbourhood, category: 'neighbourhood' })),
                     ...selectedMusicTypes.map(musicType => ({ type: musicType, category: 'musicType' }))
                 ].map(({ type, category }) => (
-                    <div key={`${category}-${type}`} className={styles.selectedFilter}>
-                        <span>{dictionary[lang]?.[type]}</span>
-                        <button
-                            className={styles.selectedFilterButton}
-                            onClick={() => handleRemoveFilter(type, category)}
-                        >
-                            ×
-                        </button>
+                    <div key={`${category}-${type}`} className={styles.selectedFilter}  style={getAdditionalStyle(type, category)} >
+                        <span> {dictionary[lang]?.[type]} </span>
+                        <button className={styles.selectedFilterButton} onClick={() => handleRemoveFilter(type, category)} >×</button>
                     </div>
                 ))}
             </div>
