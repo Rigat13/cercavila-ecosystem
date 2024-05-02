@@ -11,6 +11,8 @@ import {neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeig
 export function FilteredCollesList({ lang }: { lang: string }) {
     const { colles } = useCollesContext();
 
+    const [searchTerm, setSearchTerm] = useState<string>('');
+
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [filterType, setFilterType] = useState<string>('');
 
@@ -19,6 +21,8 @@ export function FilteredCollesList({ lang }: { lang: string }) {
 
     const [selectedMusicTypes, setSelectedMusicTypes] = useState<string[]>([]);
     const [filterMusic, setFilterMusic] = useState<string>('');
+
+    const handleNameSearch = (event: React.ChangeEvent<HTMLInputElement>) => { setSearchTerm(event.target.value); };
 
     const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => { setFilterType(event.target.value); };
     const handleAddType = () => { if (filterType && !selectedTypes.includes(filterType)) { setSelectedTypes([...selectedTypes, filterType]); } };
@@ -52,6 +56,19 @@ export function FilteredCollesList({ lang }: { lang: string }) {
             {/* ------------------------------------------------- TYPE SELECTOR -------------------------------------------------*/}
             <div className={styles.filter}>
                 <div className={styles.filtersWrapper}>
+                    <div className={styles.filterSection}>
+                        <label className={styles.filterTitle} htmlFor="name">{dictionary[lang]?.collaFilterByName}</label>
+                        <div className={styles.filterInnerSection}>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={searchTerm}
+                                onChange={handleNameSearch}
+                                placeholder={dictionary[lang]?.collaFilterWriteName}
+                            />
+                        </div>
+                    </div>
                     <div className={styles.filterSection}>
                         <label className={styles.filterTitle} htmlFor="type">{dictionary[lang]?.collaFilterByType}</label>
                         <div className={styles.filterInnerSection}>
@@ -123,6 +140,7 @@ export function FilteredCollesList({ lang }: { lang: string }) {
             <div className={styles.list}>
                 {colles
                     .filter(colla =>
+                        (searchTerm.trim() === '' || colla.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
                         (selectedTypes.length === 0 || selectedTypes.includes(colla.type)) &&
                         (selectedNeighbourhoods.length === 0 || selectedNeighbourhoods.includes(colla.neighbourhood)) &&
                         (selectedMusicTypes.length === 0 || selectedMusicTypes.includes(colla.music))

@@ -13,6 +13,9 @@ interface DictionaryEntry {
     ccgmAcronym: string;
     ccgmName: string;
 
+    collaFilterByName: string;
+    collaFilterWriteName: string;
+
     collaFilterByType: string;
     collaFilterSelectType: string;
 
@@ -184,6 +187,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
 
+        collaFilterByName: "Filtra per nom",
+        collaFilterWriteName: "Escriu un nom",
+
         collaFilterByType: "Filtra per tipus",
         collaFilterSelectType: "Selecciona un tipus",
 
@@ -353,6 +359,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
 
+        collaFilterByName: "Filtra por nombre",
+        collaFilterWriteName: "Escribe un nombre",
+
         collaFilterByType: "Filtra por tipo",
         collaFilterSelectType: "Selecciona un tipo",
 
@@ -521,6 +530,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
+
+        collaFilterByName: "Filter by name",
+        collaFilterWriteName: "Write a name",
 
         collaFilterByType: "Filter by type",
         collaFilterSelectType: "Select a type",
