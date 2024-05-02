@@ -16,6 +16,12 @@ interface DictionaryEntry {
     collaFilterByType: string;
     collaFilterSelectType: string;
 
+    collaFilterByNeighbourhood: string;
+    collaFilterSelectNeighbourhood: string;
+
+    collaFilterByMusic: string;
+    collaFilterSelectMusic: string;
+
     // -------------------------------------------------------------------------------------------- COLLA
     collaName: string;
     collaEntity: string;
@@ -181,6 +187,12 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaFilterByType: "Filtra per tipus",
         collaFilterSelectType: "Selecciona un tipus",
 
+        collaFilterByNeighbourhood: "Filtra per barri",
+        collaFilterSelectNeighbourhood: "Selecciona un barri",
+
+        collaFilterByMusic: "Filtra per acompanyament musical",
+        collaFilterSelectMusic: "Selecciona un acompanyament musical",
+
         // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Nom",
         collaEntity: "Entitat",
@@ -344,6 +356,12 @@ export const dictionary: Record<string, DictionaryEntry> = {
         collaFilterByType: "Filtra por tipo",
         collaFilterSelectType: "Selecciona un tipo",
 
+        collaFilterByNeighbourhood: "Filtra por barrio",
+        collaFilterSelectNeighbourhood: "Selecciona un barrio",
+
+        collaFilterByMusic: "Filtra por acompañamiento musical",
+        collaFilterSelectMusic: "Selecciona un acompañamiento musical",
+
         // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Nombre",
         collaEntity: "Entidad",
@@ -506,6 +524,12 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         collaFilterByType: "Filter by type",
         collaFilterSelectType: "Select a type",
+
+        collaFilterByNeighbourhood: "Filter by neighbourhood",
+        collaFilterSelectNeighbourhood: "Select a neighbourhood",
+
+        collaFilterByMusic: "Filter by music type",
+        collaFilterSelectMusic: "Select a music type",
 
         // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Name",
