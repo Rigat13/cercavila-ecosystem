@@ -28,49 +28,50 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
 
     return (
         <div className={styles.collaCard}>
-            <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
-                <button className={styles.updateButton}>
-                    <img src="/icons/icon-edit.svg" alt="Editar" />
-                </button>
-            </a>
-            <h3 className={styles.collaCard__name}>{colla.name}</h3>
-            <h6 className={styles.collaCard__entity}>{colla.entity}</h6>
-            <p className={styles.collaCard__foundationYear}>{colla.foundationYear}</p>
-            <p className={styles.collaCard__description}>{colla.description}</p>
-            <p className={styles.collaCard__type}>{dictionary[lang]?.[colla.type]}</p>
-            <p className={styles.collaCard__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
-            <p className={styles.collaCard__music}>{dictionary[lang]?.[colla.music]}</p>
-            <p className={styles.collaCard__email}>{colla.email}</p>
-
-            <div className={styles.colorCircles}>
-                <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>
-                <div className={styles.colorCircle} style={{ backgroundColor: colla.secondaryColour }}></div>
-            </div>
-
             {logoUrl && (
-                <a href={`colles/colla.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
-                    <img
-                        src={logoUrl}
-                        alt={`Logo de ${colla.name}`}
-                        className={styles.collaCard__logo}
-                    />
+                <a href={`colles/colla.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`} className={styles.collaCard__aImage}>
+                    <div className={styles.collaCard__image}>
+                        <img src={logoUrl} alt={`Logo de ${colla.name}`} />
+                    </div>
                 </a>
             )}
 
-            {colla.instagram && (
-                <a href={getInstagramUrl(colla.instagram)} target="_blank">
-                    <button className={styles.outerLink}>
-                        <img src="/icons/icon-instagram.png" alt="Instagram"/>
+            <div className={styles.collaCard__info}>
+                <a href={`colles/update.html?collaId=${colla.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                    <button className={styles.updateButton}>
+                        <img src="/icons/icon-edit.svg" alt="Editar" />
                     </button>
                 </a>
-            )}
-            {figureNames.length > 0 && (
-                <div className={styles.selectedFigures}>
-                    {figureNames.map((figureName, index) => (
-                        <span key={index} className={styles.selectedFigure}>{figureName}</span>
-                    ))}
+                <h3 className={styles.collaCard__name}>{colla.name}</h3>
+                <h6 className={styles.collaCard__entity}>{colla.entity}</h6>
+                <p className={styles.collaCard__foundationYear}>{colla.foundationYear}</p>
+                <p className={styles.collaCard__description}>{colla.description}</p>
+                <p className={styles.collaCard__type}>{dictionary[lang]?.[colla.type]}</p>
+                <p className={styles.collaCard__neighbourhood}>{dictionary[lang]?.[colla.neighbourhood]}</p>
+                <p className={styles.collaCard__music}>{dictionary[lang]?.[colla.music]}</p>
+                <p className={styles.collaCard__email}>{colla.email}</p>
+
+                <div className={styles.colorCircles}>
+                    <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>
+                    <div className={styles.colorCircle} style={{ backgroundColor: colla.secondaryColour }}></div>
                 </div>
-            )}
+
+
+                {colla.instagram && (
+                    <a href={getInstagramUrl(colla.instagram)} target="_blank">
+                        <button className={styles.outerLink}>
+                            <img src="/icons/icon-instagram.png" alt="Instagram"/>
+                        </button>
+                    </a>
+                )}
+                {figureNames.length > 0 && (
+                    <div className={styles.selectedFigures}>
+                        {figureNames.map((figureName, index) => (
+                            <span key={index} className={styles.selectedFigure}>{figureName}</span>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

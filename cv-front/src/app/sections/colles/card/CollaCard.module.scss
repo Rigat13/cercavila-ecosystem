@@ -1,7 +1,12 @@
 .collaCard {
   position: relative;
+  display: flex;
+  padding: 0.5rem;
+  /* overflow: hidden; */ /* Consider removing or adjusting overflow property */
+  background: transparent;
+  color: #000088;
 
-  .outerLink {
+  .updateButton {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -16,7 +21,7 @@
     }
   }
 
-  .updateButton {
+  .outerLink {
     position: absolute;
     bottom: 0.5rem;
     right: 0.5rem;
@@ -31,31 +36,54 @@
     }
   }
 
-  padding: 1rem;
-  overflow: hidden;
-  background: #f8f1f1;
-  color: #000088;
+  &__info {
+    flex: 1;
+    height: fit-content;
+    width: 70%;
+    background: #000088;
+    color: white;
+    border-radius: 0rem 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Adjust alignment based on layout */
+    align-items: flex-start;
+    padding: 2rem 2rem 2rem 4rem;
+    margin-left: -4.5rem;
+  }
 
   &__name {
-    margin-top: 0.5em;
-    font-size: 2.5rem;
+    margin: 0rem 0rem 0rem 2rem;
+    font-size: 1.5rem;
     font-weight: 900;
   }
 
   &__entity {
-    margin-top: 0.5em;
-    font-size: 1.5rem;
+    margin-top: 0em;
+    font-size: 1rem;
     font-style: italic;
+    text-transform: uppercase;
+    width: fit-content;
+    border-radius: 1rem;
+    padding: 0rem 1rem 0rem 2rem;
   }
 
-  &__foundation-year {
-    margin-top: 0.5em;
-    font-size: 0.5rem;
+  &__foundationYear {
+    margin-top: 0rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    transform: scaleX(0.7);
+    transform-origin: left;
+    padding-left: 3rem;
   }
 
   &__description {
-    margin-top: 0.5em;
+    argin-top: 0.5em;
     font-size: 1rem;
+    bottom: 5%;
+    font-size: 1rem;
+    width: fit-content;
+    border-radius: 1rem;
+    padding: 1rem 0rem 0rem 0rem;
   }
 
   &__type {
@@ -66,20 +94,6 @@
   &__neighbourhood {
     margin-top: 0.5em;
     font-size: 1rem;
-  }
-
-  &__logo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid #000;
-    overflow: hidden;
-    margin-top: 10px;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        }
   }
 
   &__music {
@@ -123,27 +137,6 @@
     margin-right: 5px;
   }
 
-  .imagePreviewContainer {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  .imagePreview {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid #000;
-    overflow: hidden;
-  }
-
-  .imagePreview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   /* ---------------------------------------------------- Selected Figures ---------------------------------------------------- */
 
   .selectedFigures {
@@ -152,14 +145,48 @@
   }
 
   .selectedFigure {
-    background-color: #000088;
-    color: #f8f1f1;
+    background-color: #f8f1f1;
+    color: #000088;
     border: 0px solid transparent;
     border-radius: 1rem;
     padding: 4px 8px;
     margin: 4px;
     display: flex;
     align-items: center;
+  }
+
+  /* ---------------------------------------------------- Image ---------------------------------------------------- */
+  &__aImage {
+    z-index: 2;
+  }
+
+  &__image {
+    width: 9rem;
+    height: 9rem;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 0.6rem solid #000088;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  &__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.3s ease;
+  }
+
+  &__image:hover {
+    transform: scale(1.1);
+  }
+
+  &__image img:hover {
+    transform: scale(1.4);
   }
 
 }
