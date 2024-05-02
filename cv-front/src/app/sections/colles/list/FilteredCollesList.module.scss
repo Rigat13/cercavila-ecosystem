@@ -61,12 +61,14 @@
     display: flex;
     flex-direction: row; /* Stack items horizontally by default */
     margin: 2rem;
+    flex-wrap: wrap;
   }
 
   .filterSection {
     display: flex;
     flex-direction: column; /* Stack items vertically by default */
-    margin-right: 20px; /* Space between filter sections */
+    margin-right: 1rem;
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
