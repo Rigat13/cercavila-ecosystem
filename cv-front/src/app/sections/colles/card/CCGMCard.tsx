@@ -59,11 +59,7 @@ export function CCGMCard({ colla, lang }: { colla: Colla; lang: string }) {
                 <h3 className={styles.ccgmCard__name} style={contrastTextColour} >{colla.name}</h3>
                 <h6 className={styles.ccgmCard__entity} style={contrastTextColour} >{colla.entity}</h6>
                 <p className={styles.ccgmCard__foundationYear} style={contrastTextColour} >{colla.foundationYear}</p>
-                <div className={styles.ccgmCard__characteristics}>
-                    <p className={styles.ccgmCard__type} style={getTypeAdditionalStyle(colla.type) } > {dictionary[lang]?.[colla.type]} </p>
-                    <p className={styles.ccgmCard__neighbourhood} > {dictionary[lang]?.[colla.neighbourhood]} </p>
-                    <p className={styles.ccgmCard__music} style={getMusicAdditionalStyle(colla.music) } > {dictionary[lang]?.[colla.music]} </p>
-                </div>
+
                 <div className={styles.ccgmCard__characteristics}>
                     {colla.instagram && ( <button className={styles.outerLink} onClick={() => setIsInstagramVisible(!isInstagramVisible)}>
                         <img src={instagramLogo} alt="Instagram"/>
@@ -84,17 +80,7 @@ export function CCGMCard({ colla, lang }: { colla: Colla; lang: string }) {
                     </a>
                 </div>
                 <div className={styles.ccgmCard__description} style={contrastTextColour} >{colla.description}</div>
-                <div className={styles.colorCircles}>
-                    <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>
-                    <div className={styles.colorCircle} style={{ backgroundColor: colla.secondaryColour }}></div>
-                </div>
-                {figureNames.length > 0 && (
-                    <div className={styles.selectedFigures}>
-                        {figureNames.map((figureName, index) => (
-                            <span key={index} className={styles.selectedFigure} style={contrastTextColourAndBackgroundSecondary} >{figureName}</span>
-                        ))}
-                    </div>
-                )}
+
             </div>
         </div>
     );

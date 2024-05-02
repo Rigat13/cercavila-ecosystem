@@ -1,7 +1,12 @@
+.sectionContainer {
+  display: flex;
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content (optional) */
+}
+
 .list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25rem, 50rem));
   gap: 1rem;
-  margin-top: 2rem;
-  padding: 1rem 4rem 1rem 4rem;
+  padding: 1rem 4rem;
 }

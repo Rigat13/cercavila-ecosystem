@@ -1,6 +1,7 @@
 .filter {
   display: flex;
   align-items: center;
+  justify-content: center; /* Horizontally center the content */
 
   label {
     margin-right: 10px; // Spacing between label and select element
@@ -87,6 +88,7 @@
 .list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25rem, 50rem));
+  justify-content: center; /* Horizontally center the content */
   gap: 1rem;
   margin-top: 2rem;
   padding: 1rem 4rem 1rem 4rem;
@@ -96,6 +98,7 @@
   display: flex;
   flex-wrap: wrap;
   margin: 0rem 0rem 0rem 2rem;
+  justify-content: center; /* Horizontally center the content */
 
   .selectedFilter {
     border: 0px solid transparent;
