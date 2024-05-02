@@ -8,6 +8,7 @@ interface DictionaryEntry {
     unreachablePage: string;
     retry: string;
     maxFileSize: string;
+    sinceYear: string;
 
     // -------------------------------------------------------------------------------------------- CCGM
     ccgmAcronym: string;
@@ -175,6 +176,26 @@ interface DictionaryEntry {
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
+    //
+    //
+    //         CCCCCCCCCCCCC               AAA         TTTTTTTTTTTTTTTTTTTTTTT
+    //      CCC::::::::::::C              A:::A        T:::::::::::::::::::::T
+    //    CC:::::::::::::::C             A:::::A       T:::::::::::::::::::::T
+    //   C:::::CCCCCCCC::::C            A:::::::A      T:::::TT:::::::TT:::::T
+    //  C:::::C       CCCCCC           A:::::::::A     TTTTTT  T:::::T  TTTTTT
+    // C:::::C                        A:::::A:::::A            T:::::T
+    // C:::::C                       A:::::A A:::::A           T:::::T
+    // C:::::C                      A:::::A   A:::::A          T:::::T
+    // C:::::C                     A:::::A     A:::::A         T:::::T
+    // C:::::C                    A:::::AAAAAAAAA:::::A        T:::::T
+    // C:::::C                   A:::::::::::::::::::::A       T:::::T
+    //  C:::::C       CCCCCC    A:::::AAAAAAAAAAAAA:::::A      T:::::T
+    //   C:::::CCCCCCCC::::C   A:::::A             A:::::A   TT:::::::TT
+    //    CC:::::::::::::::C  A:::::A               A:::::A  T:::::::::T
+    //      CCC::::::::::::C A:::::A                 A:::::A T:::::::::T
+    //         CCCCCCCCCCCCCAAAAAAA                   AAAAAAATTTTTTTTTTT
+    //
+    //
     ca: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
@@ -182,6 +203,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         unreachablePage: "No s'esperava arribar aquí",
         retry: "Torna a intentar",
         maxFileSize: "Mida màxima del fitxer: ",
+        sinceYear: "Des de l'any ",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -347,6 +369,28 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorRetrievingFiguraMessage: "Error en obtenir la informació de la figura. \nMotiu: ",
         errorRetrievingFiguresMessage: "Error en obtenir la informació de les figures. \nMotiu:"
     },
+    // ------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------------------------
+    //
+    //
+    // EEEEEEEEEEEEEEEEEEEEEE   SSSSSSSSSSSSSSS PPPPPPPPPPPPPPPPP
+    // E::::::::::::::::::::E SS:::::::::::::::SP::::::::::::::::P
+    // E::::::::::::::::::::ES:::::SSSSSS::::::SP::::::PPPPPP:::::P
+    // EE::::::EEEEEEEEE::::ES:::::S     SSSSSSSPP:::::P     P:::::P
+    //   E:::::E       EEEEEES:::::S              P::::P     P:::::P
+    //   E:::::E             S:::::S              P::::P     P:::::P
+    //   E::::::EEEEEEEEEE    S::::SSSS           P::::PPPPPP:::::P
+    //   E:::::::::::::::E     SS::::::SSSSS      P:::::::::::::PP
+    //   E:::::::::::::::E       SSS::::::::SS    P::::PPPPPPPPP
+    //   E::::::EEEEEEEEEE          SSSSSS::::S   P::::P
+    //   E:::::E                         S:::::S  P::::P
+    //   E:::::E       EEEEEE            S:::::S  P::::P
+    // EE::::::EEEEEEEE:::::ESSSSSSS     S:::::SPP::::::PP
+    // E::::::::::::::::::::ES::::::SSSSSS:::::SP::::::::P
+    // E::::::::::::::::::::ES:::::::::::::::SS P::::::::P
+    // EEEEEEEEEEEEEEEEEEEEEE SSSSSSSSSSSSSSS   PPPPPPPPPP
+    //
+    //
     es: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
@@ -354,6 +398,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         unreachablePage: "No se esperaba llegar aquí",
         retry: "Vuelve a intentar",
         maxFileSize: "Tamaño máximo del archivo: ",
+        sinceYear: "Desde el año ",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -519,6 +564,28 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorRetrievingFiguraMessage: "Error al obtener la información de la figura. \nMotivo: ",
         errorRetrievingFiguresMessage: "Error al obtener la información de las figuras. \nMotivo: "
     },
+    // ------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------------------------
+    //
+    //
+    // EEEEEEEEEEEEEEEEEEEEEENNNNNNNN        NNNNNNNN        GGGGGGGGGGGGG
+    // E::::::::::::::::::::EN:::::::N       N::::::N     GGG::::::::::::G
+    // E::::::::::::::::::::EN::::::::N      N::::::N   GG:::::::::::::::G
+    // EE::::::EEEEEEEEE::::EN:::::::::N     N::::::N  G:::::GGGGGGGG::::G
+    //   E:::::E       EEEEEEN::::::::::N    N::::::N G:::::G       GGGGGG
+    //   E:::::E             N:::::::::::N   N::::::NG:::::G
+    //   E::::::EEEEEEEEEE   N:::::::N::::N  N::::::NG:::::G
+    //   E:::::::::::::::E   N::::::N N::::N N::::::NG:::::G    GGGGGGGGGG
+    //   E:::::::::::::::E   N::::::N  N::::N:::::::NG:::::G    G::::::::G
+    //   E::::::EEEEEEEEEE   N::::::N   N:::::::::::NG:::::G    GGGGG::::G
+    //   E:::::E             N::::::N    N::::::::::NG:::::G        G::::G
+    //   E:::::E       EEEEEEN::::::N     N:::::::::N G:::::G       G::::G
+    // EE::::::EEEEEEEE:::::EN::::::N      N::::::::N  G:::::GGGGGGGG::::G
+    // E::::::::::::::::::::EN::::::N       N:::::::N   GG:::::::::::::::G
+    // E::::::::::::::::::::EN::::::N        N::::::N     GGG::::::GGG:::G
+    // EEEEEEEEEEEEEEEEEEEEEENNNNNNNN         NNNNNNN        GGGGGG   GGGG
+    //
+    //
     en: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
@@ -526,6 +593,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         unreachablePage: "Unexpected path",
         retry: "Retry",
         maxFileSize: "Maximum file size: ",
+        sinceYear: "Since year ",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",

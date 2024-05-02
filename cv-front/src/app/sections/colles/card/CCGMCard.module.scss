@@ -12,13 +12,19 @@
     width: 70%;
     background: #000088;
     color: white;
-    border-radius: 0rem 2rem 2rem 2rem;
+    border-radius: 5% 5% 50% 50%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Adjust alignment based on layout */
-    align-items: flex-start;
-    padding: 2rem 2rem 2rem 4rem;
-    margin-left: -4.5rem;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 7rem 6rem 4rem 6rem;
+
+    border: 2rem solid transparent;
+    transition: border 0.3s ease;
+  }
+
+  &__info:hover {
+    border: 2rem solid #000088;
   }
 
   &__name {
@@ -27,26 +33,37 @@
     line-height: 1;
     width: fit-content;
     border-radius: 1rem;
-    padding: 0rem 0rem 1rem 2rem;
+    padding: 9rem 0rem 1rem 2rem;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Center text within the container */
   }
 
   &__entity {
-    margin-top: 0em;
-    font-size: 1rem;
+    font-size: 2rem;
     font-style: italic;
     text-transform: uppercase;
     width: fit-content;
     border-radius: 1rem;
-    padding: 0rem 1rem 0rem 2rem;
+    padding-left: 2rem;
+  }
+
+  &__sinceYear {
+    font-size: 1rem;
+    font-style: italic;
+    width: fit-content;
+    padding-right: 3.5rem;
   }
 
   &__foundationYear {
     margin-top: 0rem;
     font-size: 1.5rem;
+    font-style: italic;
     font-weight: 800;
     transform: scaleX(0.7);
     transform-origin: left;
-    padding: 0rem 0rem 1rem 3rem;
+    margin: 0rem 0rem 0rem -3rem;
   }
 
   &__description {
@@ -57,6 +74,10 @@
     width: fit-content;
     border-radius: 1rem;
     padding: 1rem 2rem 1rem 2rem;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Center text within the container */
   }
 
   .h2 {
@@ -72,8 +93,9 @@
     flex-wrap: wrap;
     z-index: 3;
     margin-left: 2rem;
-  }
+    align-items: center; /* Center contents vertically */
 
+  }
   &__additionalTextButton {
     padding: 0.15rem 0.7rem;
     margin-right: 0.5rem;
@@ -97,16 +119,17 @@
   }
 
   &__image {
-    width: 9rem;
-    height: 9rem;
+    width: 20rem;
+    height: 20rem;
     background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 50%;
-    border: 0.6rem solid #000088;
+    border: 0rem solid #000088;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: border 0.3s ease;
+    position: absolute;
+    top: -4.5rem; /* Adjust top position to move image to the top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
   }
 
   &__image img {
@@ -118,11 +141,11 @@
   }
 
   &__image:hover {
-    transform: scale(1.1);
+    border: 2rem solid #000088;
   }
 
   &__image img:hover {
-    transform: scale(1.4);
+    transform: scale(0.8);
   }
 
 

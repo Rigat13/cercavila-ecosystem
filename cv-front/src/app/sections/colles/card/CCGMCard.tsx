@@ -57,9 +57,13 @@ export function CCGMCard({ colla, lang }: { colla: Colla; lang: string }) {
 
             <div className={styles.ccgmCard__info} style={backgroundColour} >
                 <h3 className={styles.ccgmCard__name} style={contrastTextColour} >{colla.name}</h3>
-                <h6 className={styles.ccgmCard__entity} style={contrastTextColour} >{colla.entity}</h6>
-                <p className={styles.ccgmCard__foundationYear} style={contrastTextColour} >{colla.foundationYear}</p>
-
+                <div className={styles.ccgmCard__characteristics}>
+                    <h6 className={styles.ccgmCard__entity} style={contrastTextColour} >{colla.entity}</h6>
+                    <div className={styles.ccgmCard__characteristics}>
+                        <p className={styles.ccgmCard__sinceYear} style={contrastTextColour} >{dictionary[lang]?.sinceYear}</p>
+                        <p className={styles.ccgmCard__foundationYear} style={contrastTextColour} >{colla.foundationYear}</p>
+                    </div>
+                </div>
                 <div className={styles.ccgmCard__characteristics}>
                     {colla.instagram && ( <button className={styles.outerLink} onClick={() => setIsInstagramVisible(!isInstagramVisible)}>
                         <img src={instagramLogo} alt="Instagram"/>
@@ -137,7 +141,7 @@ function getContrastTextColour (isLight: boolean): React.CSSProperties {
 }
 
 function getContrastBackgroundAndTextColour (isLight: boolean): React.CSSProperties {
-    const lightColour = "#b2b2b2";
+    const lightColour = "#e7e6e6";
     const darkColour = "#3b3b3b";
 
     const backgroundColor = isLight ? darkColour : lightColour;
