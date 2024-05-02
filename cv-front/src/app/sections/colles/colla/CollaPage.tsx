@@ -15,6 +15,7 @@ export function CollaPage({ colla, lang }: { colla: Colla; lang: string }) {
 
     const isHorizontal = window.innerWidth > window.innerHeight;
     const backPrimaryColourPanel = isHorizontal ? styles.backPrimaryColourPanelHorizontal : styles.backPrimaryColourPanelVertical;
+
     const isLightContrast = getIsLightContrast(colla.secondaryColour);
     const contrastTextColour = getContrastTextColour(isLightContrast);
     const contrastTextColourAndBackground = { ...contrastTextColour, backgroundColor: colla.secondaryColour };
