@@ -19,6 +19,13 @@
     align-items: flex-start;
     padding: 2rem 2rem 2rem 4rem;
     margin-left: -4.5rem;
+
+    border: 2rem solid transparent;
+    transition: border 0.3s ease;
+  }
+
+  &__info:hover {
+    border: 2rem solid #000088;
   }
 
   &__name {
@@ -153,7 +160,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: 0.6rem solid #000088;
+    border: 1rem solid #000088;
     overflow: hidden;
     transition: transform 0.3s ease;
   }

@@ -17,8 +17,9 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
     const contrastTextColourSecondary = getContrastTextColour(isLightContrastSecondary);
     const contrastTextColourAndBackgroundSecondary = { ...contrastTextColourSecondary, backgroundColor: colla.secondaryColour };
     const contrastBackgroundAndTextColour = getContrastBackgroundAndTextColour(isLightContrastSecondary);
-    const backgroundColour = { backgroundColor: colla.primaryColour };
     const imageOutlineColour = { borderColor: colla.secondaryColour };
+    const [isCollaHovered, setIsCollaHovered] = useState(false);
+    const backgroundColourBorderColour = { backgroundColor: colla.primaryColour, border: isCollaHovered ? `2rem solid ${colla.secondaryColour}` : '2rem solid transparent' };
 
     const instagramLogo = isLightContrast ? "/icons/dark-icon-instagram.png" : "/icons/icon-instagram.png";
     const updateLogo = isLightContrast ? "/icons/dark-icon-edit.svg" : "/icons/icon-edit.svg";
@@ -55,7 +56,7 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
                 </a>
             )}
 
-            <div className={styles.collaCard__info} style={backgroundColour} >
+            <div className={styles.collaCard__info} style={backgroundColourBorderColour} onMouseEnter={() => setIsCollaHovered(true)} onMouseLeave={() => setIsCollaHovered(false)} >
                 <h3 className={styles.collaCard__name} style={contrastTextColour} >{colla.name}</h3>
                 <h6 className={styles.collaCard__entity} style={contrastTextColour} >{colla.entity}</h6>
                 <p className={styles.collaCard__foundationYear} style={contrastTextColour} >{colla.foundationYear}</p>
