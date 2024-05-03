@@ -78,6 +78,23 @@
     flex-direction: row;
   }
 
+
+  /* --- Screen resolution changes - Desktop and mobile ---------------------------------------------------- */
+
+  @media (max-width: 768px) {
+    .filtersWrapper {
+      scale: 0.9;
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+    select, input {
+      padding: 0.5rem;
+      margin: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #000088;
+      border-radius: 7px;
+    }
+  }
 }
 
 .h2 {
