@@ -19,7 +19,7 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
     const contrastBackgroundAndTextColour = getContrastBackgroundAndTextColour(isLightContrastSecondary);
     const imageOutlineColour = { borderColor: colla.secondaryColour };
     const [isCollaHovered, setIsCollaHovered] = useState(false);
-    const backgroundColourBorderColour = { backgroundColor: colla.primaryColour, border: isCollaHovered ? `2rem solid ${colla.secondaryColour}` : '2rem solid transparent' };
+    const backgroundColourBorderColour = { backgroundColor: colla.primaryColour, border: isCollaHovered ? `1.35rem solid ${colla.secondaryColour}` : '1.35rem solid transparent' };
 
     const instagramLogo = isLightContrast ? "/icons/dark-icon-instagram.png" : "/icons/icon-instagram.png";
     const updateLogo = isLightContrast ? "/icons/dark-icon-edit.svg" : "/icons/icon-edit.svg";
