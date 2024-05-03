@@ -33,7 +33,7 @@
     line-height: 1;
     width: fit-content;
     border-radius: 1rem;
-    padding: 9rem 0rem 1rem 2rem;
+    padding: 9rem 2rem 1rem 2rem;
     display: flex; /* Use flexbox for centering */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -46,7 +46,7 @@
     text-transform: uppercase;
     width: fit-content;
     border-radius: 1rem;
-    padding-left: 2rem;
+    padding-right: 1rem;
   }
 
   &__sinceYear {
@@ -92,7 +92,6 @@
     display: flex;
     flex-wrap: wrap;
     z-index: 3;
-    margin-left: 2rem;
     align-items: center; /* Center contents vertically */
 
   }
@@ -150,7 +149,7 @@
 
 
 
-  /* --- Scale for desktop ---------------------------------------------------- */
+  /* --- Screen resolution changes - Desktop and mobile ---------------------------------------------------- */
 
   @media (min-width: 1024px) {
     &__name {
@@ -158,4 +157,36 @@
     }
   }
 
+  @media (max-width: 768px) {
+    &__info {
+      padding: 6rem 1rem 4rem 1rem;
+    }
+
+    &__characteristics {
+      padding-bottom: 0.3rem;
+    }
+
+    &__name {
+      font-size: 2rem;
+    }
+
+    &__entity {
+      padding-left: 0rem;
+      padding-bottom: 0.4rem;
+      font-size: 1.2rem;
+    }
+
+    &__sinceYear {
+      padding-right: 3.5rem;
+      font-size: 1rem;
+    }
+
+    &__foundationYear {
+      font-size: 1.2rem;
+    }
+
+    &__description {
+      font-size: 1rem;
+    }
+  }
 }

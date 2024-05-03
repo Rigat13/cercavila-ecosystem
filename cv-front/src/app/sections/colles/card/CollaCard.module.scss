@@ -176,11 +176,28 @@
 
 
 
-  /* --- Scale for desktop ---------------------------------------------------- */
+  /* --- Screen resolution changes - Desktop and mobile ---------------------------------------------------- */
 
   @media (min-width: 1024px) {
     &__name {
       font-size: 3rem;
+    }
+  }
+  @media (max-width: 768px) {
+    &__name {
+      font-size: 2rem;
+    }
+
+    &__entity {
+      font-size: 0.8rem;
+    }
+
+    &__foundationYear {
+      font-size: 1rem;
+    }
+
+    &__description {
+      font-size: 0.8rem;
     }
   }
 
