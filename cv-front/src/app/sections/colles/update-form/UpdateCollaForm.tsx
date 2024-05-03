@@ -66,8 +66,9 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
 
     lang = lang;
 
-    let isTypeVisible, isNeighbourhoodVisible, isMusicVisible, areFiguresVisible, isDeleteAvailable = !collaIsCCGM(collaId);
-
+    const collaIsNotCCGM = !collaIsCCGM(collaId);
+    const isTypeVisible = collaIsNotCCGM, isNeighbourhoodVisible = collaIsNotCCGM, isMusicVisible = collaIsNotCCGM,
+        areFiguresVisible = collaIsNotCCGM, isDeleteAvailable = collaIsNotCCGM;
 
     useEffect(() => {
 
@@ -415,7 +416,8 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             )}
                         </div>
 
-                        {isTypeVisible && (<div className={styles.formGroup}>
+                        {isTypeVisible && (
+                            <div className={styles.formGroup}>
                             <label htmlFor="type">{dictionary[lang]?.collaType}</label>
                             <select
                                 id="type"
