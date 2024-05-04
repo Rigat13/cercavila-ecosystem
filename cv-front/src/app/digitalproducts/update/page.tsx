@@ -21,7 +21,7 @@ export default function Page() {
 
 function PageContent() {
     const searchParams = useSearchParams();
-    const figuraId = searchParams.get('figuraId') || '';
+    const digitalProductId = searchParams.get('digitalProductId') || '';
     const lang = searchParams.get('lang') || defaultLang;
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => { setIsSidebarOpen(!isSidebarOpen); };
@@ -42,7 +42,7 @@ function PageContent() {
 
             <div className = "DigitalProducts">
                 <h1 className={styles.h1}>{dictionary[lang]?.cercavilaTitle}</h1>
-                <UpdateDigitalProductForm figuraId={figuraId} lang={lang}/>
+                <UpdateDigitalProductForm digitalProductId={digitalProductId} lang={lang}/>
             </div>
                 </Suspense>
         </DigitalProductsContextProvider>

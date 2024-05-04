@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { Factory } from "fishery";
-import { NAME_MIN_LENGTH, NAME_MAX_LENGTH } from "@/modules/digitalproduct/domain/digitalproduct-attributes/DigitalProductName";
-import {DigitalProduct} from "@/modules/digitalproduct/domain/DigitalProduct";
+import { NAME_MIN_LENGTH, NAME_MAX_LENGTH } from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductName";
+import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 
 const DigitalProductFactory = Factory.define<DigitalProduct>(() => ({
     id: faker.string.uuid(),

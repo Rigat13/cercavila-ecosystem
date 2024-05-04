@@ -49,7 +49,7 @@ public class StoreDigitalProductAdapter implements StoreDigitalProductPort {
     private void saveImageToServer(MultipartFile imageFile, String imageKeyName) {
         if (imageFile == null || imageFile.isEmpty()) return;
         try {
-            Path filePath = Paths.get("/srv/cv-api/images/digitalProducts", imageKeyName);
+            Path filePath = Paths.get("/srv/cv-api/images/digitalproducts", imageKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (Exception e) { e.printStackTrace(); }
     }

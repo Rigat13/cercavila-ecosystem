@@ -39,7 +39,7 @@ public class DeleteDigitalProductAdapter implements DeleteDigitalProductPort {
         String currentImageKey = currentDigitalProduct.getImageKey();
         if (currentImageKey != null && !currentImageKey.isEmpty()) {
             try {
-                Path logoPath = Paths.get("/srv/cv-api/images/digitalProducts", currentImageKey);
+                Path logoPath = Paths.get("/srv/cv-api/images/digitalproducts", currentImageKey);
                 Files.deleteIfExists(logoPath);
             } catch (Exception e) { e.printStackTrace(); }
         }

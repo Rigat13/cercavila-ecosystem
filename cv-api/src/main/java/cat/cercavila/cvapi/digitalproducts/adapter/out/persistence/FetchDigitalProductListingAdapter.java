@@ -91,7 +91,7 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
 
     private byte[] fetchImageFromServer(String imageKeyName) {
         try {
-            Path directoryPath = Paths.get("/srv/cv-api/images/digitalProducts");
+            Path directoryPath = Paths.get("/srv/cv-api/images/digitalproducts");
             if (Files.isDirectory(directoryPath)) {
                 try (Stream<Path> paths = Files.list(directoryPath)) {
                     Optional<Path> imagePathOptional = paths.filter(path -> path.getFileName().toString().equals(imageKeyName)).findFirst();

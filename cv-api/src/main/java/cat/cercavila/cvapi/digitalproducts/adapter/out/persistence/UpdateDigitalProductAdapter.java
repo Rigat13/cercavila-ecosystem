@@ -61,7 +61,7 @@ public class UpdateDigitalProductAdapter implements UpdateDigitalProductPort {
         String currentImageKey = currentDigitalProduct.getImageKey();
         if (currentImageKey != null && !currentImageKey.isEmpty()) {
             try {
-                Path imagePath = Paths.get("/srv/cv-api/images/digitalProducts", currentImageKey);
+                Path imagePath = Paths.get("/srv/cv-api/images/digitalproducts", currentImageKey);
                 Files.deleteIfExists(imagePath);
             } catch (Exception e) { e.printStackTrace(); }
         }
@@ -70,7 +70,7 @@ public class UpdateDigitalProductAdapter implements UpdateDigitalProductPort {
     private void saveImageToServer(MultipartFile imageFile, String imageKeyName) {
         if (imageFile == null || imageFile.isEmpty()) return;
         try {
-            Path filePath = Paths.get("/srv/cv-api/images/digitalProducts", imageKeyName);
+            Path filePath = Paths.get("/srv/cv-api/images/digitalproducts", imageKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (Exception e) { e.printStackTrace(); }
     }
