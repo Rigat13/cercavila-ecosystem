@@ -9,6 +9,7 @@ interface DictionaryEntry {
     retry: string;
     maxFileSize: string;
     sinceYear: string;
+    coinAcronym: string;
 
     // -------------------------------------------------------------------------------------------- CCGM
     ccgmAcronym: string;
@@ -173,6 +174,60 @@ interface DictionaryEntry {
     figuraNotFoundWithId: string;
     errorRetrievingFiguraMessage: string;
     errorRetrievingFiguresMessage: string;
+
+    // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT
+    digitalProductName: string;
+    digitalProductDescription: string;
+    digitalProductImage: string;
+    digitalProductPrimaryColour: string;
+    digitalProductSecondaryColour: string;
+    digitalProductPrice: string;
+    digitalProductType: string;
+
+    // --- DIGITAL PRODUCT TYPE
+    selectDigitalProductType: string;
+    digitalProductTypeUserImage: string;
+    digitalProductTypeUserImageFrame: string;
+    digitalProductTypeUserBackgroundImage: string;
+    digitalProductTypeUserTitle: string;
+    digitalProductTypeUserBackgroundColour: string;
+    digitalProductTypeSticker: string;
+    digitalProductTypePin: string;
+
+    // CREATE DIGITAL PRODUCT
+    digitalProductsTitle: string;
+    createDigitalProductTitle: string;
+    createDigitalProductButton: string;
+
+    digitalProductNameInvalid: string;
+    digitalProductDescriptionInvalid: string;
+    digitalProductImageInvalid: string;
+    digitalProductPrimaryColourInvalid: string;
+    digitalProductSecondaryColourInvalid: string;
+    digitalProductPriceInvalid: string;
+    digitalProductTypeInvalid: string;
+
+    successCreateDigitalProductMessage: string;
+    errorCreateDigitalProductMessage: string;
+    createAnotherDigitalProductButton: string;
+    retryCreateDigitalProductButton: string;
+
+    // UPDATE DIGITAL PRODUCT
+    updateDigitalProductTitle: string;
+    updateDigitalProductButton: string;
+    goToDigitalProductsButton: string;
+    deleteDigitalProductButton: string;
+    warningDeleteDigitalProductMessage: string;
+    cancelDeleteDigitalProductButton: string;
+    confirmDeleteDigitalProductButton: string;
+    successUpdateDigitalProductMessage: string;
+    errorUpdateDigitalProductMessage: string;
+    successDeleteDigitalProductMessage: string;
+    errorDeleteDigitalProductMessage: string;
+    digitalProductNotFoundWithId: string;
+    errorRetrievingDigitalProductMessage: string;
+    errorRetrievingDigitalProductsMessage: string;
+
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
@@ -204,6 +259,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         retry: "Torna a intentar",
         maxFileSize: "Mida màxima del fitxer: ",
         sinceYear: "Des de l'any ",
+        coinAcronym: "C",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -367,7 +423,61 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteFiguraMessage: "La figura no s'ha pogut esborrar. \nMotiu: ",
         figuraNotFoundWithId: "Figura no trobada amb id: ",
         errorRetrievingFiguraMessage: "Error en obtenir la informació de la figura. \nMotiu: ",
-        errorRetrievingFiguresMessage: "Error en obtenir la informació de les figures. \nMotiu:"
+        errorRetrievingFiguresMessage: "Error en obtenir la informació de les figures. \nMotiu:",
+
+        // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT
+        digitalProductName: "Nom",
+        digitalProductDescription: "Descripció",
+        digitalProductImage: "Imatge",
+        digitalProductPrimaryColour: "Color primari",
+        digitalProductSecondaryColour: "Color secundari",
+        digitalProductPrice: "Preu",
+        digitalProductType: "Tipus",
+
+        // --- DIGITAL PRODUCT TYPE
+        selectDigitalProductType: "-- Tipus de producte digital --",
+        digitalProductTypeUserImage: "Imatge d'usuari",
+        digitalProductTypeUserImageFrame: "Marc d'imatge d'usuari",
+        digitalProductTypeUserBackgroundImage: "Imatge de fons d'usuari",
+        digitalProductTypeUserTitle: "Títol d'usuari",
+        digitalProductTypeUserBackgroundColour: "Color de fons d'usuari",
+        digitalProductTypeSticker: "Adhesiu",
+        digitalProductTypePin: "Pin",
+
+        // CREATE DIGITAL PRODUCT
+        digitalProductsTitle: "Productes digitals registrats",
+        createDigitalProductTitle: "Crea un nou producte digital",
+        createDigitalProductButton: "Crea el producte digital",
+
+        digitalProductNameInvalid: "El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
+        digitalProductDescriptionInvalid: "La descripció no és vàlida. Ha de tenir caràcters vàlids entre: ",
+        digitalProductImageInvalid: "La imatge no és vàlida. Ha de ser un fitxer vàlid amb mida inferior a: ",
+        digitalProductPrimaryColourInvalid: "El color primari no és vàlid. Ha de seguir el format hexadecimal.",
+        digitalProductSecondaryColourInvalid: "El color secundari no és vàlid. Ha de seguir el format hexadecimal.",
+        digitalProductPriceInvalid: "El preu no és vàlid. Ha de ser un número positiu.",
+        digitalProductTypeInvalid: "El tipus no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+
+        successCreateDigitalProductMessage: "El producte digital s'ha creat amb èxit",
+        errorCreateDigitalProductMessage: "El producte digital no s'ha pogut crear. \nMotiu: ",
+        createAnotherDigitalProductButton: "Crear un altre producte digital",
+        retryCreateDigitalProductButton: "Torna a intentar",
+
+        // UPDATE DIGITAL PRODUCT
+        updateDigitalProductTitle: "Edita el producte digital",
+        updateDigitalProductButton: "Edita el producte digital",
+        goToDigitalProductsButton: "Torna als productes digitals",
+        deleteDigitalProductButton: "Esborrar el producte digital",
+        warningDeleteDigitalProductMessage: "Voleu esborrar el producte digital de manera permanent? No es pot desfer aquesta acció.",
+        cancelDeleteDigitalProductButton: "Cancel·lar",
+        confirmDeleteDigitalProductButton: "Esborrar permanentment",
+        successUpdateDigitalProductMessage: "El producte digital s'ha editat amb èxit",
+        errorUpdateDigitalProductMessage: "El producte digital no s'ha pogut editar. \nMotiu: ",
+        successDeleteDigitalProductMessage: "El producte digital s'ha esborrat amb èxit",
+        errorDeleteDigitalProductMessage: "El producte digital no s'ha pogut esborrar. \nMotiu: ",
+        digitalProductNotFoundWithId: "Producte digital no trobat amb id: ",
+        errorRetrievingDigitalProductMessage: "Error en obtenir la informació del producte digital. \nMotiu: ",
+        errorRetrievingDigitalProductsMessage: "Error en obtenir la informació dels productes digitals. \nMotiu: "
+
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -399,6 +509,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         retry: "Vuelve a intentar",
         maxFileSize: "Tamaño máximo del archivo: ",
         sinceYear: "Desde el año ",
+        coinAcronym: "C",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -506,7 +617,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         goToCollesButton: "Página de Colles",
         goToCollaPageButton: "Página de la Colla",
         deleteCollaButton: "Borrar la colla",
-        warningDeleteCollaMessage: "¿Quieres borrar la colla de manera permanente? No se puede deshacer esta acción.",
+        warningDeleteCollaMessage: "¿Quiere borrar la colla de manera permanente? No se puede deshacer esta acción.",
         cancelDeleteCollaButton: "Cancelar",
         confirmDeleteCollaButton: "Borrar permanentemente",
         successUpdateCollaMessage: "La colla se ha editado con éxito",
@@ -553,7 +664,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         updateFiguraButton: "Edita la figura",
         goToFiguresButton: "Vuelve a las figures",
         deleteFiguraButton: "Borrar la figura",
-        warningDeleteFiguraMessage: "¿Quieres borrar la figura de manera permanente? No se puede deshacer esta acción.",
+        warningDeleteFiguraMessage: "¿Quiere borrar la figura de manera permanente? No se puede deshacer esta acción.",
         cancelDeleteFiguraButton: "Cancelar",
         confirmDeleteFiguraButton: "Borrar permanentemente",
         successUpdateFiguraMessage: "La figura se ha editado con éxito",
@@ -562,7 +673,60 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteFiguraMessage: "La figura no se ha podido borrar. \nMotivo: ",
         figuraNotFoundWithId: "Figura no encontrada con id: ",
         errorRetrievingFiguraMessage: "Error al obtener la información de la figura. \nMotivo: ",
-        errorRetrievingFiguresMessage: "Error al obtener la información de las figuras. \nMotivo: "
+        errorRetrievingFiguresMessage: "Error al obtener la información de las figuras. \nMotivo: ",
+
+        // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT
+        digitalProductName: "Nombre",
+        digitalProductDescription: "Descripción",
+        digitalProductImage: "Imagen",
+        digitalProductPrimaryColour: "Color primario",
+        digitalProductSecondaryColour: "Color secundario",
+        digitalProductPrice: "Precio",
+        digitalProductType: "Tipo",
+
+        // --- DIGITAL PRODUCT TYPE
+        selectDigitalProductType: "-- Tipo de producto digital --",
+        digitalProductTypeUserImage: "Imagen de usuario",
+        digitalProductTypeUserImageFrame: "Marco de imagen de usuario",
+        digitalProductTypeUserBackgroundImage: "Imagen de fondo de usuario",
+        digitalProductTypeUserTitle: "Título de usuario",
+        digitalProductTypeUserBackgroundColour: "Color de fondo de usuario",
+        digitalProductTypeSticker: "Adhesivo",
+        digitalProductTypePin: "Pin",
+
+        // CREATE DIGITAL PRODUCT
+        digitalProductsTitle: "Productos digitales registrados",
+        createDigitalProductTitle: "Crea un nuevo producto digital",
+        createDigitalProductButton: "Crea el producto digital",
+
+        digitalProductNameInvalid: "El nombre no es válido. Debe contener carácteres válidos y tener entre: ",
+        digitalProductDescriptionInvalid: "La descripción no es válida. Debe tener carácteres válidos entre: ",
+        digitalProductImageInvalid: "La imagen no es válida. Debe ser un archivo válido con tamaño inferior a: ",
+        digitalProductPrimaryColourInvalid: "El color primario no es válido. Debe seguir el formato hexadecimal.",
+        digitalProductSecondaryColourInvalid: "El color secundario no es válido. Debe seguir el formato hexadecimal.",
+        digitalProductPriceInvalid: "El precio no es válido. Debe ser un número positivo.",
+        digitalProductTypeInvalid: "El tipo no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+
+        successCreateDigitalProductMessage: "El producto digital se ha creado con éxito",
+        errorCreateDigitalProductMessage: "El producto digital no se ha podido crear. \nMotivo: ",
+        createAnotherDigitalProductButton: "Crear otro producto digital",
+        retryCreateDigitalProductButton: "Volver a intentar",
+
+        // UPDATE DIGITAL PRODUCT
+        updateDigitalProductTitle: "Edita el producto digital",
+        updateDigitalProductButton: "Edita el producto digital",
+        goToDigitalProductsButton: "Vuelve a los productos digitales",
+        deleteDigitalProductButton: "Borrar el producto digital",
+        warningDeleteDigitalProductMessage: "¿Quiere borrar el producto digital de manera permanente? No se puede deshacer esta acción.",
+        cancelDeleteDigitalProductButton: "Cancelar",
+        confirmDeleteDigitalProductButton: "Borrar permanentemente",
+        successUpdateDigitalProductMessage: "El producto digital se ha editado con éxito",
+        errorUpdateDigitalProductMessage: "El producto digital no se ha podido editar. \nMotivo: ",
+        successDeleteDigitalProductMessage: "El producto digital se ha borrado con éxito",
+        errorDeleteDigitalProductMessage: "El producto digital no se ha podido borrar. \nMotivo: ",
+        digitalProductNotFoundWithId: "Producto digital no encontrado con id: ",
+        errorRetrievingDigitalProductMessage: "Error al obtener la información del producto digital. \nMotivo: ",
+        errorRetrievingDigitalProductsMessage: "Error al obtener la información de los productos digitales. \nMotivo: "
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -594,6 +758,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         retry: "Retry",
         maxFileSize: "Maximum file size: ",
         sinceYear: "Since year ",
+        coinAcronym: "C",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -757,6 +922,59 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteFiguraMessage: "The figure could not be deleted. \nReason: ",
         figuraNotFoundWithId: "Figure not found with id: ",
         errorRetrievingFiguraMessage: "Error retrieving figure information. \nReason: ",
-        errorRetrievingFiguresMessage: "Error retrieving figures information. \nReason: "
+        errorRetrievingFiguresMessage: "Error retrieving figures information. \nReason: ",
+
+        // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT
+        digitalProductName: "Name",
+        digitalProductDescription: "Description",
+        digitalProductImage: "Image",
+        digitalProductPrimaryColour: "Primary colour",
+        digitalProductSecondaryColour: "Secondary colour",
+        digitalProductPrice: "Price",
+        digitalProductType: "Type",
+
+        // --- DIGITAL PRODUCT TYPE
+        selectDigitalProductType: "-- Digital product type --",
+        digitalProductTypeUserImage: "User image",
+        digitalProductTypeUserImageFrame: "User image frame",
+        digitalProductTypeUserBackgroundImage: "User background image",
+        digitalProductTypeUserTitle: "User title",
+        digitalProductTypeUserBackgroundColour: "User background colour",
+        digitalProductTypeSticker: "Sticker",
+        digitalProductTypePin: "Pin",
+
+        // CREATE DIGITAL PRODUCT
+        digitalProductsTitle: "Registered digital products",
+        createDigitalProductTitle: "Create a new digital product",
+        createDigitalProductButton: "Create digital product",
+
+        digitalProductNameInvalid: "The name is not valid. It must contain valid characters and be between: ",
+        digitalProductDescriptionInvalid: "The description is not valid. It must have valid characters between: ",
+        digitalProductImageInvalid: "The image is not valid. It must be a valid file with size lower than: ",
+        digitalProductPrimaryColourInvalid: "The primary colour is not valid. It must follow the hexadecimal format.",
+        digitalProductSecondaryColourInvalid: "The secondary colour is not valid. It must follow the hexadecimal format.",
+        digitalProductPriceInvalid: "The price is not valid. It must be a positive number.",
+        digitalProductTypeInvalid: "The type is not valid. It must be one from the list, with valid characters between: ",
+
+        successCreateDigitalProductMessage: "The digital product has been created successfully",
+        errorCreateDigitalProductMessage: "The digital product could not be created. \nReason: ",
+        createAnotherDigitalProductButton: "Create another digital product",
+        retryCreateDigitalProductButton: "Retry",
+
+        // UPDATE DIGITAL PRODUCT
+        updateDigitalProductTitle: "Edit digital product",
+        updateDigitalProductButton: "Edit digital product",
+        goToDigitalProductsButton: "Go back to digital products",
+        deleteDigitalProductButton: "Delete digital product",
+        warningDeleteDigitalProductMessage: "Do you want to delete the digital product permanently? This action cannot be undone.",
+        cancelDeleteDigitalProductButton: "Cancel",
+        confirmDeleteDigitalProductButton: "Delete permanently",
+        successUpdateDigitalProductMessage: "The digital product has been edited successfully",
+        errorUpdateDigitalProductMessage: "The digital product could not be edited. \nReason: ",
+        successDeleteDigitalProductMessage: "The digital product has been deleted successfully",
+        errorDeleteDigitalProductMessage: "The digital product could not be deleted. \nReason: ",
+        digitalProductNotFoundWithId: "Digital product not found with id: ",
+        errorRetrievingDigitalProductMessage: "Error retrieving digital product information. \nReason: ",
+        errorRetrievingDigitalProductsMessage: "Error retrieving digital products information. \nReason: "
     }
 }
