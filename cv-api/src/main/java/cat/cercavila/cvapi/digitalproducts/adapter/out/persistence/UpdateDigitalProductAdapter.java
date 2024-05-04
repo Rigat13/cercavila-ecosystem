@@ -24,7 +24,9 @@ public class UpdateDigitalProductAdapter implements UpdateDigitalProductPort {
             removeCurrentImage(updateDigitalProductCommand);
             saveImageToServer(updateDigitalProductCommand.image(), imageKeyName);
         }
+
         digitalProductRepository.save(updateDigitalProductCommand2DigitalProductEntity(updateDigitalProductCommand, imageKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
+
     }
 
     private DigitalProductEntity updateDigitalProductCommand2DigitalProductEntity(UpdateDigitalProductCommand updateDigitalProductCommand, String imageKey) {
@@ -43,10 +45,12 @@ public class UpdateDigitalProductAdapter implements UpdateDigitalProductPort {
 
     private String generateImageKeyName(UpdateDigitalProductCommand updateDigitalProductCommand) {
         if (updateDigitalProductCommand.image() == null || updateDigitalProductCommand.image().isEmpty()) return "";
+
         String original = updateDigitalProductCommand.image().getOriginalFilename();
         String extension = original.substring(original.lastIndexOf("."));
         String digitalProductName = updateDigitalProductCommand.name();
         digitalProductName = digitalProductName.replaceAll("[^a-zA-Z0-9.-]", "_");
+
         return "image_digitalProduct_" + digitalProductName + "_" + UUID.randomUUID() + extension;
     }
 
