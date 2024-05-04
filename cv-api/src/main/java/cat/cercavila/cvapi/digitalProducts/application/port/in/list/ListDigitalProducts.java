@@ -3,11 +3,11 @@ package cat.cercavila.cvapi.digitalProducts.application.port.in.list;
 import java.util.List;
 
 public interface ListDigitalProducts {
-    DigitalProductListing getFiguraById(String id);
-    DigitalProductListing getFiguraByName(String name);
-    List<DigitalProductListing> getAllFiguresByName();
-    List<DigitalProductListing> getAllFiguresByYear();
-    List<DigitalProductListing> getAllFiguresByType();
-    List<DigitalProductListing> getAllFigures();
-    List<DigitalProductListing> getAllFiguresNoImage();
+    DigitalProductListing getDigitalProductById(String id);
+    DigitalProductListing getDigitalProductByName(String name);
+    List<DigitalProductListing> getAllDigitalProductsByName();
+    List<DigitalProductListing> getAllDigitalProductsByYear();
+    List<DigitalProductListing> getAllDigitalProductsByType();
+    List<DigitalProductListing> getAllDigitalProducts();
+    List<DigitalProductListing> getAllDigitalProductsNoImage();
 }

@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DeleteDigitalProductService implements DeleteDigitalProductUseCase {
-    private final DeleteDigitalProductPort deleteFiguraPort;
+    private final DeleteDigitalProductPort deleteDigitalProductPort;
 
-    public DeleteDigitalProductService(DeleteDigitalProductPort deleteFiguraPort) {
-        this.deleteFiguraPort = deleteFiguraPort;
+    public DeleteDigitalProductService(DeleteDigitalProductPort deleteDigitalProductPort) {
+        this.deleteDigitalProductPort = deleteDigitalProductPort;
     }
 
     @Override
-    public void deleteFigura(DeleteDigitalProductCommand deleteDigitalProductCommand) {
+    public void deleteDigitalProduct(DeleteDigitalProductCommand deleteDigitalProductCommand) {
         // TODO perform checks
-        deleteFiguraPort.deleteFigura(deleteDigitalProductCommand);
+        deleteDigitalProductPort.deleteDigitalProduct(deleteDigitalProductCommand);
     }
 }

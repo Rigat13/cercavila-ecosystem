@@ -18,7 +18,7 @@ public class UpdateDigitalProductAdapter implements UpdateDigitalProductPort {
     public UpdateDigitalProductAdapter(DigitalProductRepository digitalProductRepository) { this.digitalProductRepository = digitalProductRepository; }
 
     @Override
-    public void updateFigura(UpdateDigitalProductCommand updateFiguraCommand) {
+    public void updateDigitalProduct(UpdateDigitalProductCommand updateFiguraCommand) {
         String imageKeyName = generateImageKeyName(updateFiguraCommand);
         if (!imageKeyName.equals("")) {
             removeCurrentImage(updateFiguraCommand);

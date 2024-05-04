@@ -1,5 +1,5 @@
 package cat.cercavila.cvapi.digitalProducts.application.service.exception;
 
 public class DigitalProductAlreadyExists extends RuntimeException {
-    public DigitalProductAlreadyExists(String id) { super("La figura " + id + " ja existeix."); }
+    public DigitalProductAlreadyExists(String id) { super("El producte digital " + id + " ja existeix."); }
 }

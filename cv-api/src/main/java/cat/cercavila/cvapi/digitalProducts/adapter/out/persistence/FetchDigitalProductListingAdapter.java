@@ -22,19 +22,19 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
     }
 
     @Override
-    public Optional<DigitalProductListing> loadFiguraById(String id) {
+    public Optional<DigitalProductListing> loadDigitalProductById(String id) {
         Optional<DigitalProductListing> figuraListingOptional = digitalProductRepository.getById(id);
         return figuraListingOptional.map(this::createFiguraListingFromListing);
     }
 
     @Override
-    public Optional<DigitalProductListing> loadFiguraByName(String name) {
+    public Optional<DigitalProductListing> loadDigitalProductByName(String name) {
         Optional<DigitalProductListing> figuraListingOptional = digitalProductRepository.getByName(name);
         return figuraListingOptional.map(this::createFiguraListingFromListing);
     }
 
     @Override
-    public List<DigitalProductListing> loadAllFiguresByName() {
+    public List<DigitalProductListing> loadAllDigitalProductsByName() {
         List<DigitalProductListing> digitalProductListings = digitalProductRepository.loadAllFiguresByName();
         return digitalProductListings.stream()
                 .map(this::createFiguraListingFromListing)
@@ -42,7 +42,7 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
     }
 
     @Override
-    public List<DigitalProductListing> loadAllFiguresByYear() {
+    public List<DigitalProductListing> loadAllDigitalProductsByYear() {
         List<DigitalProductListing> digitalProductListings = digitalProductRepository.loadAllFiguresByYear();
         return digitalProductListings.stream()
                 .map(this::createFiguraListingFromListing)
@@ -50,7 +50,7 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
     }
     
     @Override
-    public List<DigitalProductListing> loadAllFiguresByType() {
+    public List<DigitalProductListing> loadAllDigitalProductsByType() {
         List<DigitalProductListing> digitalProductListings = digitalProductRepository.loadAllFiguresByType();
         return digitalProductListings.stream()
                 .map(this::createFiguraListingFromListing)
@@ -58,7 +58,7 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
     }
 
     @Override
-    public List<DigitalProductListing> loadAllFigures() {
+    public List<DigitalProductListing> loadAllDigitalProducts() {
         List<DigitalProductListing> digitalProductListings = digitalProductRepository.findAllListing();
         return digitalProductListings.stream()
                 .map(this::createFiguraListingFromListing)
@@ -66,7 +66,7 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
     }
 
     @Override
-    public List<DigitalProductListing> loadAllFiguresNoImage() {
+    public List<DigitalProductListing> loadAllDigitalProductsNoImage() {
         List<DigitalProductListing> digitalProductListings = digitalProductRepository.findAllListing();
         return digitalProductListings;
     }

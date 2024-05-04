@@ -6,5 +6,5 @@ import javax.validation.Valid;
 
 @Validated
 public interface UpdateDigitalProductUseCase {
-    void updateFigura(@Valid UpdateDigitalProductCommand updateFiguraCommand);
+    void updateDigitalProduct(@Valid UpdateDigitalProductCommand updateFiguraCommand);
 }

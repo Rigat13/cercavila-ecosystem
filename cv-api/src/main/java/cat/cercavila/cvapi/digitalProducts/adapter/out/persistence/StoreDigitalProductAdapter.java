@@ -17,7 +17,7 @@ public class StoreDigitalProductAdapter implements StoreDigitalProductPort {
     public StoreDigitalProductAdapter(DigitalProductRepository digitalProductRepository) { this.digitalProductRepository = digitalProductRepository; }
 
     @Override
-    public void storeFigura(CreateDigitalProductCommand createDigitalProductCommand) {
+    public void storeDigitalProduct(CreateDigitalProductCommand createDigitalProductCommand) {
         String imageKeyName = generateImageKeyName(createDigitalProductCommand);
         if (!imageKeyName.equals("")) saveImageToServer(createDigitalProductCommand.image(), imageKeyName);
         digitalProductRepository.save(createFiguraCommand2FiguraEntity(createDigitalProductCommand, imageKeyName));
@@ -25,7 +25,7 @@ public class StoreDigitalProductAdapter implements StoreDigitalProductPort {
 
     private DigitalProductEntity createFiguraCommand2FiguraEntity(CreateDigitalProductCommand createDigitalProductCommand, String imageKey) {
         DigitalProductEntity digitalProductEntity = new DigitalProductEntity();
-        digitalProductEntity.setId(UUID.randomUUID().toString()); // IMPORTANT: This is to create a new DigitalProducts without an ID
+        digitalProductEntity.setId(UUID.randomUUID().toString()); // IMPORTANT: This is to create a new DigitalProduct without an ID
         digitalProductEntity.setName(createDigitalProductCommand.name());
         digitalProductEntity.setYear(createDigitalProductCommand.year());
         digitalProductEntity.setType(createDigitalProductCommand.type());

@@ -2,7 +2,7 @@ package cat.cercavila.cvapi.digitalProducts.domain;
 
 import java.util.UUID;
 
-public class DigitalProducts {
+public class DigitalProduct {
     private String id;
     private String name;
     private String description;
@@ -12,10 +12,10 @@ public class DigitalProducts {
     private float price;
     private String type;
 
-    public DigitalProducts() {}
+    public DigitalProduct() {}
 
-    public DigitalProducts(String name, String description, String imageKey, String primaryColour, String secondaryColour, float price, String type) {
-        this.id = UUID.randomUUID().toString(); // TODO: Note: this is correct for not web applications; but as DigitalProducts can be created from the front, the UUID is assigned between the front and the in port of persistence, and does not get to domain.
+    public DigitalProduct(String name, String description, String imageKey, String primaryColour, String secondaryColour, float price, String type) {
+        this.id = UUID.randomUUID().toString(); // TODO: Note: this is correct for not web applications; but as DigitalProduct can be created from the front, the UUID is assigned between the front and the in port of persistence, and does not get to domain.
         this.name = name;
         this.description = description;
         this.imageKey = imageKey;
@@ -43,7 +43,7 @@ public class DigitalProducts {
 
     @Override
     public String toString() {
-        return "DigitalProducts{" +
+        return "DigitalProduct{" +
                 "id='" + id +
                 ", name='" + name +
                 ", description='" + description +

@@ -16,14 +16,14 @@ public class DeleteDigitalProductAdapter implements DeleteDigitalProductPort {
     public DeleteDigitalProductAdapter(DigitalProductRepository digitalProductRepository) { this.digitalProductRepository = digitalProductRepository; }
 
     @Override
-    public void deleteFigura(DeleteDigitalProductCommand deleteDigitalProductCommand) {
+    public void deleteDigitalProduct(DeleteDigitalProductCommand deleteDigitalProductCommand) {
         removeCurrentImage(deleteDigitalProductCommand);
         digitalProductRepository.delete(deleteFiguraCommand2FiguraEntity(deleteDigitalProductCommand));
     }
 
     private DigitalProductEntity deleteFiguraCommand2FiguraEntity(DeleteDigitalProductCommand deleteDigitalProductCommand) {
         DigitalProductEntity digitalProductEntity = new DigitalProductEntity();
-        digitalProductEntity.setId(deleteDigitalProductCommand.id()); // IMPORTANT: Here, an existing ID is used to delete the DigitalProducts
+        digitalProductEntity.setId(deleteDigitalProductCommand.id()); // IMPORTANT: Here, an existing ID is used to delete the DigitalProduct
         // The other fields are not necessary for the deletion
         return digitalProductEntity;
     }

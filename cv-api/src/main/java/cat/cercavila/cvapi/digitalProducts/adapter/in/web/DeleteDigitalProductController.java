@@ -14,6 +14,6 @@ public class DeleteDigitalProductController {
 
     @DeleteMapping("/api/figures")
     public void deleteFigura(@RequestBody DeleteDigitalProductCommand deleteDigitalProductCommand) {
-        deleteDigitalProductUseCase.deleteFigura(deleteDigitalProductCommand);
+        deleteDigitalProductUseCase.deleteDigitalProduct(deleteDigitalProductCommand);
     }
 }

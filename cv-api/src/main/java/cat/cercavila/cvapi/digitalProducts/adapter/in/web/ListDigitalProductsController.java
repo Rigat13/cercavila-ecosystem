@@ -18,23 +18,23 @@ public class ListDigitalProductsController {
     public ListDigitalProductsController(ListDigitalProducts listDigitalProducts) { this.listDigitalProducts = listDigitalProducts; }
 
     @GetMapping("/api/figures/id/{id}")
-    public DigitalProductListing getFiguraById(@PathVariable String id) { return listDigitalProducts.getFiguraById(id); }
+    public DigitalProductListing getFiguraById(@PathVariable String id) { return listDigitalProducts.getDigitalProductById(id); }
 
     @GetMapping("/api/figures/name/{name}")
-    public DigitalProductListing getFiguraByName(@PathVariable String name) { return listDigitalProducts.getFiguraByName(name); }
+    public DigitalProductListing getFiguraByName(@PathVariable String name) { return listDigitalProducts.getDigitalProductByName(name); }
 
     @GetMapping("/api/figures/name")
-    public List<DigitalProductListing> getAllFiguresByName() { return listDigitalProducts.getAllFiguresByName(); }
+    public List<DigitalProductListing> getAllFiguresByName() { return listDigitalProducts.getAllDigitalProductsByName(); }
 
     @GetMapping("/api/figures/year")
-    public List<DigitalProductListing> getAllFiguresByYear() { return listDigitalProducts.getAllFiguresByYear(); }
+    public List<DigitalProductListing> getAllFiguresByYear() { return listDigitalProducts.getAllDigitalProductsByYear(); }
 
     @GetMapping("/api/figures/type")
-    public List<DigitalProductListing> getAllFiguresByType() { return listDigitalProducts.getAllFiguresByType(); }
+    public List<DigitalProductListing> getAllFiguresByType() { return listDigitalProducts.getAllDigitalProductsByType(); }
 
     @GetMapping("/api/figures")
-    public List<DigitalProductListing> getAllFigures() { return listDigitalProducts.getAllFigures(); }
+    public List<DigitalProductListing> getAllFigures() { return listDigitalProducts.getAllDigitalProducts(); }
 
     @GetMapping("/api/figures/noimage")
-    public List<DigitalProductListing> getAllFiguresNoImage() { return listDigitalProducts.getAllFiguresNoImage(); }
+    public List<DigitalProductListing> getAllFiguresNoImage() { return listDigitalProducts.getAllDigitalProductsNoImage(); }
 }

@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ListDigitalProductPort {
-    Optional<DigitalProductListing> loadFiguraById(String id);
-    Optional<DigitalProductListing> loadFiguraByName(String name);
+    Optional<DigitalProductListing> loadDigitalProductById(String id);
+    Optional<DigitalProductListing> loadDigitalProductByName(String name);
 
-    List<DigitalProductListing> loadAllFiguresByName();
-    List<DigitalProductListing> loadAllFiguresByYear();
-    List<DigitalProductListing> loadAllFiguresByType();
-    List<DigitalProductListing> loadAllFigures();
-    List<DigitalProductListing> loadAllFiguresNoImage();
+    List<DigitalProductListing> loadAllDigitalProductsByName();
+    List<DigitalProductListing> loadAllDigitalProductsByYear();
+    List<DigitalProductListing> loadAllDigitalProductsByType();
+    List<DigitalProductListing> loadAllDigitalProducts();
+    List<DigitalProductListing> loadAllDigitalProductsNoImage();
 }

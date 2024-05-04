@@ -10,34 +10,34 @@ import java.util.List;
 
 @Service
 public class ListDigitalProductsService implements ListDigitalProducts {
-    private final ListDigitalProductPort listFiguresPort;
+    private final ListDigitalProductPort listDigitalProductsPort;
 
-    ListDigitalProductsService(ListDigitalProductPort listFiguresPort) { this.listFiguresPort = listFiguresPort; }
+    ListDigitalProductsService(ListDigitalProductPort listDigitalProductsPort) { this.listDigitalProductsPort = listDigitalProductsPort; }
 
     @Override
-    public DigitalProductListing getFiguraById(String id) {
-        return listFiguresPort.loadFiguraById(id)
+    public DigitalProductListing getDigitalProductById(String id) {
+        return listDigitalProductsPort.loadDigitalProductById(id)
                 .orElseThrow(() -> new DigitalProductNotFound(id));
     }
 
     @Override
-    public DigitalProductListing getFiguraByName(String name) {
-        return listFiguresPort.loadFiguraByName(name)
+    public DigitalProductListing getDigitalProductByName(String name) {
+        return listDigitalProductsPort.loadDigitalProductByName(name)
                 .orElseThrow(() -> new DigitalProductNotFound(name));
     }
 
     @Override
-    public List<DigitalProductListing> getAllFiguresByName() { return listFiguresPort.loadAllFiguresByName(); }
+    public List<DigitalProductListing> getAllDigitalProductsByName() { return listDigitalProductsPort.loadAllDigitalProductsByName(); }
 
     @Override
-    public List<DigitalProductListing> getAllFiguresByYear() { return listFiguresPort.loadAllFiguresByYear(); }
+    public List<DigitalProductListing> getAllDigitalProductsByYear() { return listDigitalProductsPort.loadAllDigitalProductsByYear(); }
 
     @Override
-    public List<DigitalProductListing> getAllFiguresByType() { return listFiguresPort.loadAllFiguresByType(); }
+    public List<DigitalProductListing> getAllDigitalProductsByType() { return listDigitalProductsPort.loadAllDigitalProductsByType(); }
 
     @Override
-    public List<DigitalProductListing> getAllFigures() { return listFiguresPort.loadAllFigures(); }
+    public List<DigitalProductListing> getAllDigitalProducts() { return listDigitalProductsPort.loadAllDigitalProducts(); }
 
     @Override
-    public List<DigitalProductListing> getAllFiguresNoImage() { return listFiguresPort.loadAllFiguresNoImage(); }
+    public List<DigitalProductListing> getAllDigitalProductsNoImage() { return listDigitalProductsPort.loadAllDigitalProductsNoImage(); }
 }

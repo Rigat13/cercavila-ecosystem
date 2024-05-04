@@ -6,5 +6,5 @@ import javax.validation.Valid;
 
 @Validated
 public interface CreateDigitalProductUseCase {
-    void createFigura(@Valid CreateDigitalProductCommand createDigitalProductCommand);
+    void createDigitalProduct(@Valid CreateDigitalProductCommand createDigitalProductCommand);
 }

@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreateDigitalProductService implements CreateDigitalProductUseCase {
-    private final StoreDigitalProductPort storeFiguraPort;
+    private final StoreDigitalProductPort storeDigitalProductPort;
 
-    public CreateDigitalProductService(StoreDigitalProductPort storeFiguraPort) {
-        this.storeFiguraPort = storeFiguraPort;
+    public CreateDigitalProductService(StoreDigitalProductPort storeDigitalProductPort) {
+        this.storeDigitalProductPort = storeDigitalProductPort;
     }
 
     @Override
-    public void createFigura(CreateDigitalProductCommand createDigitalProductCommand) {
+    public void createDigitalProduct(CreateDigitalProductCommand createDigitalProductCommand) {
         // TODO perform checks
-        storeFiguraPort.storeFigura(createDigitalProductCommand);
+        storeDigitalProductPort.storeDigitalProduct(createDigitalProductCommand);
     }
 
 }

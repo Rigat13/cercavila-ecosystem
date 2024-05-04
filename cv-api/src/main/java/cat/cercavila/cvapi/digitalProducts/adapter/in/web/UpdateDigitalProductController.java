@@ -14,6 +14,6 @@ public class UpdateDigitalProductController {
 
     @PutMapping("/api/figures")
     public void updateFigura(@ModelAttribute UpdateDigitalProductCommand updateFiguraCommand) {
-        updateFiguraUseCase.updateFigura(updateFiguraCommand);
+        updateFiguraUseCase.updateDigitalProduct(updateFiguraCommand);
     }
 }

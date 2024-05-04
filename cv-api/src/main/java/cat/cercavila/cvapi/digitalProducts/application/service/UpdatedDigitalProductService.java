@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UpdatedDigitalProductService implements UpdateDigitalProductUseCase {
-    private final UpdateDigitalProductPort updateFiguraPort;
+    private final UpdateDigitalProductPort updateDigitalProductsPort;
 
-    public UpdatedDigitalProductService(UpdateDigitalProductPort updateFiguraPort) {
-        this.updateFiguraPort = updateFiguraPort;
+    public UpdatedDigitalProductService(UpdateDigitalProductPort updateDigitalProductsPort) {
+        this.updateDigitalProductsPort = updateDigitalProductsPort;
     }
 
     @Override
-    public void updateFigura(UpdateDigitalProductCommand updateFiguraCommand) {
+    public void updateDigitalProduct(UpdateDigitalProductCommand updateDigitalProductsCommand) {
         // TODO perform checks
-        updateFiguraPort.updateFigura(updateFiguraCommand);
+        updateDigitalProductsPort.updateDigitalProduct(updateDigitalProductsCommand);
     }
 }

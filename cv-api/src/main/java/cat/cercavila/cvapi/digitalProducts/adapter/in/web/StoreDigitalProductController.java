@@ -16,6 +16,6 @@ public class StoreDigitalProductController {
 
     @PostMapping("/api/figures")
     public void storeFigura(@ModelAttribute CreateDigitalProductCommand createDigitalProductCommand) {
-        createDigitalProductUseCase.createFigura(createDigitalProductCommand);
+        createDigitalProductUseCase.createDigitalProduct(createDigitalProductCommand);
     }
 }
