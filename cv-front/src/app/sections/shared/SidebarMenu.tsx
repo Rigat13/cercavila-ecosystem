@@ -30,6 +30,7 @@ function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
                 <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/ccgm.html" : `/ccgm.html?lang=${lang}`}>{dictionary[lang]?.ccgmAcronym}</a>
                 <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>{dictionary[lang]?.collesTitle}</a>
                 <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/figures.html" : `/figures.html?lang=${lang}`}>{dictionary[lang]?.figuresTitle}</a>
+                <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/digitalproducts.html" : `/digitalproducts.html?lang=${lang}`}>{dictionary[lang]?.digitalProductsTitle}</a>
             </div>
             <div className={styles.languageSelector}>
                 <button className={styles.languageButton}>{lang}</button>

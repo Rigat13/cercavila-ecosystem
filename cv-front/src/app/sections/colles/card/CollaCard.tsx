@@ -85,9 +85,9 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
                     </a>
                 </div>
                 <div className={styles.collaCard__description} style={contrastTextColour} >{colla.description}</div>
-                <div className={styles.colorCircles}>
-                    <div className={styles.colorCircle} style={{ backgroundColor: colla.primaryColour }}></div>
-                    <div className={styles.colorCircle} style={{ backgroundColor: colla.secondaryColour }}></div>
+                <div className={styles.colourCircles}>
+                    <div className={styles.colourCircle} style={{ backgroundColor: colla.primaryColour }}></div>
+                    <div className={styles.colourCircle} style={{ backgroundColor: colla.secondaryColour }}></div>
                 </div>
                 {figureNames.length > 0 && (
                     <div className={styles.selectedFigures}>
