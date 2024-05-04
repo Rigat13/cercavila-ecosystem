@@ -26,7 +26,7 @@ public class ListDigitalProductsController {
     @GetMapping("/api/digitalproducts/name")
     public List<DigitalProductListing> getAllDigitalProductsByName() { return listDigitalProducts.getAllDigitalProductsByName(); }
 
-    @GetMapping("/api/digitalproducts/year")
+    @GetMapping("/api/digitalproducts/price")
     public List<DigitalProductListing> getAllDigitalProductsByPrice() { return listDigitalProducts.getAllDigitalProductsByPrice(); }
 
     @GetMapping("/api/digitalproducts/type")

@@ -7,5 +7,5 @@ export function isFiguraImageValid(image: File | null): boolean {
 }
 
 export function FiguraImageNotValidError(image: File | null): Error {
-    return new Error(`La imatge de la figura no és vàlid. Ha de tenir un pes inferior a ${IMAGE_MAX_MBS}MB.`);
+    return new Error(`La imatge de la figura no és vàlida. Ha de tenir un pes inferior a ${IMAGE_MAX_MBS}MB.`);
 }
