@@ -6,21 +6,13 @@ import {useDigitalProductsContext} from "@/app/sections/digitalproducts/DigitalP
 import styles from "@/app/sections/digitalproducts/form/DigitalProductForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
 
-import {isDigitalProductNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/digitalproducts/domain/digitalProduct-attributes/DigitalProductName";
-import {isDigitalProductYearValid, YEAR_MIN, YEAR_MAX} from "@/modules/digitalproducts/domain/digitalProduct-attributes/DigitalProductYear";
-import {isDigitalProductTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,digitalProductTypes} from "@/modules/digitalproducts/domain/digitalProduct-attributes/DigitalProductType";
-import {isDigitalProductImageValid, IMAGE_MAX_MBS} from "@/modules/digitalproducts/domain/digitalProduct-attributes/DigitalProductImage";
-import {isDigitalProductWebUrlValid} from "@/modules/digitalproducts/domain/digitalProduct-attributes/DigitalProductWebUrl";
-import {
-    DESCRIPTION_MIN_LENGTH,
-    isDigitalProductDescriptionValid
-} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductDescription";
-import {
-    isDigitalProductColourValid
-} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductColours";
-import {
-    isDigitalProductPriceValid
-} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductPrice";
+import {isDigitalProductNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductName";
+import {isDigitalProductTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,digitalProductTypes} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
+import {isDigitalProductImageValid, IMAGE_MAX_MBS} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductImage";
+import { DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH, isDigitalProductDescriptionValid } from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductDescription";
+
+import { isDigitalProductColourValid } from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductColours";
+import { isDigitalProductPriceValid } from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductPrice";
 import ColourPicker from "@/app/sections/shared/ColourPicker";
 
 const initialState = {
@@ -30,7 +22,7 @@ const initialState = {
     image: null as File | null,
     primaryColour: "",
     secondaryColour: "",
-    price: 0,
+    price: "",
     type: "",
 }
 export let isNameValid, isDescriptionValid, isImageValid, isPrimaryColourValid, isSecondaryColourValid, isPriceValid, isTypeValid = false;
@@ -80,7 +72,7 @@ export function UpdateDigitalProductForm({digitalProductId, lang}: {digitalProdu
                     image: imageFile,
                     primaryColour: digitalProductData.primaryColour,
                     secondaryColour: digitalProductData.secondaryColour,
-                    price: digitalProductData.price,
+                    price: digitalProductData.price+"",
                     type: digitalProductData.type,
                 });
 
@@ -136,19 +128,21 @@ export function UpdateDigitalProductForm({digitalProductId, lang}: {digitalProdu
 
     const handlePrimaryColourChange = (ev) => {
         const newPrimaryColour = ev.target.value;
+        setPrimaryColour(newPrimaryColour);
         updateForm({ primaryColour: newPrimaryColour });
         validateFormData({ ...formData, primaryColour: newPrimaryColour });
     }
 
     const handleSecondaryColourChange = (ev) => {
         const newSecondaryColour = ev.target.value;
+        setSecondaryColour(newSecondaryColour);
         updateForm({ secondaryColour: newSecondaryColour });
         validateFormData({ ...formData, secondaryColour: newSecondaryColour });
     }
 
     const handlePriceChange = (ev) => {
         const newPrice = ev.target.value;
-        updateForm({ price: Number(newPrice) });
+        updateForm({ price: newPrice+"" });
         validateFormData({ ...formData, price: Number(newPrice) });
     }
 
@@ -166,15 +160,15 @@ export function UpdateDigitalProductForm({digitalProductId, lang}: {digitalProdu
         isPrimaryColourValid = isDigitalProductColourValid(primaryColour);
         isSecondaryColourValid = isDigitalProductColourValid(secondaryColour);
         isPriceValid = isDigitalProductPriceValid(price);
-        isTypeValid = isDigitalProductTypeValid(type);
+        isTypeValid = isDigitalProductTypeValid(type, dictionary[lang]?.selectDigitalProductType+"");
 
         setErrors({
             id: "",
             name: isNameValid ? "" : dictionary[lang]?.digitalProductNameInvalid + NAME_MIN_LENGTH + " - " + NAME_MAX_LENGTH,
             description: isDescriptionValid ? "" : dictionary[lang]?.digitalProductDescriptionInvalid + DESCRIPTION_MIN_LENGTH + " - " + DESCRIPTION_MAX_LENGTH,
             image: null,
-            primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.digitalProductColourInvalid + "",
-            secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.digitalProductColourInvalid + "",
+            primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.digitalProductPrimaryColourInvalid + "",
+            secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.digitalProductSecondaryColourInvalid + "",
             price: isPriceValid ? "" : dictionary[lang]?.digitalProductPriceInvalid + "",
             type: isTypeValid ? "" : dictionary[lang]?.digitalProductTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
         });
@@ -357,8 +351,8 @@ export function UpdateDigitalProductForm({digitalProductId, lang}: {digitalProdu
                             <label htmlFor="price">{dictionary[lang]?.digitalProductPrice}</label>
                             <input
                                 type="number"
-                                id="year"
-                                name="year"
+                                id="price"
+                                name="price"
                                 value={formData.price}
                                 onChange={handlePriceChange}
                             /> {" " + dictionary[lang]?.coinAcronym}

@@ -1,6 +1,6 @@
 import {DigitalProductRepository} from "@/modules/digitalproducts/domain/DigitalProductRepository";
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
-import {URL_PREFIX} from "@/modules/digitalproducts/infrastructure/condigitalProducttion";
+import {URL_PREFIX} from "@/modules/digitalproducts/infrastructure/configuration";
 
 export function createApiDigitalProductRepository(): DigitalProductRepository {
     return {
