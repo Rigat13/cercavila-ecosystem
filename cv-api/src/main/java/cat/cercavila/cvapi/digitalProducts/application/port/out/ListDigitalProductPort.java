@@ -10,7 +10,7 @@ public interface ListDigitalProductPort {
     Optional<DigitalProductListing> loadDigitalProductByName(String name);
 
     List<DigitalProductListing> loadAllDigitalProductsByName();
-    List<DigitalProductListing> loadAllDigitalProductsByYear();
+    List<DigitalProductListing> loadAllDigitalProductsByPrice();
     List<DigitalProductListing> loadAllDigitalProductsByType();
     List<DigitalProductListing> loadAllDigitalProducts();
     List<DigitalProductListing> loadAllDigitalProductsNoImage();

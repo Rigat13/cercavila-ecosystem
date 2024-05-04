@@ -14,8 +14,8 @@ public class StoreDigitalProductController {
         this.createDigitalProductUseCase = createDigitalProductUseCase;
     }
 
-    @PostMapping("/api/figures")
-    public void storeFigura(@ModelAttribute CreateDigitalProductCommand createDigitalProductCommand) {
+    @PostMapping("/api/digitalproducts")
+    public void storeDigitalProduct(@ModelAttribute CreateDigitalProductCommand createDigitalProductCommand) {
         createDigitalProductUseCase.createDigitalProduct(createDigitalProductCommand);
     }
 }

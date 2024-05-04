@@ -18,48 +18,50 @@ public class UpdateDigitalProductAdapter implements UpdateDigitalProductPort {
     public UpdateDigitalProductAdapter(DigitalProductRepository digitalProductRepository) { this.digitalProductRepository = digitalProductRepository; }
 
     @Override
-    public void updateDigitalProduct(UpdateDigitalProductCommand updateFiguraCommand) {
-        String imageKeyName = generateImageKeyName(updateFiguraCommand);
+    public void updateDigitalProduct(UpdateDigitalProductCommand updateDigitalProductCommand) {
+        String imageKeyName = generateImageKeyName(updateDigitalProductCommand);
         if (!imageKeyName.equals("")) {
-            removeCurrentImage(updateFiguraCommand);
-            saveImageToServer(updateFiguraCommand.image(), imageKeyName);
+            removeCurrentImage(updateDigitalProductCommand);
+            saveImageToServer(updateDigitalProductCommand.image(), imageKeyName);
         }
-        digitalProductRepository.save(updateFiguraCommand2FiguraEntity(updateFiguraCommand, imageKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
+        digitalProductRepository.save(updateDigitalProductCommand2DigitalProductEntity(updateDigitalProductCommand, imageKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
     }
 
-    private DigitalProductEntity updateFiguraCommand2FiguraEntity(UpdateDigitalProductCommand updateFiguraCommand, String imageKey) {
+    private DigitalProductEntity updateDigitalProductCommand2DigitalProductEntity(UpdateDigitalProductCommand updateDigitalProductCommand, String imageKey) {
         DigitalProductEntity digitalProductEntity = new DigitalProductEntity();
-        digitalProductEntity.setId(updateFiguraCommand.id());
-        digitalProductEntity.setName(updateFiguraCommand.name());
-        digitalProductEntity.setYear(updateFiguraCommand.year());
-        digitalProductEntity.setType(updateFiguraCommand.type());
+        digitalProductEntity.setId(updateDigitalProductCommand.id());
+        digitalProductEntity.setName(updateDigitalProductCommand.name());
+        digitalProductEntity.setDescription(updateDigitalProductCommand.description());
         digitalProductEntity.setImageKey(imageKey);
-        digitalProductEntity.setWebUrl(updateFiguraCommand.webUrl());
+        digitalProductEntity.setPrimaryColour(updateDigitalProductCommand.primaryColour());
+        digitalProductEntity.setSecondaryColour(updateDigitalProductCommand.secondaryColour());
+        digitalProductEntity.setPrice(updateDigitalProductCommand.price());
+        digitalProductEntity.setType(updateDigitalProductCommand.type());
 
         return digitalProductEntity;
     }
 
-    private String generateImageKeyName(UpdateDigitalProductCommand updateFiguraCommand) {
-        if (updateFiguraCommand.image() == null || updateFiguraCommand.image().isEmpty()) return "";
-        String original = updateFiguraCommand.image().getOriginalFilename();
+    private String generateImageKeyName(UpdateDigitalProductCommand updateDigitalProductCommand) {
+        if (updateDigitalProductCommand.image() == null || updateDigitalProductCommand.image().isEmpty()) return "";
+        String original = updateDigitalProductCommand.image().getOriginalFilename();
         String extension = original.substring(original.lastIndexOf("."));
-        String figuraName = updateFiguraCommand.name();
-        figuraName = figuraName.replaceAll("[^a-zA-Z0-9.-]", "_");
-        return "image_figura_" + figuraName + "_" + UUID.randomUUID() + extension;
+        String digitalProductName = updateDigitalProductCommand.name();
+        digitalProductName = digitalProductName.replaceAll("[^a-zA-Z0-9.-]", "_");
+        return "image_digitalProduct_" + digitalProductName + "_" + UUID.randomUUID() + extension;
     }
 
-    private void removeCurrentImage(UpdateDigitalProductCommand updateFiguraCommand) {
-        String figuraId = updateFiguraCommand.id();
+    private void removeCurrentImage(UpdateDigitalProductCommand updateDigitalProductCommand) {
+        String digitalProductId = updateDigitalProductCommand.id();
 
         DigitalProductListing currentDigitalProductListing;
-        try { currentDigitalProductListing = digitalProductRepository.getById(figuraId).orElseThrow(); }
+        try { currentDigitalProductListing = digitalProductRepository.getById(digitalProductId).orElseThrow(); }
         catch (Exception e) { e.printStackTrace(); return; }
-        DigitalProductEntity currentFigura = MapperDigitalProductDigitalProductEntity.figuraListingToFiguraEntity(currentDigitalProductListing);
+        DigitalProductEntity currentDigitalProduct = MapperDigitalProductDigitalProductEntity.digitalProductListingToDigitalProductEntity(currentDigitalProductListing);
 
-        String currentImageKey = currentFigura.getImageKey();
+        String currentImageKey = currentDigitalProduct.getImageKey();
         if (currentImageKey != null && !currentImageKey.isEmpty()) {
             try {
-                Path imagePath = Paths.get("/srv/cv-api/images/figures", currentImageKey);
+                Path imagePath = Paths.get("/srv/cv-api/images/digitalProducts", currentImageKey);
                 Files.deleteIfExists(imagePath);
             } catch (Exception e) { e.printStackTrace(); }
         }
@@ -68,7 +70,7 @@ public class UpdateDigitalProductAdapter implements UpdateDigitalProductPort {
     private void saveImageToServer(MultipartFile imageFile, String imageKeyName) {
         if (imageFile == null || imageFile.isEmpty()) return;
         try {
-            Path filePath = Paths.get("/srv/cv-api/images/figures", imageKeyName);
+            Path filePath = Paths.get("/srv/cv-api/images/digitalProducts", imageKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (Exception e) { e.printStackTrace(); }
     }

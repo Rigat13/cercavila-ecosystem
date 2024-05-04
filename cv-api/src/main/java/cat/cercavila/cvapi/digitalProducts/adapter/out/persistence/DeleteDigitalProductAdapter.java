@@ -18,10 +18,10 @@ public class DeleteDigitalProductAdapter implements DeleteDigitalProductPort {
     @Override
     public void deleteDigitalProduct(DeleteDigitalProductCommand deleteDigitalProductCommand) {
         removeCurrentImage(deleteDigitalProductCommand);
-        digitalProductRepository.delete(deleteFiguraCommand2FiguraEntity(deleteDigitalProductCommand));
+        digitalProductRepository.delete(deleteDigitalProductCommand2DigitalProductEntity(deleteDigitalProductCommand));
     }
 
-    private DigitalProductEntity deleteFiguraCommand2FiguraEntity(DeleteDigitalProductCommand deleteDigitalProductCommand) {
+    private DigitalProductEntity deleteDigitalProductCommand2DigitalProductEntity(DeleteDigitalProductCommand deleteDigitalProductCommand) {
         DigitalProductEntity digitalProductEntity = new DigitalProductEntity();
         digitalProductEntity.setId(deleteDigitalProductCommand.id()); // IMPORTANT: Here, an existing ID is used to delete the DigitalProduct
         // The other fields are not necessary for the deletion
@@ -29,17 +29,17 @@ public class DeleteDigitalProductAdapter implements DeleteDigitalProductPort {
     }
 
     private void removeCurrentImage(DeleteDigitalProductCommand deleteDigitalProductCommand) {
-        String figuraId = deleteDigitalProductCommand.id();
+        String digitalProductId = deleteDigitalProductCommand.id();
 
         DigitalProductListing currentDigitalProductListing;
-        try { currentDigitalProductListing = digitalProductRepository.getById(figuraId).orElseThrow(); }
+        try { currentDigitalProductListing = digitalProductRepository.getById(digitalProductId).orElseThrow(); }
         catch (Exception e) { e.printStackTrace(); return; }
-        DigitalProductEntity currentFigura = MapperDigitalProductDigitalProductEntity.figuraListingToFiguraEntity(currentDigitalProductListing);
+        DigitalProductEntity currentDigitalProduct = MapperDigitalProductDigitalProductEntity.digitalProductListingToDigitalProductEntity(currentDigitalProductListing);
 
-        String currentImageKey = currentFigura.getImageKey();
+        String currentImageKey = currentDigitalProduct.getImageKey();
         if (currentImageKey != null && !currentImageKey.isEmpty()) {
             try {
-                Path logoPath = Paths.get("/srv/cv-api/images/figures", currentImageKey);
+                Path logoPath = Paths.get("/srv/cv-api/images/digitalProducts", currentImageKey);
                 Files.deleteIfExists(logoPath);
             } catch (Exception e) { e.printStackTrace(); }
         }

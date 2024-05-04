@@ -23,37 +23,37 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
 
     @Override
     public Optional<DigitalProductListing> loadDigitalProductById(String id) {
-        Optional<DigitalProductListing> figuraListingOptional = digitalProductRepository.getById(id);
-        return figuraListingOptional.map(this::createFiguraListingFromListing);
+        Optional<DigitalProductListing> digitalProductListingOptional = digitalProductRepository.getById(id);
+        return digitalProductListingOptional.map(this::createDigitalProductListingFromListing);
     }
 
     @Override
     public Optional<DigitalProductListing> loadDigitalProductByName(String name) {
-        Optional<DigitalProductListing> figuraListingOptional = digitalProductRepository.getByName(name);
-        return figuraListingOptional.map(this::createFiguraListingFromListing);
+        Optional<DigitalProductListing> digitalProductListingOptional = digitalProductRepository.getByName(name);
+        return digitalProductListingOptional.map(this::createDigitalProductListingFromListing);
     }
 
     @Override
     public List<DigitalProductListing> loadAllDigitalProductsByName() {
-        List<DigitalProductListing> digitalProductListings = digitalProductRepository.loadAllFiguresByName();
+        List<DigitalProductListing> digitalProductListings = digitalProductRepository.loadAllDigitalProductsByName();
         return digitalProductListings.stream()
-                .map(this::createFiguraListingFromListing)
+                .map(this::createDigitalProductListingFromListing)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<DigitalProductListing> loadAllDigitalProductsByYear() {
-        List<DigitalProductListing> digitalProductListings = digitalProductRepository.loadAllFiguresByYear();
+    public List<DigitalProductListing> loadAllDigitalProductsByPrice() {
+        List<DigitalProductListing> digitalProductListings = digitalProductRepository.loadAllDigitalProductsByPrice();
         return digitalProductListings.stream()
-                .map(this::createFiguraListingFromListing)
+                .map(this::createDigitalProductListingFromListing)
                 .collect(Collectors.toList());
     }
     
     @Override
     public List<DigitalProductListing> loadAllDigitalProductsByType() {
-        List<DigitalProductListing> digitalProductListings = digitalProductRepository.loadAllFiguresByType();
+        List<DigitalProductListing> digitalProductListings = digitalProductRepository.loadAllDigitalProductsByType();
         return digitalProductListings.stream()
-                .map(this::createFiguraListingFromListing)
+                .map(this::createDigitalProductListingFromListing)
                 .collect(Collectors.toList());
     }
 
@@ -61,7 +61,7 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
     public List<DigitalProductListing> loadAllDigitalProducts() {
         List<DigitalProductListing> digitalProductListings = digitalProductRepository.findAllListing();
         return digitalProductListings.stream()
-                .map(this::createFiguraListingFromListing)
+                .map(this::createDigitalProductListingFromListing)
                 .collect(Collectors.toList());
     }
 
@@ -71,7 +71,7 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
         return digitalProductListings;
     }
 
-    private DigitalProductListing createFiguraListingFromListing(DigitalProductListing digitalProductListing) {
+    private DigitalProductListing createDigitalProductListingFromListing(DigitalProductListing digitalProductListing) {
         // Fetch the image file using the imageKey
         byte[] imageBytes = (digitalProductListing.imageKey() == null) ? null : fetchImageFromServer(digitalProductListing.imageKey());
 
@@ -79,17 +79,19 @@ public class FetchDigitalProductListingAdapter implements ListDigitalProductPort
         return new DigitalProductListing(
                 digitalProductListing.id(),
                 digitalProductListing.name(),
-                digitalProductListing.year(),
-                digitalProductListing.type(),
+                digitalProductListing.description(),
                 digitalProductListing.imageKey(),
                 imageBytes,
-                digitalProductListing.webUrl()
+                digitalProductListing.primaryColour(),
+                digitalProductListing.secondaryColour(),
+                digitalProductListing.price(),
+                digitalProductListing.type()
         );
     }
 
     private byte[] fetchImageFromServer(String imageKeyName) {
         try {
-            Path directoryPath = Paths.get("/srv/cv-api/images/figures");
+            Path directoryPath = Paths.get("/srv/cv-api/images/digitalProducts");
             if (Files.isDirectory(directoryPath)) {
                 try (Stream<Path> paths = Files.list(directoryPath)) {
                     Optional<Path> imagePathOptional = paths.filter(path -> path.getFileName().toString().equals(imageKeyName)).findFirst();

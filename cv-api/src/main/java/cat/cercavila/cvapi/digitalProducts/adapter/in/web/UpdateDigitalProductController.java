@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UpdateDigitalProductController {
-    private UpdateDigitalProductUseCase updateFiguraUseCase;
+    private UpdateDigitalProductUseCase updateDigitalProductUseCase;
 
-    public UpdateDigitalProductController(UpdateDigitalProductUseCase updateFiguraUseCase) { this.updateFiguraUseCase = updateFiguraUseCase; }
+    public UpdateDigitalProductController(UpdateDigitalProductUseCase updateDigitalProductUseCase) { this.updateDigitalProductUseCase = updateDigitalProductUseCase; }
 
-    @PutMapping("/api/figures")
-    public void updateFigura(@ModelAttribute UpdateDigitalProductCommand updateFiguraCommand) {
-        updateFiguraUseCase.updateDigitalProduct(updateFiguraCommand);
+    @PutMapping("/api/digitalproducts")
+    public void updateDigitalProduct(@ModelAttribute UpdateDigitalProductCommand updateDigitalProductCommand) {
+        updateDigitalProductUseCase.updateDigitalProduct(updateDigitalProductCommand);
     }
 }

@@ -13,10 +13,10 @@ public class ExceptionHandlingAdviceDigitalProduct {
     @ResponseBody
     @ExceptionHandler(DigitalProductNotFound.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String figuraNotFoundHandler(DigitalProductNotFound ex) { return ex.getMessage(); }
+    String digitalProductNotFoundHandler(DigitalProductNotFound ex) { return ex.getMessage(); }
 
     @ResponseBody
     @ExceptionHandler(DigitalProductAlreadyExists.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    String figuraAlreadyExistsHandler(DigitalProductAlreadyExists ex) { return ex.getMessage(); }
+    String digitalProductAlreadyExistsHandler(DigitalProductAlreadyExists ex) { return ex.getMessage(); }
 }

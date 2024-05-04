@@ -6,30 +6,35 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name = "figura")
+@Entity(name = "digitalProduct")
 public class DigitalProductEntity {
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
     private String name;
-    private int year;
-    private String type;
+    private String description;
     private String imageKey;
-    private String webUrl;
+    private String primaryColour;
+    private String secondaryColour;
+    private float price;
+    private String type;
 
     public void setId(String id) { this.id = id; }
     public String getId() { return id; }
 
     public String getName() {return name; }
     public void setName(String name) { this.name = name; }
-    public int getYear() { return year; }
-    public void setYear(int year) { this.year = year; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-    public String getImageKey() { return imageKey; }
+    public void setDescription(String description) { this.description = description; }
+    public String getDescription() { return description; }
     public void setImageKey(String imageKey) { this.imageKey = imageKey; }
-    public String getWebUrl() { return webUrl; }
-    public void setWebUrl(String webUrl) { this.webUrl = webUrl; }
-
+    public String getImageKey() { return imageKey; }
+    public void setPrimaryColour(String primaryColour) { this.primaryColour = primaryColour; }
+    public String getPrimaryColour() { return primaryColour; }
+    public void setSecondaryColour(String secondaryColour) { this.secondaryColour = secondaryColour; }
+    public String getSecondaryColour() { return secondaryColour; }
+    public void setPrice(float price) { this.price = price; }
+    public float getPrice() { return price; }
+    public void setType(String type) { this.type = type; }
+    public String getType() { return type; }
 }

@@ -11,52 +11,55 @@ import java.util.Optional;
 public interface DigitalProductRepository extends JpaRepository<DigitalProductEntity, Long> {
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
+            select new cat.cercavila.cvapi.digitalProducts.application.port.in.list.DigitalProductListing(
+                            p.id, p.name, p.description, p.imageKey, p.primaryColour, p.secondaryColour, p.price, p.type)
 
-            from figura f 
-            where f.id = :id
+            from digitalProduct p
+            where p.id = :id
         """)
     Optional<DigitalProductListing> getById(@Param("id") String nom);
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
+            select new cat.cercavila.cvapi.digitalProducts.application.port.in.list.DigitalProductListing(
+                            p.id, p.name, p.description, p.imageKey, p.primaryColour, p.secondaryColour, p.price, p.type)
 
-            from figura f 
-            where f.name = :name
+            from digitalProduct p
+            where p.name = :name
         """)
     Optional<DigitalProductListing> getByName(@Param("name") String name);
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
-            from figura f 
-            order by f.name
+            select new cat.cercavila.cvapi.digitalProducts.application.port.in.list.DigitalProductListing(
+                            p.id, p.name, p.description, p.imageKey, p.primaryColour, p.secondaryColour, p.price, p.type)
+
+            from digitalProduct p
+            order by p.name
         """)
-    List<DigitalProductListing> loadAllFiguresByName();
+    List<DigitalProductListing> loadAllDigitalProductsByName();
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
-            from figura f 
-            order by f.year
+            select new cat.cercavila.cvapi.digitalProducts.application.port.in.list.DigitalProductListing(
+                            p.id, p.name, p.description, p.imageKey, p.primaryColour, p.secondaryColour, p.price, p.type)
+
+            from digitalProduct p
+            order by p.price
         """)
-    List<DigitalProductListing> loadAllFiguresByYear();
+    List<DigitalProductListing> loadAllDigitalProductsByPrice();
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
-            from figura f 
-            order by f.type
+            select new cat.cercavila.cvapi.digitalProducts.application.port.in.list.DigitalProductListing(
+                            p.id, p.name, p.description, p.imageKey, p.primaryColour, p.secondaryColour, p.price, p.type)
+
+            from digitalProduct p
+            order by p.type
         """)
-    List<DigitalProductListing> loadAllFiguresByType();
+    List<DigitalProductListing> loadAllDigitalProductsByType();
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
+            select new cat.cercavila.cvapi.digitalProducts.application.port.in.list.DigitalProductListing(
+                            p.id, p.name, p.description, p.imageKey, p.primaryColour, p.secondaryColour, p.price, p.type)
 
-                            from figura f
+            from digitalProduct p
         """)
     List<DigitalProductListing> findAllListing();
 }

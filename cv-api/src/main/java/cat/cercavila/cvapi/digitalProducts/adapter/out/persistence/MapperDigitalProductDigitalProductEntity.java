@@ -4,32 +4,37 @@ import cat.cercavila.cvapi.digitalProducts.application.port.in.list.DigitalProdu
 import cat.cercavila.cvapi.digitalProducts.domain.DigitalProduct;
 
 public class MapperDigitalProductDigitalProductEntity {
-    public static DigitalProduct figuraEntityToFigura(DigitalProductEntity digitalProductEntity) {
-        DigitalProduct figura = new DigitalProduct(digitalProductEntity.getName(), digitalProductEntity.getYear(), digitalProductEntity.getType(), digitalProductEntity.getImageKey(), digitalProductEntity.getWebUrl());
-        // NOTE: Created from zero, with new ID. // TODO Check if this is true
-        return figura;
+    public static DigitalProduct digitalProductEntityToDigitalProduct(DigitalProductEntity digitalProductEntity) {
+        DigitalProduct digitalProduct = new DigitalProduct(digitalProductEntity.getName(), digitalProductEntity.getDescription(), digitalProductEntity.getImageKey(),
+                digitalProductEntity.getPrimaryColour(), digitalProductEntity.getSecondaryColour(), digitalProductEntity.getPrice(), digitalProductEntity.getType());
+        // NOTE: Created from zero, with new ID.
+        return digitalProduct;
     }
 
-    public static DigitalProductEntity figuraToFiguraEntity(DigitalProduct figura) {
+    public static DigitalProductEntity digitalProductToDigitalProductEntity(DigitalProduct digitalProduct) {
         DigitalProductEntity digitalProductEntity = new DigitalProductEntity();
-        digitalProductEntity.setId(figura.getId());
-        digitalProductEntity.setName(figura.getName());
-        digitalProductEntity.setYear(figura.getYear());
-        digitalProductEntity.setType(figura.getType());
-        digitalProductEntity.setImageKey(figura.getImageKey());
-        digitalProductEntity.setWebUrl(figura.getWebUrl());
+        digitalProductEntity.setId(digitalProduct.getId());
+        digitalProductEntity.setName(digitalProduct.getName());
+        digitalProductEntity.setDescription(digitalProduct.getDescription());
+        digitalProductEntity.setImageKey(digitalProduct.getImageKey());
+        digitalProductEntity.setPrimaryColour(digitalProduct.getPrimaryColour());
+        digitalProductEntity.setSecondaryColour(digitalProduct.getSecondaryColour());
+        digitalProductEntity.setPrice(digitalProduct.getPrice());
+        digitalProductEntity.setType(digitalProduct.getType());
 
         return digitalProductEntity;
     }
 
-    public static DigitalProductEntity figuraListingToFiguraEntity(DigitalProductListing currentDigitalProductListing) {
+    public static DigitalProductEntity digitalProductListingToDigitalProductEntity(DigitalProductListing currentDigitalProductListing) {
         DigitalProductEntity digitalProductEntity = new DigitalProductEntity();
         digitalProductEntity.setId(currentDigitalProductListing.id());
         digitalProductEntity.setName(currentDigitalProductListing.name());
-        digitalProductEntity.setYear(currentDigitalProductListing.year());
-        digitalProductEntity.setType(currentDigitalProductListing.type());
+        digitalProductEntity.setDescription(currentDigitalProductListing.description());
         digitalProductEntity.setImageKey(currentDigitalProductListing.imageKey());
-        digitalProductEntity.setWebUrl(currentDigitalProductListing.webUrl());
+        digitalProductEntity.setPrimaryColour(currentDigitalProductListing.primaryColour());
+        digitalProductEntity.setSecondaryColour(currentDigitalProductListing.secondaryColour());
+        digitalProductEntity.setPrice(currentDigitalProductListing.price());
+        digitalProductEntity.setType(currentDigitalProductListing.type());
 
         return digitalProductEntity;
     }

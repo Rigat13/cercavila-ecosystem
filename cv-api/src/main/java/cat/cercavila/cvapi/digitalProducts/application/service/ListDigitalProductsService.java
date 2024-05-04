@@ -30,7 +30,7 @@ public class ListDigitalProductsService implements ListDigitalProducts {
     public List<DigitalProductListing> getAllDigitalProductsByName() { return listDigitalProductsPort.loadAllDigitalProductsByName(); }
 
     @Override
-    public List<DigitalProductListing> getAllDigitalProductsByYear() { return listDigitalProductsPort.loadAllDigitalProductsByYear(); }
+    public List<DigitalProductListing> getAllDigitalProductsByPrice() { return listDigitalProductsPort.loadAllDigitalProductsByPrice(); }
 
     @Override
     public List<DigitalProductListing> getAllDigitalProductsByType() { return listDigitalProductsPort.loadAllDigitalProductsByType(); }

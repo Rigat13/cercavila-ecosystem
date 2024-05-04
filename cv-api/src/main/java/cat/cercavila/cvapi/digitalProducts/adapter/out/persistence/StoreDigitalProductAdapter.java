@@ -20,17 +20,19 @@ public class StoreDigitalProductAdapter implements StoreDigitalProductPort {
     public void storeDigitalProduct(CreateDigitalProductCommand createDigitalProductCommand) {
         String imageKeyName = generateImageKeyName(createDigitalProductCommand);
         if (!imageKeyName.equals("")) saveImageToServer(createDigitalProductCommand.image(), imageKeyName);
-        digitalProductRepository.save(createFiguraCommand2FiguraEntity(createDigitalProductCommand, imageKeyName));
+        digitalProductRepository.save(createDigitalProductCommand2DigitalProductEntity(createDigitalProductCommand, imageKeyName));
     }
 
-    private DigitalProductEntity createFiguraCommand2FiguraEntity(CreateDigitalProductCommand createDigitalProductCommand, String imageKey) {
+    private DigitalProductEntity createDigitalProductCommand2DigitalProductEntity(CreateDigitalProductCommand createDigitalProductCommand, String imageKey) {
         DigitalProductEntity digitalProductEntity = new DigitalProductEntity();
         digitalProductEntity.setId(UUID.randomUUID().toString()); // IMPORTANT: This is to create a new DigitalProduct without an ID
         digitalProductEntity.setName(createDigitalProductCommand.name());
-        digitalProductEntity.setYear(createDigitalProductCommand.year());
-        digitalProductEntity.setType(createDigitalProductCommand.type());
+        digitalProductEntity.setDescription(createDigitalProductCommand.description());
         digitalProductEntity.setImageKey(imageKey);
-        digitalProductEntity.setWebUrl(createDigitalProductCommand.webUrl());
+        digitalProductEntity.setPrimaryColour(createDigitalProductCommand.primaryColour());
+        digitalProductEntity.setSecondaryColour(createDigitalProductCommand.secondaryColour());
+        digitalProductEntity.setPrice(createDigitalProductCommand.price());
+        digitalProductEntity.setType(createDigitalProductCommand.type());
 
         return digitalProductEntity;
     }
@@ -39,15 +41,15 @@ public class StoreDigitalProductAdapter implements StoreDigitalProductPort {
         if (createDigitalProductCommand.image() == null || createDigitalProductCommand.image().isEmpty()) return "";
         String original = createDigitalProductCommand.image().getOriginalFilename();
         String extension = original.substring(original.lastIndexOf("."));
-        String figuraName = createDigitalProductCommand.name();
-        figuraName = figuraName.replaceAll("[^a-zA-Z0-9.-]", "_");
-        return "image_figura_" + figuraName + "_" + UUID.randomUUID() + extension;
+        String digitalProductName = createDigitalProductCommand.name();
+        digitalProductName = digitalProductName.replaceAll("[^a-zA-Z0-9.-]", "_");
+        return "image_digitalProduct_" + digitalProductName + "_" + UUID.randomUUID() + extension;
     }
 
     private void saveImageToServer(MultipartFile imageFile, String imageKeyName) {
         if (imageFile == null || imageFile.isEmpty()) return;
         try {
-            Path filePath = Paths.get("/srv/cv-api/images/figures", imageKeyName);
+            Path filePath = Paths.get("/srv/cv-api/images/digitalProducts", imageKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (Exception e) { e.printStackTrace(); }
     }
