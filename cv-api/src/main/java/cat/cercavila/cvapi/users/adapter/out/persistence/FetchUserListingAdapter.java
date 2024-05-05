@@ -22,19 +22,19 @@ public class FetchUserListingAdapter implements ListUserPort {
     }
 
     @Override
-    public Optional<UserListing> loadCollaById(String id) {
+    public Optional<UserListing> loadUserById(String id) {
         Optional<UserListing> collaListingOptional = userRepository.getById(id);
         return collaListingOptional.map(this::createCollaListingFromListing);
     }
 
     @Override
-    public Optional<UserListing> loadCollaByName(String name) {
+    public Optional<UserListing> loadUserByName(String name) {
         Optional<UserListing> collaListingOptional = userRepository.getByName(name);
         return collaListingOptional.map(this::createCollaListingFromListing);
     }
 
     @Override
-    public List<UserListing> loadAllCollesByName() {
+    public List<UserListing> loadAllUsersByName() {
         List<UserListing> userListings = userRepository.loadAllCollesByName();
         return userListings.stream()
                 .map(this::createCollaListingFromListing)
@@ -42,19 +42,16 @@ public class FetchUserListingAdapter implements ListUserPort {
     }
 
     @Override
-    public List<UserListing> loadAllCollesByFoundationYear() {
-        List<UserListing> userListings = userRepository.loadAllCollesByFoundationYear();
+    public List<UserListing> loadAllUsers() {
+        List<UserListing> userListings = userRepository.findAllListing();
         return userListings.stream()
                 .map(this::createCollaListingFromListing)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<UserListing> loadAllColles() {
-        List<UserListing> userListings = userRepository.findAllListing();
-        return userListings.stream()
-                .map(this::createCollaListingFromListing)
-                .collect(Collectors.toList());
+    public List<String> loadAllUserNicknames() {
+        return userRepository.loadAllUserNicknames();
     }
 
     private UserListing createCollaListingFromListing(UserListing userListing) {
@@ -79,22 +76,6 @@ public class FetchUserListingAdapter implements ListUserPort {
                 userListing.instagram(),
                 userListing.figures()
         );
-    }
-
-    private byte[] fetchImageFromServer(String logoKeyName) {
-        try {
-            Path directoryPath = Paths.get("/srv/cv-api/images");
-            if (Files.isDirectory(directoryPath)) {
-                try (Stream<Path> paths = Files.list(directoryPath)) {
-                    Optional<Path> imagePathOptional = paths.filter(path -> path.getFileName().toString().equals(logoKeyName)).findFirst();
-                    if (imagePathOptional.isPresent()) {
-                        Path imagePath = imagePathOptional.get();
-                        System.out.println("IMAGE FILE PATH: " + imagePath);
-                        return Files.readAllBytes(imagePath);
-                    } else { System.out.println("Image file not found: " + logoKeyName); return null; }
-                }
-            } else { System.out.println("Directory not found: " + directoryPath); return null; }
-        } catch (IOException e) { System.err.println("Error reading image file: " + e.getMessage()); e.printStackTrace(); return null; }
     }
 }
 

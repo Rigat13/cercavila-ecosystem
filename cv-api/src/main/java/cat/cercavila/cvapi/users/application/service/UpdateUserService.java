@@ -14,8 +14,8 @@ public class UpdateUserService implements UpdateUserUseCase {
     }
 
     @Override
-    public void updateColla(UpdateUserCommand updateUserCommand) {
+    public void updateUser(UpdateUserCommand updateUserCommand) {
         // TODO perform checks
-        updateCollaPort.updateColla(updateUserCommand);
+        updateCollaPort.updateUser(updateUserCommand);
     }
 }

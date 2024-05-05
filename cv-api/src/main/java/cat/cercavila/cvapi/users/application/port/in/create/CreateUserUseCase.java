@@ -6,5 +6,5 @@ import javax.validation.Valid;
 
 @Validated
 public interface CreateUserUseCase {
-    void createColla(@Valid CreateUserCommand createUserCommand);
+    void createUser(@Valid CreateUserCommand createUserCommand);
 }

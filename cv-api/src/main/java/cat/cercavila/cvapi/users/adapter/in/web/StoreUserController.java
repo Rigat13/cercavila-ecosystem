@@ -14,8 +14,8 @@ public class StoreUserController {
         this.createUserUseCase = createUserUseCase;
     }
 
-    @PostMapping("/api/colles")
-    public void storeColla(@ModelAttribute CreateUserCommand createUserCommand) {
-        createUserUseCase.createColla(createUserCommand);
+    @PostMapping("/api/users")
+    public void storeUser(@ModelAttribute CreateUserCommand createUserCommand) {
+        createUserUseCase.createUser(createUserCommand);
     }
 }

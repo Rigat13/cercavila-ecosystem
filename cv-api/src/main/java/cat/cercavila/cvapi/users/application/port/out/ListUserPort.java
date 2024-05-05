@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ListUserPort {
-    Optional<UserListing> loadCollaById(String id);
-    Optional<UserListing> loadCollaByName(String name);
+    Optional<UserListing> loadUserById(String id);
+    Optional<UserListing> loadUserByName(String name);
 
-    List<UserListing> loadAllCollesByName();
-    List<UserListing> loadAllCollesByFoundationYear();
-    List<UserListing> loadAllColles();
+    List<UserListing> loadAllUsersByName();
+    List<UserListing> loadAllUsers();
+    List<String> loadAllUserNicknames();
 }

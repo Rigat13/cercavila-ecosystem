@@ -12,8 +12,8 @@ public class DeleteUserController {
 
     public DeleteUserController(DeleteUserUseCase deleteUserUseCase) { this.deleteUserUseCase = deleteUserUseCase; }
 
-    @DeleteMapping("/api/colles")
-    public void deleteColla(@RequestBody DeleteUserCommand deleteUserCommand) {
-        deleteUserUseCase.deleteColla(deleteUserCommand);
+    @DeleteMapping("/api/users")
+    public void deleteUser(@RequestBody DeleteUserCommand deleteUserCommand) {
+        deleteUserUseCase.deleteUser(deleteUserCommand);
     }
 }

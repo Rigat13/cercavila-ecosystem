@@ -17,7 +17,7 @@ public class StoreUserAdapter implements StoreUserPort {
     public StoreUserAdapter(UserRepository userRepository) { this.userRepository = userRepository; }
 
     @Override
-    public void storeColla(CreateUserCommand createUserCommand) {
+    public void storeUser(CreateUserCommand createUserCommand) {
         String logoKeyName = generateLogoKeyName(createUserCommand);
         if (!logoKeyName.equals("")) saveImageToServer(createUserCommand.logo(), logoKeyName);
         userRepository.save(createCollaCommand2CollaEntity(createUserCommand, logoKeyName));

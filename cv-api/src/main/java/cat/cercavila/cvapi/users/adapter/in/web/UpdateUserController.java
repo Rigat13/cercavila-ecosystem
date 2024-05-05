@@ -12,8 +12,8 @@ public class UpdateUserController {
 
     public UpdateUserController(UpdateUserUseCase updateUserUseCase) { this.updateUserUseCase = updateUserUseCase; }
 
-    @PutMapping("/api/colles")
-    public void updateColla(@ModelAttribute UpdateUserCommand updateUserCommand) {
-        updateUserUseCase.updateColla(updateUserCommand);
+    @PutMapping("/api/users")
+    public void updateUser(@ModelAttribute UpdateUserCommand updateUserCommand) {
+        updateUserUseCase.updateUser(updateUserCommand);
     }
 }

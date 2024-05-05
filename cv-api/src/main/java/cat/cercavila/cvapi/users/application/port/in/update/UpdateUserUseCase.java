@@ -6,5 +6,5 @@ import javax.validation.Valid;
 
 @Validated
 public interface UpdateUserUseCase {
-    void updateColla(@Valid UpdateUserCommand updateUserCommand);
+    void updateUser(@Valid UpdateUserCommand updateUserCommand);
 }

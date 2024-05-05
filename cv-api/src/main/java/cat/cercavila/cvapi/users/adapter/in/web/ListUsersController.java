@@ -17,18 +17,15 @@ public class ListUsersController {
 
     public ListUsersController(ListUsers listUsers) { this.listUsers = listUsers; }
 
-    @GetMapping("/api/colles/id/{id}")
-    public UserListing getCollaById(@PathVariable String id) { return listUsers.getCollaById(id); }
+    @GetMapping("/api/users/id/{id}")
+    public UserListing getUserById(@PathVariable String id) { return listUsers.getUserById(id); }
 
-    @GetMapping("/api/colles/name/{name}")
-    public UserListing getCollaByName(@PathVariable String name) { return listUsers.getCollaByName(name); }
+    @GetMapping("/api/users/name/{name}")
+    public UserListing getUserByName(@PathVariable String name) { return listUsers.getUserByName(name); }
 
-    @GetMapping("/api/colles/name")
-    public List<UserListing> getAllCollesByName() { return listUsers.getAllCollesByName(); }
+    @GetMapping("/api/users/name")
+    public List<UserListing> getAllUsersByName() { return listUsers.getAllUsersByName(); }
 
-    @GetMapping("/api/colles/foundationYear")
-    public List<UserListing> getAllCollesByFoundationYear() { return listUsers.getAllCollesByFoundationYear(); }
-
-    @GetMapping("/api/colles")
-    public List<UserListing> getAllColles() { return listUsers.getAllColles(); }
+    @GetMapping("/api/users")
+    public List<UserListing> getAllUsers() { return listUsers.getAllUsers(); }
 }

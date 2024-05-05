@@ -6,54 +6,60 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name = "colla")
+@Entity(name = "user")
 public class UserEntity {
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
+    private String nickname;
     private String name;
-    private String entity;
-    private int foundationYear;
-    private String description;
-    private String type;
-    private String neighbourhood;
-    private String primaryColour;
-    private String secondaryColour;
-    private String logoKey;
-    private String music;
+    private String firstSurname;
+    private String secondSurname;
     private String email;
-    private String instagram;
-    private String figures;
+    private String password;
+    private String roles;
+    private float coins;
+    private String digitalProducts;
+    private String activeUserImage;
+    private String activeUserImageFrame;
+    private String activeUserBackgroundImage;
+    private String activeUserTitle;
+    private String activeUserBackgroundColour;
+    private String activePins;
+
 
     public void setId(String id) { this.id = id; }
     public String getId() { return id; }
 
-    public String getName() {return name; }
+    public void setNickname(String nickname) { this.nickname = nickname; }
+    public String getNickname() { return nickname; }
     public void setName(String name) { this.name = name; }
-    public String getEntity() { return entity; }
-    public void setEntity(String entity) { this.entity = entity; }
-    public int getFoundationYear() { return foundationYear; }
-    public void setFoundationYear(int foundationYear) { this.foundationYear = foundationYear; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-    public String getNeighbourhood() { return neighbourhood; }
-    public void setNeighbourhood(String neighbourhood) { this.neighbourhood = neighbourhood; }
-    public String getPrimaryColour() { return primaryColour; }
-    public void setPrimaryColour(String primaryColour) { this.primaryColour = primaryColour; }
-    public String getSecondaryColour() { return secondaryColour; }
-    public void setSecondaryColour(String secondaryColour) { this.secondaryColour = secondaryColour; }
-    public String getLogoKey() { return logoKey; }
-    public void setLogoKey(String logoKey) { this.logoKey = logoKey; }
-    public String getMusic() { return music; }
-    public void setMusic(String music) { this.music = music; }
-    public String getEmail() { return email; }
+    public String getName() { return name; }
+    public void setFirstSurname(String firstSurname) { this.firstSurname = firstSurname; }
+    public String getFirstSurname() { return firstSurname; }
+    public void setSecondSurname(String secondSurname) { this.secondSurname = secondSurname; }
+    public String getSecondSurname() { return secondSurname; }
     public void setEmail(String email) { this.email = email; }
-    public String getInstagram() { return instagram; }
-    public void setInstagram(String instagram) { this.instagram = instagram; }
-    public String getFigures() { return figures; }
-    public void setFigures(String figures) { this.figures = figures; }
-
+    public String getEmail() { return email; }
+    public void setPassword(String password) { this.password = password; }
+    public String getPassword() { return password; }
+    public void setRoles(String roles) { this.roles = roles; }
+    public String getRoles() { return roles; }
+    public void setCoins(float coins) { this.coins = coins; }
+    public float getCoins() { return coins; }
+    public void setDigitalProducts(String digitalProducts) { this.digitalProducts = digitalProducts; }
+    public String getDigitalProducts() { return digitalProducts; }
+    public void setActiveUserImage(String activeUserImage) { this.activeUserImage = activeUserImage; }
+    public String getActiveUserImage() { return activeUserImage; }
+    public void setActiveUserImageFrame(String activeUserImageFrame) { this.activeUserImageFrame = activeUserImageFrame; }
+    public String getActiveUserImageFrame() { return activeUserImageFrame; }
+    public void setActiveUserBackgroundImage(String activeUserBackgroundImage) { this.activeUserBackgroundImage = activeUserBackgroundImage; }
+    public String getActiveUserBackgroundImage() { return activeUserBackgroundImage; }
+    public void setActiveUserTitle(String activeUserTitle) { this.activeUserTitle = activeUserTitle; }
+    public String getActiveUserTitle() { return activeUserTitle; }
+    public void setActiveUserBackgroundColour(String activeUserBackgroundColour) { this.activeUserBackgroundColour = activeUserBackgroundColour; }
+    public String getActiveUserBackgroundColour() { return activeUserBackgroundColour; }
+    public void setActivePins(String activePins) { this.activePins = activePins; }
+    public String getActivePins() { return activePins; }
 }

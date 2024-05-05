@@ -6,5 +6,5 @@ import javax.validation.Valid;
 
 @Validated
 public interface DeleteUserUseCase {
-    void deleteColla(@Valid DeleteUserCommand deleteUserCommand);
+    void deleteUser(@Valid DeleteUserCommand deleteUserCommand);
 }

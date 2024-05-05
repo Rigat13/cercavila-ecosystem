@@ -19,7 +19,7 @@ public class UpdateUserAdapter implements UpdateUserPort {
     public UpdateUserAdapter(UserRepository userRepository) { this.userRepository = userRepository; }
 
     @Override
-    public void updateColla(UpdateUserCommand updateUserCommand) {
+    public void updateUser(UpdateUserCommand updateUserCommand) {
         String logoKeyName = generateLogoKeyName(updateUserCommand);
         if (!logoKeyName.equals("")) {
             removeCurrentLogo(updateUserCommand);

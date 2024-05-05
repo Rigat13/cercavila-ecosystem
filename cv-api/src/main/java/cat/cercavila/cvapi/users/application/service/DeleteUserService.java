@@ -14,8 +14,8 @@ public class DeleteUserService implements DeleteUserUseCase {
     }
 
     @Override
-    public void deleteColla(DeleteUserCommand deleteUserCommand) {
+    public void deleteUser(DeleteUserCommand deleteUserCommand) {
         // TODO perform checks
-        deleteUserPort.deleteColla(deleteUserCommand);
+        deleteUserPort.deleteUser(deleteUserCommand);
     }
 }

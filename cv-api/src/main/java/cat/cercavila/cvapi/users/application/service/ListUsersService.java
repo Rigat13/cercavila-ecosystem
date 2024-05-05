@@ -15,24 +15,24 @@ public class ListUsersService implements ListUsers {
     ListUsersService(ListUserPort listCollesPort) { this.listCollesPort = listCollesPort; }
 
     @Override
-    public UserListing getCollaById(String id) {
-        return listCollesPort.loadCollaById(id)
+    public UserListing getUserById(String id) {
+        return listCollesPort.loadUserById(id)
                 .orElseThrow(() -> new UserNotFound(id));
     }
 
     @Override
-    public UserListing getCollaByName(String name) {
-        return listCollesPort.loadCollaByName(name)
+    public UserListing getUserByName(String name) {
+        return listCollesPort.loadUserByName(name)
                 .orElseThrow(() -> new UserNotFound(name));
     }
 
     @Override
-    public List<UserListing> getAllCollesByName() { return listCollesPort.loadAllCollesByName(); }
+    public List<UserListing> getAllUsersByName() { return listCollesPort.loadAllUsersByName(); }
 
     @Override
-    public List<UserListing> getAllCollesByFoundationYear() { return listCollesPort.loadAllCollesByFoundationYear(); }
+    public List<UserListing> getAllUsers() { return listCollesPort.loadAllUsers(); }
 
     @Override
-    public List<UserListing> getAllColles() { return listCollesPort.loadAllColles(); }
+    public List<String> getAllUserNicknames() { return listCollesPort.loadAllUserNicknames(); }
 
 }

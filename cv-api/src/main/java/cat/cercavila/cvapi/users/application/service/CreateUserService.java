@@ -14,9 +14,9 @@ public class CreateUserService implements CreateUserUseCase {
     }
 
     @Override
-    public void createColla(CreateUserCommand createUserCommand) {
+    public void createUser(CreateUserCommand createUserCommand) {
         // TODO perform checks
-        storeUserPort.storeColla(createUserCommand);
+        storeUserPort.storeUser(createUserCommand);
     }
 
 }

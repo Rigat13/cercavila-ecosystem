@@ -13,10 +13,10 @@ public class ExceptionHandlingAdviceUser {
     @ResponseBody
     @ExceptionHandler(UserNotFound.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String collaNotFoundHandler(UserNotFound ex) { return ex.getMessage(); }
+    String userNotFoundHandler(UserNotFound ex) { return ex.getMessage(); }
 
     @ResponseBody
     @ExceptionHandler(UserAlreadyExists.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    String collaAlreadyExistsHandler(UserAlreadyExists ex) { return ex.getMessage(); }
+    String userAlreadyExistsHandler(UserAlreadyExists ex) { return ex.getMessage(); }
 }
