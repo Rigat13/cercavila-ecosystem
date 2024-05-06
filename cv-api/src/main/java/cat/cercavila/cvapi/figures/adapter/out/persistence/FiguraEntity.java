@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity(name = "figura")
+@Table(name = "figures")
 public class FiguraEntity {
     @Id
     @GeneratedValue(generator="system-uuid")

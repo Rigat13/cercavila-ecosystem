@@ -2,12 +2,10 @@ package cat.cercavila.cvapi.users.adapter.out.persistence;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "user")
+@Table(name = "users")
 public class UserEntity {
     @Id
     @GeneratedValue(generator="system-uuid")
