@@ -69,10 +69,7 @@ public class MapperUserUserEntity {
         return userEntity;
     }
 
-    private static String listStringToString(List<String> list) {
-        return list.stream().collect(Collectors.joining(","));
-    }
-
+    private static String listStringToString(List<String> list) { return list.stream().collect(Collectors.joining(",")); }
     private static List<String> stringToListString(String string) {
         return Arrays.asList(string.split(","));
     }
