@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
+    boolean existsByNickname(String nickname);
+
     @Query("""
             select new cat.cercavila.cvapi.users.application.port.in.list.UserListing(
                             u.id, u.nickname, u.name, u.firstSurname, u.secondSurname, u.email, u.password, u.roles, 

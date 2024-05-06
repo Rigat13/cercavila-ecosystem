@@ -2,6 +2,7 @@ package cat.cercavila.cvapi.users.adapter.out.persistence;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ public class UserEntity {
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
+
+    @Column(nullable = false, unique = true)  // Ensure nickname is unique
     private String nickname;
     private String name;
     private String firstSurname;

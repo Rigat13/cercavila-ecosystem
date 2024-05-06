@@ -2,6 +2,8 @@ package cat.cercavila.cvapi.users.adapter.out.persistence;
 
 import cat.cercavila.cvapi.users.application.port.in.create.CreateUserCommand;
 import cat.cercavila.cvapi.users.application.port.out.StoreUserPort;
+import cat.cercavila.cvapi.users.application.service.exception.UserNicknameAlreadyExists;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,8 +22,10 @@ public class StoreUserAdapter implements StoreUserPort {
     public StoreUserAdapter(UserRepository userRepository) { this.userRepository = userRepository; }
 
     @Override
-    public void storeUser(CreateUserCommand createUserCommand) {
-        userRepository.save(createUserCommand2UserEntity(createUserCommand));
+    public void storeUser(CreateUserCommand createUserCommand) throws UserNicknameAlreadyExists {
+        if (userRepository.existsByNickname(createUserCommand.nickname())) { throw new UserNicknameAlreadyExists(createUserCommand.nickname()); }
+        try { userRepository.save(createUserCommand2UserEntity(createUserCommand));
+        } catch (DataIntegrityViolationException e) { throw new UserNicknameAlreadyExists(createUserCommand.nickname()); }
     }
 
     private UserEntity createUserCommand2UserEntity(CreateUserCommand createUserCommand) {
