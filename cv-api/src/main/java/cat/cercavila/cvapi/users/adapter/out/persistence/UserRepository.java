@@ -26,7 +26,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
                             u.coins, u.digitalProducts, u.activeUserImage, u.activeUserImageFrame, u.activeUserBackgroundImage, 
                             u.activeUserTitle, u.activeUserBackgroundColour, u.activePins)
             from user u
-            where c.name = :name
+            where u.name = :name
         """)
     Optional<UserListing> getByName(@Param("name") String name);
 
@@ -36,9 +36,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
                             u.coins, u.digitalProducts, u.activeUserImage, u.activeUserImageFrame, u.activeUserBackgroundImage, 
                             u.activeUserTitle, u.activeUserBackgroundColour, u.activePins)
             from user u
-            order by c.name
+            order by u.name
         """)
-    List<UserListing> loadAllCollesByName();
+    List<UserListing> loadAllUsersByName();
 
     @Query("""
             select new cat.cercavila.cvapi.users.application.port.in.list.UserListing(

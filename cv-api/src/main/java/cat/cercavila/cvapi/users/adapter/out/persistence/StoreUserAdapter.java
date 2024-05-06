@@ -8,7 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class StoreUserAdapter implements StoreUserPort {
@@ -18,45 +21,28 @@ public class StoreUserAdapter implements StoreUserPort {
 
     @Override
     public void storeUser(CreateUserCommand createUserCommand) {
-        String logoKeyName = generateLogoKeyName(createUserCommand);
-        if (!logoKeyName.equals("")) saveImageToServer(createUserCommand.logo(), logoKeyName);
-        userRepository.save(createCollaCommand2CollaEntity(createUserCommand, logoKeyName));
+        userRepository.save(createUserCommand2UserEntity(createUserCommand));
     }
 
-    private UserEntity createCollaCommand2CollaEntity(CreateUserCommand createUserCommand, String logoKey) {
+    private UserEntity createUserCommand2UserEntity(CreateUserCommand createUserCommand) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(UUID.randomUUID().toString()); // IMPORTANT: This is to create a new User without an ID
+        userEntity.setNickname(createUserCommand.nickname());
         userEntity.setName(createUserCommand.name());
-        userEntity.setEntity(createUserCommand.entity());
-        userEntity.setFoundationYear(createUserCommand.foundationYear());
-        userEntity.setDescription(createUserCommand.description());
-        userEntity.setType(createUserCommand.type());
-        userEntity.setNeighbourhood(createUserCommand.neighbourhood());
-        userEntity.setPrimaryColour(createUserCommand.primaryColour());
-        userEntity.setSecondaryColour(createUserCommand.secondaryColour());
-        userEntity.setLogoKey(logoKey);
-        userEntity.setMusic(createUserCommand.music());
+        userEntity.setFirstSurname(createUserCommand.firstSurname());
+        userEntity.setSecondSurname(createUserCommand.secondSurname());
         userEntity.setEmail(createUserCommand.email());
-        userEntity.setInstagram(createUserCommand.instagram());
-        userEntity.setFigures(createUserCommand.figures());
+        userEntity.setPassword(createUserCommand.password());
+        userEntity.setRoles(createUserCommand.roles());
+        userEntity.setCoins(createUserCommand.coins());
+        userEntity.setDigitalProducts(createUserCommand.digitalProducts());
+        userEntity.setActiveUserImage(createUserCommand.activeUserImage());
+        userEntity.setActiveUserImageFrame(createUserCommand.activeUserImageFrame());
+        userEntity.setActiveUserBackgroundImage(createUserCommand.activeUserBackgroundImage());
+        userEntity.setActiveUserTitle(createUserCommand.activeUserTitle());
+        userEntity.setActiveUserBackgroundColour(createUserCommand.activeUserBackgroundColour());
+        userEntity.setActivePins(createUserCommand.activePins());
 
         return userEntity;
-    }
-
-    private String generateLogoKeyName(CreateUserCommand createUserCommand) {
-        if (createUserCommand.logo() == null || createUserCommand.logo().isEmpty()) return "";
-        String original = createUserCommand.logo().getOriginalFilename();
-        String extension = original.substring(original.lastIndexOf("."));
-        String collaName = createUserCommand.name();
-        collaName = collaName.replaceAll("[^a-zA-Z0-9.-]", "_");
-        return "logo_colla_" + collaName + "_" + UUID.randomUUID() + extension;
-    }
-
-    private void saveImageToServer(MultipartFile imageFile, String logoKeyName) {
-        if (imageFile == null || imageFile.isEmpty()) return;
-        try {
-            Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
-            Files.copy(imageFile.getInputStream(), filePath);
-        } catch (Exception e) { e.printStackTrace(); }
     }
 }

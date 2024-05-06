@@ -10,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class UpdateUserAdapter implements UpdateUserPort {
@@ -20,65 +22,28 @@ public class UpdateUserAdapter implements UpdateUserPort {
 
     @Override
     public void updateUser(UpdateUserCommand updateUserCommand) {
-        String logoKeyName = generateLogoKeyName(updateUserCommand);
-        if (!logoKeyName.equals("")) {
-            removeCurrentLogo(updateUserCommand);
-            saveImageToServer(updateUserCommand.logo(), logoKeyName);
-        }
-        userRepository.save(updateCollaCommand2CollaEntity(updateUserCommand, logoKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
+        userRepository.save(updateUserCommand2UserEntity(updateUserCommand)); // NOTE: save does not mean "create"; if it exists, it will update
     }
 
-    private UserEntity updateCollaCommand2CollaEntity(UpdateUserCommand updateUserCommand, String logoKey) {
+    private UserEntity updateUserCommand2UserEntity(UpdateUserCommand updateUserCommand) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(updateUserCommand.id());
+        userEntity.setNickname(updateUserCommand.nickname());
         userEntity.setName(updateUserCommand.name());
-        userEntity.setEntity(updateUserCommand.entity());
-        userEntity.setFoundationYear(updateUserCommand.foundationYear());
-        userEntity.setDescription(updateUserCommand.description());
-        userEntity.setType(updateUserCommand.type());
-        userEntity.setNeighbourhood(updateUserCommand.neighbourhood());
-        userEntity.setPrimaryColour(updateUserCommand.primaryColour());
-        userEntity.setSecondaryColour(updateUserCommand.secondaryColour());
-        userEntity.setLogoKey(logoKey);
-        userEntity.setMusic(updateUserCommand.music());
+        userEntity.setFirstSurname(updateUserCommand.firstSurname());
+        userEntity.setSecondSurname(updateUserCommand.secondSurname());
         userEntity.setEmail(updateUserCommand.email());
-        userEntity.setInstagram(updateUserCommand.instagram());
-        userEntity.setFigures(updateUserCommand.figures());
+        userEntity.setPassword(updateUserCommand.password());
+        userEntity.setRoles(updateUserCommand.roles());
+        userEntity.setCoins(updateUserCommand.coins());
+        userEntity.setDigitalProducts(updateUserCommand.digitalProducts());
+        userEntity.setActiveUserImage(updateUserCommand.activeUserImage());
+        userEntity.setActiveUserImageFrame(updateUserCommand.activeUserImageFrame());
+        userEntity.setActiveUserBackgroundImage(updateUserCommand.activeUserBackgroundImage());
+        userEntity.setActiveUserTitle(updateUserCommand.activeUserTitle());
+        userEntity.setActiveUserBackgroundColour(updateUserCommand.activeUserBackgroundColour());
+        userEntity.setActivePins(updateUserCommand.activePins());
 
         return userEntity;
-    }
-
-    private String generateLogoKeyName(UpdateUserCommand updateUserCommand) {
-        if (updateUserCommand.logo() == null || updateUserCommand.logo().isEmpty()) return "";
-        String original = updateUserCommand.logo().getOriginalFilename();
-        String extension = original.substring(original.lastIndexOf("."));
-        String collaName = updateUserCommand.name();
-        collaName = collaName.replaceAll("[^a-zA-Z0-9.-]", "_");
-        return "logo_colla_" + collaName + "_" + UUID.randomUUID() + extension;
-    }
-
-    private void removeCurrentLogo(UpdateUserCommand updateUserCommand) {
-        String collaId = updateUserCommand.id();
-
-        UserListing currentUserListing;
-        try { currentUserListing = userRepository.getById(collaId).orElseThrow(); }
-        catch (Exception e) { e.printStackTrace(); return; }
-        UserEntity currentColla = MapperUserUserEntity.collaListingToCollaEntity(currentUserListing);
-
-        String currentLogoKey = currentColla.getLogoKey();
-        if (currentLogoKey != null && !currentLogoKey.isEmpty()) {
-            try {
-                Path logoPath = Paths.get("/srv/cv-api/images", currentLogoKey);
-                Files.deleteIfExists(logoPath);
-            } catch (Exception e) { e.printStackTrace(); }
-        }
-    }
-
-    private void saveImageToServer(MultipartFile imageFile, String logoKeyName) {
-        if (imageFile == null || imageFile.isEmpty()) return;
-        try {
-            Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
-            Files.copy(imageFile.getInputStream(), filePath);
-        } catch (Exception e) { e.printStackTrace(); }
     }
 }

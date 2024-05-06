@@ -4,14 +4,9 @@ import cat.cercavila.cvapi.users.application.port.in.list.UserListing;
 import cat.cercavila.cvapi.users.application.port.out.ListUserPort;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class FetchUserListingAdapter implements ListUserPort {
@@ -23,21 +18,21 @@ public class FetchUserListingAdapter implements ListUserPort {
 
     @Override
     public Optional<UserListing> loadUserById(String id) {
-        Optional<UserListing> collaListingOptional = userRepository.getById(id);
-        return collaListingOptional.map(this::createCollaListingFromListing);
+        Optional<UserListing> userListingOptional = userRepository.getById(id);
+        return userListingOptional.map(this::createUserListingFromListing);
     }
 
     @Override
     public Optional<UserListing> loadUserByName(String name) {
-        Optional<UserListing> collaListingOptional = userRepository.getByName(name);
-        return collaListingOptional.map(this::createCollaListingFromListing);
+        Optional<UserListing> userListingOptional = userRepository.getByName(name);
+        return userListingOptional.map(this::createUserListingFromListing);
     }
 
     @Override
     public List<UserListing> loadAllUsersByName() {
-        List<UserListing> userListings = userRepository.loadAllCollesByName();
+        List<UserListing> userListings = userRepository.loadAllUsersByName();
         return userListings.stream()
-                .map(this::createCollaListingFromListing)
+                .map(this::createUserListingFromListing)
                 .collect(Collectors.toList());
     }
 
@@ -45,7 +40,7 @@ public class FetchUserListingAdapter implements ListUserPort {
     public List<UserListing> loadAllUsers() {
         List<UserListing> userListings = userRepository.findAllListing();
         return userListings.stream()
-                .map(this::createCollaListingFromListing)
+                .map(this::createUserListingFromListing)
                 .collect(Collectors.toList());
     }
 
@@ -54,29 +49,25 @@ public class FetchUserListingAdapter implements ListUserPort {
         return userRepository.loadAllUserNicknames();
     }
 
-    private UserListing createCollaListingFromListing(UserListing userListing) {
-        // Fetch the image file using the logoKey
-        byte[] imageBytes = (userListing.logoKey() == null) ? null : fetchImageFromServer(userListing.logoKey());
-
+    private UserListing createUserListingFromListing(UserListing userListing) {
         // Create a UserListing object with database fields and image data
         return new UserListing(
                 userListing.id(),
+                userListing.nickname(),
                 userListing.name(),
-                userListing.entity(),
-                userListing.foundationYear(),
-                userListing.description(),
-                userListing.type(),
-                userListing.neighbourhood(),
-                userListing.primaryColour(),
-                userListing.secondaryColour(),
-                userListing.logoKey(),
-                imageBytes,
-                userListing.music(),
+                userListing.firstSurname(),
+                userListing.secondSurname(),
                 userListing.email(),
-                userListing.instagram(),
-                userListing.figures()
+                userListing.password(),
+                userListing.roles(),
+                userListing.coins(),
+                userListing.digitalProducts(),
+                userListing.activeUserImage(),
+                userListing.activeUserImageFrame(),
+                userListing.activeUserBackgroundImage(),
+                userListing.activeUserTitle(),
+                userListing.activeUserBackgroundColour(),
+                userListing.activePins()
         );
     }
 }
-
-

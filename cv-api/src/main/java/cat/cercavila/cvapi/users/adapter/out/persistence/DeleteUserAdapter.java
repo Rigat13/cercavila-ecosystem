@@ -17,10 +17,10 @@ public class DeleteUserAdapter implements DeleteUserPort {
 
     @Override
     public void deleteUser(DeleteUserCommand deleteUserCommand) {
-        userRepository.delete(deleteCollaCommand2CollaEntity(deleteUserCommand));
+        userRepository.delete(deleteUserCommand2UserEntity(deleteUserCommand));
     }
 
-    private UserEntity deleteCollaCommand2CollaEntity(DeleteUserCommand deleteUserCommand) {
+    private UserEntity deleteUserCommand2UserEntity(DeleteUserCommand deleteUserCommand) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(deleteUserCommand.id()); // IMPORTANT: Here, an existing ID is used to delete the User
         // The other fields are not necessary for the deletion

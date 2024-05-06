@@ -13,7 +13,7 @@ public class User {
     private String password;
     private List<String> roles;
     // Inventory
-    private String coins;
+    private float coins;
     private List<String> digitalProducts;
     private String activeUserImage;
     private String activeUserImageFrame;
@@ -24,7 +24,7 @@ public class User {
 
     public User() {}
 
-    public User(String nickname, String name, String firstSurname, String secondSurname, String email, String password, List<String> roles, String coins, List<String> digitalProducts, String activeUserImage, String activeUserImageFrame, String activeUserBackgroundImage, String activeUserTitle, String activeUserBackgroundColour, List<String> activePins) {
+    public User(String nickname, String name, String firstSurname, String secondSurname, String email, String password, List<String> roles, float coins, List<String> digitalProducts, String activeUserImage, String activeUserImageFrame, String activeUserBackgroundImage, String activeUserTitle, String activeUserBackgroundColour, List<String> activePins) {
         this.id = UUID.randomUUID().toString(); // TODO: Note: this is correct for not web applications; but as Colles can be created from the front, the UUID is assigned between the front and the in port of persistence, and does not get to domain.
         this.nickname = nickname;
         this.name = name;
@@ -58,8 +58,8 @@ public class User {
     public void setPassword(String password) { this.password = password; }
     public List<String> getRoles() { return roles; }
     public void setRoles(List<String> roles) { this.roles = roles; }
-    public String getCoins() { return coins; }
-    public void setCoins(String coins) { this.coins = coins; }
+    public float getCoins() { return coins; }
+    public void setCoins(float coins) { this.coins = coins; }
     public List<String> getDigitalProducts() { return digitalProducts; }
     public void setDigitalProducts(List<String> digitalProducts) { this.digitalProducts = digitalProducts; }
     public String getActiveUserImage() { return activeUserImage; }

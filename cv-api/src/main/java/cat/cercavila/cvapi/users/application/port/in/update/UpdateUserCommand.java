@@ -23,14 +23,14 @@ public record UpdateUserCommand(
     @NotNull (message = "La contrasenya no pot ser nul·la.")
     @Size(min=3, max=255, message="La contrasenya ha de tenir entre 3 i 255 caràcters.")
     String password,
-    List<String> roles,
+    String roles,
     @Min(value = 0, message = "Les monedes no poden ser negatives.")
-    String coins,
-    List<String> digitalProducts,
+    float coins,
+    String digitalProducts,
     String activeUserImage,
     String activeUserImageFrame,
     String activeUserBackgroundImage,
     String activeUserTitle,
     String activeUserBackgroundColour,
-    List<String> activePins
+    String activePins
     ) {}
