@@ -32,7 +32,7 @@ export function CollaFiguraCard({ figura, lang }: { figura: Figura; lang: string
                         />
                     </div>
                 )}
-                <a href={`figures/update.html?figuraId=${figura.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                <a href={`/figures/update.html?figuraId=${figura.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                     <button className={styles.updateButton}>
                         <img src="/icons/icon-edit.svg" alt="Editar" />
                     </button>
