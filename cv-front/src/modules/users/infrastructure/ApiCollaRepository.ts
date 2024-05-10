@@ -1,117 +1,111 @@
-import {CollaRepository} from "@/modules/colles/domain/CollaRepository";
-import {Colla} from "@/modules/colles/domain/Colla";
-import {URL_PREFIX} from "@/modules/colles/infrastructure/configuration";
-import {Figura} from "@/modules/figures/domain/Figura";
+import {UserRepository} from "@/modules/users/domain/UserRepository";
+import {User} from "@/modules/users/domain/User";
+import {URL_PREFIX} from "@/modules/users/infrastructure/configuration";
 
-export function createApiCollaRepository(): CollaRepository {
+export function createApiUserRepository(): UserRepository {
     return {
-        storeColla, getCollaById, getCollaByName, getAllCollesByName,
-        getAllCollesByFoundationYear, getAllColles, updateColla, deleteColla, getAllFiguresNoImage, getAllFigures
+        storeUser, getUserById, getUserByName, getAllUsersByName,
+        getAllUsers, updateUser, deleteUser, getAllUserNicknames
     };
 }
 
-async function storeColla(colla: Colla) {
+async function storeUser(user: User) {
     try {
         const formData = new FormData();
-        formData.append("id", colla.id);
-        formData.append("name", colla.name);
-        formData.append("entity", colla.entity);
-        formData.append("foundationYear", colla.foundationYear.toString());
-        formData.append("description", colla.description);
-        formData.append("type", colla.type);
-        formData.append("neighbourhood", colla.neighbourhood);
-        formData.append("primaryColour", colla.primaryColour);
-        formData.append("secondaryColour", colla.secondaryColour);
-        if (colla.logo) formData.append("logo", colla.logo, colla.logo.name);
-        formData.append("music", colla.music);
-        formData.append("email", colla.email);
-        formData.append("instagram", colla.instagram);
-        formData.append("figures", colla.figures);
+        formData.append("id", user.id);
+        formData.append("nickname", user.nickname);
+        formData.append("name", user.name);
+        formData.append("firstSurname", user.firstSurname);
+        formData.append("secondSurname", user.secondSurname);
+        formData.append("email", user.email);
+        formData.append("password", user.password);
+        formData.append("roles", user.roles.join(","));
+        formData.append("coins", user.coins.toString());
+        formData.append("digitalProducts", user.digitalProducts.join(","));
+        formData.append("activeUserImage", user.activeUserImage);
+        formData.append("activeUserImageFrame", user.activeUserImageFrame);
+        formData.append("activeUserBackgroundImage", user.activeUserBackgroundImage);
+        formData.append("activeUserTitle", user.activeUserTitle);
+        formData.append("activeUserBackgroundColour", user.activeUserBackgroundColour);
+        formData.append("activePins", user.activePins.join(","));
 
-        await fetch(URL_PREFIX + "/api/colles", {
+        await fetch(URL_PREFIX + "/api/users", {
             method: "POST",
             body: formData,
         });
     } catch (error) {
-        throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error);
+        throw new Error("No s'ha pogut crear l'usuari. \nMotiu: " + error);
     }
 }
 
-async function getCollaById(id: string) {
+async function getUserById(id: string) {
     try {
-        const colla = await fetch(URL_PREFIX + `/api/colles/id/${id}`).then(
-        (response) => response.json() as Promise<Colla>
+        const user = await fetch(URL_PREFIX + `/api/users/id/${id}`).then(
+        (response) => response.json() as Promise<User>
         );
-        return colla;
-    } catch (error) { throw new Error("No s'ha pogut obtenir la colla amb l'id. \nMotiu: " + error); }
+        return user;
+    } catch (error) { throw new Error("No s'ha pogut obtenir l'usuari amb l'id. \nMotiu: " + error); }
 }
 
-async function getCollaByName(name: string) {
+async function getUserByName(name: string) {
     try {
-        const colla = await fetch(URL_PREFIX + `/api/colles/name/${name}`).then(
-        (response) => response.json() as Promise<Colla>
+        const user = await fetch(URL_PREFIX + `/api/users/name/${name}`).then(
+        (response) => response.json() as Promise<User>
         );
-        return colla;
-    } catch (error) { throw new Error("No s'ha pogut obtenir la colla amb el nom. \nMotiu: " + error); }
+        return user;
+    } catch (error) { throw new Error("No s'ha pogut obtenir l'usuari amb el nom. \nMotiu: " + error); }
 }
 
-async function getAllCollesByName() {
+async function getAllUsersByName() {
     try {
-        const colles = await fetch(URL_PREFIX + `/api/colles/name`).then(
-            (response) => response.json() as Promise<Colla[]>
+        const users = await fetch(URL_PREFIX + `/api/users/name`).then(
+            (response) => response.json() as Promise<User[]>
         );
-        return colles;
-    } catch (error) { throw new Error("No s'ha pogut obtenir totes les colles ordenades per nom. \nMotiu: " + error); }
+        return users;
+    } catch (error) { throw new Error("No s'ha pogut obtenir totes les users ordenades per nom. \nMotiu: " + error); }
 }
 
-async function getAllCollesByFoundationYear() {
+async function getAllUsers() {
     try {
-        const colles = await fetch(URL_PREFIX + `/api/colles/foundationYear`).then(
-            (response) => response.json() as Promise<Colla[]>
+        const users = await fetch(URL_PREFIX + `/api/users`).then(
+            (response) => response.json() as Promise<User[]>
         );
-        return colles;
-    } catch (error) { throw new Error("No s'ha pogut obtenir totes les colles ordenades per any de fundació. \nMotiu: " + error); }
-}
-
-async function getAllColles() {
-    try {
-        const colles = await fetch(URL_PREFIX + `/api/colles`).then(
-            (response) => response.json() as Promise<Colla[]>
-        );
-        return colles;
+        return users;
     } catch (error) {
-        throw new Error("No s'ha pogut obtenir totes les colles. \nMotiu: " + error);
+        throw new Error("No s'ha pogut obtenir totes les users. \nMotiu: " + error);
     }
 }
 
-async function updateColla(colla: Colla) {
+async function updateUser(user: User) {
     try {
         const formData = new FormData();
-        formData.append("id", colla.id);
-        formData.append("name", colla.name);
-        formData.append("entity", colla.entity);
-        formData.append("foundationYear", colla.foundationYear.toString());
-        formData.append("description", colla.description);
-        formData.append("type", colla.type);
-        formData.append("neighbourhood", colla.neighbourhood);
-        formData.append("primaryColour", colla.primaryColour);
-        formData.append("secondaryColour", colla.secondaryColour);
-        if (colla.logo) formData.append("logo", colla.logo, colla.logo.name);
-        formData.append("music", colla.music);
-        formData.append("email", colla.email);
-        formData.append("instagram", colla.instagram);
-        formData.append("figures", colla.figures);
+        formData.append("id", user.id);
+        formData.append("nickname", user.nickname);
+        formData.append("name", user.name);
+        formData.append("firstSurname", user.firstSurname);
+        formData.append("secondSurname", user.secondSurname);
+        formData.append("email", user.email);
+        formData.append("password", user.password);
+        formData.append("roles", user.roles.join(","));
+        formData.append("coins", user.coins.toString());
+        formData.append("digitalProducts", user.digitalProducts.join(","));
+        formData.append("activeUserImage", user.activeUserImage);
+        formData.append("activeUserImageFrame", user.activeUserImageFrame);
+        formData.append("activeUserBackgroundImage", user.activeUserBackgroundImage);
+        formData.append("activeUserTitle", user.activeUserTitle);
+        formData.append("activeUserBackgroundColour", user.activeUserBackgroundColour);
+        formData.append("activePins", user.activePins.join(","));
 
-        await fetch(URL_PREFIX + "/api/colles", {
+        await fetch(URL_PREFIX + "/api/users", {
             method: "PUT",
             body: formData,
         });
-    } catch (error) { throw new Error("No s'ha pogut actualitzar la colla. \nMotiu: " + error); }
+    } catch (error) { throw new Error("No s'ha pogut actualitzar l'usuari. \nMotiu: " + error); }
 }
 
-async function deleteColla(id: string) {
+async function deleteUser(id: string) {
     try {
-        await fetch(URL_PREFIX + "/api/colles", {
+        await fetch(URL_PREFIX + "/api/users", {
             method: "DELETE",
             headers: new Headers({
                 accept: "application/json",
@@ -121,28 +115,14 @@ async function deleteColla(id: string) {
                 id: id,
             }),
         });
-    } catch (error) { throw new Error("No s'ha pogut eliminar la colla. \nMotiu: " + error); }
+    } catch (error) { throw new Error("No s'ha pogut eliminar l'usuari. \nMotiu: " + error); }
 }
 
-
-async function getAllFiguresNoImage() {
+export async function getAllUserNicknames() {
     try {
-        const figures = await fetch(URL_PREFIX + `/api/figures/noimage`).then(
-            (response) => response.json() as Promise<Figura[]>
+        const nicknames = await fetch(URL_PREFIX + `/api/users/nicknames`).then(
+            (response) => response.json() as Promise<string[]>
         );
-        return figures;
-    } catch (error) {
-        throw new Error("No s'ha pogut obtenir totes les figures sense imatge. \nMotiu: " + error);
-    }
-}
-
-async function getAllFigures() {
-    try {
-        const figures = await fetch(URL_PREFIX + `/api/figures`).then(
-            (response) => response.json() as Promise<Figura[]>
-        );
-        return figures;
-    } catch (error) {
-        throw new Error("No s'ha pogut obtenir totes les figures. \nMotiu: " + error);
-    }
+        return nicknames;
+    } catch (error) { throw new Error("No s'ha pogut obtenir tots els nicknames. \nMotiu: " + error); }
 }

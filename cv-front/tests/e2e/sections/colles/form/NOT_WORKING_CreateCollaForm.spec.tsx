@@ -33,7 +33,7 @@ describe("CreateCollaForm component", () => {
         const submitButton = screen.getByText(/Crea la colla/i);
         userEvent.click(submitButton);
 
-        const successMessage = screen.getByRole("heading", { name: /Colla creada amb èxit/i });
+        const successMessage = screen.getByRole("heading", { name: /User creada amb èxit/i });
         expect(successMessage).toBeInTheDocument();
     });
 
