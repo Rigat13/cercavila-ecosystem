@@ -5,7 +5,8 @@ export const TYPE_ERROR_MESSAGE = `El tipus no és vàlid. El tipus ha de tenir 
 export function isFiguraTypeValid(type: string, defaultType: string) : boolean {
     if (type.length <= TYPE_MIN_LENGTH || type.length > TYPE_MAX_LENGTH+1 || type === defaultType) return false;
     const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
-    return regexExp.test(type);
+    const figuraTypesLabels = figuraTypes.map(figuraType => figuraType.labelKey);
+    return regexExp.test(type) && figuraTypesLabels.includes(type);
 }
 
 export function FiguraTypeNotValidError(type: string): Error {
