@@ -28,4 +28,7 @@ public class ListUsersController {
 
     @GetMapping("/api/users")
     public List<UserListing> getAllUsers() { return listUsers.getAllUsers(); }
+
+    @GetMapping("/api/users/nicknames")
+    public List<String> getAllUserNicknames() { return listUsers.getAllUserNicknames(); }
 }
