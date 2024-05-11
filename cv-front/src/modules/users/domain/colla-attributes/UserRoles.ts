@@ -1,6 +1,6 @@
 export const ROLES_ERROR_MESSAGE = `Els rols no són vàlids`;
 
-export function areRolesValid(roles: string, defaultRole: string) : boolean {
+export function areUserRolesValid(roles: string, defaultRole: string) : boolean {
     const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
     // "roles" is a string like this:
     // "collaRoleCap-ff8081818e101c61018e10ebed740002,collaRoleSotscap-ff8081818f06df68018f0756a3e60001,collaRoleCapMusics-ff8081818f06df68018f0756a3e60001..."

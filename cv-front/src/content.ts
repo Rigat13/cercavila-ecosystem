@@ -228,6 +228,75 @@ interface DictionaryEntry {
     errorRetrievingDigitalProductMessage: string;
     errorRetrievingDigitalProductsMessage: string;
 
+    // -------------------------------------------------------------------------------------------- USER
+    userNickname: string;
+    userName: string;
+    userFirstSurname: string;
+    userSecondSurname: string;
+    userEmail: string;
+    userPassword: string;
+    userRoles: string;
+    userCoins: string;
+    userDigitalProducts: string;
+    userActiveUserImage: string;
+    userActiveUserImageFrame: string;
+    userActiveUserBackgroundImage: string;
+    userActiveUserTitle: string;
+    userActiveUserBackgroundColour: string;
+    userActivePins: string;
+
+    // --- USER COLLA ROLES
+    selectUserCollaRole: string;
+    userCollaRoleCap: string;
+    userCollaRoleSotscap: string;
+    userCollaRoleCapMusics: string;
+    userCollaRolePortador: string;
+    userCollaRoleMusician: string;
+    userCollaRoleSupport: string;
+    userCollaOuterRoleFollower: string;
+
+    // CREATE USER
+    usersTitle: string;
+    createUserTitle: string;
+    createUserButton: string;
+
+    userNicknameInvalid: string;
+    userNameInvalid: string;
+    userFirstSurnameInvalid: string;
+    userSecondSurnameInvalid: string;
+    userEmailInvalid: string;
+    userPasswordInvalid: string;
+    userRolesInvalid: string;
+    userCoinsInvalid: string;
+    userDigitalProductsInvalid: string;
+    userActiveUserImageInvalid: string;
+    userActiveUserImageFrameInvalid: string;
+    userActiveUserBackgroundImageInvalid: string;
+    userActiveUserTitleInvalid: string;
+    userActiveUserBackgroundColourInvalid: string;
+    userActivePinsInvalid: string;
+
+    successCreateUserMessage: string;
+    errorCreateUserMessage: string;
+    createAnotherUserButton: string;
+    retryCreateUserButton: string;
+
+    // UPDATE USER
+    updateUserTitle: string;
+    updateUserButton: string;
+    goToUsersButton: string;
+    deleteUserButton: string;
+    warningDeleteUserMessage: string;
+    cancelDeleteUserButton: string;
+    confirmDeleteUserButton: string;
+    successUpdateUserMessage: string;
+    errorUpdateUserMessage: string;
+    successDeleteUserMessage: string;
+    errorDeleteUserMessage: string;
+    userNotFoundWithId: string;
+    errorRetrievingUserMessage: string;
+    errorRetrievingUsersMessage: string;
+
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
@@ -476,8 +545,76 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteDigitalProductMessage: "El producte digital no s'ha pogut esborrar. \nMotiu: ",
         digitalProductNotFoundWithId: "Producte digital no trobat amb id: ",
         errorRetrievingDigitalProductMessage: "Error en obtenir la informació del producte digital. \nMotiu: ",
-        errorRetrievingDigitalProductsMessage: "Error en obtenir la informació dels productes digitals. \nMotiu: "
+        errorRetrievingDigitalProductsMessage: "Error en obtenir la informació dels productes digitals. \nMotiu: ",
 
+        // -------------------------------------------------------------------------------------------- USER
+        userNickname: "Nom d'usuari",
+        userName: "Nom",
+        userFirstSurname: "Primer cognom",
+        userSecondSurname: "Segon cognom",
+        userEmail: "Correu electrònic",
+        userPassword: "Contrasenya",
+        userRoles: "Rols",
+        userCoins: "Monedes",
+        userDigitalProducts: "Productes digitals",
+        userActiveUserImage: "Imatge de perfil",
+        userActiveUserImageFrame: "Marc d'imatge de perfil",
+        userActiveUserBackgroundImage: "Imatge de fons",
+        userActiveUserTitle: "Títol",
+        userActiveUserBackgroundColour: "Color de fons",
+        userActivePins: "Pins",
+
+        // --- USER COLLA ROLES
+        selectUserCollaRole: "-- Rol de colla --",
+        userCollaRoleCap: "Cap de colla",
+        userCollaRoleSotscap: "Sotscap de colla",
+        userCollaRoleCapMusics: "Cap de músics",
+        userCollaRolePortador: "Portador/a",
+        userCollaRoleMusician: "Músic/a",
+        userCollaRoleSupport: "Suport",
+        userCollaOuterRoleFollower: "Seguidor/a",
+
+        // CREATE USER
+        usersTitle: "Usuaris registrats",
+        createUserTitle: "Crea un nou usuari",
+        createUserButton: "Crea l'usuari",
+
+        userNicknameInvalid: "El nom d'usuari no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
+        userNameInvalid: "El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
+        userFirstSurnameInvalid: "El primer cognom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
+        userSecondSurnameInvalid: "El segon cognom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
+        userEmailInvalid: "El correu electrònic no és vàlid. Ha de seguir el format de correu amb caràcters vàlids entre: ",
+        userPasswordInvalid: "La contrasenya no és vàlida. Ha de tenir entre: ",
+        userRolesInvalid: "Els rols no són vàlids. Han de ser un de la llista, amb caràcters vàlids entre: ",
+        userCoinsInvalid: "Les monedes no són vàlides. Han de ser un número flotant positiu.",
+        userDigitalProductsInvalid: "Els productes digitals no són vàlids",
+        userActiveUserImageInvalid: "La imatge de perfil no és vàlida. Ha de ser un fitxer vàlid amb mida inferior a: ",
+        userActiveUserImageFrameInvalid: "El marc d'imatge de perfil no és vàlid. Ha de ser un fitxer vàlid amb mida inferior a: ",
+        userActiveUserBackgroundImageInvalid: "La imatge de fons no és vàlida. Ha de ser un fitxer vàlid amb mida inferior a: ",
+        userActiveUserTitleInvalid: "El títol no és vàlid. Ha de tenir caràcters vàlids entre: ",
+        userActiveUserBackgroundColourInvalid: "El color de fons no és vàlid. Ha de seguir el format hexadecimal.",
+        userActivePinsInvalid: "Els pins no són vàlids.",
+
+        successCreateUserMessage: "L'usuari s'ha creat amb èxit",
+        errorCreateUserMessage: "L'usuari no s'ha pogut crear. \nMotiu: ",
+        createAnotherUserButton: "Crear un altre usuari",
+        retryCreateUserButton: "Torna a intentar",
+
+        // UPDATE USER
+        updateUserTitle: "Edita l'usuari",
+        updateUserButton: "Edita l'usuari",
+        goToUsersButton: "Torna als usuaris",
+        deleteUserButton: "Esborrar l'usuari",
+        warningDeleteUserMessage: "Voleu esborrar l'usuari de manera permanent? No es pot desfer aquesta acció.",
+        cancelDeleteUserButton: "Cancel·lar",
+        confirmDeleteUserButton: "Esborrar permanentment",
+        successUpdateUserMessage: "L'usuari s'ha editat amb èxit",
+        errorUpdateUserMessage: "L'usuari no s'ha pogut editar. \nMotiu: ",
+        successDeleteUserMessage: "L'usuari s'ha esborrat amb èxit",
+        errorDeleteUserMessage: "L'usuari no s'ha pogut esborrar. \nMotiu: ",
+        userNotFoundWithId: "Usuari no trobat amb id: ",
+        errorRetrievingUserMessage: "Error en obtenir la informació de l'usuari. \nMotiu: ",
+        errorRetrievingUsersMessage: "Error en obtenir la informació dels usuaris. \nMotiu: "
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -726,7 +863,76 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteDigitalProductMessage: "El producto digital no se ha podido borrar. \nMotivo: ",
         digitalProductNotFoundWithId: "Producto digital no encontrado con id: ",
         errorRetrievingDigitalProductMessage: "Error al obtener la información del producto digital. \nMotivo: ",
-        errorRetrievingDigitalProductsMessage: "Error al obtener la información de los productos digitales. \nMotivo: "
+        errorRetrievingDigitalProductsMessage: "Error al obtener la información de los productos digitales. \nMotivo: ",
+
+        // -------------------------------------------------------------------------------------------- USER
+        userNickname: "Nombre de usuario",
+        userName: "Nombre",
+        userFirstSurname: "Primer apellido",
+        userSecondSurname: "Segundo apellido",
+        userEmail: "Correo electrónico",
+        userPassword: "Contraseña",
+        userRoles: "Roles",
+        userCoins: "Monedas",
+        userDigitalProducts: "Productos digitales",
+        userActiveUserImage: "Imagen de perfil",
+        userActiveUserImageFrame: "Marco de imagen de perfil",
+        userActiveUserBackgroundImage: "Imagen de fondo",
+        userActiveUserTitle: "Título",
+        userActiveUserBackgroundColour: "Color de fondo",
+        userActivePins: "Pins",
+
+        // --- USER COLLA ROLES
+        selectUserCollaRole: "-- Rol de colla --",
+        userCollaRoleCap: "Cap de colla",
+        userCollaRoleSotscap: "Sotscap de colla",
+        userCollaRoleCapMusics: "Cap de músicos",
+        userCollaRolePortador: "Portador/a",
+        userCollaRoleMusician: "Músico/a",
+        userCollaRoleSupport: "Soporte",
+        userCollaOuterRoleFollower: "Seguidor/a",
+
+        // CREATE USER
+        usersTitle: "Usuarios registrados",
+        createUserTitle: "Crea un nuevo usuario",
+        createUserButton: "Crea el usuario",
+
+        userNicknameInvalid: "El nombre de usuario no es válido. Debe contener carácteres válidos y tener entre: ",
+        userNameInvalid: "El nombre no es válido. Debe contener carácteres válidos y tener entre: ",
+        userFirstSurnameInvalid: "El primer apellido no es válido. Debe contener carácteres válidos y tener entre: ",
+        userSecondSurnameInvalid: "El segundo apellido no es válido. Debe contener carácteres válidos y tener entre: ",
+        userEmailInvalid: "El correo electrónico no es válido. Debe seguir el formato de correo con carácteres válidos entre: ",
+        userPasswordInvalid: "La contraseña no es válida. Debe tener entre: ",
+        userRolesInvalid: "Los roles no son válidos. Deben ser uno de la lista, con carácteres válidos entre: ",
+        userCoinsInvalid: "Las monedas no son válidas. Deben ser un número flotante positivo.",
+        userDigitalProductsInvalid: "Los productos digitales no son válidos",
+        userActiveUserImageInvalid: "La imagen de perfil no es válida. Debe ser un archivo válido con tamaño inferior a: ",
+        userActiveUserImageFrameInvalid: "El marco de imagen de perfil no es válido. Debe ser un archivo válido con tamaño inferior a: ",
+        userActiveUserBackgroundImageInvalid: "La imagen de fondo no es válida. Debe ser un archivo válido con tamaño inferior a: ",
+        userActiveUserTitleInvalid: "El título no es válido. Debe tener carácteres válidos entre: ",
+        userActiveUserBackgroundColourInvalid: "El color de fondo no es válido. Debe seguir el formato hexadecimal.",
+        userActivePinsInvalid: "Los pins no son válidos.",
+
+        successCreateUserMessage: "El usuario se ha creado con éxito",
+        errorCreateUserMessage: "El usuario no se ha podido crear. \nMotivo: ",
+        createAnotherUserButton: "Crear otro usuario",
+        retryCreateUserButton: "Volver a intentar",
+
+        // UPDATE USER
+        updateUserTitle: "Edita el usuario",
+        updateUserButton: "Edita el usuario",
+        goToUsersButton: "Vuelve a los usuarios",
+        deleteUserButton: "Borrar el usuario",
+        warningDeleteUserMessage: "¿Quiere borrar el usuario de manera permanente? No se puede deshacer esta acción.",
+        cancelDeleteUserButton: "Cancelar",
+        confirmDeleteUserButton: "Borrar permanentemente",
+        successUpdateUserMessage: "El usuario se ha editado con éxito",
+        errorUpdateUserMessage: "El usuario no se ha podido editar. \nMotivo: ",
+        successDeleteUserMessage: "El usuario se ha borrado con éxito",
+        errorDeleteUserMessage: "El usuario no se ha podido borrar. \nMotivo: ",
+        userNotFoundWithId: "Usuario no encontrado con id: ",
+        errorRetrievingUserMessage: "Error al obtener la información del usuario. \nMotivo: ",
+        errorRetrievingUsersMessage: "Error al obtener la información de los usuarios. \nMotivo: "
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -975,6 +1181,75 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteDigitalProductMessage: "The digital product could not be deleted. \nReason: ",
         digitalProductNotFoundWithId: "Digital product not found with id: ",
         errorRetrievingDigitalProductMessage: "Error retrieving digital product information. \nReason: ",
-        errorRetrievingDigitalProductsMessage: "Error retrieving digital products information. \nReason: "
+        errorRetrievingDigitalProductsMessage: "Error retrieving digital products information. \nReason: ",
+
+        // -------------------------------------------------------------------------------------------- USER
+        userNickname: "Nickname",
+        userName: "Name",
+        userFirstSurname: "First surname",
+        userSecondSurname: "Second surname",
+        userEmail: "Email",
+        userPassword: "Password",
+        userRoles: "Roles",
+        userCoins: "Coins",
+        userDigitalProducts: "Digital products",
+        userActiveUserImage: "Profile image",
+        userActiveUserImageFrame: "Profile image frame",
+        userActiveUserBackgroundImage: "Background image",
+        userActiveUserTitle: "Title",
+        userActiveUserBackgroundColour: "Background colour",
+        userActivePins: "Pins",
+
+        // --- USER COLLA ROLES
+        selectUserCollaRole: "-- Colla role --",
+        userCollaRoleCap: "Colla captain",
+        userCollaRoleSotscap: "Colla vice-captain",
+        userCollaRoleCapMusics: "Music captain",
+        userCollaRolePortador: "Carrier",
+        userCollaRoleMusician: "Musician",
+        userCollaRoleSupport: "Support",
+        userCollaOuterRoleFollower: "Follower",
+
+        // CREATE USER
+        usersTitle: "Registered users",
+        createUserTitle: "Create a new user",
+        createUserButton: "Create user",
+
+        userNicknameInvalid: "The nickname is not valid. It must contain valid characters and be between: ",
+        userNameInvalid: "The name is not valid. It must contain valid characters and be between: ",
+        userFirstSurnameInvalid: "The first surname is not valid. It must contain valid characters and be between: ",
+        userSecondSurnameInvalid: "The second surname is not valid. It must contain valid characters and be between: ",
+        userEmailInvalid: "The email is not valid. It must follow the email format with valid characters between: ",
+        userPasswordInvalid: "The password is not valid. It must be between: ",
+        userRolesInvalid: "The roles are not valid. They must be one from the list, with valid characters between: ",
+        userCoinsInvalid: "The coins are not valid. They must be a positive float number.",
+        userDigitalProductsInvalid: "The digital products are not valid",
+        userActiveUserImageInvalid: "The profile image is not valid. It must be a valid file with size lower than: ",
+        userActiveUserImageFrameInvalid: "The profile image frame is not valid. It must be a valid file with size lower than: ",
+        userActiveUserBackgroundImageInvalid: "The background image is not valid. It must be a valid file with size lower than: ",
+        userActiveUserTitleInvalid: "The title is not valid. It must have valid characters between: ",
+        userActiveUserBackgroundColourInvalid: "The background colour is not valid. It must follow the hexadecimal format.",
+        userActivePinsInvalid: "The pins are not valid.",
+
+        successCreateUserMessage: "The user has been created successfully",
+        errorCreateUserMessage: "The user could not be created. \nReason: ",
+        createAnotherUserButton: "Create another user",
+        retryCreateUserButton: "Retry",
+
+        // UPDATE USER
+        updateUserTitle: "Edit user",
+        updateUserButton: "Edit user",
+        goToUsersButton: "Go back to users",
+        deleteUserButton: "Delete user",
+        warningDeleteUserMessage: "Do you want to delete the user permanently? This action cannot be undone.",
+        cancelDeleteUserButton: "Cancel",
+        confirmDeleteUserButton: "Delete permanently",
+        successUpdateUserMessage: "The user has been edited successfully",
+        errorUpdateUserMessage: "The user could not be edited. \nReason: ",
+        successDeleteUserMessage: "The user has been deleted successfully",
+        errorDeleteUserMessage: "The user could not be deleted. \nReason: ",
+        userNotFoundWithId: "User not found with id: ",
+        errorRetrievingUserMessage: "Error retrieving user information. \nReason: ",
+        errorRetrievingUsersMessage: "Error retrieving users information. \nReason: "
     }
 }
