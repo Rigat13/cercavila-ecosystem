@@ -1,11 +1,13 @@
 import {UserRepository} from "@/modules/users/domain/UserRepository";
 import {User} from "@/modules/users/domain/User";
 import {URL_PREFIX} from "@/modules/users/infrastructure/configuration";
+import {getAllColles} from "@/modules/colles/application/get-all/getAllColles";
+import {Colla} from "@/modules/colles/domain/Colla";
 
 export function createApiUserRepository(): UserRepository {
-    return {
+    return <UserRepository>{
         storeUser, getUserById, getUserByName, getAllUsersByName,
-        getAllUsers, updateUser, deleteUser, getAllUserNicknames
+        getAllUsers, updateUser, deleteUser, getAllUserNicknames, getAllColles
     };
 }
 
@@ -73,6 +75,17 @@ async function getAllUsers() {
         return users;
     } catch (error) {
         throw new Error("No s'ha pogut obtenir totes les users. \nMotiu: " + error);
+    }
+}
+
+async function getAllColles() {
+    try {
+        const colles = await fetch(URL_PREFIX + `/api/colles`).then(
+            (response) => response.json() as Promise<Colla[]>
+        );
+        return colles;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir totes les colles. \nMotiu: " + error);
     }
 }
 

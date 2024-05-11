@@ -40,7 +40,8 @@ export function ensureUserIsValid({id, nickname, name, firstSurname, secondSurna
                                       coins, digitalProducts, activeUserImage, activeUserImageFrame, activeUserBackgroundImage,
                                       activeUserTitle, activeUserBackgroundColour, activePins}: User): void {
     if (!isUserIdValid(id)) { throw UserIdNotValidError(id); }
-    ensureUserIsValidEmptyId({id, nickname, name, firstSurname, secondSurname, email, password, roles, coins,
+    ensureUserIsValidEmptyId({
+        id, nickname, name, firstSurname, secondSurname, email, password, roles, coins,
         digitalProducts, activeUserImage, activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins});
 }
 
@@ -70,6 +71,10 @@ export function ensureUserIdIsValid(id: string): void {
     if (!isUserIdValid(id)) {
         throw UserIdNotValidError(id);
     }
+}
+
+export function getRoleColles(user: User): string[] {
+    return user.roles.map(role => role.split("-")[1]);
 }
 
 export function userIsAdmin(userId: string): boolean {

@@ -1,5 +1,5 @@
 import {User} from './User';
-import {Figura} from "@/modules/figures/domain/Figura";
+import {Colla} from "@/modules/colles/domain/Colla";
 
 export interface UserRepository {
     storeUser: (user: User) => Promise<void>;
@@ -10,4 +10,6 @@ export interface UserRepository {
     updateUser:(user: User) => Promise<void>;
     deleteUser:(id: string) => Promise<void>;
     getAllUserNicknames:() => Promise<string[]>;
+
+    getAllColles:() => Promise<Colla[]>;
 }

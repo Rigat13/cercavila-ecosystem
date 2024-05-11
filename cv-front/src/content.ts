@@ -15,6 +15,8 @@ interface DictionaryEntry {
     ccgmAcronym: string;
     ccgmName: string;
 
+    // -------------------------------------------------------------------------------------------- FILTERS
+
     collaFilterByName: string;
     collaFilterWriteName: string;
 
@@ -26,6 +28,12 @@ interface DictionaryEntry {
 
     collaFilterByMusic: string;
     collaFilterSelectMusic: string;
+
+    userFilterByRole: string;
+    userFilterSelectRole: string;
+
+    userFilterByColla: string;
+    userFilterSelectColla: string;
 
     // -------------------------------------------------------------------------------------------- COLLA
     collaName: string;
@@ -334,6 +342,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
 
+        // -------------------------------------------------------------------------------------------- FILTERS
+
         collaFilterByName: "Filtra per nom",
         collaFilterWriteName: "Escriu un nom",
 
@@ -345,6 +355,12 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         collaFilterByMusic: "Filtra per acompanyament musical",
         collaFilterSelectMusic: "Selecciona un acompanyament musical",
+
+        userFilterByRole: "Filtra per rol",
+        userFilterSelectRole: "Selecciona un rol",
+
+        userFilterByColla: "Filtra per colla",
+        userFilterSelectColla: "Selecciona una colla",
 
         // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Nom",
@@ -652,6 +668,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
 
+        // -------------------------------------------------------------------------------------------- FILTERS
+
         collaFilterByName: "Filtra por nombre",
         collaFilterWriteName: "Escribe un nombre",
 
@@ -663,6 +681,12 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         collaFilterByMusic: "Filtra por acompañamiento musical",
         collaFilterSelectMusic: "Selecciona un acompañamiento musical",
+
+        userFilterByRole: "Filtra por rol",
+        userFilterSelectRole: "Selecciona un rol",
+
+        userFilterByColla: "Filtra por colla",
+        userFilterSelectColla: "Selecciona una colla",
 
         // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Nombre",
@@ -970,6 +994,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
 
+        // -------------------------------------------------------------------------------------------- FILTERS
+
         collaFilterByName: "Filter by name",
         collaFilterWriteName: "Write a name",
 
@@ -981,6 +1007,12 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         collaFilterByMusic: "Filter by music type",
         collaFilterSelectMusic: "Select a music type",
+
+        userFilterByRole: "Filter by role",
+        userFilterSelectRole: "Select a role",
+
+        userFilterByColla: "Filter by colla",
+        userFilterSelectColla: "Select a colla",
 
         // -------------------------------------------------------------------------------------------- COLLA
         collaName: "Name",
