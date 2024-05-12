@@ -14,7 +14,7 @@ import {isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH } from "@/
 import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserFirstSurname";
 import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
 import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
-import {areUserRolesValid} from "@/modules/users/domain/user-attributes/UserRoles";
+import {areUserRolesValid, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
 import {isUserDigitalProductsValid} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
 import {isUserActiveUserImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserImage";
 import {isUserActiveUserImageFrameValid} from "@/modules/users/domain/user-attributes/UserActiveUserImageFrame";
@@ -23,7 +23,6 @@ import {isUserActiveUserTitleValid} from "@/modules/users/domain/user-attributes
 import {isUserActiveUserBackgroundColourValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundColour";
 import {isUserActivePinsValid} from "@/modules/users/domain/user-attributes/UserActivePins";
 import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins";
-import {collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
 
 const initialState = {
     nickname: "",
@@ -324,15 +323,15 @@ export function CreateUserForm({ lang }: { lang: string }) {
 
                         {"// TODO 3 Add Roles: 1. Populating with roles options; 2. Combining with all colles available in the system"}
                         <div className={styles.formGroup}>
-                            <label htmlFor="roles">{dictionary[lang]?.collaType}</label>
+                            <label htmlFor="roles">{dictionary[lang]?.userRoles}</label>
                             <select
                                 id="roles"
                                 name="roles"
                                 value={formData.roles}
                                 onChange={handleRolesChange}
                             >
-                                <option value="">{dictionary[lang]?.selectCollaType}</option>
-                                {collaTypes.map(option => (
+                                <option value="">{dictionary[lang]?.selectUserCollaRole}</option>
+                                {userCollaRoles.map(option => (
                                     <option key={option.labelKey} value={option.labelKey}>
                                         {dictionary[lang]?.[option.labelKey]}
                                     </option>
@@ -366,9 +365,9 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             className={styles.actionButton}
                             type="submit"
                             disabled={!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-                                !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
-                                !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}
-                        >
+                                !isCoinsValid } >{"|| !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||"}
+                            {"!isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}>"}
+
                             {dictionary[lang]?.createUserButton}
                         </button>
                     </form>

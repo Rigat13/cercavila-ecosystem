@@ -6,7 +6,12 @@ export const NICKNAME_EXISTING_ERROR_MESSAGE = `El nickname ja existeix.`;
 export function isUserNicknameValid(nickname: string, existingNicknames: string[]): boolean {
     if (nickname.length < NICKNAME_MIN_LENGTH || nickname.length > NICKNAME_MAX_LENGTH+1) return false;
     const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
-    return regexExp.test(nickname) && !existingNicknames.includes(nickname);
+    return regexExp.test(nickname) && !alreadyExistingNickname(nickname, existingNicknames);
+}
+
+export function alreadyExistingNickname(nickname: string, existingNicknames: string[]): boolean {
+    if (existingNicknames == null || existingNicknames[0] == undefined) return false;
+    return existingNicknames.includes(nickname);
 }
 
 export function UserNicknameNotValidError(nickname: string, existingNicknames: string[]): Error {
