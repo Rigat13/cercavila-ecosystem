@@ -20,25 +20,25 @@ export function concatenateRoles (roles) {
 }
 
 export const userCollaRoles = [
-    { labelKey: 'collaRoleCap' },
-    { labelKey: 'collaRoleSotscap' },
-    { labelKey: 'collaRoleCapMusics' },
-    { labelKey: 'collaRolePortador' },
-    { labelKey: 'collaRoleMusician' },
-    { labelKey: 'collaRoleSupport' },
-    { labelKey: 'collaOuterRoleFollower' },
+    { labelKey: 'userCollaRoleCap' },
+    { labelKey: 'userCollaRoleSotscap' },
+    { labelKey: 'userCollaRoleCapMusics' },
+    { labelKey: 'userCollaRolePortador' },
+    { labelKey: 'userCollaRoleMusician' },
+    { labelKey: 'userCollaRoleSupport' },
+    { labelKey: 'userCollaOuterRoleFollower' },
 ]
 
 export function getRolesAdditionalStyle(musicType: string): React.CSSProperties {
     let backgroundColor = "#000000"; let color = "#FFFFFF";
     switch (musicType) {
-        case 'collaRoleCap': backgroundColor = "#d2702a"; color = "#ffffff"; break;
-        case 'collaRoleSotscap': backgroundColor = "#7b93ea"; color = "#FFFFFF"; break;
-        case 'collaRoleCapMusics': backgroundColor = "#e82f5a"; color = "#FFFFFF"; break;
-        case 'collaRolePortador': backgroundColor = "#dbef50"; color = "#000000"; break;
-        case 'collaRoleMusician': backgroundColor = "#d0586a"; color = "#000000"; break;
-        case 'collaRoleSupport': backgroundColor = "#9b70e1"; color = "#000000"; break;
-        case 'collaOuterRoleFollower': backgroundColor = "#77777c"; color = "#FFFFFF"; break;
+        case 'userCollaRoleCap': backgroundColor = "#d2702a"; color = "#ffffff"; break;
+        case 'userCollaRoleSotscap': backgroundColor = "#7b93ea"; color = "#FFFFFF"; break;
+        case 'userCollaRoleCapMusics': backgroundColor = "#e82f5a"; color = "#FFFFFF"; break;
+        case 'userCollaRolePortador': backgroundColor = "#dbef50"; color = "#000000"; break;
+        case 'userCollaRoleMusician': backgroundColor = "#d0586a"; color = "#000000"; break;
+        case 'userCollaRoleSupport': backgroundColor = "#9b70e1"; color = "#000000"; break;
+        case 'userCollaOuterRoleFollower': backgroundColor = "#77777c"; color = "#FFFFFF"; break;
         default: backgroundColor = "#000000"; color = "#FFFFFF"; break;
     }
     return { backgroundColor, color };

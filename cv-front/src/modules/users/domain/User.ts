@@ -5,7 +5,7 @@ import {UserFirstSurnameNotValidError, isUserFirstSurnameValid} from "@/modules/
 import {UserSecondSurnameNotValidError, isUserSecondSurnameValid} from "@/modules/users/domain/user-attributes/UserSecondSurname";
 import {UserEmailNotValidError, isUserEmailValid} from "@/modules/users/domain/user-attributes/UserEmail";
 import {UserPasswordNotValidError, isUserPasswordValid} from "@/modules/users/domain/user-attributes/UserPassword";
-import {UserRolesNotValidError, isUserRolesValid} from "@/modules/users/domain/user-attributes/UserRoles";
+import {UserRolesNotValidError, areUserRolesValid} from "@/modules/users/domain/user-attributes/UserRoles";
 import {UserCoinsNotValidError, isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins";
 import {UserDigitalProductsNotValidError, isUserDigitalProductsValid} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
 import {UserActiveUserImageNotValidError, isUserActiveUserImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserImage";
@@ -15,7 +15,7 @@ import {UserActiveUserTitleNotValidError, isUserActiveUserTitleValid} from "@/mo
 import {UserActiveUserBackgroundColourNotValidError, isUserActiveUserBackgroundColourValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundColour";
 import {UserActivePinsNotValidError, isUserActivePinsValid} from "@/modules/users/domain/user-attributes/UserActivePins";
 import {ADMIN} from "@/modules/users/infrastructure/configuration";
-import {getAllUserNicknames} from "@/modules/users/infrastructure/ApiCollaRepository"; // TODO: Improve dependency injection; should inject an interface UserRepository, but as it is something exceptional, it is wanted to avoid injecting the whole repository reference.
+import {getAllUserNicknames} from "@/modules/users/infrastructure/ApiUserRepository"; // TODO: Improve dependency injection; should inject an interface UserRepository, but as it is something exceptional, it is wanted to avoid injecting the whole repository reference.
 
 export interface User {
     id: string;

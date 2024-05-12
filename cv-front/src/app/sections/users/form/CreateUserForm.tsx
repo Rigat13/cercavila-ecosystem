@@ -8,21 +8,21 @@ import {defaultLang, dictionary} from "@/content";
 
 import {useUsersContext} from "@/app/sections/users/UsersContext";
 
-import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users/domain/colla-attributes/UserName";
-import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH } from "@/modules/users/domain/colla-attributes/UserSecondSurname";
-import {isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH } from "@/modules/users/domain/colla-attributes/UserNickname";
-import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/colla-attributes/UserFirstSurname";
-import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/colla-attributes/UserEmail";
-import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/colla-attributes/UserPassword";
-import {areUserRolesValid} from "@/modules/users/domain/colla-attributes/UserRoles";
-import {isUserDigitalProductsValid} from "@/modules/users/domain/colla-attributes/UserDigitalProducts";
-import {isUserActiveUserImageValid} from "@/modules/users/domain/colla-attributes/UserActiveImage";
-import {isUserActiveUserImageFrameValid} from "@/modules/users/domain/colla-attributes/UserActiveImageFrame";
-import {isUserActiveUserBackgroundImageValid} from "@/modules/users/domain/colla-attributes/UserActiveUserBackgroundImage";
-import {isUserActiveUserTitleValid} from "@/modules/users/domain/colla-attributes/UserActiveUserTitle";
-import {isUserActiveUserBackgroundColourValid} from "@/modules/users/domain/colla-attributes/UserActiveUserBackgroundColour";
-import {isUserActivePinsValid} from "@/modules/users/domain/colla-attributes/UserActivePins";
-import {isUserCoinsValid} from "@/modules/users/domain/colla-attributes/UserCoins";
+import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserName";
+import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserSecondSurname";
+import {isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserNickname";
+import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserFirstSurname";
+import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
+import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
+import {areUserRolesValid} from "@/modules/users/domain/user-attributes/UserRoles";
+import {isUserDigitalProductsValid} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
+import {isUserActiveUserImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserImage";
+import {isUserActiveUserImageFrameValid} from "@/modules/users/domain/user-attributes/UserActiveUserImageFrame";
+import {isUserActiveUserBackgroundImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundImage";
+import {isUserActiveUserTitleValid} from "@/modules/users/domain/user-attributes/UserActiveUserTitle";
+import {isUserActiveUserBackgroundColourValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundColour";
+import {isUserActivePinsValid} from "@/modules/users/domain/user-attributes/UserActivePins";
+import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins";
 import {collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
 
 const initialState = {

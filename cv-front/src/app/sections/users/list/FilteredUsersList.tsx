@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { CollaCard } from '@/app/sections/colles/card/CollaCard';
 import { useUsersContext } from '@/app/sections/users/UsersContext';
-import styles from './FilteredCollesList.module.scss';
+import styles from './FilteredUsersList.module.scss';
 import { dictionary } from '@/content';
 import {userCollaRoles, getRolesAdditionalStyle} from "@/modules/users/domain/user-attributes/UserRoles";
-import {collaIsCCGM} from "@/modules/colles/domain/Colla";
 import {getRoleColles} from "@/modules/users/domain/User";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
+import UserCard from "@/app/sections/users/card/UserCard";
 
 export function FilteredUsersList({ lang }: { lang: string }) {
     const { colles } = useUsersContext();
@@ -122,7 +121,7 @@ export function FilteredUsersList({ lang }: { lang: string }) {
             {/* -----------------------------------------------------------------------------------------------------------------*/}
             {/* ------------------------------------------------- COLLES RESULT -------------------------------------------------*/}
             {/* -----------------------------------------------------------------------------------------------------------------*/}
-            <h2 className={styles.h2}>{dictionary[lang]?.collesTitle}</h2>
+            <h2 className={styles.h2}>{dictionary[lang]?.usersTitle}</h2>
             <div className={styles.list}>
                 {users
                     .filter(user =>

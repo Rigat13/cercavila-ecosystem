@@ -1,7 +1,6 @@
 import {UserRepository} from "@/modules/users/domain/UserRepository";
 import {User} from "@/modules/users/domain/User";
 import {URL_PREFIX} from "@/modules/users/infrastructure/configuration";
-import {getAllColles} from "@/modules/colles/application/get-all/getAllColles";
 import {Colla} from "@/modules/colles/domain/Colla";
 
 export function createApiUserRepository(): UserRepository {

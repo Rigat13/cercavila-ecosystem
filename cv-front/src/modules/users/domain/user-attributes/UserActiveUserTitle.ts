@@ -6,6 +6,6 @@ export function isUserActiveUserTitleValid(activeUserTitle: string): boolean {
     return regexExp.test(activeUserTitle);
 }
 
-export function UserActiveUserTitleValidError(activeUserTitle: string): Error {
+export function UserActiveUserTitleNotValidError(activeUserTitle: string): Error {
     return new Error(ACTIVE_USER_TITLE_ERROR_MESSAGE);
 }

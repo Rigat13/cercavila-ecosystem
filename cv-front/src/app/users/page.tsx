@@ -3,7 +3,7 @@
 import Image from "next/image";
 import {createApiUserRepository} from "@/modules/users/infrastructure/ApiUserRepository";
 import {UsersContextProvider} from "@/app/sections/users/UsersContext";
-import {UsersList} from "@/app/sections/users/list/UsersList";
+import {FilteredUsersList} from "@/app/sections/users/list/FilteredUsersList";
 import {CreateUserForm} from "@/app/sections/users/form/CreateUserForm";
 import {defaultLang, dictionary} from "@/content";
 import {useSearchParams } from "next/navigation";
@@ -41,7 +41,7 @@ function PageContent() {
 
             <div className = "Users">
                 <h1 className={globalStyles.h1}>{dictionary[lang]?.cercavilaTitle}</h1>
-                <UsersList lang={lang}/>
+                <FilteredUsersList lang={lang}/>
                 <CreateUserForm lang={lang}/>
             </div>
         </UsersContextProvider>
