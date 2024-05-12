@@ -16,7 +16,7 @@ import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LEN
 import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
 import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
 import {areUserRolesValid, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
-import {isUserDigitalProductsValid} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
+import {isUserDigitalProductsValid, concatenateUserDigitalProducts} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
 import {isUserActiveUserImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserImage";
 import {isUserActiveUserImageFrameValid} from "@/modules/users/domain/user-attributes/UserActiveUserImageFrame";
 import {isUserActiveUserBackgroundImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundImage";
@@ -24,7 +24,9 @@ import {isUserActiveUserTitleValid} from "@/modules/users/domain/user-attributes
 import {isUserActiveUserBackgroundColourValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundColour";
 import {isUserActivePinsValid} from "@/modules/users/domain/user-attributes/UserActivePins";
 import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins";
-import {collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
+
+import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
+import {Figura} from "@/modules/digitalProducts/domain/Figura";
 
 const initialState = {
     id: "",
@@ -57,6 +59,9 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     const { userNicknames } = useUsersContext();
     const { users } = useUsersContext();
 
+    const { digitalProducts } = useUsersContext();
+    const [selectedDigitalProducts, setSelectedDigitalProducts] = useState([]);
+
     lang = lang;
 
     useEffect(() => {
@@ -73,16 +78,22 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                     secondSurname: userData.secondSurname,
                     email: userData.email,
                     password: userData.password,
-                    /*roles: userData.roles.toString(),
+                    //roles: userData.roles.toString(),
                     coins: userData.coins+"",
                     digitalProducts: userData.digitalProducts.toString(),
-                    activeUserImage: userData.activeUserImage,
+                    /*activeUserImage: userData.activeUserImage,
                     activeUserImageFrame: userData.activeUserImageFrame,
                     activeUserBackgroundImage: userData.activeUserBackgroundImage,
                     activeUserTitle: userData.activeUserTitle,
                     activeUserBackgroundColour: userData.activeUserBackgroundColour,
                     activePins: userData.activePins.toString(),*/
                 });
+                const digitalProductIds = userData.digitalProducts;
+                const selectedDigitalProducts: DigitalProduct[] = digitalProductIds.map(digitalProductId => {
+                    return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
+                }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
+
+                setSelectedDigitalProducts(selectedDigitalProducts as DigitalProduct[]);
             } catch (error) {
                 throw new Error(error);
 
@@ -143,9 +154,26 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     };
 
     const handleDigitalProductsChange = (ev) => {
-        const newDigitalProducts = ev.target.value;
-        updateForm({ digitalProducts: newDigitalProducts });
-        validateFormData({ ...formData, digitalProducts: newDigitalProducts });
+        const selectedId = ev.target.value;
+        const selectedDigitalProduct = digitalProducts.find(option => option.id === selectedId);
+        (selectedDigitalProducts as DigitalProduct[]).push(selectedDigitalProduct as DigitalProduct);
+        if (selectedDigitalProduct) {
+            setSelectedDigitalProducts(selectedDigitalProducts);
+            const newDigitalProducts = concatenateUserDigitalProducts([...selectedDigitalProducts, selectedDigitalProduct]);
+            updateForm({ digitalProducts: newDigitalProducts });
+            validateFormData({ ...formData, digitalProducts: newDigitalProducts });
+        }
+    };
+
+    const handleDeleteDigitalProduct = (index) => {
+        setSelectedDigitalProducts((prevSelectedDigitalProducts) => {
+            const newSelectedDigitalProducts = [...prevSelectedDigitalProducts];
+            newSelectedDigitalProducts.splice(index, 1);
+            const newDigitalProducts = concatenateUserDigitalProducts(newSelectedDigitalProducts);
+            updateForm({ digitalProducts: newDigitalProducts });
+            validateFormData({ ...formData, digitalProducts: newDigitalProducts });
+            return newSelectedDigitalProducts;
+        });
     };
 
     const handleActiveUserImageChange = (ev) => {
@@ -224,8 +252,8 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid// || !isRolesValid ||
-            //!isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
+        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid ||// !isRolesValid ||
+            !isCoinsValid || !isDigitalProductsValid //|| !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
             //!isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid
         ) { return; }
 
@@ -433,15 +461,45 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
 
 
-                            {"// TODO Add Digital Products"}
                             {"// TODO 2: Populate aciveX options with Digital Products corresponding the type"}
 
                         </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="digitalProducts">{dictionary[lang]?.userDigitalProducts}</label>
+                            <select
+                                id="digitalProducts"
+                                name="digitalProducts"
+                                value={formData.digitalProducts}
+                                onChange={handleDigitalProductsChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectUserDigitalProduct}</option>
+                                {digitalProducts.map(option => (
+                                    <option
+                                        key={option.id}
+                                        value={option.id}
+                                        disabled={selectedDigitalProducts.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
+                                    > {option.name} </option>
+                                ))}
+                            </select>
+                            {formData.digitalProducts && errors.digitalProducts && (
+                                <div style={{ color: "tomato" }}>{errors.digitalProducts}</div>
+                            )}
+                        </div>
+                        <div className={styles.selectedElements}>
+                            {selectedDigitalProducts.map((digitalProduct, index) => (
+                                <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
+                                    <span>{(digitalProduct as DigitalProduct).name}</span>
+                                    <button onClick={() => handleDeleteDigitalProduct(index)}>×</button>
+                                </div>
+                            ))}
+                        </div>
+
                         <button
                             className={styles.actionButton}
                             type="submit"
                             disabled={!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-                                !isCoinsValid } >{"|| !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||"}
+                                !isCoinsValid || !isDigitalProductsValid } >{"|| !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||"}
                             {"!isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}>"}
 
                             {dictionary[lang]?.updateUserButton}
