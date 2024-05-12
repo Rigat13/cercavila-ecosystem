@@ -2,11 +2,12 @@ import {UserRepository} from "@/modules/users/domain/UserRepository";
 import {User} from "@/modules/users/domain/User";
 import {URL_PREFIX} from "@/modules/users/infrastructure/configuration";
 import {Colla} from "@/modules/colles/domain/Colla";
+import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 
 export function createApiUserRepository(): UserRepository {
     return <UserRepository>{
         storeUser, getUserById, getUserByName, getAllUsersByName,
-        getAllUsers, updateUser, deleteUser, getAllUserNicknames, getAllColles
+        getAllUsers, updateUser, deleteUser, getAllUserNicknames, getAllColles, getAllDigitalProducts
     };
 }
 
@@ -85,6 +86,17 @@ async function getAllColles() {
         return colles;
     } catch (error) {
         throw new Error("No s'ha pogut obtenir totes les colles. \nMotiu: " + error);
+    }
+}
+
+async function getAllDigitalProducts() {
+    try {
+        const digitalProducts = await fetch(URL_PREFIX + `/api/digitalproducts`).then(
+            (response) => response.json() as Promise<DigitalProduct[]>
+        );
+        return digitalProducts;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir tots els producte digitals. \nMotiu: " + error);
     }
 }
 

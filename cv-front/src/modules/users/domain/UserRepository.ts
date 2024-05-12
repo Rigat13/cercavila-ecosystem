@@ -1,5 +1,6 @@
 import {User} from './User';
 import {Colla} from "@/modules/colles/domain/Colla";
+import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 
 export interface UserRepository {
     storeUser: (user: User) => Promise<void>;
@@ -12,4 +13,6 @@ export interface UserRepository {
     getAllUserNicknames:() => Promise<string[]>;
 
     getAllColles:() => Promise<Colla[]>;
+
+    getAllDigitalProducts:() => Promise<DigitalProduct[]>;
 }

@@ -263,6 +263,21 @@ interface DictionaryEntry {
     userCollaRoleSupport: string;
     userCollaOuterRoleFollower: string;
 
+    // --- USER DIGITAL PRODUCTS
+    selectUserDigitalProduct: string;
+    // --- USER ACTIVE USER IMAGE
+    selectUserActiveUserImage: string;
+    // --- USER ACTIVE USER IMAGE FRAME
+    selectUserActiveUserImageFrame: string;
+    // --- USER ACTIVE USER BACKGROUND IMAGE
+    selectUserActiveUserBackgroundImage: string;
+    // --- USER ACTIVE USER TITLE
+    selectUserActiveUserTitle: string;
+    // --- USER ACTIVE USER BACKGROUND COLOUR
+    selectUserActiveUserBackgroundColour: string;
+    // --- USER ACTIVE PINS
+    selectUserActivePins: string;
+
     // CREATE USER
     usersTitle: string;
     createUserTitle: string;
@@ -591,6 +606,21 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userCollaRoleSupport: "Suport",
         userCollaOuterRoleFollower: "Seguidor/a",
 
+        // --- USER DIGITAL PRODUCTS
+        selectUserDigitalProduct: "-- Producte digital --",
+        // --- USER ACTIVE USER IMAGE
+        selectUserActiveUserImage: "-- Imatge d'usuari --",
+        // --- USER ACTIVE USER IMAGE FRAME
+        selectUserActiveUserImageFrame: "-- Marc d'imatge d'usuari --",
+        // --- USER ACTIVE USER BACKGROUND IMAGE
+        selectUserActiveUserBackgroundImage: "-- Imatge de fons d'usuari --",
+        // --- USER ACTIVE USER TITLE
+        selectUserActiveUserTitle: "-- Títol d'usuari --",
+        // --- USER ACTIVE USER BACKGROUND COLOUR
+        selectUserActiveUserBackgroundColour: "-- Color de fons d'usuari --",
+        // --- USER ACTIVE PINS
+        selectUserActivePins: "-- Pins --",
+
         // CREATE USER
         usersTitle: "Usuaris registrats",
         createUserTitle: "Crea un nou usuari",
@@ -918,6 +948,21 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userCollaRoleSupport: "Soporte",
         userCollaOuterRoleFollower: "Seguidor/a",
 
+        // --- USER DIGITAL PRODUCTS
+        selectUserDigitalProduct: "-- Producto digital --",
+        // --- USER ACTIVE USER IMAGE
+        selectUserActiveUserImage: "-- Imagen de usuario --",
+        // --- USER ACTIVE USER IMAGE FRAME
+        selectUserActiveUserImageFrame: "-- Marco de imagen de usuario --",
+        // --- USER ACTIVE USER BACKGROUND IMAGE
+        selectUserActiveUserBackgroundImage: "-- Imagen de fondo de usuario --",
+        // --- USER ACTIVE USER TITLE
+        selectUserActiveUserTitle: "-- Título de usuario --",
+        // --- USER ACTIVE USER BACKGROUND COLOUR
+        selectUserActiveUserBackgroundColour: "-- Color de fondo de usuario --",
+        // --- USER ACTIVE PINS
+        selectUserActivePins: "-- Pins --",
+
         // CREATE USER
         usersTitle: "Usuarios registrados",
         createUserTitle: "Crea un nuevo usuario",
@@ -1244,6 +1289,21 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userCollaRoleMusician: "Musician",
         userCollaRoleSupport: "Support",
         userCollaOuterRoleFollower: "Follower",
+
+        // --- USER DIGITAL PRODUCTS
+        selectUserDigitalProduct: "-- Digital product --",
+        // --- USER ACTIVE USER IMAGE
+        selectUserActiveUserImage: "-- User image --",
+        // --- USER ACTIVE USER IMAGE FRAME
+        selectUserActiveUserImageFrame: "-- User image frame --",
+        // --- USER ACTIVE USER BACKGROUND IMAGE
+        selectUserActiveUserBackgroundImage: "-- User background image --",
+        // --- USER ACTIVE USER TITLE
+        selectUserActiveUserTitle: "-- User title --",
+        // --- USER ACTIVE USER BACKGROUND COLOUR
+        selectUserActiveUserBackgroundColour: "-- User background colour --",
+        // --- USER ACTIVE PINS
+        selectUserActivePins: "-- Pins --",
 
         // CREATE USER
         usersTitle: "Registered users",

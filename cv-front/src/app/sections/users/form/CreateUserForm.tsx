@@ -15,7 +15,10 @@ import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LEN
 import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
 import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
 import {areUserRolesValid, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
-import {isUserDigitalProductsValid} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
+import {
+    concatenateUserDigitalProducts,
+    isUserDigitalProductsValid
+} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
 import {isUserActiveUserImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserImage";
 import {isUserActiveUserImageFrameValid} from "@/modules/users/domain/user-attributes/UserActiveUserImageFrame";
 import {isUserActiveUserBackgroundImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundImage";
@@ -23,6 +26,9 @@ import {isUserActiveUserTitleValid} from "@/modules/users/domain/user-attributes
 import {isUserActiveUserBackgroundColourValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundColour";
 import {isUserActivePinsValid} from "@/modules/users/domain/user-attributes/UserActivePins";
 import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins";
+import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
+import {concatenateFigures} from "@/modules/colles/domain/colla-attributes/CollaFigures";
+import {Figura} from "@/modules/figures/domain/Figura";
 
 const initialState = {
     nickname: "",
@@ -53,6 +59,9 @@ export function CreateUserForm({ lang }: { lang: string }) {
     const { formStatus, submitForm, resetFormStatus } = useUserForm();
     const [errors, setErrors] = useState(initialState);
     const { userNicknames } = useUsersContext();
+
+    const { digitalProducts } = useUsersContext();
+    const [selectedDigitalProducts, setSelectedDigitalProducts] = useState([]);
 
     lang = lang;
 
@@ -109,9 +118,26 @@ export function CreateUserForm({ lang }: { lang: string }) {
     };
 
     const handleDigitalProductsChange = (ev) => {
-        const newDigitalProducts = ev.target.value;
-        updateForm({ digitalProducts: newDigitalProducts });
-        validateFormData({ ...formData, digitalProducts: newDigitalProducts });
+        const selectedId = ev.target.value;
+        const selectedDigitalProduct = digitalProducts.find(option => option.id === selectedId);
+        (selectedDigitalProducts as DigitalProduct[]).push(selectedDigitalProduct as DigitalProduct);
+        if (selectedDigitalProduct) {
+            setSelectedDigitalProducts(selectedDigitalProducts);
+            const newDigitalProducts = concatenateUserDigitalProducts([...selectedDigitalProducts, selectedDigitalProduct]);
+            updateForm({ digitalProducts: newDigitalProducts });
+            validateFormData({ ...formData, digitalProducts: newDigitalProducts });
+        }
+    };
+
+    const handleDeleteDigitalProduct = (index) => {
+        setSelectedDigitalProducts((prevSelectedDigitalProducts) => {
+            const newSelectedDigitalProducts = [...prevSelectedDigitalProducts];
+            newSelectedDigitalProducts.splice(index, 1);
+            const newDigitalProducts = concatenateFigures(newSelectedDigitalProducts);
+            updateForm({ digitalProducts: newDigitalProducts });
+            validateFormData({ ...formData, digitalProducts: newDigitalProducts });
+            return newSelectedDigitalProducts;
+        });
     };
 
     const handleActiveUserImageChange = (ev) => {
@@ -190,8 +216,8 @@ export function CreateUserForm({ lang }: { lang: string }) {
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid// || !isRolesValid ||
-            //!isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
+        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || //!isRolesValid ||
+            !isCoinsValid || !isDigitalProductsValid //|| !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
             //!isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid
             ) { return; }
 
@@ -362,11 +388,42 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             {"// TODO 2: Populate aciveX options with Digital Products corresponding the type"}
 
                         </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="digitalProducts">{dictionary[lang]?.userDigitalProducts}</label>
+                            <select
+                                id="digitalProducts"
+                                name="digitalProducts"
+                                value={formData.digitalProducts}
+                                onChange={handleDigitalProductsChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectUserDigitalProduct}</option>
+                                {digitalProducts.map(option => (
+                                    <option
+                                        key={option.id}
+                                        value={option.id}
+                                        disabled={selectedDigitalProducts.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
+                                    > {option.name} </option>
+                                ))}
+                            </select>
+                            {formData.digitalProducts && errors.digitalProducts && (
+                                <div style={{ color: "tomato" }}>{errors.digitalProducts}</div>
+                            )}
+                        </div>
+                        <div className={styles.selectedElements}>
+                            {selectedDigitalProducts.map((digitalProduct, index) => (
+                                <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
+                                    <span>{(digitalProduct as DigitalProduct).name}</span>
+                                    <button onClick={() => handleDeleteDigitalProduct(index)}>×</button>
+                                </div>
+                            ))}
+                        </div>
+
                         <button
                             className={styles.actionButton}
                             type="submit"
                             disabled={!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-                                !isCoinsValid } >{"|| !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||"}
+                                !isCoinsValid || !isDigitalProductsValid } >{"|| !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||"}
                             {"!isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}>"}
 
                             {dictionary[lang]?.createUserButton}

@@ -10,11 +10,14 @@ import {updateUser} from "@/modules/users/application/update/updateUser";
 import {deleteUser} from "@/modules/users/application/delete/deleteUser";
 import {Colla} from "@/modules/colles/domain/Colla";
 import {getAllColles_userRepo} from "@/modules/colles/application/get-all/getAllColles";
+import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
+import {getAllDigitalProducts_userRepo} from "@/modules/digitalproducts/application/get-all/getAllDigitalProducts";
 
 export interface ContextState {
     users: User[];
     userNicknames: string[];
     colles: Colla[];
+    digitalProducts: DigitalProduct[];
     createUser: (user: { id: string; nickname: string; name: string; firstSurname: string; secondSurname: string; email: string;
         password: string; roles: string[]; coins: number; digitalProducts: string[]; activeUserImage: string; activeUserImageFrame: string;
         activeUserBackgroundImage: string; activeUserTitle: string; activeUserBackgroundColour: string; activePins: string[]; }) => Promise<void>;
@@ -34,6 +37,7 @@ export const UsersContextProvider = ({
     const [users, setUsers] = useState<User[]>([]);
     const [userNicknames, setUserNicknames] = useState<string[]>([]);
     const [colles, setColles] = useState<Colla[]>([]);
+    const [digitalProducts, setDigitalProducts] = useState<DigitalProduct[]>([]);
 
     async function create({ id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
                               activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }:
@@ -54,6 +58,12 @@ export const UsersContextProvider = ({
     async function getColles() {
         return getAllColles_userRepo(repository).then((colles) => {
             setColles(colles);
+        });
+    }
+
+    async function getDigitalProducts() {
+        return getAllDigitalProducts_userRepo(repository).then((digitalProducts) => {
+            setDigitalProducts(digitalProducts);
         });
     }
 
@@ -81,10 +91,11 @@ export const UsersContextProvider = ({
         getUsers();
         getNicknames();
         getColles();
+        getDigitalProducts();
     }, []);
 
     return (
-        <UsersContext.Provider value={{ users, userNicknames, colles, createUser: create, updateUser: update, deleteUser: deleteC, getAllUserNicknames: getNicknames }}>
+        <UsersContext.Provider value={{ users, userNicknames, colles, digitalProducts, createUser: create, updateUser: update, deleteUser: deleteC, getAllUserNicknames: getNicknames }}>
             {children}
         </UsersContext.Provider>
     );
