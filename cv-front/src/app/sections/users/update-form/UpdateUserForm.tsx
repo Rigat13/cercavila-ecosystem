@@ -2,11 +2,12 @@
 import React, {useEffect, useState} from "react";
 import {FormStatus, useUserForm} from "@/app/sections/users/form/useUserForm";
 import { Spinner } from "@/app/sections/shared/Spinner";
-import {useUserFormData} from "@/app/sections/users/form/useUserFormData";
 import styles from "@/app/sections/users/form/UserForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
 
 import {useUsersContext} from "@/app/sections/users/UsersContext";
+import {useUpdateUserForm} from "@/app/sections/users/update-form/useUpdateUserForm";
+import {useUpdateUserFormData} from "@/app/sections/users/update-form/useUpdateUserFormData";
 
 import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users/domain/colla-attributes/UserName";
 import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH } from "@/modules/users/domain/colla-attributes/UserSecondSurname";
@@ -26,6 +27,7 @@ import {isUserCoinsValid} from "@/modules/users/domain/colla-attributes/UserCoin
 import {collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
 
 const initialState = {
+    id: "",
     nickname: "",
     name: "",
     firstSurname: "",
@@ -42,24 +44,54 @@ const initialState = {
     activeUserBackgroundColour: "",
     activePins: "",
 }
-
 export let isNicknameValid, isNameValid, isFirstSurnameValid, isSecondSurnameValid, isEmailValid, isPasswordValid, isRolesValid,
     isCoinsValid, isDigitalProductsValid, isActiveUserImageValid, isActiveUserImageFrameValid, isActiveUserBackgroundImageValid,
     isActiveUserTitleValid, isActiveUserBackgroundColourValid, isActivePinsValid;
-
 const lang = defaultLang;
 
-export function CreateUserForm({ lang }: { lang: string }) {
-    const { formData, updateForm, resetForm } = useUserFormData(initialState);
-    const { formStatus, submitForm, resetFormStatus } = useUserForm();
+export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
+    const { formData, updateForm, resetForm } = useUpdateUserFormData(initialState);
+    const { formStatus, submitForm, resetFormStatus } = useUpdateUserForm();
     const [errors, setErrors] = useState(initialState);
+    const [isDeleted, setIsDeleted] = useState(false);
     const { userNicknames } = useUsersContext();
+    const { users } = useUsersContext();
 
     lang = lang;
 
     useEffect(() => {
 
-    }, [formData]);
+        const fetchUserData = async () => {
+            try {
+                const userData = users.find((user) => user.id === userId);
+                if (!userData) { throw new Error(dictionary[lang]?.userNotFoundWithId + userId); }
+
+                updateForm({
+                    id: userData.id,
+                    nickname: userData.nickname,
+                    name: userData.name,
+                    firstSurname: userData.firstSurname,
+                    secondSurname: userData.secondSurname,
+                    email: userData.email,
+                    password: userData.password,
+                    roles: userData.roles.toString(),
+                    coins: userData.coins+"",
+                    digitalProducts: userData.digitalProducts.toString(),
+                    activeUserImage: userData.activeUserImage,
+                    activeUserImageFrame: userData.activeUserImageFrame,
+                    activeUserBackgroundImage: userData.activeUserBackgroundImage,
+                    activeUserTitle: userData.activeUserTitle,
+                    activeUserBackgroundColour: userData.activeUserBackgroundColour,
+                    activePins: userData.activePins.toString(),
+                });
+            } catch (error) {
+                console.error(dictionary[lang]?.errorRetrievingUserMessage + userId);
+            }
+        };
+        fetchUserData();
+    }, [userId, users]);
+
+
 
     const handleNicknameChange = (ev) => {
         const newNickname = ev.target.value;
@@ -151,8 +183,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, activePins: newActivePins });
     };
 
-
-    const validateFormData = ({ nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
+    const validateFormData = ({ id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
                                   activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }) => {
         // Perform validation based on the provided data
         isNicknameValid = isUserNicknameValid(nickname, userNicknames);
@@ -172,6 +203,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
         isActivePinsValid = isUserActivePinsValid(activePins);
 
         setErrors({
+            id: "",
             nickname: isNicknameValid ? "" : dictionary[lang]?.userNicknameInvalid + NICKNAME_MIN_LENGTH + " - " + NICKNAME_MAX_LENGTH,
             name: isNameValid ? "" : dictionary[lang]?.userNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
             firstSurname: isFirstSurnameValid ? "" : dictionary[lang]?.userFirstSurnameInvalid + FIRST_SURNAME_MIN_LENGTH + " - " + FIRST_SURNAME_MAX_LENGTH,
@@ -195,7 +227,9 @@ export function CreateUserForm({ lang }: { lang: string }) {
             !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
             !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
 
-        ev.preventDefault();submitForm({
+        ev.preventDefault();
+        submitForm({
+            id: formData.id,
             nickname: formData.nickname,
             name: formData.name,
             firstSurname: formData.firstSurname,
@@ -214,24 +248,63 @@ export function CreateUserForm({ lang }: { lang: string }) {
         });
     };
 
+    // ------------------ DELETE COLLA ------------------
+    const { deleteUser } = useUsersContext();
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isGoToUsersVisible, setGoToUsersVisible] = useState(true);
+    const [isDeleteUserVisible, setDeleteUserVisible] = useState(true);
+
+    const handleDeleteClick = () => {
+        setGoToUsersVisible(false);
+        setDeleteUserVisible(false);
+        setIsConfirmOpen(true);
+    };
+    if (isDeleted) {
+        return (
+            <section className={styles.userForm}>
+                <h2 className={styles.h2}>{dictionary[lang]?.successDeleteUserMessage}</h2>
+                <a href={lang === defaultLang ? "/users.html" : `/users.html?lang=${lang}`} className={styles.h2}>
+                    <button className={styles.actionButton}>{dictionary[lang]?.goToUsersButton}</button>
+                </a>
+            </section>
+        );
+    }
+
+    const handleConfirmDelete = () => {
+        deleteUser(userId);
+        setIsDeleted(true);
+        setIsConfirmOpen(false);
+    };
+
+    const handleCancelDelete = () => {
+        setIsConfirmOpen(false);
+        setGoToUsersVisible(true);
+        setDeleteUserVisible(true);
+    };
+
+    if (isDeleted) {
+        return (
+            <div>
+                <p>{dictionary[lang]?.successDeleteUserMessage}</p>
+            </div>
+        );
+    }
+    // ---------------- END DELETE COLLA ----------------
+
+
     switch (formStatus) {
         case FormStatus.Loading:
             return <Spinner />;
         case FormStatus.Success:
             return (
-                <SuccessNotification lang={lang}
-                    resetForm={() => {
-                        resetForm();
-                        resetFormStatus();
-                    }}
-                />
+                <SuccessNotification lang={lang} userId={userId}/>
         );
         case FormStatus.Error:
             return <ErrorNotification lang={lang} resetForm={resetFormStatus} />;
         case FormStatus.Initial:
             return (
                 <section id="order" className={styles.userForm}>
-                    <h2>{dictionary[lang]?.createUserTitle}</h2>
+                    <h2>{dictionary[lang]?.updateUserTitle}</h2>
 
                     <form
                         onSubmit={(ev) => {
@@ -369,9 +442,29 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                 !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
                                 !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}
                         >
-                            {dictionary[lang]?.createUserButton}
+                            {dictionary[lang]?.updateUserButton}
                         </button>
                     </form>
+                    {isGoToUsersVisible && (
+                        <a href={lang === defaultLang ? "/users.html" : `/users.html?lang=${lang}`}>
+                            <button className={styles.actionButton}>{dictionary[lang]?.goToUsersButton}</button>
+                        </a>
+                    )}
+                    {isGoToUsersVisible && (
+                        <a href={lang === defaultLang ? `/users/user.html?userId=${userId}` : `/users/user.html?userId=${userId}&lang=${lang}`}>
+                            <button className={styles.actionButton}>{dictionary[lang]?.goToUserPageButton}</button>
+                        </a>
+                    )}
+                    {isDeleteUserVisible && (
+                        <button className={styles.deleteButton} onClick={handleDeleteClick} >{dictionary[lang]?.deleteUserButton}</button>
+                    )}
+                    {isConfirmOpen && (
+                        <div className={styles.userForm}>
+                            <p className={styles.warningMessage}>{dictionary[lang]?.warningDeleteUserMessage}</p>
+                            <button className={styles.actionButton} onClick={handleCancelDelete}>{dictionary[lang]?.cancelDeleteUserButton}</button>
+                            <button className={styles.deleteButton} onClick={handleConfirmDelete}>{dictionary[lang]?.confirmDeleteUserButton}</button>
+                        </div>
+                    )}
                 </section>
             );
         default:
@@ -379,11 +472,16 @@ export function CreateUserForm({ lang }: { lang: string }) {
     }
 }
 
-function SuccessNotification({ lang, resetForm }: { lang: string; resetForm: () => void }) {
+function SuccessNotification({ lang, userId }: { lang: string, userId: string}) {
     return (
         <section className={styles.userForm}>
-            <h2 className={styles.h2}>{dictionary[lang]?.successCreateUserMessage}</h2>
-            <button className={styles.actionButton} onClick={resetForm}>{dictionary[lang]?.createAnotherUserButton}</button>
+            <h2 className={styles.h2}>{dictionary[lang]?.successUpdateUserMessage}</h2>
+            <a href={lang === defaultLang ? "/users.html" : `/users.html?lang=${lang}`}>
+                <button className={styles.actionButton}>{dictionary[lang]?.goToUsersButton}</button>
+            </a>
+            <a href={lang === defaultLang ? `/users/user.html?userId=${userId}` : `/users/user.html?userId=${userId}&lang=${lang}`}>
+                <button className={styles.actionButton}>{dictionary[lang]?.goToUserPageButton}</button>
+            </a>
         </section>
     );
 }
@@ -391,12 +489,37 @@ function SuccessNotification({ lang, resetForm }: { lang: string; resetForm: () 
 function ErrorNotification({ lang, resetForm }: { lang: string; resetForm: () => void }) {
     return (
         <section className={styles.userForm}>
-            <h2 className={styles.h2error}>{dictionary[lang]?.errorCreateUserMessage}</h2>
-            <button className={styles.actionButton} onClick={resetForm}>{dictionary[lang]?.retryCreateUserButton}</button>
+            <h2 className={styles.h2error}>{dictionary[lang]?.errorFound}</h2>
+            <button className={styles.actionButton} onClick={resetForm}>{dictionary[lang]?.retry}</button>
         </section>
     );
 }
 
 function assertUnreachable(x: never): never {
-    throw new Error("No s'esperava arribar aquí");
+    throw new Error(""+dictionary[lang]?.unreachablePage);
+}
+
+function base64ToBlob(base64: string): Blob {
+    const binaryString = window.atob(base64);
+    const length = binaryString.length;
+    const bytes = new Uint8Array(length);
+    for (let i = 0; i < length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new Blob([bytes], { type: 'image/avif' });
+}
+
+function getFileExtension(mimeType) {
+    switch (mimeType) {
+        case 'image/jpeg':
+            return '.jpg';
+        case 'image/png':
+            return '.png';
+        case 'image/gif':
+            return '.gif';
+        case 'image/avif':
+            return '.avif';
+        default:
+            return '.jpg'; // Default to .jpg if MIME type is unknown or not supported
+    }
 }

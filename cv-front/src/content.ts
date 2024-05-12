@@ -293,6 +293,7 @@ interface DictionaryEntry {
     updateUserTitle: string;
     updateUserButton: string;
     goToUsersButton: string;
+    goToUserPageButton: string;
     deleteUserButton: string;
     warningDeleteUserMessage: string;
     cancelDeleteUserButton: string;
@@ -620,6 +621,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         updateUserTitle: "Edita l'usuari",
         updateUserButton: "Edita l'usuari",
         goToUsersButton: "Torna als usuaris",
+        goToUserPageButton: "Pàgina de l'Usuari",
         deleteUserButton: "Esborrar l'usuari",
         warningDeleteUserMessage: "Voleu esborrar l'usuari de manera permanent? No es pot desfer aquesta acció.",
         cancelDeleteUserButton: "Cancel·lar",
@@ -946,6 +948,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         updateUserTitle: "Edita el usuario",
         updateUserButton: "Edita el usuario",
         goToUsersButton: "Vuelve a los usuarios",
+        goToUserPageButton: "Página del Usuario",
         deleteUserButton: "Borrar el usuario",
         warningDeleteUserMessage: "¿Quiere borrar el usuario de manera permanente? No se puede deshacer esta acción.",
         cancelDeleteUserButton: "Cancelar",
@@ -1272,6 +1275,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         updateUserTitle: "Edit user",
         updateUserButton: "Edit user",
         goToUsersButton: "Go back to users",
+        goToUserPageButton: "Go to User page",
         deleteUserButton: "Delete user",
         warningDeleteUserMessage: "Do you want to delete the user permanently? This action cannot be undone.",
         cancelDeleteUserButton: "Cancel",
