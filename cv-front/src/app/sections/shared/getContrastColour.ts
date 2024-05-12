@@ -23,10 +23,10 @@ function getContrastTextColour (isLight: boolean): React.CSSProperties {
     const darkColour = "#000000";
 
     const color = isLight ? darkColour : lightColour;
-    return {color};
+    return color;
 }
 
 export function getContrastColour(backgroundColor: React.CSSProperties): React.CSSProperties {
-    const isLight = getIsLightContrast(backgroundColor);
+    const isLight = getIsLightContrast(backgroundColor.toString());
     return getContrastTextColour(isLight);
 }

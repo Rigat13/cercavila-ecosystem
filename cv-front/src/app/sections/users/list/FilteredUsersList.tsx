@@ -39,6 +39,7 @@ export function FilteredUsersList({ lang }: { lang: string }) {
         let backgroundColor: React.CSSProperties  = "#000000";
         let color: React.CSSProperties = "#FFFFFF";
 
+
         const colla = colles.find(colla => colla.id === collaId);
         backgroundColor = colla ? colla.primaryColour : '';
         color = getContrastColour(backgroundColor);
@@ -51,6 +52,11 @@ export function FilteredUsersList({ lang }: { lang: string }) {
             case 'colla': return getCollaAdditionalStyle(value);
             default: return {};
         }
+    }
+
+    function getCollaNameById(collaId: string): string | undefined {
+        const colla = colles.find(c => c.id === collaId);
+        return colla ? colla.name : undefined;
     }
 
     return (
@@ -95,7 +101,7 @@ export function FilteredUsersList({ lang }: { lang: string }) {
                                 {colles.map(option => (
                                     <option
                                         key={option.id}
-                                        value={option.name}
+                                        value={option.id}
                                         disabled={selectedCollesId.includes(option.id)}
                                     > {option.name} </option>
                                 ))}
@@ -105,17 +111,21 @@ export function FilteredUsersList({ lang }: { lang: string }) {
                     </div>
                 </div>
             </div>
-            {/* ------------------------------------------------- SELECTED TYPES -------------------------------------------------*/}
+            {/* ------------------------------------------------- SELECTED ROLES-COLLES -------------------------------------------------*/}
             <div className={styles.selectedFilters}>
                 {[
-                    ...selectedRoles.map(role => ({ role, category: 'role' })),
-                    ...selectedCollesId.map(colla => ({ role: colla, category: 'colla' })),
-                ].map(({ role, category }) => (
-                    <div key={`${category}-${role}`} className={styles.selectedFilter}  style={getAdditionalStyle(role, category)} >
-                        <span> {dictionary[lang]?.[role]} </span>
-                        <button className={styles.selectedFilterButton} onClick={() => handleRemoveFilter(role, category)} >×</button>
-                    </div>
-                ))}
+                    ...selectedRoles.map(role => ({ value: role, category: 'role' })),
+                    ...selectedCollesId.map(colla => ({ value: colla, category: 'colla' })),
+                ].map(({ value, category }) => {
+                    const itemName = category === 'role' ? dictionary[lang]?.[value] : getCollaNameById(value);
+                    return (
+                        <div key={`${category}-${value}`} className={styles.selectedFilter}
+                             style={getAdditionalStyle(value, category)}>
+                            <span> {itemName} </span>
+                            <button className={styles.selectedFilterButton} onClick={() => handleRemoveFilter(value, category)}>×</button>
+                        </div>
+                    );
+                })}
             </div>
 
             {/* -----------------------------------------------------------------------------------------------------------------*/}
