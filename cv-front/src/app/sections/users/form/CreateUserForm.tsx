@@ -161,7 +161,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
         isSecondSurnameValid = isUserSecondSurnameValid(secondSurname);
         isEmailValid = isUserEmailValid(email);
         isPasswordValid = isUserPasswordValid(password);
-        isRolesValid = areUserRolesValid(roles, dictionary[lang]?.selectUserCollaRole);
+        isRolesValid = areUserRolesValid(roles);
         isCoinsValid = isUserCoinsValid(coins);
         isDigitalProductsValid = isUserDigitalProductsValid(digitalProducts);
         isActiveUserImageValid = isUserActiveUserImageValid(activeUserImage);

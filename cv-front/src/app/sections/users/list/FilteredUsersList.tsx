@@ -6,6 +6,7 @@ import {userCollaRoles, getRolesAdditionalStyle} from "@/modules/users/domain/us
 import {getRoleColles} from "@/modules/users/domain/User";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import UserCard from "@/app/sections/users/card/UserCard";
+import {collaIsCCGM} from "@/modules/colles/domain/Colla";
 
 export function FilteredUsersList({ lang }: { lang: string }) {
     const { colles } = useUsersContext();
@@ -98,7 +99,7 @@ export function FilteredUsersList({ lang }: { lang: string }) {
                         <div className={styles.filterInnerSection}>
                             <select id="colla" name="colla" value={filterColla} onChange={handleCollaChange} >
                                 <option value="">{dictionary[lang]?.userFilterSelectColla}</option>
-                                {colles.map(option => (
+                                {colles.filter(colla => (!collaIsCCGM(colla.id))).map(option => (
                                     <option
                                         key={option.id}
                                         value={option.id}

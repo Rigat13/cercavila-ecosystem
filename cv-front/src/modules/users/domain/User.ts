@@ -45,26 +45,26 @@ export function ensureUserIsValid({id, nickname, name, firstSurname, secondSurna
         digitalProducts, activeUserImage, activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins});
 }
 
-export function ensureUserIsValidEmptyId({id, nickname, name, firstSurname, secondSurname, email, password, roles,
+export async function ensureUserIsValidEmptyId({id, nickname, name, firstSurname, secondSurname, email, password, roles,
                                           coins, digitalProducts, activeUserImage, activeUserImageFrame, activeUserBackgroundImage,
-                                          activeUserTitle, activeUserBackgroundColour, activePins}: User): void {
-    const validNicknames = getAllUserNicknames();
+                                          activeUserTitle, activeUserBackgroundColour, activePins}: User): Promise<void> {
+    const existingNicknames = getAllUserNicknames();
 
-    if (!isUserNicknameValid(nickname, validNicknames)) { throw UserNicknameNotValidError(nickname); }
+    if (!isUserNicknameValid(nickname, await existingNicknames)) { throw UserNicknameNotValidError(nickname, await existingNicknames); }
     if (!isUserNameValid(name)) { throw UserNameNotValidError(name); }
     if (!isUserFirstSurnameValid(firstSurname)) { throw UserFirstSurnameNotValidError(firstSurname); }
     if (!isUserFirstSurnameValid(secondSurname)) { throw UserSecondSurnameNotValidError(secondSurname); }
     if (!isUserEmailValid(email)) { throw UserEmailNotValidError(email); }
     if (!isUserPasswordValid(password)) { throw UserPasswordNotValidError(password); }
-    if (!isUserRolesValid(roles)) { throw UserRolesNotValidError(roles); }
+    if (!areUserRolesValid(roles.toString())) { throw UserRolesNotValidError(roles.toString()); }
     if (!isUserCoinsValid(coins)) { throw UserCoinsNotValidError(coins); }
-    if (!isUserDigitalProductsValid(digitalProducts)) { throw UserDigitalProductsNotValidError(digitalProducts); }
+    if (!isUserDigitalProductsValid(digitalProducts.toString())) { throw UserDigitalProductsNotValidError(digitalProducts.toString()); }
     if (!isUserActiveUserImageValid(activeUserImage)) { throw UserActiveUserImageNotValidError(activeUserImage); }
     if (!isUserActiveUserImageFrameValid(activeUserImageFrame)) { throw UserActiveUserImageFrameNotValidError(activeUserImageFrame); }
     if (!isUserActiveUserBackgroundImageValid(activeUserBackgroundImage)) { throw UserActiveUserBackgroundImageNotValidError(activeUserBackgroundImage); }
     if (!isUserActiveUserTitleValid(activeUserTitle)) { throw UserActiveUserTitleNotValidError(activeUserTitle); }
     if (!isUserActiveUserBackgroundColourValid(activeUserBackgroundColour)) { throw UserActiveUserBackgroundColourNotValidError(activeUserBackgroundColour); }
-    if (!isUserActivePinsValid(activePins)) { throw UserActivePinsNotValidError(activePins); }
+    if (!isUserActivePinsValid(activePins.toString())) { throw UserActivePinsNotValidError(activePins.toString()); }
 }
 
 export function ensureUserIdIsValid(id: string): void {
