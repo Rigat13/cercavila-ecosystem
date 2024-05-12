@@ -190,9 +190,10 @@ export function CreateUserForm({ lang }: { lang: string }) {
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-            !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
-            !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
+        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid// || !isRolesValid ||
+            //!isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
+            //!isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid
+            ) { return; }
 
         ev.preventDefault();submitForm({
             nickname: formData.nickname,

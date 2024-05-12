@@ -5,7 +5,7 @@ import {UsersContextProvider} from "@/app/sections/users/UsersContext";
 import {UpdateUserForm} from "@/app/sections/users/update-form/UpdateUserForm";
 import {useSearchParams } from "next/navigation";
 import {defaultLang, dictionary} from "@/content";
-import styles from "@/app/sections/users/list/UsersList.module.scss";
+import styles from "@/app/sections/users/list/FilteredUsersList.module.scss";
 import {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";

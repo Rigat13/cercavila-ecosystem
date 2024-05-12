@@ -9,21 +9,21 @@ import {useUsersContext} from "@/app/sections/users/UsersContext";
 import {useUpdateUserForm} from "@/app/sections/users/update-form/useUpdateUserForm";
 import {useUpdateUserFormData} from "@/app/sections/users/update-form/useUpdateUserFormData";
 
-import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users/domain/colla-attributes/UserName";
-import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH } from "@/modules/users/domain/colla-attributes/UserSecondSurname";
-import {isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH } from "@/modules/users/domain/colla-attributes/UserNickname";
-import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/colla-attributes/UserFirstSurname";
-import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/colla-attributes/UserEmail";
-import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/colla-attributes/UserPassword";
-import {areUserRolesValid} from "@/modules/users/domain/colla-attributes/UserRoles";
-import {isUserDigitalProductsValid} from "@/modules/users/domain/colla-attributes/UserDigitalProducts";
-import {isUserActiveUserImageValid} from "@/modules/users/domain/colla-attributes/UserActiveImage";
-import {isUserActiveUserImageFrameValid} from "@/modules/users/domain/colla-attributes/UserActiveImageFrame";
-import {isUserActiveUserBackgroundImageValid} from "@/modules/users/domain/colla-attributes/UserActiveUserBackgroundImage";
-import {isUserActiveUserTitleValid} from "@/modules/users/domain/colla-attributes/UserActiveUserTitle";
-import {isUserActiveUserBackgroundColourValid} from "@/modules/users/domain/colla-attributes/UserActiveUserBackgroundColour";
-import {isUserActivePinsValid} from "@/modules/users/domain/colla-attributes/UserActivePins";
-import {isUserCoinsValid} from "@/modules/users/domain/colla-attributes/UserCoins";
+import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserName";
+import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserSecondSurname";
+import {isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserNickname";
+import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserFirstSurname";
+import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
+import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
+import {areUserRolesValid, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
+import {isUserDigitalProductsValid} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
+import {isUserActiveUserImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserImage";
+import {isUserActiveUserImageFrameValid} from "@/modules/users/domain/user-attributes/UserActiveUserImageFrame";
+import {isUserActiveUserBackgroundImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundImage";
+import {isUserActiveUserTitleValid} from "@/modules/users/domain/user-attributes/UserActiveUserTitle";
+import {isUserActiveUserBackgroundColourValid} from "@/modules/users/domain/user-attributes/UserActiveUserBackgroundColour";
+import {isUserActivePinsValid} from "@/modules/users/domain/user-attributes/UserActivePins";
+import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins";
 import {collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
 
 const initialState = {
@@ -60,7 +60,6 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     lang = lang;
 
     useEffect(() => {
-
         const fetchUserData = async () => {
             try {
                 const userData = users.find((user) => user.id === userId);
@@ -74,7 +73,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                     secondSurname: userData.secondSurname,
                     email: userData.email,
                     password: userData.password,
-                    roles: userData.roles.toString(),
+                    /*roles: userData.roles.toString(),
                     coins: userData.coins+"",
                     digitalProducts: userData.digitalProducts.toString(),
                     activeUserImage: userData.activeUserImage,
@@ -82,9 +81,11 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                     activeUserBackgroundImage: userData.activeUserBackgroundImage,
                     activeUserTitle: userData.activeUserTitle,
                     activeUserBackgroundColour: userData.activeUserBackgroundColour,
-                    activePins: userData.activePins.toString(),
+                    activePins: userData.activePins.toString(),*/
                 });
             } catch (error) {
+                throw new Error(error);
+
                 console.error(dictionary[lang]?.errorRetrievingUserMessage + userId);
             }
         };
@@ -192,7 +193,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
         isSecondSurnameValid = isUserSecondSurnameValid(secondSurname);
         isEmailValid = isUserEmailValid(email);
         isPasswordValid = isUserPasswordValid(password);
-        isRolesValid = areUserRolesValid(roles, dictionary[lang]?.selectUserCollaRole);
+        isRolesValid = areUserRolesValid(roles);
         isCoinsValid = isUserCoinsValid(coins);
         isDigitalProductsValid = isUserDigitalProductsValid(digitalProducts);
         isActiveUserImageValid = isUserActiveUserImageValid(activeUserImage);
@@ -223,9 +224,10 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-            !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
-            !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
+        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid// || !isRolesValid ||
+            //!isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
+            //!isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid
+        ) { return; }
 
         ev.preventDefault();
         submitForm({
@@ -397,15 +399,15 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
 
                         {"// TODO 3 Add Roles: 1. Populating with roles options; 2. Combining with all colles available in the system"}
                         <div className={styles.formGroup}>
-                            <label htmlFor="roles">{dictionary[lang]?.collaType}</label>
+                            <label htmlFor="roles">{dictionary[lang]?.userRoles}</label>
                             <select
                                 id="roles"
                                 name="roles"
                                 value={formData.roles}
                                 onChange={handleRolesChange}
                             >
-                                <option value="">{dictionary[lang]?.selectCollaType}</option>
-                                {collaTypes.map(option => (
+                                <option value="">{dictionary[lang]?.selectUserCollaRole}</option>
+                                {userCollaRoles.map(option => (
                                     <option key={option.labelKey} value={option.labelKey}>
                                         {dictionary[lang]?.[option.labelKey]}
                                     </option>
@@ -439,9 +441,9 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             className={styles.actionButton}
                             type="submit"
                             disabled={!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-                                !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
-                                !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}
-                        >
+                                !isCoinsValid } >{"|| !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||"}
+                            {"!isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}>"}
+
                             {dictionary[lang]?.updateUserButton}
                         </button>
                     </form>
