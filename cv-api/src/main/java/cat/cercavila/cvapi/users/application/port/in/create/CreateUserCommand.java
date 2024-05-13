@@ -17,6 +17,7 @@ public record CreateUserCommand(
     String secondSurname,
     @NotNull (message = "L'adreça de correu electrònic no pot ser nul·la.")
     @Email (message = "L'adreça de correu electrònic no és vàlida.")
+    @Column(unique = true)
     String email,
 
     @NotNull (message = "La contrasenya no pot ser nul·la.")

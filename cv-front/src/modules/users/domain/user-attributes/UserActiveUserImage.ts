@@ -1,7 +1,7 @@
 export const ACTIVE_USER_IMAGE_ERROR_MESSAGE = `La imatge activa no és vàlida.`;
 
 export function isUserActiveUserImageValid(activeUserImage: string): boolean {
-    if (activeUserImage == null) return false;
+    if (activeUserImage == null || activeUserImage.length == 0) return true;
     const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
     return regexExp.test(activeUserImage);
 }
