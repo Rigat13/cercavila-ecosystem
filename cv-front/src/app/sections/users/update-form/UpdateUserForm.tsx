@@ -67,8 +67,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
         const fetchUserData = async () => {
             try {
                 const userData = users.find((user) => user.id === userId);
-                if (!userData) { throw new Error(dictionary[lang]?.userNotFoundWithId + userId); }
-
+                if (!userData) { return; } // Refusing to throw an error to avoid spurious wakeups of useEffect. Old one: throw new Error(dictionary[lang]?.userNotFoundWithId + userId);
 
                 const selectedDigitalProducts = userData.digitalProducts.toString().split(',').map(digitalProductId => {
                     return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
@@ -85,7 +84,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                     password: userData.password,
                     //roles: userData.roles.toString(),
                     coins: userData.coins+"",
-                    digitalProducts: userData.digitalProducts.toString(),
+                    //digitalProducts: userData.digitalProducts.toString(),
                     /*activeUserImage: userData.activeUserImage,
                     activeUserImageFrame: userData.activeUserImageFrame,
                     activeUserBackgroundImage: userData.activeUserBackgroundImage,
