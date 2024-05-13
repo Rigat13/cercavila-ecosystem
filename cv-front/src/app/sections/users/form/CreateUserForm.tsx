@@ -62,6 +62,10 @@ export function CreateUserForm({ lang }: { lang: string }) {
 
     const [selectedActivePins, setSelectedActivePins] = useState([]);
 
+    const { colles } = useUsersContext();
+    const [selectedRoleName, setSelectedRoleName] = useState('');
+    const [selectedColla, setSelectedColla] = useState('');
+
     lang = lang;
 
     useEffect(() => {
@@ -104,10 +108,20 @@ export function CreateUserForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, password: newPassword });
     };
 
-    const handleRolesChange = (ev) => {
-        const newRoles = ev.target.value;
-        updateForm({ roles: newRoles });
-        validateFormData({ ...formData, roles: newRoles });
+    const handleRoleNameChange = (e) => {
+        setSelectedRoleName(e.target.value);
+    };
+
+    const handleCollaChange = (e) => {
+        setSelectedColla(e.target.value);
+    };
+
+    const handleAddRole = () => {
+        if (selectedRoleName && selectedColla) {
+            const newRole = `${selectedRoleName}-${selectedColla}`;
+            const updatedRoles = [...formData.roles, newRole].toString();
+            updateForm({ ...formData, roles: updatedRoles });
+        }
     };
 
     const handleCoinsChange = (ev) => {
@@ -232,11 +246,13 @@ export function CreateUserForm({ lang }: { lang: string }) {
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
+        ev.preventDefault();
+        
         if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || //!isRolesValid ||
             !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
             !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
 
-        ev.preventDefault();submitForm({
+        submitForm({
             nickname: formData.nickname,
             name: formData.name,
             firstSurname: formData.firstSurname,
@@ -281,7 +297,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             handleSubmit(ev);
                         }}
                     >
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- NICKNAME */}
                             <label htmlFor="nickname">{dictionary[lang]?.userNickname}</label>
                             <input
                                 type="text"
@@ -295,7 +311,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- NAME */}
                             <label htmlFor="name">{dictionary[lang]?.userName}</label>
                             <input
                                 type="text"
@@ -309,7 +325,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- FIRST SURNAME */}
                             <label htmlFor="firstSurname">{dictionary[lang]?.userFirstSurname}</label>
                             <input
                                 type="text"
@@ -323,7 +339,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- SECOND SURNAME */}
                             <label htmlFor="secondSurname">{dictionary[lang]?.userSecondSurname}</label>
                             <input
                                 type="text"
@@ -337,7 +353,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- EMAIL */}
                             <label htmlFor="email">{dictionary[lang]?.userEmail}</label>
                             <input
                                 type="email"
@@ -351,7 +367,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- PASSWORD */}
                             <label htmlFor="password">{dictionary[lang]?.userPassword}</label>
                             <input
                                 type="password"
@@ -365,29 +381,44 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        {"// TODO 3 Add Roles: 1. Populating with roles options; 2. Combining with all colles available in the system"}
-                        <div className={styles.formGroup}>
-                            <label htmlFor="roles">{dictionary[lang]?.userRoles}</label>
-                            <select
-                                id="roles"
-                                name="roles"
-                                value={formData.roles}
-                                onChange={handleRolesChange}
-                            >
-                                <option value="">{dictionary[lang]?.selectUserCollaRole}</option>
-                                {userCollaRoles.map(option => (
-                                    <option key={option.labelKey} value={option.labelKey}>
-                                        {dictionary[lang]?.[option.labelKey]}
-                                    </option>
-                                ))}
-                            </select>
-                            {formData.roles && errors.roles && (
-                                <div style={{ color: "tomato" }}>{errors.roles}</div>
-                            )}
+                        <div> {/* -------------------------------------------------------------------------------------------------- ROLES */}
+                            <div> {/* Role Name Selector */}
+                                <label>Role Name:</label>
+                                <select value={selectedRoleName} onChange={handleRoleNameChange}>
+                                    <option value="">Select Role Name</option>
+                                    {userCollaRoles.map(option => (
+                                        <option key={option.labelKey} value={option.labelKey}> {dictionary[lang]?.[option.labelKey]}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Colla Selector */}
+                            <div>
+                                <label>Colla:</label>
+                                <select value={selectedColla} onChange={handleCollaChange}>
+                                    <option value="">Select Colla</option>
+                                    {colles.map(option => (
+                                        <option key={option.id} value={option.id}>{option.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Add Role Button */}
+                            <button onClick={handleAddRole}>Add Role</button>
+
+                            {/* Display Selected Roles */}
+                            <div>
+                                <label>Selected Roles:</label>
+                                <ul>
+                                    {formData.roles.split(',').map((role, index) => (
+                                        <li key={index}>{role}</li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
+                        );
 
-
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- COINS */}
                             <label htmlFor="coins">{dictionary[lang]?.userCoins}</label>
                             <input
                                 type="number"
@@ -401,7 +432,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- DIGITAL PRODUCTS */}
                             <label htmlFor="digitalProducts">{dictionary[lang]?.userDigitalProducts}</label>
                             <select
                                 id="digitalProducts"
@@ -431,7 +462,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             ))}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER IMAGE */}
                             <label htmlFor="activeUserImage">{dictionary[lang]?.userActiveUserImage}</label>
                             <select
                                 id="activeUserImage"
@@ -449,7 +480,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER IMAGE FRAME */}
                             <label htmlFor="activeUserImageFrame">{dictionary[lang]?.userActiveUserImageFrame}</label>
                             <select
                                 id="activeUserImageFrame"
@@ -467,7 +498,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER BACKGROUND IMAGE */}
                             <label htmlFor="activeUserBackgroundImage">{dictionary[lang]?.userActiveUserBackgroundImage}</label>
                             <select
                                 id="activeUserBackgroundImage"
@@ -485,7 +516,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER TITLE */}
                             <label htmlFor="activeUserTitle">{dictionary[lang]?.userActiveUserTitle}</label>
                             <select
                                 id="activeUserTitle"
@@ -503,7 +534,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER BACKGROUND COLOUR */}
                             <label htmlFor="activeUserBackgroundColour">{dictionary[lang]?.userActiveUserBackgroundColour}</label>
                             <select
                                 id="activeUserBackgroundColour"
@@ -521,7 +552,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE PINS */}
                             <label htmlFor="activePins">{dictionary[lang]?.userActivePins}</label>
                             <select
                                 id="activePins"
@@ -549,7 +580,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                 </div>
                             ))}
                         </div>
-
+                        {/* -------------------------------------------------------------------------------------------------------- SUBMIT BUTTON */}
                         <button
                             className={styles.actionButton}
                             type="submit"
