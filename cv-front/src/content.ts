@@ -265,6 +265,10 @@ interface DictionaryEntry {
     userCollaRoleMusician: string;
     userCollaRoleSupport: string;
     userCollaOuterRoleFollower: string;
+    userCCGMPresident: string;
+    userCCGMSecretary: string;
+    userCCGMTreasurer: string;
+    userCCGMBoardMember: string;
 
     // --- USER DIGITAL PRODUCTS
     selectUserDigitalProduct: string;
@@ -611,6 +615,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userCollaRoleMusician: "Músic/a",
         userCollaRoleSupport: "Suport",
         userCollaOuterRoleFollower: "Seguidor/a",
+        userCCGMPresident: "President/a",
+        userCCGMSecretary: "Secretari/a",
+        userCCGMTreasurer: "Tresorer/a",
+        userCCGMBoardMember: "Vocal",
 
         // --- USER DIGITAL PRODUCTS
         selectUserDigitalProduct: "-- Producte digital --",
@@ -956,6 +964,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userCollaRoleMusician: "Músico/a",
         userCollaRoleSupport: "Soporte",
         userCollaOuterRoleFollower: "Seguidor/a",
+        userCCGMPresident: "Presidente/a",
+        userCCGMSecretary: "Secretario/a",
+        userCCGMTreasurer: "Tesorero/a",
+        userCCGMBoardMember: "Vocal",
 
         // --- USER DIGITAL PRODUCTS
         selectUserDigitalProduct: "-- Producto digital --",
@@ -1301,6 +1313,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userCollaRoleMusician: "Musician",
         userCollaRoleSupport: "Support",
         userCollaOuterRoleFollower: "Follower",
+        userCCGMPresident: "President",
+        userCCGMSecretary: "Secretary",
+        userCCGMTreasurer: "Treasurer",
+        userCCGMBoardMember: "Board member",
 
         // --- USER DIGITAL PRODUCTS
         selectUserDigitalProduct: "-- Digital product --",

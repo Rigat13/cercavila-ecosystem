@@ -28,6 +28,10 @@ export const userCollaRoles = [
     { labelKey: 'userCollaRoleMusician' },
     { labelKey: 'userCollaRoleSupport' },
     { labelKey: 'userCollaOuterRoleFollower' },
+    { labelKey: 'userCCGMPresident' },
+    { labelKey: 'userCCGMSecretary' },
+    { labelKey: 'userCCGMTreasurer' },
+    { labelKey: 'userCCGMBoardMember' },
 ]
 
 export function getRolesAdditionalStyle(role: string): React.CSSProperties {
@@ -40,6 +44,10 @@ export function getRolesAdditionalStyle(role: string): React.CSSProperties {
         case 'userCollaRoleMusician': backgroundColor = "#d0586a"; color = "#000000"; break;
         case 'userCollaRoleSupport': backgroundColor = "#9b70e1"; color = "#000000"; break;
         case 'userCollaOuterRoleFollower': backgroundColor = "#77777c"; color = "#FFFFFF"; break;
+        case 'userCCGMPresident': backgroundColor = "#d2702a"; color = "#ffffff"; break;
+        case 'userCCGMSecretary': backgroundColor = "#7b93ea"; color = "#FFFFFF"; break;
+        case 'userCCGMTreasurer': backgroundColor = "#359f4e"; color = "#FFFFFF"; break;
+        case 'userCCGMBoardMember': backgroundColor = "#e82f5a"; color = "#ffffff"; break;
         default: backgroundColor = "#000000"; color = "#FFFFFF"; break;
     }
     return { backgroundColor, color };
