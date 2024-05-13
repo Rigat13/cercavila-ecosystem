@@ -414,9 +414,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                 </div>
                             ))}
                         </div>
-
-                        Now, activeUserImage is a selector populated with the selectedDigitalProducts with type digitalProductTypes.digitalProductTypeUserImage
-
+                        
                         <div className={styles.formGroup}>
                             <label htmlFor="activeUserImage">{dictionary[lang]?.userActiveUserImage}</label>
                             <select
@@ -432,6 +430,80 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             </select>
                             {formData.activeUserImage && errors.activeUserImage && (
                                 <div style={{ color: "tomato" }}>{errors.activeUserImage}</div>
+                            )}
+                        </div>
+
+                        Now, the same is done for all other digital product types
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="activeUserImageFrame">{dictionary[lang]?.userActiveUserImageFrame}</label>
+                            <select
+                                id="activeUserImageFrame"
+                                name="activeUserImageFrame"
+                                value={formData.activeUserImageFrame}
+                                onChange={handleActiveUserImageFrameChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectUserActiveUserImageFrame}</option>
+                                {selectedDigitalProducts.filter(digitalProduct => digitalProduct.type === digitalProductTypesFixed.digitalProductTypeUserImageFrame).map(option => (
+                                    <option key={option.id} value={option.id}> {option.name} </option>
+                                ))}
+                            </select>
+                            {formData.activeUserImageFrame && errors.activeUserImageFrame && (
+                                <div style={{ color: "tomato" }}>{errors.activeUserImageFrame}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="activeUserBackgroundImage">{dictionary[lang]?.userActiveUserBackgroundImage}</label>
+                            <select
+                                id="activeUserBackgroundImage"
+                                name="activeUserBackgroundImage"
+                                value={formData.activeUserBackgroundImage}
+                                onChange={handleActiveUserBackgroundImageChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectUserActiveUserBackgroundImage}</option>
+                                {selectedDigitalProducts.filter(digitalProduct => digitalProduct.type === digitalProductTypesFixed.digitalProductTypeUserBackgroundImage).map(option => (
+                                    <option key={option.id} value={option.id}> {option.name} </option>
+                                ))}
+                            </select>
+                            {formData.activeUserBackgroundImage && errors.activeUserBackgroundImage && (
+                                <div style={{ color: "tomato" }}>{errors.activeUserBackgroundImage}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="activeUserTitle">{dictionary[lang]?.userActiveUserTitle}</label>
+                            <select
+                                id="activeUserTitle"
+                                name="activeUserTitle"
+                                value={formData.activeUserTitle}
+                                onChange={handleActiveUserTitleChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectUserActiveUserTitle}</option>
+                                {selectedDigitalProducts.filter(digitalProduct => digitalProduct.type === digitalProductTypesFixed.digitalProductTypeUserTitle).map(option => (
+                                    <option key={option.id} value={option.id}> {option.name} </option>
+                                ))}
+                            </select>
+                            {formData.activeUserTitle && errors.activeUserTitle && (
+                                <div style={{ color: "tomato" }}>{errors.activeUserTitle}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="activeUserBackgroundColour">{dictionary[lang]?.userActiveUserBackgroundColour}</label>
+                            <select
+                                id="activeUserBackgroundColour"
+                                name="activeUserBackgroundColour"
+                                value={formData.activeUserBackgroundColour}
+                                onChange={handleActiveUserBackgroundColourChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectUserActiveUserBackgroundColour}</option>
+                                {selectedDigitalProducts.filter(digitalProduct => digitalProduct.type === digitalProductTypesFixed.digitalProductTypeUserBackgroundColour).map(option => (
+                                    <option key={option.id} value={option.id}> {option.name} </option>
+                                ))}
+                            </select>
+                            {formData.activeUserBackgroundColour && errors.activeUserBackgroundColour && (
+                                <div style={{ color: "tomato" }}>{errors.activeUserBackgroundColour}</div>
                             )}
                         </div>
 
