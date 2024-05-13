@@ -21,3 +21,13 @@ export const digitalProductTypes = [
     { labelKey: 'digitalProductTypeSticker' },
     { labelKey: 'digitalProductTypePin' },
 ];
+
+export const digitalProductTypesFixed = {
+    digitalProductTypeUserImage: 'digitalProductTypeUserImage',
+    digitalProductTypeUserImageFrame: 'digitalProductTypeUserImageFrame',
+    digitalProductTypeUserBackgroundImage: 'digitalProductTypeUserBackgroundImage',
+    digitalProductTypeUserTitle: 'digitalProductTypeUserTitle',
+    digitalProductTypeUserBackgroundColour: 'digitalProductTypeUserBackgroundColour',
+    digitalProductTypeSticker: 'digitalProductTypeSticker',
+    digitalProductTypePin: 'digitalProductTypePin',
+}

@@ -25,6 +25,7 @@ import {isUserActivePinsValid} from "@/modules/users/domain/user-attributes/User
 import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins";
 
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
+import {digitalProductTypesFixed} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
 
 const initialState = {
     nickname: "",
@@ -412,6 +413,26 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                     <button onClick={() => handleDeleteDigitalProduct(index)}>×</button>
                                 </div>
                             ))}
+                        </div>
+
+                        Now, activeUserImage is a selector populated with the selectedDigitalProducts with type digitalProductTypes.digitalProductTypeUserImage
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="activeUserImage">{dictionary[lang]?.userActiveUserImage}</label>
+                            <select
+                                id="activeUserImage"
+                                name="activeUserImage"
+                                value={formData.activeUserImage}
+                                onChange={handleActiveUserImageChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectUserActiveUserImage}</option>
+                                {selectedDigitalProducts.filter(digitalProduct => digitalProduct.type === digitalProductTypesFixed.digitalProductTypeUserImage).map(option => (
+                                    <option key={option.id} value={option.id}> {option.name} </option>
+                                ))}
+                            </select>
+                            {formData.activeUserImage && errors.activeUserImage && (
+                                <div style={{ color: "tomato" }}>{errors.activeUserImage}</div>
+                            )}
                         </div>
 
                         <button
