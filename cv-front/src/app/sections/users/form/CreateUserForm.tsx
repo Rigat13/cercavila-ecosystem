@@ -60,6 +60,8 @@ export function CreateUserForm({ lang }: { lang: string }) {
     const { digitalProducts } = useUsersContext();
     const [selectedDigitalProducts, setSelectedDigitalProducts] = useState([]);
 
+    const [selectedActivePins, setSelectedActivePins] = useState([]);
+
     lang = lang;
 
     useEffect(() => {
@@ -168,10 +170,27 @@ export function CreateUserForm({ lang }: { lang: string }) {
     };
 
     const handleActivePinsChange = (ev) => {
-        const newActivePins = ev.target.value;
-        updateForm({ activePins: newActivePins });
-        validateFormData({ ...formData, activePins: newActivePins });
+        const selectedId = ev.target.value;
+        const selectedActivePin = digitalProducts.find(option => option.id === selectedId);
+        (selectedActivePins as DigitalProduct[]).push(selectedActivePin as DigitalProduct);
+        if (selectedActivePin) {
+            setSelectedActivePins(selectedActivePins);
+            const newActivePins = concatenateUserDigitalProducts([...selectedActivePins, selectedActivePin]);
+            updateForm({ activePins: newActivePins });
+            validateFormData({ ...formData, activePins: newActivePins });
+        }
     };
+
+    const handleDeleteActivePin = (index) => {
+        setSelectedActivePins((prevSelectedActivePins) => {
+            const newSelectedActivePins = [...prevSelectedActivePins];
+            newSelectedActivePins.splice(index, 1);
+            const newActivePins = concatenateUserDigitalProducts(newSelectedActivePins);
+            updateForm({ activePins: newActivePins });
+            validateFormData({ ...formData, activePins: newActivePins });
+            return newSelectedActivePins;
+        });
+    }
 
 
     const validateFormData = ({ nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
@@ -379,10 +398,6 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             {formData.coins && errors.coins && (
                                 <div style={{ color: "tomato" }}>{errors.coins}</div>
                             )}
-
-
-                            {"// TODO 2: Populate aciveX options with Digital Products corresponding the type"}
-
                         </div>
 
                         <div className={styles.formGroup}>
@@ -432,8 +447,6 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                 <div style={{ color: "tomato" }}>{errors.activeUserImage}</div>
                             )}
                         </div>
-
-                        Now, the same is done for all other digital product types
 
                         <div className={styles.formGroup}>
                             <label htmlFor="activeUserImageFrame">{dictionary[lang]?.userActiveUserImageFrame}</label>
@@ -505,6 +518,35 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             {formData.activeUserBackgroundColour && errors.activeUserBackgroundColour && (
                                 <div style={{ color: "tomato" }}>{errors.activeUserBackgroundColour}</div>
                             )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="activePins">{dictionary[lang]?.userActivePins}</label>
+                            <select
+                                id="activePins"
+                                name="activePins"
+                                value={formData.activePins}
+                                onChange={handleActivePinsChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectUserActivePins}</option>
+                                {digitalProducts.filter(digitalProduct => digitalProduct.type === digitalProductTypesFixed.digitalProductTypePin)
+                                    .map(option => (
+                                    <option key={option.id} value={option.id}
+                                            disabled={selectedActivePins.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
+                                    > {option.name} </option>
+                                ))}
+                            </select>
+                            {formData.digitalProducts && errors.digitalProducts && (
+                                <div style={{ color: "tomato" }}>{errors.digitalProducts}</div>
+                            )}
+                        </div>
+                        <div className={styles.selectedElements}>
+                            {selectedActivePins.map((digitalProduct, index) => (
+                                <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
+                                    <span>{(digitalProduct as DigitalProduct).name}</span>
+                                    <button onClick={() => handleDeleteActivePin(index)}>×</button>
+                                </div>
+                            ))}
                         </div>
 
                         <button
