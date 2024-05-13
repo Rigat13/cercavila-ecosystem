@@ -24,6 +24,7 @@ export function useUserForm(): {
                                 coins: number; digitalProducts: string[]; activeUserImage: string; activeUserImageFrame: string; activeUserBackgroundImage: string;
                                 activeUserTitle: string; activeUserBackgroundColour: string; activePins: string[]; }) {
         setFormStatus(FormStatus.Loading);
+        coins = coins ? coins : 0;
         try {
             createUser({id: "", nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
                 activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins})
