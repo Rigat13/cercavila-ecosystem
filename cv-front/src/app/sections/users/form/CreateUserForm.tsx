@@ -122,7 +122,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
         (selectedDigitalProducts as DigitalProduct[]).push(selectedDigitalProduct as DigitalProduct);
         if (selectedDigitalProduct) {
             setSelectedDigitalProducts(selectedDigitalProducts);
-            const newDigitalProducts = concatenateUserDigitalProducts([...selectedDigitalProducts, selectedDigitalProduct]);
+            const newDigitalProducts = concatenateUserDigitalProducts(selectedDigitalProducts);
             updateForm({ digitalProducts: newDigitalProducts });
             validateFormData({ ...formData, digitalProducts: newDigitalProducts });
         }
@@ -175,7 +175,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
         (selectedActivePins as DigitalProduct[]).push(selectedActivePin as DigitalProduct);
         if (selectedActivePin) {
             setSelectedActivePins(selectedActivePins);
-            const newActivePins = concatenateUserDigitalProducts([...selectedActivePins, selectedActivePin]);
+            const newActivePins = concatenateUserDigitalProducts(selectedActivePins);
             updateForm({ activePins: newActivePins });
             validateFormData({ ...formData, activePins: newActivePins });
         }
@@ -263,6 +263,8 @@ export function CreateUserForm({ lang }: { lang: string }) {
                 <SuccessNotification lang={lang}
                     resetForm={() => {
                         resetForm();
+                        setSelectedDigitalProducts([]);
+                        setSelectedActivePins([]);
                         resetFormStatus();
                     }}
                 />
