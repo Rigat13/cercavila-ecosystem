@@ -65,6 +65,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
     const { colles } = useUsersContext();
     const [selectedRoleName, setSelectedRoleName] = useState('');
     const [selectedColla, setSelectedColla] = useState('');
+    const [selectedRoles, setSelectedRoles] = useState([]);
 
     lang = lang;
 
@@ -118,11 +119,22 @@ export function CreateUserForm({ lang }: { lang: string }) {
 
     const handleAddRole = () => {
         if (selectedRoleName && selectedColla) {
-            const newRole = `${selectedRoleName}-${selectedColla}`;
-            const updatedRoles = [...formData.roles, newRole].toString();
-            updateForm({ ...formData, roles: updatedRoles });
+            selectedRoles.push(`${selectedRoleName}-${selectedColla}`);
+            setSelectedRoles(selectedRoles);
+            updateForm({ ...formData, roles: selectedRoles.toString() });
         }
     };
+
+    const handleDeleteRole = (index) => {
+        setSelectedActivePins((prevSelectedActivePins) => {
+            const newSelectedActivePins = [...prevSelectedActivePins];
+            newSelectedActivePins.splice(index, 1);
+            const newActivePins = concatenateUserDigitalProducts(newSelectedActivePins);
+            updateForm({ activePins: newActivePins });
+            validateFormData({ ...formData, activePins: newActivePins });
+            return newSelectedActivePins;
+        });
+    }
 
     const handleCoinsChange = (ev) => {
         const newCoins = ev.target.value;
@@ -247,7 +259,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
 
     const handleSubmit = (ev: React.FormEvent) => {
         ev.preventDefault();
-        
+
         if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || //!isRolesValid ||
             !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
             !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
@@ -381,11 +393,12 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             )}
                         </div>
 
-                        <div> {/* -------------------------------------------------------------------------------------------------- ROLES */}
-                            <div> {/* Role Name Selector */}
-                                <label>Role Name:</label>
+                        <div className={styles.formGroup}><label htmlFor="roles">{dictionary[lang]?.userRoles}</label></div> {/* -------------------------------------------------------------------------------------------------- ROLES */}
+                        <div className={styles.horizontalGroup}>
+                            <div className={styles.formGroup}> {/* Role Name Selector */}
+                                <label className={styles.subtitle} >{dictionary[lang]?.userRoles_Role}</label>
                                 <select value={selectedRoleName} onChange={handleRoleNameChange}>
-                                    <option value="">Select Role Name</option>
+                                    <option value="">{dictionary[lang]?.selectUserCollaRole}</option>
                                     {userCollaRoles.map(option => (
                                         <option key={option.labelKey} value={option.labelKey}> {dictionary[lang]?.[option.labelKey]}</option>
                                     ))}
@@ -393,10 +406,10 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             </div>
 
                             {/* Colla Selector */}
-                            <div>
-                                <label>Colla:</label>
+                            <div className={styles.formGroup}>
+                                <label className={styles.subtitle} >{dictionary[lang]?.userRoles_Colla}</label>
                                 <select value={selectedColla} onChange={handleCollaChange}>
-                                    <option value="">Select Colla</option>
+                                    <option value="">{dictionary[lang]?.selectUserColla}</option>
                                     {colles.map(option => (
                                         <option key={option.id} value={option.id}>{option.name}</option>
                                     ))}
@@ -404,20 +417,21 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             </div>
 
                             {/* Add Role Button */}
-                            <button onClick={handleAddRole}>Add Role</button>
+                            <button className={styles.addRoleButton} onClick={handleAddRole}>+</button>
 
-                            {/* Display Selected Roles */}
-                            <div>
-                                <label>Selected Roles:</label>
-                                <ul>
-                                    {formData.roles.split(',').map((role, index) => (
-                                        <li key={index}>{role}</li>
-                                    ))}
-                                </ul>
-                            </div>
+                            {formData.roles && errors.roles && (
+                                <div style={{ color: "tomato" }}>{errors.roles}</div>
+                            )}
                         </div>
-                        );
-
+                        {/* Display Selected Roles */}
+                        <div className={styles.selectedElements}>
+                            {selectedRoles.map((collaRole, index) => (
+                                <div key={index} className={styles.selectedElement}>
+                                    <span>{collaRole}</span>
+                                    <button onClick={() => handleDeleteRole(index)}>×</button>
+                                </div>
+                            ))}
+                        </div>
                         <div className={styles.formGroup}> {/* ------------------------------------------------------------------- COINS */}
                             <label htmlFor="coins">{dictionary[lang]?.userCoins}</label>
                             <input

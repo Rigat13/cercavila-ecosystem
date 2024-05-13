@@ -244,6 +244,8 @@ interface DictionaryEntry {
     userEmail: string;
     userPassword: string;
     userRoles: string;
+    userRoles_Role: string;
+    userRoles_Colla: string;
     userCoins: string;
     userDigitalProducts: string;
     userActiveUserImage: string;
@@ -255,6 +257,7 @@ interface DictionaryEntry {
 
     // --- USER COLLA ROLES
     selectUserCollaRole: string;
+    selectUserColla: string;
     userCollaRoleCap: string;
     userCollaRoleSotscap: string;
     userCollaRoleCapMusics: string;
@@ -587,6 +590,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userEmail: "Correu electrònic",
         userPassword: "Contrasenya",
         userRoles: "Rols",
+        userRoles_Role: "Rol",
+        userRoles_Colla: "Colla",
         userCoins: "Monedes",
         userDigitalProducts: "Productes digitals",
         userActiveUserImage: "Imatge de perfil",
@@ -597,7 +602,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userActivePins: "Pins",
 
         // --- USER COLLA ROLES
-        selectUserCollaRole: "-- Rol de colla --",
+        selectUserCollaRole: "-- Rol --",
+        selectUserColla: "-- Colla --",
         userCollaRoleCap: "Cap de colla",
         userCollaRoleSotscap: "Sotscap de colla",
         userCollaRoleCapMusics: "Cap de músics",
@@ -929,6 +935,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userEmail: "Correo electrónico",
         userPassword: "Contraseña",
         userRoles: "Roles",
+        userRoles_Role: "Rol",
+        userRoles_Colla: "Colla",
         userCoins: "Monedas",
         userDigitalProducts: "Productos digitales",
         userActiveUserImage: "Imagen de perfil",
@@ -939,7 +947,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userActivePins: "Pins",
 
         // --- USER COLLA ROLES
-        selectUserCollaRole: "-- Rol de colla --",
+        selectUserCollaRole: "-- Rol --",
+        selectUserColla: "-- Colla --",
         userCollaRoleCap: "Cap de colla",
         userCollaRoleSotscap: "Sotscap de colla",
         userCollaRoleCapMusics: "Cap de músicos",
@@ -1271,6 +1280,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userEmail: "Email",
         userPassword: "Password",
         userRoles: "Roles",
+        userRoles_Role: "Role",
+        userRoles_Colla: "Colla",
         userCoins: "Coins",
         userDigitalProducts: "Digital products",
         userActiveUserImage: "Profile image",
@@ -1281,7 +1292,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userActivePins: "Pins",
 
         // --- USER COLLA ROLES
-        selectUserCollaRole: "-- Colla role --",
+        selectUserCollaRole: "-- Role --",
+        selectUserColla: "-- Colla --",
         userCollaRoleCap: "Colla captain",
         userCollaRoleSotscap: "Colla vice-captain",
         userCollaRoleCapMusics: "Music captain",
