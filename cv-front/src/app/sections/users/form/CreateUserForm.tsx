@@ -122,17 +122,18 @@ export function CreateUserForm({ lang }: { lang: string }) {
             selectedRoles.push(`${selectedRoleName}-${selectedColla}`);
             setSelectedRoles(selectedRoles);
             updateForm({ ...formData, roles: selectedRoles.toString() });
+            validateFormData({ ...formData, roles: selectedRoles.toString() });
         }
     };
 
     const handleDeleteRole = (index) => {
-        setSelectedActivePins((prevSelectedActivePins) => {
-            const newSelectedActivePins = [...prevSelectedActivePins];
-            newSelectedActivePins.splice(index, 1);
-            const newActivePins = concatenateUserDigitalProducts(newSelectedActivePins);
-            updateForm({ activePins: newActivePins });
-            validateFormData({ ...formData, activePins: newActivePins });
-            return newSelectedActivePins;
+        setSelectedRoles((prevSelectedRoles) => {
+            const newSelectedRoles = [...prevSelectedRoles];
+            newSelectedRoles.splice(index, 1);
+            const newRoles= concatenateUserDigitalProducts(newSelectedRoles);
+            updateForm({ roles: newRoles });
+            validateFormData({ ...formData, roles: newRoles });
+            return newSelectedRoles;
         });
     }
 
