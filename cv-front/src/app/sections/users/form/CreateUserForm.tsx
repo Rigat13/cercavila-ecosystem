@@ -9,12 +9,12 @@ import {defaultLang, dictionary} from "@/content";
 import {useUsersContext} from "@/app/sections/users/UsersContext";
 
 import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserName";
-import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserSecondSurname";
-import {isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserNickname";
+import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserSecondSurname";
+import {isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserNickname";
 import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserFirstSurname";
 import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
-import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
-import {areUserRolesValid, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
+import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserPassword";
+import {areUserRolesValid, getRolesAdditionalStyle, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
 import {isUserDigitalProductsValid, concatenateUserDigitalProducts} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
 import {isUserActiveUserImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserImage";
 import {isUserActiveUserImageFrameValid} from "@/modules/users/domain/user-attributes/UserActiveUserImageFrame";
@@ -26,6 +26,7 @@ import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins
 
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 import {digitalProductTypesFixed} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
+import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 
 const initialState = {
     nickname: "",
@@ -426,12 +427,28 @@ export function CreateUserForm({ lang }: { lang: string }) {
                         </div>
                         {/* Display Selected Roles */}
                         <div className={styles.selectedElements}>
-                            {selectedRoles.map((collaRole, index) => (
-                                <div key={index} className={styles.selectedElement}>
-                                    <span>{collaRole}</span>
-                                    <button onClick={() => handleDeleteRole(index)}>×</button>
-                                </div>
-                            ))}
+                            {selectedRoles.map((collaRole, index) => {
+                                // Split collaRole into role name and colla ID
+                                const [roleName, collaId] = collaRole.split('-');
+
+                                // Find the corresponding colla name based on collaId
+                                const colla = colles.find((colle) => colle.id === collaId);
+
+                                // Render different parts of the selected element with specific styles
+                                return (
+                                    <div key={index} className={styles.selectedElementCombined}>
+                                        {/* Display role name with specific color */}
+                                        <span className={styles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
+                            {dictionary[lang]?.[roleName]} {/* Assuming dictionary[lang] contains role names */}
+                        </span>
+                                        {/* Display colla name with another color */}
+                                        <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
+                            {colla?.name} {/* Display colla name if found in colles */}
+                        </span>
+                                        <button onClick={() => handleDeleteRole(index)}>×</button>
+                                    </div>
+                                );
+                            })}
                         </div>
                         <div className={styles.formGroup}> {/* ------------------------------------------------------------------- COINS */}
                             <label htmlFor="coins">{dictionary[lang]?.userCoins}</label>

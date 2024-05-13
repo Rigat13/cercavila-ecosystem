@@ -30,9 +30,9 @@ export const userCollaRoles = [
     { labelKey: 'userCollaOuterRoleFollower' },
 ]
 
-export function getRolesAdditionalStyle(musicType: string): React.CSSProperties {
+export function getRolesAdditionalStyle(role: string): React.CSSProperties {
     let backgroundColor = "#000000"; let color = "#FFFFFF";
-    switch (musicType) {
+    switch (role) {
         case 'userCollaRoleCap': backgroundColor = "#d2702a"; color = "#ffffff"; break;
         case 'userCollaRoleSotscap': backgroundColor = "#7b93ea"; color = "#FFFFFF"; break;
         case 'userCollaRoleCapMusics': backgroundColor = "#e82f5a"; color = "#FFFFFF"; break;

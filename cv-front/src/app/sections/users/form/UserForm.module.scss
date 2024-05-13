@@ -197,17 +197,17 @@
     color: #f8f1f1;
     border: 0px solid transparent;
     border-radius: 1rem;
-    padding: 4px 8px;
-    margin: 4px;
+    padding: 0.2rem 0.4rem;
+    margin: 0.2rem;
     display: flex;
     align-items: center;
   }
 
-  .selectedElement span {
+  .selectedElement span{
     margin-right: 8px;
   }
 
-  .selectedElement button {
+  .selectedElement button, .selectedElementCombined button {
     background: none;
     border: none;
     cursor: pointer;
@@ -221,6 +221,33 @@
     &:hover {
       background-color: #f32336; // Darker shade on hover
     }
+  }
+
+  .selectedElementCombined button {
+    background: #000088;
+    margin-left: -2rem;
+  }
+
+  .selectedElementCombined {
+    border-radius: 1rem;
+    padding-right: 0.8rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .selectedRole {
+    padding: 0.33rem 1rem;
+    border-radius: 1rem 0 0 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .selectedColla {
+    padding: 0.33rem 1rem;
+    border-radius: 0 1rem 1rem 0;
+    padding-right: 3rem;
+    display: flex;
+    align-items: center;
   }
 
   option:disabled {
