@@ -477,10 +477,6 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             {formData.coins && errors.coins && (
                                 <div style={{ color: "tomato" }}>{errors.coins}</div>
                             )}
-
-
-                            {"// TODO 2: Populate aciveX options with Digital Products corresponding the type"}
-
                         </div>
 
                         <div className={styles.formGroup}>
@@ -536,9 +532,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                                 <div style={{ color: "tomato" }}>{errors.activeUserImage}</div>
                             )}
                         </div>
-
-                        Now, the same is done for all other digital product types
-
+                        
                         <div className={styles.formGroup}>
                             <label htmlFor="activeUserImageFrame">{dictionary[lang]?.userActiveUserImageFrame}</label>
                             <select
