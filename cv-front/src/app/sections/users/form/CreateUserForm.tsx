@@ -432,8 +432,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                 const [roleName, collaId] = collaRole.split('-');
 
                                 // Find the corresponding colla name based on collaId
-                                const colla = colles.find((colle) => colle.id === collaId);
-
+                                const colla = colles.find((colla) => colla.id === collaId);
                                 // Render different parts of the selected element with specific styles
                                 return (
                                     <div key={index} className={styles.selectedElementCombined}>

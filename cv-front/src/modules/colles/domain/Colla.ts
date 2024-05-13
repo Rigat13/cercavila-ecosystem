@@ -86,5 +86,5 @@ export function ensureCollaIdIsValid(id: string): void {
 }
 
 export function collaIsCCGM(collaId: string): boolean {
-    return collaId.startsWith("ccgm-");
+    return collaId.startsWith("CCGM");
 }
