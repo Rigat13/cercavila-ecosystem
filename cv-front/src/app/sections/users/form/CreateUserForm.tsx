@@ -414,7 +414,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                 </div>
                             ))}
                         </div>
-                        
+
                         <div className={styles.formGroup}>
                             <label htmlFor="activeUserImage">{dictionary[lang]?.userActiveUserImage}</label>
                             <select
@@ -511,8 +511,8 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             className={styles.actionButton}
                             type="submit"
                             disabled={!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-                                !isCoinsValid || !isDigitalProductsValid } >{"|| !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||"}
-                            {"!isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}>"}
+                                !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
+                                !isActiveUserTitleValid || !isActiveUserBackgroundColourValid } >{"|| !isActivePinsValid}>"}
 
                             {dictionary[lang]?.createUserButton}
                         </button>
