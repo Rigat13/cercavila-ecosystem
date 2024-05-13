@@ -62,6 +62,8 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     const { digitalProducts } = useUsersContext();
     const [selectedDigitalProducts, setSelectedDigitalProducts] = useState([]);
 
+    const [selectedActivePins, setSelectedActivePins] = useState([]);
+
     lang = lang;
 
     useEffect(() => {
@@ -75,6 +77,11 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                 }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
                 setSelectedDigitalProducts(selectedDigitalProducts as DigitalProduct[]);
 
+                const selectedActivePins = userData.activePins.toString().split(',').map(digitalProductId => {
+                    return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
+                }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
+                setSelectedActivePins(selectedActivePins as DigitalProduct[]);
+
                 updateForm({
                     id: userData.id,
                     nickname: userData.nickname,
@@ -85,13 +92,13 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                     password: userData.password,
                     //roles: userData.roles.toString(),
                     coins: userData.coins+"",
-                    //digitalProducts: userData.digitalProducts.toString(),
-                    /*activeUserImage: userData.activeUserImage,
+                    digitalProducts: userData.digitalProducts.toString(),
+                    activeUserImage: userData.activeUserImage,
                     activeUserImageFrame: userData.activeUserImageFrame,
                     activeUserBackgroundImage: userData.activeUserBackgroundImage,
                     activeUserTitle: userData.activeUserTitle,
                     activeUserBackgroundColour: userData.activeUserBackgroundColour,
-                    activePins: userData.activePins.toString(),*/
+                    activePins: userData.activePins.toString(),
                 });
             } catch (error) { throw new Error(error); console.error(error + " - " +dictionary[lang]?.errorRetrievingUserMessage + userId); }
         };
@@ -202,10 +209,27 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     };
 
     const handleActivePinsChange = (ev) => {
-        const newActivePins = ev.target.value;
-        updateForm({ activePins: newActivePins });
-        validateFormData({ ...formData, activePins: newActivePins });
+        const selectedId = ev.target.value;
+        const selectedActivePin = digitalProducts.find(option => option.id === selectedId);
+        (selectedActivePins as DigitalProduct[]).push(selectedActivePin as DigitalProduct);
+        if (selectedActivePin) {
+            setSelectedActivePins(selectedActivePins);
+            const newActivePins = concatenateUserDigitalProducts([...selectedActivePins, selectedActivePin]);
+            updateForm({ activePins: newActivePins });
+            validateFormData({ ...formData, activePins: newActivePins });
+        }
     };
+
+    const handleDeleteActivePin = (index) => {
+        setSelectedActivePins((prevSelectedActivePins) => {
+            const newSelectedActivePins = [...prevSelectedActivePins];
+            newSelectedActivePins.splice(index, 1);
+            const newActivePins = concatenateUserDigitalProducts(newSelectedActivePins);
+            updateForm({ activePins: newActivePins });
+            validateFormData({ ...formData, activePins: newActivePins });
+            return newSelectedActivePins;
+        });
+    }
 
     const validateFormData = ({ id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
                                   activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }) => {
@@ -249,8 +273,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     const handleSubmit = (ev: React.FormEvent) => {
         if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid ||// !isRolesValid ||
             !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
-            !isActiveUserTitleValid || !isActiveUserBackgroundColourValid //|| !isActivePinsValid
-        ) { return; }
+            !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
 
         ev.preventDefault();
         submitForm({
@@ -588,13 +611,42 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
+                        <div className={styles.formGroup}>
+                            <label htmlFor="activePins">{dictionary[lang]?.userActivePins}</label>
+                            <select
+                                id="activePins"
+                                name="activePins"
+                                value={formData.activePins}
+                                onChange={handleActivePinsChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectUserActivePins}</option>
+                                {digitalProducts.filter(digitalProduct => digitalProduct.type === digitalProductTypesFixed.digitalProductTypePin)
+                                    .map(option => (
+                                        <option key={option.id} value={option.id}
+                                                disabled={selectedActivePins.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
+                                        > {option.name} </option>
+                                    ))}
+                            </select>
+                            {formData.digitalProducts && errors.digitalProducts && (
+                                <div style={{ color: "tomato" }}>{errors.digitalProducts}</div>
+                            )}
+                        </div>
+                        <div className={styles.selectedElements}>
+                            {selectedActivePins.map((digitalProduct, index) => (
+                                <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
+                                    <span>{(digitalProduct as DigitalProduct).name}</span>
+                                    <button onClick={() => handleDeleteActivePin(index)}>×</button>
+                                </div>
+                            ))}
+                        </div>
 
                         <button
                             className={styles.actionButton}
                             type="submit"
                             disabled={!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
                                 !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
-                                !isActiveUserTitleValid || !isActiveUserBackgroundColourValid } >{"|| !isActivePinsValid}>"}
+                                !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}
+                        >
 
                             {dictionary[lang]?.updateUserButton}
                         </button>
