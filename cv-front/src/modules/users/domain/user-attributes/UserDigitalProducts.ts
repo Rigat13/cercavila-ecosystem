@@ -11,5 +11,5 @@ export function UserDigitalProductsNotValidError(digitalProduct: string): Error 
 }
 
 export function concatenateUserDigitalProducts (digitalProducts) {
-    return digitalProducts.map(digitalProduct => digitalProduct.id).join(',')
+    return digitalProducts.map(digitalProduct => digitalProduct.id).join(',');
 }

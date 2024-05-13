@@ -26,7 +26,6 @@ import {isUserActivePinsValid} from "@/modules/users/domain/user-attributes/User
 import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins";
 
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
-import {Figura} from "@/modules/digitalProducts/domain/Figura";
 
 const initialState = {
     id: "",
@@ -70,6 +69,12 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                 const userData = users.find((user) => user.id === userId);
                 if (!userData) { throw new Error(dictionary[lang]?.userNotFoundWithId + userId); }
 
+
+                const selectedDigitalProducts = userData.digitalProducts.toString().split(',').map(digitalProductId => {
+                    return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
+                }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
+                setSelectedDigitalProducts(selectedDigitalProducts as DigitalProduct[]);
+
                 updateForm({
                     id: userData.id,
                     nickname: userData.nickname,
@@ -88,20 +93,10 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                     activeUserBackgroundColour: userData.activeUserBackgroundColour,
                     activePins: userData.activePins.toString(),*/
                 });
-                const digitalProductIds = userData.digitalProducts;
-                const selectedDigitalProducts: DigitalProduct[] = digitalProductIds.map(digitalProductId => {
-                    return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
-                }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
-
-                setSelectedDigitalProducts(selectedDigitalProducts as DigitalProduct[]);
-            } catch (error) {
-                throw new Error(error);
-
-                console.error(dictionary[lang]?.errorRetrievingUserMessage + userId);
-            }
+            } catch (error) { throw new Error(error); console.error(error + " - " +dictionary[lang]?.errorRetrievingUserMessage + userId); }
         };
         fetchUserData();
-    }, [userId, users]);
+    }, [userId, users, digitalProducts]);
 
 
 
@@ -474,13 +469,19 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                                 onChange={handleDigitalProductsChange}
                             >
                                 <option value="">{dictionary[lang]?.selectUserDigitalProduct}</option>
-                                {digitalProducts.map(option => (
-                                    <option
-                                        key={option.id}
-                                        value={option.id}
-                                        disabled={selectedDigitalProducts.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
-                                    > {option.name} </option>
-                                ))}
+                                {Array.isArray(digitalProducts) ? (
+                                    digitalProducts.map(option => (
+                                        <option
+                                            key={option.id}
+                                            value={option.id}
+                                            disabled={selectedDigitalProducts.some(digitalProduct => digitalProduct.id === option.id)}
+                                        >
+                                            {option.name}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>Loading digital products...</option>
+                                )}
                             </select>
                             {formData.digitalProducts && errors.digitalProducts && (
                                 <div style={{ color: "tomato" }}>{errors.digitalProducts}</div>
