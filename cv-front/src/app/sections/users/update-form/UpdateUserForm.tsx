@@ -88,6 +88,9 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                 }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
                 setSelectedActivePins(selectedActivePins as DigitalProduct[]);
 
+                const selectedRoles = userData.roles.toString().split(',');
+                setSelectedRoles(selectedRoles as string[]);
+
                 updateForm({
                     id: userData.id,
                     nickname: userData.nickname,
@@ -96,7 +99,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                     secondSurname: userData.secondSurname,
                     email: userData.email,
                     password: userData.password,
-                    //roles: userData.roles.toString(),
+                    roles: userData.roles.toString(),
                     coins: userData.coins+"",
                     digitalProducts: userData.digitalProducts.toString(),
                     activeUserImage: userData.activeUserImage,
@@ -301,7 +304,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
 
     const handleSubmit = (ev: React.FormEvent) => {
         ev.preventDefault();
-        
+
         if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
             !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
             !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
@@ -512,8 +515,8 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                                     <div key={index} className={styles.selectedElementCombined}>
                                         <span className={styles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
                                             {dictionary[lang]?.[roleName]} </span>
-                                        <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
-                                            {colla?.name} </span>
+                                        { colla && (<span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
+                                            {colla?.name} </span>)}
                                         <button onClick={() => handleDeleteRole(index)}>×</button>
                                     </div>
                                 );
