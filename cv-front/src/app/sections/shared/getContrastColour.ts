@@ -18,7 +18,7 @@ function getIsLightContrast (backgroundColor: string): boolean {
     return luminance > 0.5;
 }
 
-function getContrastTextColour (isLight: boolean): React.CSSProperties {
+function getContrastTextColour (isLight: boolean): string {
     const lightColour = "#ffffff";
     const darkColour = "#000000";
 
@@ -26,7 +26,7 @@ function getContrastTextColour (isLight: boolean): React.CSSProperties {
     return color;
 }
 
-export function getContrastColour(backgroundColor: React.CSSProperties): React.CSSProperties {
+export function getContrastColour(backgroundColor: string): string {
     const isLight = getIsLightContrast(backgroundColor.toString());
     return getContrastTextColour(isLight);
 }

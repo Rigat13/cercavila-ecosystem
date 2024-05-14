@@ -37,8 +37,8 @@ export function FilteredUsersList({ lang }: { lang: string }) {
     };
 
     const getCollaAdditionalStyle = (collaId: string) => {
-        let backgroundColor: React.CSSProperties  = "#000000";
-        let color: React.CSSProperties = "#FFFFFF";
+        let backgroundColor: string = "#000000";
+        let color: string = "#FFFFFF";
 
 
         const colla = colles.find(colla => colla.id === collaId);

@@ -1,6 +1,6 @@
 'use client';
 import React, {useEffect, useState} from "react";
-import {FormStatus} from "@/app/sections/users/form/useUserForm";
+import {FormStatus} from "@/app/sections/users/update-form/useUpdateUserForm";
 import { Spinner } from "@/app/sections/shared/Spinner";
 import styles from "@/app/sections/users/form/UserForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
