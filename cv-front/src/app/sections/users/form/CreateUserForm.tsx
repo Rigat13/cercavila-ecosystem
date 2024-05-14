@@ -123,6 +123,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
             selectedRoles.push(`${selectedRoleName}-${selectedColla}`);
             setSelectedRoles(selectedRoles);
             updateForm({ ...formData, roles: selectedRoles.toString() });
+            //throw new Error("Added roles are:" + selectedRoles.toString() + " and the form data is: " + formData.roles);
             validateFormData({ ...formData, roles: selectedRoles.toString() });
         }
     };
@@ -262,7 +263,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
     const handleSubmit = (ev: React.FormEvent) => {
         ev.preventDefault();
 
-        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || //!isRolesValid ||
+        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
             !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
             !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
 
@@ -428,22 +429,14 @@ export function CreateUserForm({ lang }: { lang: string }) {
                         {/* Display Selected Roles */}
                         <div className={styles.selectedElements}>
                             {selectedRoles.map((collaRole, index) => {
-                                // Split collaRole into role name and colla ID
                                 const [roleName, collaId] = collaRole.split('-');
-
-                                // Find the corresponding colla name based on collaId
                                 const colla = colles.find((colla) => colla.id === collaId);
-                                // Render different parts of the selected element with specific styles
                                 return (
                                     <div key={index} className={styles.selectedElementCombined}>
-                                        {/* Display role name with specific color */}
                                         <span className={styles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
-                            {dictionary[lang]?.[roleName]} {/* Assuming dictionary[lang] contains role names */}
-                        </span>
-                                        {/* Display colla name with another color */}
+                                            {dictionary[lang]?.[roleName]} </span>
                                         <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
-                            {colla?.name} {/* Display colla name if found in colles */}
-                        </span>
+                                            {colla?.name} </span>
                                         <button onClick={() => handleDeleteRole(index)}>×</button>
                                     </div>
                                 );

@@ -4,16 +4,12 @@ export const ROLES_ERROR_MESSAGE = `Els rols no són vàlids`;
 
 export function areUserRolesValid(roles: string) : boolean {
     if (!roles) return true;
-    const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
-    // "roles" is a string like this:
-    // "collaRoleCap-ff8081818e101c61018e10ebed740002,collaRoleSotscap-ff8081818f06df68018f0756a3e60001,collaRoleCapMusics-ff8081818f06df68018f0756a3e60001..."
-    // IDs are removed to check if the roles are valid
     const pureRoles = roles.split(',').map(role => role.split('-')[0]);
     const rolesLabels = userCollaRoles.map(role => role.labelKey);
-    return pureRoles.every(role => regexExp.test(role)) && pureRoles.every(role => rolesLabels.includes(role));
+    return pureRoles.every(role => rolesLabels.includes(role));
 }
 export function UserRolesNotValidError(roles: string): Error {
-    return new Error(ROLES_ERROR_MESSAGE);
+    return new Error(ROLES_ERROR_MESSAGE + " " + roles);
 }
 
 export function concatenateRoles (roles) {
