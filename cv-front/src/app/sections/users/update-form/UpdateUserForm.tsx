@@ -1,6 +1,6 @@
 'use client';
 import React, {useEffect, useState} from "react";
-import {FormStatus, useUserForm} from "@/app/sections/users/form/useUserForm";
+import {FormStatus} from "@/app/sections/users/form/useUserForm";
 import { Spinner } from "@/app/sections/shared/Spinner";
 import styles from "@/app/sections/users/form/UserForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
@@ -15,7 +15,7 @@ import {isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH } from "@/
 import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserFirstSurname";
 import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
 import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
-import {areUserRolesValid, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
+import {areUserRolesValid, getRolesAdditionalStyle, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
 import {isUserDigitalProductsValid, concatenateUserDigitalProducts} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
 import {isUserActiveUserImageValid} from "@/modules/users/domain/user-attributes/UserActiveUserImage";
 import {isUserActiveUserImageFrameValid} from "@/modules/users/domain/user-attributes/UserActiveUserImageFrame";
@@ -27,6 +27,7 @@ import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins
 
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 import {digitalProductTypesFixed} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
+import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 
 const initialState = {
     id: "",
@@ -63,6 +64,11 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     const [selectedDigitalProducts, setSelectedDigitalProducts] = useState([]);
 
     const [selectedActivePins, setSelectedActivePins] = useState([]);
+
+    const { colles } = useUsersContext();
+    const [selectedRoleName, setSelectedRoleName] = useState('');
+    const [selectedColla, setSelectedColla] = useState('');
+    const [selectedRoles, setSelectedRoles] = useState([]);
 
     lang = lang;
 
@@ -143,11 +149,34 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
         validateFormData({ ...formData, password: newPassword });
     };
 
-    const handleRolesChange = (ev) => {
-        const newRoles = ev.target.value;
-        updateForm({ roles: newRoles });
-        validateFormData({ ...formData, roles: newRoles });
+    const handleRoleNameChange = (e) => {
+        setSelectedRoleName(e.target.value);
     };
+
+    const handleCollaChange = (e) => {
+        setSelectedColla(e.target.value);
+    };
+
+    const handleAddRole = () => {
+        if (selectedRoleName && selectedColla) {
+            selectedRoles.push(`${selectedRoleName}-${selectedColla}`);
+            setSelectedRoles(selectedRoles);
+            updateForm({ ...formData, roles: selectedRoles.toString() });
+            //throw new Error("Added roles are:" + selectedRoles.toString() + " and the form data is: " + formData.roles);
+            validateFormData({ ...formData, roles: selectedRoles.toString() });
+        }
+    };
+
+    const handleDeleteRole = (index) => {
+        setSelectedRoles((prevSelectedRoles) => {
+            const newSelectedRoles = [...prevSelectedRoles];
+            newSelectedRoles.splice(index, 1);
+            const newRoles= concatenateUserDigitalProducts(newSelectedRoles);
+            updateForm({ roles: newRoles });
+            validateFormData({ ...formData, roles: newRoles });
+            return newSelectedRoles;
+        });
+    }
 
     const handleCoinsChange = (ev) => {
         const newCoins = ev.target.value;
@@ -271,11 +300,12 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid ||// !isRolesValid ||
+        ev.preventDefault();
+        
+        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
             !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
             !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
 
-        ev.preventDefault();
         submitForm({
             id: formData.id,
             nickname: formData.nickname,
@@ -359,7 +389,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             handleSubmit(ev);
                         }}
                     >
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- NICKNAME */}
                             <label htmlFor="nickname">{dictionary[lang]?.userNickname}</label>
                             <input
                                 type="text"
@@ -373,7 +403,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- NAME */}
                             <label htmlFor="name">{dictionary[lang]?.userName}</label>
                             <input
                                 type="text"
@@ -387,7 +417,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- FIRST SURNAME */}
                             <label htmlFor="firstSurname">{dictionary[lang]?.userFirstSurname}</label>
                             <input
                                 type="text"
@@ -401,7 +431,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- SECOND SURNAME */}
                             <label htmlFor="secondSurname">{dictionary[lang]?.userSecondSurname}</label>
                             <input
                                 type="text"
@@ -415,7 +445,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- EMAIL */}
                             <label htmlFor="email">{dictionary[lang]?.userEmail}</label>
                             <input
                                 type="email"
@@ -429,7 +459,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- PASSWORD */}
                             <label htmlFor="password">{dictionary[lang]?.userPassword}</label>
                             <input
                                 type="password"
@@ -443,29 +473,55 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        {"// TODO 3 Add Roles: 1. Populating with roles options; 2. Combining with all colles available in the system"}
-                        <div className={styles.formGroup}>
-                            <label htmlFor="roles">{dictionary[lang]?.userRoles}</label>
-                            <select
-                                id="roles"
-                                name="roles"
-                                value={formData.roles}
-                                onChange={handleRolesChange}
-                            >
-                                <option value="">{dictionary[lang]?.selectUserCollaRole}</option>
-                                {userCollaRoles.map(option => (
-                                    <option key={option.labelKey} value={option.labelKey}>
-                                        {dictionary[lang]?.[option.labelKey]}
-                                    </option>
-                                ))}
-                            </select>
+                        <div className={styles.formGroup}><label htmlFor="roles">{dictionary[lang]?.userRoles}</label></div> {/* -------------------------------------------------------------------------------------------------- ROLES */}
+                        <div className={styles.horizontalGroup}>
+                            <div className={styles.formGroup}> {/* Role Name Selector */}
+                                <label className={styles.subtitle} >{dictionary[lang]?.userRoles_Role}</label>
+                                <select value={selectedRoleName} onChange={handleRoleNameChange}>
+                                    <option value="">{dictionary[lang]?.selectUserCollaRole}</option>
+                                    {userCollaRoles.map(option => (
+                                        <option key={option.labelKey} value={option.labelKey}> {dictionary[lang]?.[option.labelKey]}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Colla Selector */}
+                            <div className={styles.formGroup}>
+                                <label className={styles.subtitle} >{dictionary[lang]?.userRoles_Colla}</label>
+                                <select value={selectedColla} onChange={handleCollaChange}>
+                                    <option value="">{dictionary[lang]?.selectUserColla}</option>
+                                    {colles.map(option => (
+                                        <option key={option.id} value={option.id}>{option.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Add Role Button */}
+                            <button className={styles.addRoleButton} onClick={handleAddRole}>+</button>
+
                             {formData.roles && errors.roles && (
                                 <div style={{ color: "tomato" }}>{errors.roles}</div>
                             )}
                         </div>
+                        {/* Display Selected Roles */}
+                        <div className={styles.selectedElements}>
+                            {selectedRoles.map((collaRole, index) => {
+                                const [roleName, collaId] = collaRole.split('-');
+                                const colla = colles.find((colla) => colla.id === collaId);
+                                return (
+                                    <div key={index} className={styles.selectedElementCombined}>
+                                        <span className={styles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
+                                            {dictionary[lang]?.[roleName]} </span>
+                                        <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
+                                            {colla?.name} </span>
+                                        <button onClick={() => handleDeleteRole(index)}>×</button>
+                                    </div>
+                                );
+                            })}
+                        </div>
 
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- COINS */}
                             <label htmlFor="coins">{dictionary[lang]?.userCoins}</label>
                             <input
                                 type="number"
@@ -479,7 +535,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- DIGITAL PRODUCTS */}
                             <label htmlFor="digitalProducts">{dictionary[lang]?.userDigitalProducts}</label>
                             <select
                                 id="digitalProducts"
@@ -515,7 +571,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             ))}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER IMAGE */}
                             <label htmlFor="activeUserImage">{dictionary[lang]?.userActiveUserImage}</label>
                             <select
                                 id="activeUserImage"
@@ -532,8 +588,8 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                                 <div style={{ color: "tomato" }}>{errors.activeUserImage}</div>
                             )}
                         </div>
-                        
-                        <div className={styles.formGroup}>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER IMAGE FRAME */}
                             <label htmlFor="activeUserImageFrame">{dictionary[lang]?.userActiveUserImageFrame}</label>
                             <select
                                 id="activeUserImageFrame"
@@ -551,7 +607,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER BACKGROUND IMAGE */}
                             <label htmlFor="activeUserBackgroundImage">{dictionary[lang]?.userActiveUserBackgroundImage}</label>
                             <select
                                 id="activeUserBackgroundImage"
@@ -569,7 +625,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER TITLE */}
                             <label htmlFor="activeUserTitle">{dictionary[lang]?.userActiveUserTitle}</label>
                             <select
                                 id="activeUserTitle"
@@ -587,7 +643,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE USER BACKGROUND COLOUR */}
                             <label htmlFor="activeUserBackgroundColour">{dictionary[lang]?.userActiveUserBackgroundColour}</label>
                             <select
                                 id="activeUserBackgroundColour"
@@ -605,7 +661,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ACTIVE PINS */}
                             <label htmlFor="activePins">{dictionary[lang]?.userActivePins}</label>
                             <select
                                 id="activePins"
@@ -633,7 +689,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                                 </div>
                             ))}
                         </div>
-
+                        {/* -------------------------------------------------------------------------------------------------------- SUBMIT BUTTON */}
                         <button
                             className={styles.actionButton}
                             type="submit"
