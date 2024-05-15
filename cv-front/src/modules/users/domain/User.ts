@@ -1,13 +1,9 @@
 import {UserIdNotValidError, isUserIdValid} from "@/modules/users/domain/user-attributes/UserId";
-import {
-    UserNicknameNotValidError,
-    isUserNicknameValid,
-    alreadyExistingNickname
-} from "@/modules/users/domain/user-attributes/UserNickname";
+import {UserNicknameNotValidError, isUserNicknameValid, alreadyExistingNickname} from "@/modules/users/domain/user-attributes/UserNickname";
 import {UserNameNotValidError, isUserNameValid} from "@/modules/users/domain/user-attributes/UserName";
 import {UserFirstSurnameNotValidError, isUserFirstSurnameValid} from "@/modules/users/domain/user-attributes/UserFirstSurname";
 import {UserSecondSurnameNotValidError, isUserSecondSurnameValid} from "@/modules/users/domain/user-attributes/UserSecondSurname";
-import {UserEmailNotValidError, isUserEmailValid} from "@/modules/users/domain/user-attributes/UserEmail";
+import {UserEmailNotValidError, isUserEmailValid, alreadyExistingEmail} from "@/modules/users/domain/user-attributes/UserEmail";
 import {UserPasswordNotValidError, isUserPasswordValid} from "@/modules/users/domain/user-attributes/UserPassword";
 import {UserRolesNotValidError, areUserRolesValid} from "@/modules/users/domain/user-attributes/UserRoles";
 import {UserCoinsNotValidError, isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins";
@@ -53,14 +49,15 @@ export async function ensureUserIsValidEmptyId({id, nickname, name, firstSurname
                                           coins, digitalProducts, activeUserImage, activeUserImageFrame, activeUserBackgroundImage,
                                           activeUserTitle, activeUserBackgroundColour, activePins}: User): Promise<void> {
     const existingNicknames = getAllUserNicknames();
+    // NOTE: existingEmails is not checked here to avoid creating a getAllUserEmails repository call; already checked before submitting the form, and also checked in cv-api with a unique constraint.
 
     if (!isUserNicknameValid(nickname)) { throw UserNicknameNotValidError(nickname, await existingNicknames); }
     try { if (alreadyExistingNickname(nickname, await existingNicknames)) { throw UserNicknameNotValidError(nickname, await existingNicknames); }
     } catch (e) { throw new Error("S'ha detectat que el nom d'usuari existeix: "+e); }
     if (!isUserNameValid(name)) { throw UserNameNotValidError(name); }
     if (!isUserFirstSurnameValid(firstSurname)) { throw UserFirstSurnameNotValidError(firstSurname); }
-    if (!isUserFirstSurnameValid(secondSurname)) { throw UserSecondSurnameNotValidError(secondSurname); }
-    if (!isUserEmailValid(email)) { throw UserEmailNotValidError(email); }
+    if (!isUserSecondSurnameValid(secondSurname)) { throw UserSecondSurnameNotValidError(secondSurname); }
+    if (!isUserEmailValid(email)) { throw UserEmailNotValidError(email, null); }
     if (!isUserPasswordValid(password)) { throw UserPasswordNotValidError(password); }
     if (!areUserRolesValid(roles.toString())) { throw UserRolesNotValidError(roles.toString()); }
     if (!isUserCoinsValid(coins)) { throw UserCoinsNotValidError(coins); }

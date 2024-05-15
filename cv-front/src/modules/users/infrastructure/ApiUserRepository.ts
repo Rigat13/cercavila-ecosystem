@@ -37,7 +37,7 @@ async function storeUser(user: User) {
         });
 
         if (!response.ok) {
-            if (response.status === 409) { throw new Error("El nom d'usuari ja existeix."); }
+            if (response.status === 409) { throw new Error("El nom d'usuari o el correu ja existeixen."); }
             else { throw new Error("Error de servidor inesperat.");}
         }
     } catch (error) {

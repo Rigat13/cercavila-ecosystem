@@ -20,6 +20,6 @@ public class StoreUserController {
     @PostMapping("/api/users")
     public ResponseEntity<?> storeUser(@ModelAttribute CreateUserCommand createUserCommand) {
         try { createUserUseCase.createUser(createUserCommand); return ResponseEntity.ok().build();
-        } catch (UserNicknameAlreadyExists e) { return ResponseEntity.status(HttpStatus.CONFLICT).body("El nom d'usuari ja existeix."); }
+        } catch (UserNicknameAlreadyExists e) { return ResponseEntity.status(HttpStatus.CONFLICT).body("El nom d'usuari o el correu electrònic ja existeixen."); }
     }
 }

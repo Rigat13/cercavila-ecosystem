@@ -16,6 +16,7 @@ import {getAllDigitalProducts_userRepo} from "@/modules/digitalproducts/applicat
 export interface ContextState {
     users: User[];
     userNicknames: string[];
+    userEmails: string[];
     colles: Colla[];
     digitalProducts: DigitalProduct[];
     createUser: (user: { id: string; nickname: string; name: string; firstSurname: string; secondSurname: string; email: string;
@@ -25,6 +26,7 @@ export interface ContextState {
         password: string; roles: string[]; coins: number; digitalProducts: string[]; activeUserImage: string; activeUserImageFrame: string;
         activeUserBackgroundImage: string; activeUserTitle: string; activeUserBackgroundColour: string; activePins: string[]; }) => Promise<void>;
     deleteUser: (userId: string) => Promise<void>;
+
     getAllUserNicknames: () => Promise<void>;
 }
 
@@ -36,6 +38,7 @@ export const UsersContextProvider = ({
 }: React.PropsWithChildren<{ repository: UserRepository }>) => {
     const [users, setUsers] = useState<User[]>([]);
     const [userNicknames, setUserNicknames] = useState<string[]>([]);
+    const [userEmails, setUserEmails] = useState<string[]>([]);
     const [colles, setColles] = useState<Colla[]>([]);
     const [digitalProducts, setDigitalProducts] = useState<DigitalProduct[]>([]);
 
@@ -88,15 +91,23 @@ export const UsersContextProvider = ({
         });
     }
 
+    async function getEmails() {
+        let emails: string[] = [];
+        users.forEach((user) => { emails.push(user.email); });
+        setUserEmails(emails);
+    }
+
     useEffect(() => {
         getUsers();
         getNicknames();
         getColles();
         getDigitalProducts();
+        getEmails();
     }, []);
 
     return (
-        <UsersContext.Provider value={{ users, userNicknames, colles, digitalProducts, createUser: create, updateUser: update, deleteUser: deleteC, getAllUserNicknames: getNicknames }}>
+        <UsersContext.Provider value={{ users, userNicknames, userEmails, colles, digitalProducts, createUser: create,
+            updateUser: update, deleteUser: deleteC, getAllUserNicknames: getNicknames, getAllUserEmails: getEmails }}>
             {children}
         </UsersContext.Provider>
     );

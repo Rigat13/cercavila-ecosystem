@@ -296,6 +296,7 @@ interface DictionaryEntry {
     userFirstSurnameInvalid: string;
     userSecondSurnameInvalid: string;
     userEmailInvalid: string;
+    userEmailNotUnique: string;
     userPasswordInvalid: string;
     userRolesInvalid: string;
     userCoinsInvalid: string;
@@ -647,6 +648,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userFirstSurnameInvalid: "El primer cognom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
         userSecondSurnameInvalid: "El segon cognom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
         userEmailInvalid: "El correu electrònic no és vàlid. Ha de seguir el format de correu amb caràcters vàlids entre: ",
+        userEmailNotUnique: "El correu electrònic ja existeix. Si us plau, provi amb un altre.",
         userPasswordInvalid: "La contrasenya no és vàlida. Ha de tenir caràcters vàlids entre: ",
         userRolesInvalid: "Els rols no són vàlids. Han de ser un de la llista.",
         userCoinsInvalid: "Les monedes no són vàlides. Han de ser un número flotant positiu.",
@@ -997,6 +999,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userFirstSurnameInvalid: "El primer apellido no es válido. Debe contener carácteres válidos y tener entre: ",
         userSecondSurnameInvalid: "El segundo apellido no es válido. Debe contener carácteres válidos y tener entre: ",
         userEmailInvalid: "El correo electrónico no es válido. Debe seguir el formato de correo con carácteres válidos entre: ",
+        userEmailNotUnique: "El correo electrónico ya existe. Por favor, pruebe con otro.",
         userPasswordInvalid: "La contraseña no es válida. Debe tener carácteres válidos entre: ",
         userRolesInvalid: "Los roles no son válidos. Deben ser uno de la lista.",
         userCoinsInvalid: "Las monedas no son válidas. Deben ser un número flotante positivo.",
@@ -1347,6 +1350,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userFirstSurnameInvalid: "The first surname is not valid. It must contain valid characters and be between: ",
         userSecondSurnameInvalid: "The second surname is not valid. It must contain valid characters and be between: ",
         userEmailInvalid: "The email is not valid. It must follow the email format with valid characters between: ",
+        userEmailNotUnique: "The email already exists. Please, try another one.",
         userPasswordInvalid: "The password is not valid. It must have valid characters between: ",
         userRolesInvalid: "The roles are not valid. They must be one from the list.",
         userCoinsInvalid: "The coins are not valid. They must be a positive float number.",

@@ -18,6 +18,6 @@ public class UpdateUserController {
     @PutMapping("/api/users")
     public ResponseEntity<?> updateUser(@ModelAttribute UpdateUserCommand updateUserCommand) {
         try { updateUserUseCase.updateUser(updateUserCommand);;return ResponseEntity.ok().build();
-        } catch (UserNicknameAlreadyExists e) { return ResponseEntity.status(HttpStatus.CONFLICT).body("El nom d'usuari ja existeix."); }
+        } catch (UserNicknameAlreadyExists e) { return ResponseEntity.status(HttpStatus.CONFLICT).body("El nom d'usuari o el correu electrònic ja existeixen."); }
     }
 }

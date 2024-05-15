@@ -12,7 +12,7 @@ import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users
 import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserSecondSurname";
 import {alreadyExistingNickname, isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserNickname";
 import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserFirstSurname";
-import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
+import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH, alreadyExistingEmail} from "@/modules/users/domain/user-attributes/UserEmail";
 import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserPassword";
 import {areUserRolesValid, getRolesAdditionalStyle, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
 import {isUserDigitalProductsValid, concatenateUserDigitalProducts} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
@@ -46,11 +46,12 @@ const initialState = {
     activePins: "",
 }
 
-export let isNicknameValid, isNicknameUnique, isNameValid, isFirstSurnameValid, isSecondSurnameValid, isEmailValid, isPasswordValid, isRolesValid,
+export let isNicknameValid, isNicknameUnique, isNameValid, isFirstSurnameValid, isSecondSurnameValid, isEmailValid, isEmailUnique, isPasswordValid, isRolesValid,
     isCoinsValid, isDigitalProductsValid, isActiveUserImageValid, isActiveUserImageFrameValid, isActiveUserBackgroundImageValid,
     isActiveUserTitleValid, isActiveUserBackgroundColourValid, isActivePinsValid;
 
 let nicknameErrorMessage = "";
+let emailErrorMessage = "";
 
 const lang = defaultLang;
 
@@ -59,6 +60,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
     const { formStatus, submitForm, resetFormStatus } = useUserForm();
     const [errors, setErrors] = useState(initialState);
     const { userNicknames } = useUsersContext();
+    const { userEmails } = useUsersContext();
 
     const { digitalProducts } = useUsersContext();
     const [selectedDigitalProducts, setSelectedDigitalProducts] = useState([]);
@@ -233,6 +235,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
         isFirstSurnameValid = isUserFirstSurnameValid(firstSurname);
         isSecondSurnameValid = isUserSecondSurnameValid(secondSurname);
         isEmailValid = isUserEmailValid(email);
+        isEmailUnique = !alreadyExistingEmail(email, userEmails);
         isPasswordValid = isUserPasswordValid(password);
         isRolesValid = areUserRolesValid(roles);
         isCoinsValid = isUserCoinsValid(coins);
@@ -247,12 +250,15 @@ export function CreateUserForm({ lang }: { lang: string }) {
         nicknameErrorMessage = isNicknameValid ? "" : dictionary[lang]?.userNicknameInvalid + NICKNAME_MIN_LENGTH + " - " + NICKNAME_MAX_LENGTH,
         nicknameErrorMessage = isNicknameUnique ? nicknameErrorMessage : dictionary[lang]?.userNicknameNotUnique,
 
+        emailErrorMessage = isEmailValid ? "" : dictionary[lang]?.userEmailInvalid + EMAIL_MIN_LENGTH + " - " + EMAIL_MAX_LENGTH,
+        emailErrorMessage = isEmailUnique ? emailErrorMessage : dictionary[lang]?.userEmailNotUnique;
+
         setErrors({
             nickname: nicknameErrorMessage,
             name: isNameValid ? "" : dictionary[lang]?.userNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
             firstSurname: isFirstSurnameValid ? "" : dictionary[lang]?.userFirstSurnameInvalid + FIRST_SURNAME_MIN_LENGTH + " - " + FIRST_SURNAME_MAX_LENGTH,
             secondSurname: isSecondSurnameValid ? "" : dictionary[lang]?.userSecondSurnameInvalid + SECOND_SURNAME_MIN_LENGTH + " - " + SECOND_SURNAME_MAX_LENGTH,
-            email: isEmailValid ? "" : dictionary[lang]?.userEmailInvalid + EMAIL_MIN_LENGTH + " - " + EMAIL_MAX_LENGTH,
+            email: emailErrorMessage,
             password: isPasswordValid ? "" : dictionary[lang]?.userPasswordInvalid + PASSWORD_MIN_LENGTH + " - " + PASSWORD_MAX_LENGTH,
             roles: isRolesValid ? "" : dictionary[lang]?.userRolesInvalid,
             coins: isCoinsValid ? "" : dictionary[lang]?.userCoinsInvalid,
@@ -269,7 +275,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
     const handleSubmit = (ev: React.FormEvent) => {
         ev.preventDefault();
 
-        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
+        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isEmailUnique || !isPasswordValid || !isRolesValid ||
             !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
             !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
 
@@ -614,9 +620,9 @@ export function CreateUserForm({ lang }: { lang: string }) {
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNicknameValid || !isNicknameUnique || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-                                !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
-                                !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}
+                            disabled={!isNicknameValid || !isNicknameUnique || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isEmailUnique ||
+                                !isPasswordValid || !isRolesValid || !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid ||
+                                !isActiveUserBackgroundImageValid || !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}
                         >
 
                             {dictionary[lang]?.createUserButton}
