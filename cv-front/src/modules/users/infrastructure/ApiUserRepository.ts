@@ -64,7 +64,7 @@ async function getAllUsersByName() {
             (response) => response.json() as Promise<User[]>
         );
         return users;
-    } catch (error) { throw new Error("No s'ha pogut obtenir totes les users ordenades per nom. \nMotiu: " + error); }
+    } catch (error) { throw new Error("No s'ha pogut obtenir totes els usuaris ordenades per nom. \nMotiu: " + error); }
 }
 
 async function getAllUsers() {
@@ -74,7 +74,7 @@ async function getAllUsers() {
         );
         return users;
     } catch (error) {
-        throw new Error("No s'ha pogut obtenir totes les users. \nMotiu: " + error);
+        throw new Error("No s'ha pogut obtenir totes els usuaris. \nMotiu: " + error);
     }
 }
 

@@ -44,8 +44,9 @@ export const UsersContextProvider = ({
                               { id: string; nickname: string; name: string; firstSurname: string; secondSurname: string; email: string; password: string; roles: string[];
                                   coins: number; digitalProducts: string[]; activeUserImage: string; activeUserImageFrame: string; activeUserBackgroundImage: string;
                                   activeUserTitle: string; activeUserBackgroundColour: string; activePins: string[]; }) {
-        await storeUser(repository, { id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
+        try {await storeUser(repository, { id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
                                      activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins });
+        } catch (e) { throw "L'error al crear l'usuari és: "+e; }
         await getUsers();
     }
 

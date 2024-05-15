@@ -1,5 +1,9 @@
 import {UserIdNotValidError, isUserIdValid} from "@/modules/users/domain/user-attributes/UserId";
-import {UserNicknameNotValidError, isUserNicknameValid} from "@/modules/users/domain/user-attributes/UserNickname";
+import {
+    UserNicknameNotValidError,
+    isUserNicknameValid,
+    alreadyExistingNickname
+} from "@/modules/users/domain/user-attributes/UserNickname";
 import {UserNameNotValidError, isUserNameValid} from "@/modules/users/domain/user-attributes/UserName";
 import {UserFirstSurnameNotValidError, isUserFirstSurnameValid} from "@/modules/users/domain/user-attributes/UserFirstSurname";
 import {UserSecondSurnameNotValidError, isUserSecondSurnameValid} from "@/modules/users/domain/user-attributes/UserSecondSurname";
@@ -50,7 +54,9 @@ export async function ensureUserIsValidEmptyId({id, nickname, name, firstSurname
                                           activeUserTitle, activeUserBackgroundColour, activePins}: User): Promise<void> {
     const existingNicknames = getAllUserNicknames();
 
-    if (!isUserNicknameValid(nickname, await existingNicknames)) { throw UserNicknameNotValidError(nickname, await existingNicknames); }
+    if (!isUserNicknameValid(nickname)) { throw UserNicknameNotValidError(nickname, await existingNicknames); }
+    try { if (alreadyExistingNickname(nickname, await existingNicknames)) { throw UserNicknameNotValidError(nickname, await existingNicknames); }
+    } catch (e) { throw new Error("S'ha detectat que el nom d'usuari existeix: "+e); }
     if (!isUserNameValid(name)) { throw UserNameNotValidError(name); }
     if (!isUserFirstSurnameValid(firstSurname)) { throw UserFirstSurnameNotValidError(firstSurname); }
     if (!isUserFirstSurnameValid(secondSurname)) { throw UserSecondSurnameNotValidError(secondSurname); }

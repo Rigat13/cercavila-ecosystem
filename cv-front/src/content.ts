@@ -291,6 +291,7 @@ interface DictionaryEntry {
     createUserButton: string;
 
     userNicknameInvalid: string;
+    userNicknameNotUnique: string;
     userNameInvalid: string;
     userFirstSurnameInvalid: string;
     userSecondSurnameInvalid: string;
@@ -641,6 +642,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         createUserButton: "Crea l'usuari",
 
         userNicknameInvalid: "El nom d'usuari no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
+        userNicknameNotUnique: "El nom d'usuari ja existeix. Si us plau, provi amb un altre.",
         userNameInvalid: "El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
         userFirstSurnameInvalid: "El primer cognom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
         userSecondSurnameInvalid: "El segon cognom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
@@ -657,7 +659,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userActivePinsInvalid: "Els pins no són vàlids.",
 
         successCreateUserMessage: "L'usuari s'ha creat amb èxit",
-        errorCreateUserMessage: "L'usuari no s'ha pogut crear. \nMotiu: ",
+        errorCreateUserMessage: "Ho sentim, no s'ha pogut crear l'usuari.",
         createAnotherUserButton: "Crear un altre usuari",
         retryCreateUserButton: "Torna a intentar",
 
@@ -990,6 +992,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         createUserButton: "Crea el usuario",
 
         userNicknameInvalid: "El nombre de usuario no es válido. Debe contener carácteres válidos y tener entre: ",
+        userNicknameNotUnique: "El nombre de usuario ya existe. Por favor, pruebe con otro.",
         userNameInvalid: "El nombre no es válido. Debe contener carácteres válidos y tener entre: ",
         userFirstSurnameInvalid: "El primer apellido no es válido. Debe contener carácteres válidos y tener entre: ",
         userSecondSurnameInvalid: "El segundo apellido no es válido. Debe contener carácteres válidos y tener entre: ",
@@ -1006,7 +1009,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userActivePinsInvalid: "Los pins no son válidos.",
 
         successCreateUserMessage: "El usuario se ha creado con éxito",
-        errorCreateUserMessage: "El usuario no se ha podido crear. \nMotivo: ",
+        errorCreateUserMessage: "Lo sentimos, no se ha podido crear el usuario.",
         createAnotherUserButton: "Crear otro usuario",
         retryCreateUserButton: "Volver a intentar",
 
@@ -1339,6 +1342,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         createUserButton: "Create user",
 
         userNicknameInvalid: "The nickname is not valid. It must contain valid characters and be between: ",
+        userNicknameNotUnique: "The nickname already exists. Please, try another one.",
         userNameInvalid: "The name is not valid. It must contain valid characters and be between: ",
         userFirstSurnameInvalid: "The first surname is not valid. It must contain valid characters and be between: ",
         userSecondSurnameInvalid: "The second surname is not valid. It must contain valid characters and be between: ",
@@ -1354,8 +1358,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userActiveUserBackgroundColourInvalid: "The background colour is not valid. It must follow the hexadecimal format.",
         userActivePinsInvalid: "The pins are not valid.",
 
-        successCreateUserMessage: "The user has been created successfully",
-        errorCreateUserMessage: "The user could not be created. \nReason: ",
+        successCreateUserMessage: "User has been created successfully",
+        errorCreateUserMessage: "Sorry, user could not be created.",
         createAnotherUserButton: "Create another user",
         retryCreateUserButton: "Retry",
 
