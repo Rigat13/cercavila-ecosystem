@@ -31,10 +31,15 @@ async function storeUser(user: User) {
         formData.append("activeUserBackgroundColour", user.activeUserBackgroundColour);
         formData.append("activePins", user.activePins.join(","));
 
-        await fetch(URL_PREFIX + "/api/users", {
+        const response = await fetch(URL_PREFIX + "/api/users", {
             method: "POST",
             body: formData,
         });
+
+        if (!response.ok) {
+            if (response.status === 409) { throw new Error("El nom d'usuari ja existeix."); }
+            else { throw new Error("Error de servidor inesperat.");}
+        }
     } catch (error) {
         throw new Error("No s'ha pogut crear l'usuari. \nMotiu: " + error);
     }

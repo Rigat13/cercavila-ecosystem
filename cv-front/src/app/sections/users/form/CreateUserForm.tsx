@@ -228,7 +228,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                   activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }) => {
         // Perform validation based on the provided data
         isNicknameValid = isUserNicknameValid(nickname);
-        isNicknameUnique = true;// TODO !alreadyExistingNickname(nickname, userNicknames);
+        isNicknameUnique = !alreadyExistingNickname(nickname, userNicknames);
         isNameValid = isUserNameValid(name);
         isFirstSurnameValid = isUserFirstSurnameValid(firstSurname);
         isSecondSurnameValid = isUserSecondSurnameValid(secondSurname);
