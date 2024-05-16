@@ -125,10 +125,15 @@ async function updateUser(user: User) {
         formData.append("activeUserBackgroundColour", user.activeUserBackgroundColour);
         formData.append("activePins", user.activePins.join(","));
 
-        await fetch(URL_PREFIX + "/api/users", {
+        const response = await fetch(URL_PREFIX + "/api/users", {
             method: "PUT",
             body: formData,
         });
+
+        if (!response.ok) {
+            if (response.status === 409) { throw new Error("El nom d'usuari o el correu ja existeixen."); }
+            else { throw new Error("Error de servidor inesperat.");}
+        }
     } catch (error) { throw new Error("No s'ha pogut actualitzar l'usuari. \nMotiu: " + error); }
 }
 

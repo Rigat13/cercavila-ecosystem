@@ -32,7 +32,8 @@ export function useUpdateUserForm(): {
                     setFormStatus(FormStatus.Success);
                 })
                 .catch((e) => {
-                    throw new Error("No s'ha pogut editar l'usuari. \nMotiu: "+e);
+                    console.log("No s'ha pogut editar l'usuari. \nMotiu: "+e);
+                    setFormStatus(FormStatus.Error);
                 });
         } catch (e) {
             setFormStatus(FormStatus.Error);

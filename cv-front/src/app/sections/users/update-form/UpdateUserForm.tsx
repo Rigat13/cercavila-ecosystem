@@ -11,9 +11,9 @@ import {useUpdateUserFormData} from "@/app/sections/users/update-form/useUpdateU
 
 import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserName";
 import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserSecondSurname";
-import {isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserNickname";
+import {alreadyExistingNickname,isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserNickname";
 import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserFirstSurname";
-import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
+import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH, alreadyExistingEmail} from "@/modules/users/domain/user-attributes/UserEmail";
 import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
 import {areUserRolesValid, getRolesAdditionalStyle, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
 import {isUserDigitalProductsValid, concatenateUserDigitalProducts} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
@@ -47,10 +47,13 @@ const initialState = {
     activeUserBackgroundColour: "",
     activePins: "",
 }
-export let isNicknameValid, isNameValid, isFirstSurnameValid, isSecondSurnameValid, isEmailValid, isPasswordValid, isRolesValid,
+export let isNicknameValid, isNicknameUnique, isNameValid, isFirstSurnameValid, isSecondSurnameValid, isEmailValid, isEmailUnique, isPasswordValid, isRolesValid,
     isCoinsValid, isDigitalProductsValid, isActiveUserImageValid, isActiveUserImageFrameValid, isActiveUserBackgroundImageValid,
     isActiveUserTitleValid, isActiveUserBackgroundColourValid, isActivePinsValid;
 const lang = defaultLang;
+
+let nicknameErrorMessage = "";
+let emailErrorMessage = "";
 
 export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     const { formData, updateForm, resetForm } = useUpdateUserFormData(initialState);
@@ -58,6 +61,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     const [errors, setErrors] = useState(initialState);
     const [isDeleted, setIsDeleted] = useState(false);
     const { userNicknames } = useUsersContext();
+    const { userEmails } = useUsersContext();
     const { users } = useUsersContext();
 
     const { digitalProducts } = useUsersContext();
@@ -266,11 +270,13 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     const validateFormData = ({ id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
                                   activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }) => {
         // Perform validation based on the provided data
-        isNicknameValid = isUserNicknameValid(nickname, userNicknames);
+        isNicknameValid = isUserNicknameValid(nickname);
+        isNicknameUnique = !alreadyExistingNickname(nickname, userNicknames);
         isNameValid = isUserNameValid(name);
         isFirstSurnameValid = isUserFirstSurnameValid(firstSurname);
         isSecondSurnameValid = isUserSecondSurnameValid(secondSurname);
         isEmailValid = isUserEmailValid(email);
+        isEmailUnique = !alreadyExistingEmail(email, userEmails);
         isPasswordValid = isUserPasswordValid(password);
         isRolesValid = areUserRolesValid(roles);
         isCoinsValid = isUserCoinsValid(coins);
@@ -282,13 +288,19 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
         isActiveUserBackgroundColourValid = isUserActiveUserBackgroundColourValid(activeUserBackgroundColour);
         isActivePinsValid = isUserActivePinsValid(activePins);
 
+        nicknameErrorMessage = isNicknameValid ? "" : dictionary[lang]?.userNicknameInvalid + NICKNAME_MIN_LENGTH + " - " + NICKNAME_MAX_LENGTH,
+        nicknameErrorMessage = isNicknameUnique ? nicknameErrorMessage : dictionary[lang]?.userNicknameNotUnique,
+
+        emailErrorMessage = isEmailValid ? "" : dictionary[lang]?.userEmailInvalid + EMAIL_MIN_LENGTH + " - " + EMAIL_MAX_LENGTH,
+        emailErrorMessage = isEmailUnique ? emailErrorMessage : dictionary[lang]?.userEmailNotUnique;
+
         setErrors({
             id: "",
-            nickname: isNicknameValid ? "" : dictionary[lang]?.userNicknameInvalid + NICKNAME_MIN_LENGTH + " - " + NICKNAME_MAX_LENGTH,
+            nickname: nicknameErrorMessage,
             name: isNameValid ? "" : dictionary[lang]?.userNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
             firstSurname: isFirstSurnameValid ? "" : dictionary[lang]?.userFirstSurnameInvalid + FIRST_SURNAME_MIN_LENGTH + " - " + FIRST_SURNAME_MAX_LENGTH,
             secondSurname: isSecondSurnameValid ? "" : dictionary[lang]?.userSecondSurnameInvalid + SECOND_SURNAME_MIN_LENGTH + " - " + SECOND_SURNAME_MAX_LENGTH,
-            email: isEmailValid ? "" : dictionary[lang]?.userEmailInvalid + EMAIL_MIN_LENGTH + " - " + EMAIL_MAX_LENGTH,
+            email: emailErrorMessage,
             password: isPasswordValid ? "" : dictionary[lang]?.userPasswordInvalid + PASSWORD_MIN_LENGTH + " - " + PASSWORD_MAX_LENGTH,
             roles: isRolesValid ? "" : dictionary[lang]?.userRolesInvalid,
             coins: isCoinsValid ? "" : dictionary[lang]?.userCoinsInvalid,
@@ -305,9 +317,9 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     const handleSubmit = (ev: React.FormEvent) => {
         ev.preventDefault();
 
-        if (!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-            !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
-            !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
+        if (!isNicknameValid || !isNicknameUnique || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isEmailUnique ||
+            !isPasswordValid || !isRolesValid || !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid ||
+            !isActiveUserBackgroundImageValid || !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid) { return; }
 
         submitForm({
             id: formData.id,
@@ -696,8 +708,8 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNicknameValid || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isPasswordValid || !isRolesValid ||
-                                !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
+                            disabled={!isNicknameValid || !isNicknameUnique || !isNameValid || !isFirstSurnameValid || !isSecondSurnameValid || !isEmailValid || !isEmailUnique ||
+                                !isPasswordValid || !isRolesValid || !isCoinsValid || !isDigitalProductsValid || !isActiveUserImageValid || !isActiveUserImageFrameValid || !isActiveUserBackgroundImageValid ||
                                 !isActiveUserTitleValid || !isActiveUserBackgroundColourValid || !isActivePinsValid}
                         >
 
