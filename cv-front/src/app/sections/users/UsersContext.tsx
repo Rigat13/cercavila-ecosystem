@@ -28,6 +28,7 @@ export interface ContextState {
     deleteUser: (userId: string) => Promise<void>;
 
     getAllUserNicknames: () => Promise<void>;
+    getAllUserEmails: () => Promise<void>;
 }
 
 export const UsersContext = createContext({} as ContextState);
@@ -92,9 +93,11 @@ export const UsersContextProvider = ({
     }
 
     async function getEmails() {
-        let emails: string[] = [];
-        users.forEach((user) => { emails.push(user.email); });
-        setUserEmails(emails);
+        return getAllUsers(repository).then((users) => {
+            let userEmails: string[] = [];
+            users.map((user) => userEmails.push(user.email));
+            setUserEmails(userEmails);
+        });
     }
 
     useEffect(() => {

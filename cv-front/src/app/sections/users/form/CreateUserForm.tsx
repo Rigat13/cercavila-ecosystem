@@ -235,7 +235,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
         isFirstSurnameValid = isUserFirstSurnameValid(firstSurname);
         isSecondSurnameValid = isUserSecondSurnameValid(secondSurname);
         isEmailValid = isUserEmailValid(email);
-        isEmailUnique = !alreadyExistingEmail(email, userEmails);
+        isEmailUnique = true;//!alreadyExistingEmail(email, userEmails);
         isPasswordValid = isUserPasswordValid(password);
         isRolesValid = areUserRolesValid(roles);
         isCoinsValid = isUserCoinsValid(coins);
