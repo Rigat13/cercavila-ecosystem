@@ -298,6 +298,9 @@ interface DictionaryEntry {
     userEmailInvalid: string;
     userEmailNotUnique: string;
     userPasswordInvalid: string;
+    userPasswordWeak: string;
+    userPasswordMedium: string;
+    userPasswordStrong: string;
     userRolesInvalid: string;
     userCoinsInvalid: string;
     userDigitalProductsInvalid: string;
@@ -650,6 +653,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userEmailInvalid: "El correu electrònic no és vàlid. Ha de seguir el format de correu amb caràcters vàlids entre: ",
         userEmailNotUnique: "El correu electrònic ja existeix. Si us plau, provi amb un altre.",
         userPasswordInvalid: "La contrasenya no és vàlida. Ha de tenir caràcters vàlids entre: ",
+        userPasswordWeak: "La contrasenya és massa feble. Ha de contenir prou caràcters vàlids amb lletres i números",
+        userPasswordMedium: 'La contrasenya és prou segura. Però si hi afegiu caràcters especials, serà encara més segura!',
+        userPasswordStrong: 'Genial, la contrasenya és molt segura!',
         userRolesInvalid: "Els rols no són vàlids. Han de ser un de la llista.",
         userCoinsInvalid: "Les monedes no són vàlides. Han de ser un número flotant positiu.",
         userDigitalProductsInvalid: "Els productes digitals no són vàlids",
@@ -1001,6 +1007,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userEmailInvalid: "El correo electrónico no es válido. Debe seguir el formato de correo con carácteres válidos entre: ",
         userEmailNotUnique: "El correo electrónico ya existe. Por favor, pruebe con otro.",
         userPasswordInvalid: "La contraseña no es válida. Debe tener carácteres válidos entre: ",
+        userPasswordWeak: "La contraseña es demasiado débil. Debe contener suficientes carácteres válidos con letras y números",
+        userPasswordMedium: 'La contraseña es suficientemente segura. Pero si añade carácteres especiales, ¡será aún más segura!',
+        userPasswordStrong: '¡Genial, la contraseña es muy segura!',
         userRolesInvalid: "Los roles no son válidos. Deben ser uno de la lista.",
         userCoinsInvalid: "Las monedas no son válidas. Deben ser un número flotante positivo.",
         userDigitalProductsInvalid: "Los productos digitales no son válidos",
@@ -1352,6 +1361,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
         userEmailInvalid: "The email is not valid. It must follow the email format with valid characters between: ",
         userEmailNotUnique: "The email already exists. Please, try another one.",
         userPasswordInvalid: "The password is not valid. It must have valid characters between: ",
+        userPasswordWeak: "The password is too weak. It must contain enough valid characters with letters and numbers",
+        userPasswordMedium: 'The password is secure enough. But if you add special characters, it will be even more secure!',
+        userPasswordStrong: 'Great, the password is very secure!',
         userRolesInvalid: "The roles are not valid. They must be one from the list.",
         userCoinsInvalid: "The coins are not valid. They must be a positive float number.",
         userDigitalProductsInvalid: "The digital products are not valid",

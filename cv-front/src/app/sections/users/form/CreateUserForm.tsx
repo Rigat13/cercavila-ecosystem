@@ -27,6 +27,7 @@ import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 import {digitalProductTypesFixed} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
+import PasswordStrengthDisplay from "@/app/sections/shared/PasswordStrengthDisplay";
 
 const initialState = {
     nickname: "",
@@ -112,6 +113,8 @@ export function CreateUserForm({ lang }: { lang: string }) {
         const newPassword = ev.target.value;
         updateForm({ password: newPassword });
         validateFormData({ ...formData, password: newPassword });
+
+
     };
 
     const handleRoleNameChange = (e) => {
@@ -127,7 +130,6 @@ export function CreateUserForm({ lang }: { lang: string }) {
             selectedRoles.push(`${selectedRoleName}-${selectedColla}`);
             setSelectedRoles(selectedRoles);
             updateForm({ ...formData, roles: selectedRoles.toString() });
-            //throw new Error("Added roles are:" + selectedRoles.toString() + " and the form data is: " + formData.roles);
             validateFormData({ ...formData, roles: selectedRoles.toString() });
         }
     };
@@ -403,12 +405,12 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                 value={formData.password}
                                 onChange={handlePasswordChange}
                             />
-                            {formData.password && errors.password && (
-                                <div style={{ color: "tomato" }}>{errors.password}</div>
-                            )}
+                            <PasswordStrengthDisplay password={formData.password} lang={lang} />
+                            {formData.password && errors.password && (<div style={{ color: "tomato" }}>{errors.password}</div>)}
                         </div>
 
-                        <div className={styles.formGroup}><label htmlFor="roles">{dictionary[lang]?.userRoles}</label></div> {/* -------------------------------------------------------------------------------------------------- ROLES */}
+                        {/* ------------------------------------------------------------------------------------------------------ ROLES */}
+                        <div className={styles.formGroup}><label htmlFor="roles">{dictionary[lang]?.userRoles}</label></div>
                         <div className={styles.horizontalGroup}>
                             <div className={styles.formGroup}> {/* Role Name Selector */}
                                 <label className={styles.subtitle} >{dictionary[lang]?.userRoles_Role}</label>
