@@ -1,3 +1,5 @@
+import {alreadyExistingNicknameNotOriginal} from "@/modules/users/domain/user-attributes/UserNickname";
+
 export const EMAIL_MIN_LENGTH = 3;
 export const EMAIL_MAX_LENGTH = 120;
 export const EMAIL_ERROR_MESSAGE = `El correu electrònic no és vàlid. Ha de tenir entre ${EMAIL_MIN_LENGTH} i ${EMAIL_MAX_LENGTH} caràcters vàlids en format de correu.`;
@@ -12,6 +14,11 @@ export function isUserEmailValid(email: string): boolean {
 export function alreadyExistingEmail(email: string, existingEmails: string[]): boolean {
     if (existingEmails == null || existingEmails[0] == undefined) return false;
     return existingEmails.includes(email);
+}
+
+export function alreadyExistingEmailNotOriginal(email: string, existingEmails: string[], originalEmail: string): boolean {
+    const filteredEmails = existingEmails.filter(n => n !== originalEmail);
+    return alreadyExistingEmail(email, filteredEmails);
 }
 
 export function UserEmailNotValidError(email: string, existingEmails: string[]): Error {

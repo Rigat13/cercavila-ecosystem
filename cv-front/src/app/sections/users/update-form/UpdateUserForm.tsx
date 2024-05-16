@@ -11,9 +11,9 @@ import {useUpdateUserFormData} from "@/app/sections/users/update-form/useUpdateU
 
 import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserName";
 import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserSecondSurname";
-import {alreadyExistingNickname,isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserNickname";
+import {alreadyExistingNicknameNotOriginal, isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserNickname";
 import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserFirstSurname";
-import {isUserEmailValid, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH, alreadyExistingEmail} from "@/modules/users/domain/user-attributes/UserEmail";
+import {isUserEmailValid, alreadyExistingEmailNotOriginal, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
 import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
 import {areUserRolesValid, getRolesAdditionalStyle, userCollaRoles} from "@/modules/users/domain/user-attributes/UserRoles";
 import {isUserDigitalProductsValid, concatenateUserDigitalProducts} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
@@ -74,6 +74,9 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
     const [selectedColla, setSelectedColla] = useState('');
     const [selectedRoles, setSelectedRoles] = useState([]);
 
+    const [originalNickname, setOriginalNickname] = useState('');
+    const [originalEmail, setOriginalEmail] = useState('');
+
     lang = lang;
 
     useEffect(() => {
@@ -94,6 +97,9 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
 
                 const selectedRoles = userData.roles.toString().split(',');
                 setSelectedRoles(selectedRoles as string[]);
+
+                setOriginalNickname(userData.nickname);
+                setOriginalEmail(userData.email);
 
                 updateForm({
                     id: userData.id,
@@ -271,12 +277,12 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                                   activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }) => {
         // Perform validation based on the provided data
         isNicknameValid = isUserNicknameValid(nickname);
-        isNicknameUnique = !alreadyExistingNickname(nickname, userNicknames);
+        isNicknameUnique = !alreadyExistingNicknameNotOriginal(nickname, userNicknames, originalNickname);
         isNameValid = isUserNameValid(name);
         isFirstSurnameValid = isUserFirstSurnameValid(firstSurname);
         isSecondSurnameValid = isUserSecondSurnameValid(secondSurname);
         isEmailValid = isUserEmailValid(email);
-        isEmailUnique = !alreadyExistingEmail(email, userEmails);
+        isEmailUnique = !alreadyExistingEmailNotOriginal(email, userEmails, originalEmail);
         isPasswordValid = isUserPasswordValid(password);
         isRolesValid = areUserRolesValid(roles);
         isCoinsValid = isUserCoinsValid(coins);

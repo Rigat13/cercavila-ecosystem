@@ -14,6 +14,11 @@ export function alreadyExistingNickname(nickname: string, existingNicknames: str
     return existingNicknames.includes(nickname);
 }
 
+export function alreadyExistingNicknameNotOriginal(nickname: string, existingNicknames: string[], originalNickname: string): boolean {
+    const filteredNicknames = existingNicknames.filter(n => n !== originalNickname);
+    return alreadyExistingNickname(nickname, filteredNicknames);
+}
+
 export function UserNicknameNotValidError(nickname: string, existingNicknames: string[]): Error {
     if (existingNicknames.includes(nickname)) return new Error(NICKNAME_EXISTING_ERROR_MESSAGE);
     return new Error(NICKNAME_ERROR_MESSAGE);
