@@ -28,6 +28,7 @@ import {isUserCoinsValid} from "@/modules/users/domain/user-attributes/UserCoins
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 import {digitalProductTypesFixed} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
+import PasswordStrengthDisplay from "@/app/sections/shared/PasswordStrengthDisplay";
 
 const initialState = {
     id: "",
@@ -489,9 +490,8 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                                 value={formData.password}
                                 onChange={handlePasswordChange}
                             />
-                            {formData.password && errors.password && (
-                                <div style={{ color: "tomato" }}>{errors.password}</div>
-                            )}
+                            <PasswordStrengthDisplay password={formData.password} lang={lang} />
+                            {formData.password && errors.password && (<div style={{ color: "tomato" }}>{errors.password}</div>)}
                         </div>
 
                         <div className={styles.formGroup}><label htmlFor="roles">{dictionary[lang]?.userRoles}</label></div> {/* -------------------------------------------------------------------------------------------------- ROLES */}
