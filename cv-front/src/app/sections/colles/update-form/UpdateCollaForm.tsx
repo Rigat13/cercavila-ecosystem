@@ -460,6 +460,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                         <div className={styles.formGroup}>
                             <label htmlFor="primaryColour">{dictionary[lang]?.collaPrimaryColour}</label>
                             <button
+                                type="button"
                                 className={styles.colourPreviewButton}
                                 id="primaryColourPreviewButton"
                                 style={{ backgroundColor: primaryColour }}
@@ -480,6 +481,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                         <div className={styles.formGroup}>
                             <label htmlFor="secondaryColour">{dictionary[lang]?.collaSecondaryColour}</label>
                             <button
+                                type="button"
                                 className={styles.colourPreviewButton}
                                 id="secondaryColourPreviewButton"
                                 style={{ backgroundColor: secondaryColour }}
@@ -594,7 +596,7 @@ export function UpdateCollaForm({collaId, lang}: {collaId: string; lang: string}
                             {selectedFigures.map((figure, index) => (
                                 <div key={figure.id} className={styles.selectedFigure}>
                                     <span>{figure.name}</span>
-                                    <button onClick={() => handleDeleteFigure(index)}>×</button>
+                                    <button type="button" onClick={() => handleDeleteFigure(index)}>×</button>
                                 </div>
                             ))}
                         </div>)}

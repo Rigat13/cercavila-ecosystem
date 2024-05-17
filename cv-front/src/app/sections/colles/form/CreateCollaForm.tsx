@@ -363,6 +363,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             <label htmlFor="primaryColour">{dictionary[lang]?.collaPrimaryColour}</label>
                             <button
                                 className={styles.colourPreviewButton}
+                                type="button"
                                 id="primaryColourPreviewButton"
                                 style={{ backgroundColor: primaryColour }}
                                 onClick={(event) => { event.preventDefault(); setIsPrimaryColourPickerOpen(!isPrimaryColourPickerOpen); }}/>
@@ -383,6 +384,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             <label htmlFor="secondaryColour">{dictionary[lang]?.collaSecondaryColour}</label>
                             <button
                                 className={styles.colourPreviewButton}
+                                type="button"
                                 id="secondaryColourPreviewButton"
                                 style={{ backgroundColor: secondaryColour }}
                                 onClick={(event) => { event.preventDefault(); setIsSecondaryColourPickerOpen(!isSecondaryColourPickerOpen); }}/>
@@ -495,7 +497,7 @@ export function CreateCollaForm({ lang }: { lang: string }) {
                             {selectedFigures.map((figure, index) => (
                                 <div key={(figure as Figura).id} className={styles.selectedFigure}>
                                     <span>{(figure as Figura).name}</span>
-                                    <button onClick={() => handleDeleteFigure(index)}>×</button>
+                                    <button type="button" onClick={() => handleDeleteFigure(index)}>×</button>
                                 </div>
                             ))}
                         </div>
