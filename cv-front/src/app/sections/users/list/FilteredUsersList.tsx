@@ -144,7 +144,7 @@ export function FilteredUsersList({ lang }: { lang: string }) {
                         // Check one any of the selectedRoles matches any of the user roles
                         (selectedRoles.length === 0 || selectedRoles.some(role => user.roles.includes(role))) &&
                         // Check one any of the selectedColles matches any of the user colles
-                        (selectedCollesId.length === 0 || selectedCollesId.some(collaId => getRoleColles(user).includes(collaId)))
+                        (selectedCollesId.length === 0 || selectedCollesId.some(collaId => user.roles.includes(collaId)))
                     ).map(user => (
                         <UserCard key={user.id} user={user} lang={lang} />
                     ))}
