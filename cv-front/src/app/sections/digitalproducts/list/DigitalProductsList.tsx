@@ -30,11 +30,11 @@ export function DigitalProductsList({ lang }: { lang: string }) {
             <div className={styles.list}>
                 {/* Render digitalProducts with no images */}
                 {!isDigitalProductsImagesLoaded && digitalProductsNoImage.map((digitalProduct) => (
-                    <DigitalProductCard key={digitalProduct.id} digitalProduct={digitalProduct} lang={lang}/>
+                    <DigitalProductCard key={digitalProduct.id} digitalProduct={digitalProduct} isBuyable={true} lang={lang}/>
                 ))}
                 {/* Render loaded digitalProducts with images */}
                 {isDigitalProductsImagesLoaded && loadedDigitalProducts.map((loadedDigitalProduct) => (
-                    <DigitalProductCard key={loadedDigitalProduct.id} digitalProduct={loadedDigitalProduct} lang={lang}/>
+                    <DigitalProductCard key={loadedDigitalProduct.id} digitalProduct={loadedDigitalProduct} isBuyable={true} lang={lang}/>
                 ))}
             </div>
         </section>

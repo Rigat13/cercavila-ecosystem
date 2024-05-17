@@ -1,10 +1,7 @@
 .list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(40rem, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-  padding: 1rem 4rem 1rem 4rem;
+  margin: 4rem 8rem;
 }
 
 .h1 {
@@ -18,4 +15,10 @@
   font-weight: 800;
   font-size: 1.875rem;
   padding: 1rem 4rem 1rem 4rem;
+}
+
+@media (max-width: 1024px) {
+  .list {
+    margin: 4rem 4rem;
+  }
 }

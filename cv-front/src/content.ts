@@ -236,6 +236,10 @@ interface DictionaryEntry {
     errorRetrievingDigitalProductMessage: string;
     errorRetrievingDigitalProductsMessage: string;
 
+    // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT STORE
+
+    digitalProductStoreBuyButton: string;
+
     // -------------------------------------------------------------------------------------------- USER
     userNickname: string;
     userName: string;
@@ -591,6 +595,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorRetrievingDigitalProductMessage: "Error en obtenir la informació del producte digital. \nMotiu: ",
         errorRetrievingDigitalProductsMessage: "Error en obtenir la informació dels productes digitals. \nMotiu: ",
 
+        // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT STORE
+
+        digitalProductStoreBuyButton: "Comprar",
+
         // -------------------------------------------------------------------------------------------- USER
         userNickname: "Nom d'usuari",
         userName: "Nom",
@@ -945,6 +953,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorRetrievingDigitalProductMessage: "Error al obtener la información del producto digital. \nMotivo: ",
         errorRetrievingDigitalProductsMessage: "Error al obtener la información de los productos digitales. \nMotivo: ",
 
+        // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT STORE
+
+        digitalProductStoreBuyButton: "Comprar",
+
         // -------------------------------------------------------------------------------------------- USER
         userNickname: "Nombre de usuario",
         userName: "Nombre",
@@ -1298,6 +1310,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         digitalProductNotFoundWithId: "Digital product not found with id: ",
         errorRetrievingDigitalProductMessage: "Error retrieving digital product information. \nReason: ",
         errorRetrievingDigitalProductsMessage: "Error retrieving digital products information. \nReason: ",
+
+        // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT STORE
+
+        digitalProductStoreBuyButton: "Buy",
 
         // -------------------------------------------------------------------------------------------- USER
         userNickname: "Nickname",
