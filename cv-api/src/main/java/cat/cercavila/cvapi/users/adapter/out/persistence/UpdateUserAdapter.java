@@ -24,7 +24,7 @@ public class UpdateUserAdapter implements UpdateUserPort {
 
     @Override
     public void updateUser(UpdateUserCommand updateUserCommand) throws UserNicknameAlreadyExists{
-        if (userRepository.existsByNickname(updateUserCommand.nickname())) { throw new UserNicknameAlreadyExists(updateUserCommand.nickname()); }
+        if (userRepository.existsByNicknameNotOtherId(updateUserCommand.nickname(), updateUserCommand.id())) { throw new UserNicknameAlreadyExists(updateUserCommand.nickname()); }
         try { userRepository.save(updateUserCommand2UserEntity(updateUserCommand)); // NOTE: save does not mean "create"; if it exists, it will update
         } catch (DataIntegrityViolationException e) { throw new UserNicknameAlreadyExists(updateUserCommand.nickname()); }
     }

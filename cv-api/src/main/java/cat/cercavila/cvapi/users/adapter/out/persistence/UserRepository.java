@@ -10,7 +10,15 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    boolean existsByNickname(String nickname);
+
+    boolean existsByNickname(String nickname); // Automatically implemented by Spring with naming
+
+    @Query("""
+            select case when count(u) > 0 then true else false end
+            from user u
+            where u.nickname = :nickname and not u.id = :id
+        """)
+    boolean existsByNicknameNotOtherId(String nickname, String id);
 
     @Query("""
             select new cat.cercavila.cvapi.users.application.port.in.list.UserListing(
