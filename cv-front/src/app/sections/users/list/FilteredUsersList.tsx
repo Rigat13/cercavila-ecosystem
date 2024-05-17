@@ -136,7 +136,11 @@ export function FilteredUsersList({ lang }: { lang: string }) {
             <div className={styles.list}>
                 {users
                     .filter(user =>
-                        (searchTerm.trim() === '' || user.name.toLowerCase().includes(searchTerm.toLowerCase())) &&
+                        (searchTerm.trim() === ''
+                            || user.nickname.toLowerCase().includes(searchTerm.toLowerCase())
+                            || user.name.toLowerCase().includes(searchTerm.toLowerCase())
+                            || user.firstSurname.toLowerCase().includes(searchTerm.toLowerCase())
+                            || user.secondSurname.toLowerCase().includes(searchTerm.toLowerCase()) ) &&
                         // Check one any of the selectedRoles matches any of the user roles
                         (selectedRoles.length === 0 || selectedRoles.some(role => user.roles.includes(role))) &&
                         // Check one any of the selectedColles matches any of the user colles
