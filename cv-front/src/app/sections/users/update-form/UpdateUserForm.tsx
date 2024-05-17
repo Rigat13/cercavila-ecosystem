@@ -518,7 +518,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             </div>
 
                             {/* Add Role Button */}
-                            <button className={styles.addRoleButton} onClick={handleAddRole}>+</button>
+                            <button className={styles.addRoleButton} type="button" onClick={handleAddRole}>+</button>
 
                             {formData.roles && errors.roles && (
                                 <div style={{ color: "tomato" }}>{errors.roles}</div>
