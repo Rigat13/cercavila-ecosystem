@@ -232,7 +232,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                   activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }) => {
         // Perform validation based on the provided data
         isNicknameValid = isUserNicknameValid(nickname);
-        isNicknameUnique = !alreadyExistingNickname(nickname, userNicknames);
+        isNicknameUnique = !alreadyExistingNickname(nickname, userNicknames, "");
         isNameValid = isUserNameValid(name);
         isFirstSurnameValid = isUserFirstSurnameValid(firstSurname);
         isSecondSurnameValid = isUserSecondSurnameValid(secondSurname);
@@ -451,7 +451,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                             {dictionary[lang]?.[roleName]} </span>
                                         <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
                                             {colla?.name} </span>
-                                        <button onClick={() => handleDeleteRole(index)}>×</button>
+                                        <button type="button" onClick={() => handleDeleteRole(index)}>×</button>
                                     </div>
                                 );
                             })}
@@ -495,7 +495,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             {selectedDigitalProducts.map((digitalProduct, index) => (
                                 <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
                                     <span>{(digitalProduct as DigitalProduct).name}</span>
-                                    <button onClick={() => handleDeleteDigitalProduct(index)}>×</button>
+                                    <button type="button" onClick={() => handleDeleteDigitalProduct(index)}>×</button>
                                 </div>
                             ))}
                         </div>
@@ -614,7 +614,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                             {selectedActivePins.map((digitalProduct, index) => (
                                 <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
                                     <span>{(digitalProduct as DigitalProduct).name}</span>
-                                    <button onClick={() => handleDeleteActivePin(index)}>×</button>
+                                    <button type="button" onClick={() => handleDeleteActivePin(index)}>×</button>
                                 </div>
                             ))}
                         </div>

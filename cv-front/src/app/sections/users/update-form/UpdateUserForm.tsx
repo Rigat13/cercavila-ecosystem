@@ -257,7 +257,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
         (selectedActivePins as DigitalProduct[]).push(selectedActivePin as DigitalProduct);
         if (selectedActivePin) {
             setSelectedActivePins(selectedActivePins);
-            const newActivePins = concatenateUserDigitalProducts([...selectedActivePins, selectedActivePin]);
+            const newActivePins = concatenateUserDigitalProducts([...selectedActivePins]);
             updateForm({ activePins: newActivePins });
             validateFormData({ ...formData, activePins: newActivePins });
         }
@@ -535,7 +535,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                                             {dictionary[lang]?.[roleName]} </span>
                                         { colla && (<span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
                                             {colla?.name} </span>)}
-                                        <button onClick={() => handleDeleteRole(index)}>×</button>
+                                        <button type="button" onClick={() => handleDeleteRole(index)}>×</button>
                                     </div>
                                 );
                             })}
@@ -587,7 +587,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             {selectedDigitalProducts.map((digitalProduct, index) => (
                                 <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
                                     <span>{(digitalProduct as DigitalProduct).name}</span>
-                                    <button onClick={() => handleDeleteDigitalProduct(index)}>×</button>
+                                    <button type="button" onClick={() => handleDeleteDigitalProduct(index)}>×</button>
                                 </div>
                             ))}
                         </div>
@@ -706,7 +706,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                             {selectedActivePins.map((digitalProduct, index) => (
                                 <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
                                     <span>{(digitalProduct as DigitalProduct).name}</span>
-                                    <button onClick={() => handleDeleteActivePin(index)}>×</button>
+                                    <button type="button" onClick={() => handleDeleteActivePin(index)}>×</button>
                                 </div>
                             ))}
                         </div>
