@@ -1,4 +1,4 @@
-import {alreadyExistingNicknameNotOriginal} from "@/modules/users/domain/user-attributes/UserNickname";
+import {alreadyExistingNickname} from "@/modules/users/domain/user-attributes/UserNickname";
 
 export const EMAIL_MIN_LENGTH = 3;
 export const EMAIL_MAX_LENGTH = 120;

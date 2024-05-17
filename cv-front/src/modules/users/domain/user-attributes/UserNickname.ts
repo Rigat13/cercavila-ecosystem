@@ -9,14 +9,10 @@ export function isUserNicknameValid(nickname: string): boolean {
     return regexExp.test(nickname);
 }
 
-export function alreadyExistingNickname(nickname: string, existingNicknames: string[]): boolean {
-    if (existingNicknames == null || existingNicknames[0] == undefined) return false;
-    return existingNicknames.includes(nickname);
-}
-
-export function alreadyExistingNicknameNotOriginal(nickname: string, existingNicknames: string[], originalNickname: string): boolean {
+export function alreadyExistingNickname(nickname: string, existingNicknames: string[], originalNickname: string): boolean {
     const filteredNicknames = existingNicknames.filter(n => n !== originalNickname);
-    return alreadyExistingNickname(nickname, filteredNicknames);
+    if (filteredNicknames == null || filteredNicknames[0] == undefined) return false;
+    return filteredNicknames.includes(nickname);
 }
 
 export function UserNicknameNotValidError(nickname: string, existingNicknames: string[]): Error {

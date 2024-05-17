@@ -11,7 +11,7 @@ import {useUpdateUserFormData} from "@/app/sections/users/update-form/useUpdateU
 
 import {isUserNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserName";
 import {isUserSecondSurnameValid, SECOND_SURNAME_MAX_LENGTH, SECOND_SURNAME_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserSecondSurname";
-import {alreadyExistingNicknameNotOriginal, isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserNickname";
+import {alreadyExistingNickname, isUserNicknameValid, NICKNAME_MAX_LENGTH, NICKNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserNickname";
 import {isUserFirstSurnameValid, FIRST_SURNAME_MAX_LENGTH, FIRST_SURNAME_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserFirstSurname";
 import {isUserEmailValid, alreadyExistingEmailNotOriginal, EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH} from "@/modules/users/domain/user-attributes/UserEmail";
 import {isUserPasswordValid, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "@/modules/users/domain/user-attributes/UserPassword";
@@ -278,7 +278,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                                   activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }) => {
         // Perform validation based on the provided data
         isNicknameValid = isUserNicknameValid(nickname);
-        isNicknameUnique = !alreadyExistingNicknameNotOriginal(nickname, userNicknames, originalNickname);
+        isNicknameUnique = !alreadyExistingNickname(nickname, userNicknames, originalNickname);
         isNameValid = isUserNameValid(name);
         isFirstSurnameValid = isUserFirstSurnameValid(firstSurname);
         isSecondSurnameValid = isUserSecondSurnameValid(secondSurname);

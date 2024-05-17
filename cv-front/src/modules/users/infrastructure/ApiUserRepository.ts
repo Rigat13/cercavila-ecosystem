@@ -160,3 +160,10 @@ export async function getAllUserNicknames() {
         return nicknames;
     } catch (error) { throw new Error("No s'ha pogut obtenir tots els nicknames. \nMotiu: " + error); }
 }
+
+export async function getOriginalNickname(id: string) {
+    try {
+        const user = await getUserById(id);
+        return user.nickname;
+    } catch (error) { throw new Error("No s'ha pogut obtenir l'usuari amb l'id. \nMotiu: " + error); }
+}
