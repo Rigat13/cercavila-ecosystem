@@ -20,7 +20,7 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
     }, [digitalProduct.image, isBuyable]);
 
     const renderProductDetails = () => {
-        if (!imageUrl) return null;
+        if (!imageUrl && digitalProduct.type !='digitalProductTypeUserBackgroundColour' && digitalProduct.type!='digitalProductTypeUserTitle') return null;
         switch (digitalProduct.type) {
             case 'digitalProductTypeUserImage':
                 return <a target="_blank" className={styles.digitalProductCard__aImage}>
@@ -59,12 +59,10 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
                     </div>
                 </a>;
             case 'digitalProductTypeUserBackgroundColour':
-                return <a target="_blank" className={styles.digitalProductCard__aImage}>
-                    <div className={styles.digitalProductCard__image}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${digitalProduct.name}`}
-                        />
+                return <a target="_blank" className={styles.digitalProductCard__aBackgroundColour}>
+                    <div className={styles.digitalProductCard__backgroundColour}
+                        style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
+                        Abc
                     </div>
                 </a>;
             case 'digitalProductTypeSticker': case 'digitalProductTypePin':
