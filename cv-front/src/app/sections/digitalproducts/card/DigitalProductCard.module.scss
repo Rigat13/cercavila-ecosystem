@@ -130,18 +130,18 @@
       transform: scale(1.2);
     }
   }
-  /* ---------------------------------------------------- Image ---------------------------------------------------- */
-  &__aImage, &__aImageFrame {
+  /* ---------------------------------------------------- Image ---------------------------------------------------- IMAGE - IMAGEFRAME */
+  &__aImage, &__aImageFrame, &__aBackgroundImage {
     z-index: 1;
-    top: -5rem;
+    top: -5.5rem;
     position: absolute;
     margin-top: 1rem;
   }
 
-  &__image, &__imageFrame {
+  &__image, &__imageFrame, &__backgroundImage {
     width: 9rem;
     height: 9rem;
-    background: white;
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -151,12 +151,13 @@
     box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.4);
   }
 
-  &__image img, &__imageFrame img {
+  &__image img, &__imageFrame img, &__backgroundImage img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top;
     transition: transform 0.3s ease;
+    background: transparent;
   }
 
   &__image:hover {
@@ -174,5 +175,32 @@
 
   &__imageFrame img:hover { }
 
+  &__aBackgroundImage {
+    width: 100%;
+    height: 26%; /* Ensure 4:1 aspect ratio */
+    top: -2rem;
+    transition: height 0.3s ease, top 0.3s ease;
+  }
 
+  &__aBackgroundImage:hover {
+    top: -5.5rem;
+    height: 50%;
+    transform: scale(1);
+  }
+
+  &__backgroundImage {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 2rem 2rem 0 0;
+    box-shadow: 0rem 0rem 0rem rgba(0, 0, 0, 0.4);
+  }
+
+  &_backgroundImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image covers the entire container */
+    border-radius: 0.2rem; /* Ensure the border radius applies to the image */
+  }
 }

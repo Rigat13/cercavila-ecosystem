@@ -41,8 +41,8 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
                     </div>
                 </a>;
             case 'digitalProductTypeUserBackgroundImage':
-                return <a target="_blank" className={styles.digitalProductCard__aImage}>
-                    <div className={styles.digitalProductCard__image}>
+                return <a target="_blank" className={styles.digitalProductCard__aBackgroundImage}>
+                    <div className={styles.digitalProductCard__backgroundImage}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${digitalProduct.name}`}
