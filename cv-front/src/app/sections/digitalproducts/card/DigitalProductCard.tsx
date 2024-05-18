@@ -63,16 +63,15 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
                     </div>
                 </a>;
             case 'digitalProductTypeUserTitle':
-                return <a target="_blank" className={styles.digitalProductCard__aImage}>
-                    <div className={styles.digitalProductCard__image}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${digitalProduct.name}`}
-                        />
+                return <a target="_blank" className={styles.digitalProductCard__aTitle}>
+                    <div className={styles.digitalProductCard__title}
+                        style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
+                        {digitalProduct.name}
+                        <div className={styles.digitalProductCard__shine}></div>
                     </div>
                 </a>;
             case 'digitalProductTypeUserBackgroundColour':
-                return <a target="_blank" className={styles.digitalProductCard__aBackgroundColour}>
+                return <a target="_blank" className={styles.digitalProductCard__aBackgroundColour} >
                     <div className={styles.digitalProductCard__backgroundColour}
                         style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
                         Abc
