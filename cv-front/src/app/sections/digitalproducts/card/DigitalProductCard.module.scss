@@ -23,6 +23,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   }
 
   &__name {
@@ -48,6 +50,7 @@
     z-index: 2;
     font-size: 1rem;
     background: #1f1f1f;
+    color: white;
     border-radius: 1rem;
     padding: 0rem 0.5rem 0rem 0.5rem;
     text-transform: uppercase;
@@ -269,16 +272,10 @@
   }
 
   &__aBackgroundColour:hover {
-    transform: scale(0.5);
-    background-opacity: 0;
+    transform: scale(0.8);
   }
 
   &__backgroundColour:hover {
     border-radius: 50%;
   }
-
-  &__infoBackgroundType:hover {
-    background: #f32336;
-  }
-
 }

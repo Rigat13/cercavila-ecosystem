@@ -19,6 +19,19 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
         }
     }, [digitalProduct.image, isBuyable]);
 
+    // ---------------------------------------------------------- CARD COLOUR CHANGE ON HOVER IF BACKGROUND COLOUR TYPE
+    const [isHovered, setIsHovered] = useState(false);
+    const handleMouseEnter = () => { setIsHovered(true); };
+    const handleMouseLeave = () => { setIsHovered(false); };
+    const hoverStyle = digitalProduct.type === "digitalProductTypeUserBackgroundColour" && isHovered ? {
+        backgroundColor: digitalProduct.primaryColour,
+        color: digitalProduct.secondaryColour,
+        boxShadow: 'inset 0 0 0rem 0.6rem ' + digitalProduct.secondaryColour,
+        transition: 'background-color 0.3s ease, color 0.3s ease',
+    } : {};
+
+    // ----------------------------------------------------------------------------------------------------------------
+
     const renderProductDetails = () => {
         if (!imageUrl && digitalProduct.type !='digitalProductTypeUserBackgroundColour' && digitalProduct.type!='digitalProductTypeUserTitle') return null;
         switch (digitalProduct.type) {
@@ -88,7 +101,7 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
 
     return (
         <div className={styles.digitalProductCard}>
-            <div className={styles.digitalProductCard__info}>
+            <div className={`${styles.digitalProductCard__info}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={hoverStyle} >
                 {renderProductDetails()}
                 <a href={`digitalproducts/update.html?digitalProductId=${digitalProduct.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                     <button className={styles.updateButton}>
