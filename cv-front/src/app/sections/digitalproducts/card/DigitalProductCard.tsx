@@ -19,19 +19,79 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
         }
     }, [digitalProduct.image, isBuyable]);
 
+    const renderProductDetails = () => {
+        if (!imageUrl) return null;
+        switch (digitalProduct.type) {
+            case 'digitalProductTypeUserImage':
+                return <a target="_blank" className={styles.digitalProductCard__aImage}>
+                    <div className={styles.digitalProductCard__image}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${digitalProduct.name}`}
+                        />
+                    </div>
+                </a>;
+            case 'digitalProductTypeUserImageFrame':
+                return <a target="_blank" className={styles.digitalProductCard__aImageFrame}>
+                    <div className={styles.digitalProductCard__imageFrame}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${digitalProduct.name}`}
+                        />
+                    </div>
+                </a>;
+            case 'digitalProductTypeUserBackgroundImage':
+                return <a target="_blank" className={styles.digitalProductCard__aImage}>
+                    <div className={styles.digitalProductCard__image}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${digitalProduct.name}`}
+                        />
+                    </div>
+                </a>;
+            case 'digitalProductTypeUserTitle':
+                return <a target="_blank" className={styles.digitalProductCard__aImage}>
+                    <div className={styles.digitalProductCard__image}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${digitalProduct.name}`}
+                        />
+                    </div>
+                </a>;
+            case 'digitalProductTypeUserBackgroundColour':
+                return <a target="_blank" className={styles.digitalProductCard__aImage}>
+                    <div className={styles.digitalProductCard__image}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${digitalProduct.name}`}
+                        />
+                    </div>
+                </a>;
+            case 'digitalProductTypeSticker':
+                return <a target="_blank" className={styles.digitalProductCard__aImage}>
+                    <div className={styles.digitalProductCard__image}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${digitalProduct.name}`}
+                        />
+                    </div>
+                </a>;
+            case 'digitalProductTypePin':
+                return <a target="_blank" className={styles.digitalProductCard__aImage}>
+                    <div className={styles.digitalProductCard__image}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${digitalProduct.name}`}
+                        />
+                    </div>
+                </a>;
+        }
+    };
+
     return (
         <div className={styles.digitalProductCard}>
             <div className={styles.digitalProductCard__info}>
-                {imageUrl && (
-                    <a target="_blank" className={styles.digitalProductCard__aImage}>
-                        <div className={styles.digitalProductCard__image}>
-                            <img
-                                src={imageUrl}
-                                alt={`Imatge de ${digitalProduct.name}`}
-                            />
-                        </div>
-                    </a>
-                )}
+                {renderProductDetails()}
                 <a href={`digitalproducts/update.html?digitalProductId=${digitalProduct.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                     <button className={styles.updateButton}>
                         <img src="/icons/icon-edit.svg" alt="Editar" />
