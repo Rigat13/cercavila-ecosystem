@@ -130,15 +130,18 @@
       transform: scale(1.2);
     }
   }
-  /* ---------------------------------------------------- Image ---------------------------------------------------- IMAGE - IMAGEFRAME */
-  &__aImage, &__aImageFrame, &__aBackgroundImage {
+  /* ---------------------------------------------------- ----------------------- ---------------------------------------------------- */
+  /* ---------------------------------------------------- DIGITAL PRODUCT DETAILS ---------------------------------------------------- */
+  /* ---------------------------------------------------- ----------------------- ---------------------------------------------------- */
+  /* .....................................................................................................GENERAL */
+  &__aImage, &__aImageFrame, &__aBackgroundImage, &__aSticker, &__aPin {
     z-index: 1;
     top: -5.5rem;
     position: absolute;
     margin-top: 1rem;
   }
 
-  &__image, &__imageFrame, &__backgroundImage {
+  &__image, &__imageFrame, &__backgroundImage, &__sticker, &__pin {
     width: 9rem;
     height: 9rem;
     background: transparent;
@@ -151,7 +154,7 @@
     box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.4);
   }
 
-  &__image img, &__imageFrame img, &__backgroundImage img {
+  &__image img, &__imageFrame img, &__backgroundImage img, &__sticker img, &__pin img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -175,6 +178,8 @@
 
   &__imageFrame img:hover { }
 
+  /* ..................................................................................................... BACKGROUND */
+
   &__aBackgroundImage {
     width: 100%;
     height: 26%; /* Ensure 4:1 aspect ratio */
@@ -194,7 +199,7 @@
     background-size: cover;
     background-position: center;
     border-radius: 2rem 2rem 0 0;
-    box-shadow: 0rem 0rem 0rem rgba(0, 0, 0, 0.4);
+    box-shadow: none;
   }
 
   &_backgroundImage img {
@@ -203,4 +208,42 @@
     object-fit: cover; /* Ensure the image covers the entire container */
     border-radius: 0.2rem; /* Ensure the border radius applies to the image */
   }
+
+  /* ..................................................................................................... STICKER/PIN */
+
+  &__sticker, &__pin {
+    border-radius: 0rem;
+    box-shadow: none;
+    filter: drop-shadow(0rem 0rem 0.6rem rgba(0, 0, 0, 0.6));
+    transition: transform 0.3s ease;
+  }
+
+  &__sticker:hover, &__pin:hover {
+    transform: scale(1.2);
+    animation: danceAnimation 1s infinite alternate;
+  }
+
+  @keyframes danceAnimation {
+    0% {
+      transform-origin: bottom;
+      transform: translateY(0rem) rotate(0deg);
+    }
+    25% {
+      transform-origin: bottom;
+      transform: translateY(-1.4rem) rotate(-5deg);
+    }
+    50% {
+      transform-origin: bottom;
+      transform: translateY(0rem) rotate(0deg);
+    }
+    75% {
+      transform-origin: bottom;
+      transform: translateY(-1.4rem) rotate(5deg);
+    }
+    100% {
+      transform-origin: bottom;
+      transform: translateY(0rem) rotate(0deg);
+    }
+  }
+
 }

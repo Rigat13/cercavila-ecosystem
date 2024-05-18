@@ -67,9 +67,9 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
                         />
                     </div>
                 </a>;
-            case 'digitalProductTypeSticker':
-                return <a target="_blank" className={styles.digitalProductCard__aImage}>
-                    <div className={styles.digitalProductCard__image}>
+            case 'digitalProductTypeSticker': case 'digitalProductTypePin':
+                return <a target="_blank" className={styles.digitalProductCard__aSticker}>
+                    <div className={styles.digitalProductCard__sticker}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${digitalProduct.name}`}
@@ -77,8 +77,8 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
                     </div>
                 </a>;
             case 'digitalProductTypePin':
-                return <a target="_blank" className={styles.digitalProductCard__aImage}>
-                    <div className={styles.digitalProductCard__image}>
+                return <a target="_blank" className={styles.digitalProductCard__aPin}>
+                    <div className={styles.digitalProductCard__pin}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${digitalProduct.name}`}
