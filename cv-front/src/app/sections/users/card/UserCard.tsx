@@ -7,6 +7,7 @@ import {getRolesAdditionalStyle} from "@/modules/users/domain/user-attributes/Us
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import {useUsersContext} from "@/app/sections/users/UsersContext";
 import {base64ToBlob} from "@/app/sections/shared/Utilities";
+import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 
 interface UserCardProps {
     user: User;
@@ -31,6 +32,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [imageFrameUrl, setImageFrameUrl] = useState<string | null>(null);
     const [imageBackgroundUrl, setImageBackgroundUrl] = useState<string | null>(null);
+    const [title, setTitle] = useState<DigitalProduct | null>(null);
 
     useEffect(() => {
         if (user.activeUserImage) {
@@ -56,6 +58,10 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                 const url = URL.createObjectURL(blob);
                 setImageBackgroundUrl(url);
             }
+        }
+        if (user.activeUserTitle) {
+            const digitalProduct = digitalProducts.find((dp) => dp.id === user.activeUserTitle);
+            setTitle(digitalProduct);
         }
     }, [user.activeUserImage, user.activeUserImageFrame, user.activeUserBackgroundImage, digitalProducts]);
 
@@ -85,6 +91,14 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                             alt={`Imatge de ${user.name}`}
                         />
                     </div>
+                </a>
+
+                <a target="_blank" className={detailsStyles.digitalProductDetails__aTitle}>
+                    {title && <div className={detailsStyles.digitalProductDetails__title}
+                         style={{ background: title.primaryColour, color: title.secondaryColour }}>
+                        {title.name}
+                        <div className={detailsStyles.digitalProductDetails__shine}></div>
+                    </div>}
                 </a>
 
                 <a href={`/users/update.html?userId=${user.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
