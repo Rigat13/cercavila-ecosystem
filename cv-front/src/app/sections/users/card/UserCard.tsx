@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import styles from "./UserCard.module.scss";
-import digiProductStyles from "@/app/sections/digitalProducts/card/DigitalProductCard.module.scss";
+import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
 import { User } from "@/modules/users/domain/User";
 import {defaultLang, dictionary} from "@/content";
-import {Figura} from "@/modules/figures/domain/Figura";
 import {getRolesAdditionalStyle} from "@/modules/users/domain/user-attributes/UserRoles";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import {useUsersContext} from "@/app/sections/users/UsersContext";
@@ -45,8 +44,8 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
     return (
         <div className={styles.userCard}>
             <div className={styles.userCard__info}>
-                <a target="_blank" className={styles.userCard__aImage}>
-                    <div className={styles.userCard__image}>
+                <a target="_blank" className={detailsStyles.digitalProductDetails__aImage}>
+                    <div className={detailsStyles.digitalProductDetails__image}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${user.name}`}

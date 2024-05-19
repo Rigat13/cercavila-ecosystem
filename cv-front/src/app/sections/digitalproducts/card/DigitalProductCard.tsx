@@ -1,9 +1,8 @@
 import { DigitalProduct } from "@/modules/digitalproducts/domain/DigitalProduct";
 import styles from "./DigitalProductCard.module.scss";
+import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
 import { defaultLang, dictionary } from "@/content";
 import React, {useEffect, useState} from "react";
-import {getRolesAdditionalStyle} from "@/modules/users/domain/user-attributes/UserRoles";
-import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import {base64ToBlob} from "@/app/sections/shared/Utilities";
 
 export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digitalProduct: DigitalProduct; lang: string; isBuyable: boolean }) {
@@ -37,8 +36,8 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
         if (!imageUrl && digitalProduct.type !='digitalProductTypeUserBackgroundColour' && digitalProduct.type!='digitalProductTypeUserTitle') return null;
         switch (digitalProduct.type) {
             case 'digitalProductTypeUserImage':
-                return <a target="_blank" className={styles.digitalProductCard__aImage}>
-                    <div className={styles.digitalProductCard__image}>
+                return <a target="_blank" className={detailsStyles.digitalProductDetails__aImage}>
+                    <div className={detailsStyles.digitalProductDetails__image}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${digitalProduct.name}`}
@@ -46,8 +45,8 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
                     </div>
                 </a>;
             case 'digitalProductTypeUserImageFrame':
-                return <a target="_blank" className={styles.digitalProductCard__aImageFrame}>
-                    <div className={styles.digitalProductCard__imageFrame}>
+                return <a target="_blank" className={detailsStyles.digitalProductDetails__aImageFrame}>
+                    <div className={detailsStyles.digitalProductDetails__imageFrame}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${digitalProduct.name}`}
@@ -55,8 +54,8 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
                     </div>
                 </a>;
             case 'digitalProductTypeUserBackgroundImage':
-                return <a target="_blank" className={styles.digitalProductCard__aBackgroundImage}>
-                    <div className={styles.digitalProductCard__backgroundImage}>
+                return <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundImage}>
+                    <div className={detailsStyles.digitalProductDetails__backgroundImage}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${digitalProduct.name}`}
@@ -64,23 +63,23 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
                     </div>
                 </a>;
             case 'digitalProductTypeUserTitle':
-                return <a target="_blank" className={styles.digitalProductCard__aTitle}>
-                    <div className={styles.digitalProductCard__title}
+                return <a target="_blank" className={detailsStyles.digitalProductDetails__aTitle}>
+                    <div className={detailsStyles.digitalProductDetails__title}
                         style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
                         {digitalProduct.name}
-                        <div className={styles.digitalProductCard__shine}></div>
+                        <div className={detailsStyles.digitalProductDetails__shine}></div>
                     </div>
                 </a>;
             case 'digitalProductTypeUserBackgroundColour':
-                return <a target="_blank" className={styles.digitalProductCard__aBackgroundColour} >
-                    <div className={styles.digitalProductCard__backgroundColour}
+                return <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundColour} >
+                    <div className={detailsStyles.digitalProductDetails__backgroundColour}
                         style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
                         Abc
                     </div>
                 </a>;
             case 'digitalProductTypeSticker': case 'digitalProductTypePin':
-                return <a target="_blank" className={styles.digitalProductCard__aSticker}>
-                    <div className={styles.digitalProductCard__sticker}>
+                return <a target="_blank" className={detailsStyles.digitalProductDetails__aSticker}>
+                    <div className={detailsStyles.digitalProductDetails__sticker}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${digitalProduct.name}`}
@@ -88,8 +87,8 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
                     </div>
                 </a>;
             case 'digitalProductTypePin':
-                return <a target="_blank" className={styles.digitalProductCard__aPin}>
-                    <div className={styles.digitalProductCard__pin}>
+                return <a target="_blank" className={detailsStyles.digitalProductDetails__aPin}>
+                    <div className={detailsStyles.digitalProductDetails__pin}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${digitalProduct.name}`}
