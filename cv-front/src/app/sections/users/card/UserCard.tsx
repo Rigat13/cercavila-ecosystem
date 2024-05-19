@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./UserCard.module.scss";
-import createUserStyles from "@/app/sections/users/form/UserForm.module.scss";
 import digiProductStyles from "@/app/sections/digitalProducts/card/DigitalProductCard.module.scss";
 import { User } from "@/modules/users/domain/User";
 import {defaultLang, dictionary} from "@/content";
@@ -41,16 +40,16 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                 <p className={styles.userCard__surnames}>{firstSurname+" "+secondSurname}</p>
 
 
-                <div className={createUserStyles.selectedElements}>
+                <div className={styles.selectedElements}>
                     {user.roles.toString().split(',')
                         .map((collaRole, index) => {
                         const [roleName, collaId] = collaRole.split('-');
                         const colla = colles.find((colla) => colla.id === collaId);
                         return colla &&(
-                            <div key={index} className={createUserStyles.selectedElementCombined}>
-                                        <span className={createUserStyles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
+                            <div key={index} className={styles.selectedElementCombined}>
+                                        <span className={styles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
                                             {dictionary[lang]?.[roleName]} </span>
-                                <span className={createUserStyles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
+                                <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
                                             {colla?.name} </span>
                             </div>
                         );
