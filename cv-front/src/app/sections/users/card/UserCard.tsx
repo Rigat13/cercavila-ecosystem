@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./UserCard.module.scss";
 import digiProductStyles from "@/app/sections/digitalProducts/card/DigitalProductCard.module.scss";
 import { User } from "@/modules/users/domain/User";
@@ -7,6 +7,7 @@ import {Figura} from "@/modules/figures/domain/Figura";
 import {getRolesAdditionalStyle} from "@/modules/users/domain/user-attributes/UserRoles";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import {useUsersContext} from "@/app/sections/users/UsersContext";
+import {base64ToBlob} from "@/app/sections/shared/Utilities";
 
 interface UserCardProps {
     user: User;
@@ -26,10 +27,33 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
         activeUserBackgroundColour,
     } = user;
     const { colles } = useUsersContext();
+    const {digitalProducts } = useUsersContext();
+
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (user.activeUserImage) {
+            const digitalProduct = digitalProducts.find((dp) => dp.id === user.activeUserImage);
+            if (digitalProduct) {
+                const blob = base64ToBlob(digitalProduct.image as unknown as string);
+                const url = URL.createObjectURL(blob);
+                setImageUrl(url);
+            }
+        }
+    }, [user.activeUserImage]);
 
     return (
         <div className={styles.userCard}>
             <div className={styles.userCard__info}>
+                <a target="_blank" className={styles.userCard__aImage}>
+                    <div className={styles.userCard__image}>
+                        <img
+                            src={imageUrl}
+                            alt={`Imatge de ${user.name}`}
+                        />
+                    </div>
+                </a>
+
                 <a href={`/users/update.html?userId=${user.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                     <button className={styles.updateButton}>
                         <img src="/icons/icon-edit.svg" alt="Editar" />

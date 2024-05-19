@@ -4,6 +4,7 @@ import { defaultLang, dictionary } from "@/content";
 import React, {useEffect, useState} from "react";
 import {getRolesAdditionalStyle} from "@/modules/users/domain/user-attributes/UserRoles";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
+import {base64ToBlob} from "@/app/sections/shared/Utilities";
 
 export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digitalProduct: DigitalProduct; lang: string; isBuyable: boolean }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -119,15 +120,4 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
             </div>
         </div>
     );
-}
-
-
-function base64ToBlob(base64: string): Blob {
-    const binaryString = window.atob(base64);
-    const length = binaryString.length;
-    const bytes = new Uint8Array(length);
-    for (let i = 0; i < length; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-    }
-    return new Blob([bytes], { type: 'image/jpeg' });
 }
