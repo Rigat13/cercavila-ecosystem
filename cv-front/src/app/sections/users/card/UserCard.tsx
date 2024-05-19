@@ -8,6 +8,7 @@ import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import {useUsersContext} from "@/app/sections/users/UsersContext";
 import {base64ToBlob} from "@/app/sections/shared/Utilities";
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
+import classNames from 'classnames';
 
 interface UserCardProps {
     user: User;
@@ -84,24 +85,24 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
     return (
         <div className={styles.userCard}>
             <div className={styles.userCard__info}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={customTheme}>
-                <a target="_blank" className={detailsStyles.digitalProductDetails__aImage}>
-                    <div className={detailsStyles.digitalProductDetails__image}>
+                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImage, styles.userCard__aImage)}>
+                    <div className={classNames(detailsStyles.digitalProductDetails__image, styles.userCard__image)}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${name}`}
                         />
                     </div>
                 </a>
-                <a target="_blank" className={detailsStyles.digitalProductDetails__aImageFrame}>
-                    <div className={detailsStyles.digitalProductDetails__imageFrame}>
+                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImageFrame, styles.userCard__aImageFrame)}>
+                    <div className={classNames(detailsStyles.digitalProductDetails__imageFrame, styles.userCard__imageFrame)}>
                         <img
                             src={imageFrameUrl}
                             alt={`Imatge de ${name}`}
                         />
                     </div>
                 </a>
-                <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundImage}>
-                    <div className={detailsStyles.digitalProductDetails__backgroundImage}>
+                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aBackgroundImage, styles.userCard__aBackgroundImage)}>
+                    <div className={classNames(detailsStyles.digitalProductDetails__backgroundImage, styles.userCard__backgroundImage)}>
                         <img
                             src={imageBackgroundUrl}
                             alt={`Imatge de ${name}`}
@@ -109,8 +110,8 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                     </div>
                 </a>
 
-                <a target="_blank" className={detailsStyles.digitalProductDetails__aTitle}>
-                    {title && <div className={detailsStyles.digitalProductDetails__title}
+                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aTitle, styles.userCard__aTitle)}>
+                    {title && <div className={classNames(detailsStyles.digitalProductDetails__title, styles.userCard__title)}
                          style={{ background: title.primaryColour, color: title.secondaryColour }}>
                         {title.name}
                         <div className={detailsStyles.digitalProductDetails__shine}></div>

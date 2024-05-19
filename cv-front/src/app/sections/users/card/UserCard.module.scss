@@ -71,28 +71,61 @@
   .selectedElements {
     display: flex;
     flex-wrap: wrap;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .selectedElementCombined {
     border-radius: 1rem;
-    padding: 0.4rem 0.8rem 0.4rem 0rem;
+    padding: 0.2rem 0.8rem 0.2rem 0.8rem;
     display: flex;
     align-items: center;
   }
 
   .selectedRole {
-    padding: 0.33rem 1rem;
+    padding: 0.2rem 0.6rem;
     border-radius: 1rem 0 0 1rem;
+    display: flex;
+    align-items: center;
+
+  }
+
+  .selectedColla {
+    padding: 0.2rem 0.6rem;
+    border-radius: 0 1rem 1rem 0;
     display: flex;
     align-items: center;
   }
 
-  .selectedColla {
-    padding: 0.33rem 1rem;
-    border-radius: 0 1rem 1rem 0;
-    padding-right: 3rem;
-    display: flex;
-    align-items: center;
+  /* ---------------------------------------------------- Additional Detail Styles ---------------------------------------------------- */
+
+  &__aImage {
+    left: 0;
+  }
+  &__image {
+    scale: 0.8;
+  }
+
+  &__aImageFrame {
+    left: 0;
+  }
+  &__imageFrame {
+    scale: 0.8;
+  }
+
+  &__aBackgroundImage {
+    top: 10rem;
+  }
+  &__backgroundImage {
+
+  }
+
+  &__aTitle {
+    position: absolute;
+
+  }
+  &__title {
+    left: -5rem;
+    top: 6rem;
+    scale: 0.7;
   }
 }
