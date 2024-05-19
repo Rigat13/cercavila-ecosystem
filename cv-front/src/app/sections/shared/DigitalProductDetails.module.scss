@@ -39,7 +39,15 @@
     object-position: top;
     transition: transform 0.3s ease;
     background: transparent;
+
+    animation: fadeIn 1s; -webkit-animation: fadeIn 1s; -moz-animation: fadeIn 1s; -o-animation: fadeIn 1s; -ms-animation: fadeIn 1s;
   }
+
+  @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @-moz-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @-webkit-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @-o-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @-ms-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 
   &__image:hover {
     transform: scale(1.1);
@@ -86,6 +94,7 @@
     height: 100%;
     object-fit: cover; /* Ensure the image covers the entire container */
     border-radius: 0.2rem; /* Ensure the border radius applies to the image */
+    animation: fadeIn 1s; -webkit-animation: fadeIn 1s; -moz-animation: fadeIn 1s; -o-animation: fadeIn 1s; -ms-animation: fadeIn 1s;
   }
 
   /* ..................................................................................................... STICKER/PIN */

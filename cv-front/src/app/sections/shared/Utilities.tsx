@@ -7,3 +7,13 @@ export function base64ToBlob(base64: string): Blob {
     }
     return new Blob([bytes], { type: 'image/jpeg' });
 }
+
+export function getDefaultUserImage(): string {
+    const defaultUserImage = "/icons/default-user-image.svg";
+    return defaultUserImage;
+}
+
+export function generateRandomColorFilter() {
+    const hue = Math.floor(Math.random() * 360); // Generate a random hue value between 0 and 360
+    return { filter: `brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(1500%) hue-rotate(${hue}deg)` };
+}

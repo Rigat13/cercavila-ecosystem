@@ -109,6 +109,8 @@
     width: 20rem;
     height: 40rem;
     overflow: visible;
+
+    animation: fadeIn 1s; -webkit-animation: fadeIn 1s; -moz-animation: fadeIn 1s; -o-animation: fadeIn 1s; -ms-animation: fadeIn 1s;
   }
   &__imageGegant {}
   &__imageGeganto {
@@ -127,32 +129,52 @@
     object-fit: contain;
     object-position: bottom;
     transition: transform 0.8s ease;
+
   }
+
+  @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @-moz-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @-webkit-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @-o-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @-ms-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
 
   &__imageGegant img:hover, &__imageGeganto img:hover, &__imageCapgros img:hover, &__imageBestia img:hover {
     animation: figuraAnimation 1s infinite alternate;
   }
 
   @keyframes figuraAnimation {
-    0% {
-      transform-origin: bottom;
-      transform: translateY(0rem) rotate(0deg);
-    }
-    25% {
-      transform-origin: bottom;
-      transform: translateY(-1.4rem) rotate(-5deg);
-    }
-    50% {
-      transform-origin: bottom;
-      transform: translateY(0rem) rotate(0deg);
-    }
-    75% {
-      transform-origin: bottom;
-      transform: translateY(-1.4rem) rotate(5deg);
-    }
-    100% {
-      transform-origin: bottom;
-      transform: translateY(0rem) rotate(0deg);
-    }
+    0% { transform-origin: bottom; transform: translateY(0rem) rotate(0deg); }
+    25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);}
+    50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+    75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);}
+    100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+  }
+  @-moz-keyframes figuraAnimation {
+    0% { transform-origin: bottom; transform: translateY(0rem) rotate(0deg); }
+    25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);}
+    50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+    75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);}
+    100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+  }
+  @-webkit-keyframes figuraAnimation {
+    0% { transform-origin: bottom; transform: translateY(0rem) rotate(0deg); }
+    25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);}
+    50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+    75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);}
+    100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+  }
+  @-o-keyframes figuraAnimation {
+    0% { transform-origin: bottom; transform: translateY(0rem) rotate(0deg); }
+    25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);}
+    50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+    75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);}
+    100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+  }
+  @-ms-keyframes figuraAnimation {
+    0% { transform-origin: bottom; transform: translateY(0rem) rotate(0deg); }
+    25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);}
+    50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+    75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);}
+    100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
   }
 }

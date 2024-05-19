@@ -6,7 +6,7 @@ import {defaultLang, dictionary} from "@/content";
 import {getRolesAdditionalStyle, roleOrderMap} from "@/modules/users/domain/user-attributes/UserRoles";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import {useUsersContext} from "@/app/sections/users/UsersContext";
-import {base64ToBlob} from "@/app/sections/shared/Utilities";
+import {base64ToBlob, generateRandomColorFilter, getDefaultUserImage} from "@/app/sections/shared/Utilities";
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 import classNames from 'classnames';
 
@@ -35,6 +35,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
     const [imageBackgroundUrl, setImageBackgroundUrl] = useState<string | null>(null);
     const [title, setTitle] = useState<DigitalProduct | null>(null);
     const [theme, setTheme] = useState<DigitalProduct | null>(null);
+    const [randomColourFilter] = useState(generateRandomColorFilter());
 
     const sortedRoles = roles.toString().split(',').sort((a, b) => {
             const [roleNameA] = a.split('-');
@@ -76,6 +77,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
             const digitalProduct = digitalProducts.find((dp) => dp.id === activeUserBackgroundColour);
             setTheme(digitalProduct);
         }
+
     }, [activeUserImage, activeUserImageFrame, activeUserBackgroundImage, digitalProducts]);
 
     const [isHovered, setIsHovered] = useState(false);
@@ -97,7 +99,8 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                            href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
                             <div className={classNames(detailsStyles.digitalProductDetails__image, styles.userCard__image)}>
                                 <img
-                                    src={imageUrl}
+                                    src={imageUrl || getDefaultUserImage()}
+                                    style={!imageUrl ? randomColourFilter : {}}
                                 />
                             </div>
                         </a>
