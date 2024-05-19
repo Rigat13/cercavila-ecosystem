@@ -1,11 +1,55 @@
 .userCard {
   position: relative;
   display: flex;
-  padding: 0.5rem;
-  /* overflow: hidden; */ /* Consider removing or adjusting overflow property */
-  background: #c9c9c9;
-  color: #000088;
+  overflow: hidden;
+  background: transparent;
+  justify-content: center;
 
+  width: 20rem;
+  height: 25rem;
+
+  margin-top: -4rem;
+
+  &__info {
+    width: 95%;
+    height: 70%;
+    bottom: 0;
+
+    flex: 1;
+    background: #111111;
+    color: white;
+    border-radius: 2rem;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  &__nickname {
+    z-index: 2;
+    margin: 0.2rem;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-allign: center;
+  }
+
+  &__name {
+    font-size: 1.2rem;
+    color: #f8f8f8;
+  }
+
+  &__surnames {
+    font-size: 1rem;
+    color: #7e7e7e;
+  }
+
+  &__roles {
+    font-size: 1rem;
+    color: #333333;
+  }
 
   .updateButton{
     position: absolute;
@@ -20,48 +64,5 @@
       width: 30px;
       height: 30px;
     }
-  }
-
-
-  &__name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-
-  &__nickname {
-    font-size: 1.2rem;
-    color: #666666;
-  }
-
-  &__email {
-    font-size: 1rem;
-    color: #333333;
-  }
-
-  &__coins {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #0088ff;
-  }
-
-  &__firstSurname {
-    font-size: 1rem;
-    color: #333333;
-  }
-
-  &__secondSurname {
-    font-size: 1rem;
-    color: #333333;
-  }
-
-  &__roles {
-    font-size: 1rem;
-    color: #333333;
-  }
-
-  &__digitalProducts {
-    font-size: 1rem;
-    color: #333333;
   }
 }

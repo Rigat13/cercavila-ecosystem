@@ -97,20 +97,6 @@
   }
 }
 
-.h2 {
-  font-size: 24px; // Heading font size
-  margin-bottom: 15px; // Space below heading
-}
-
-.list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(25rem, 50rem));
-  justify-content: center; /* Horizontally center the content */
-  gap: 1rem;
-  margin-top: 2rem;
-  padding: 1rem 4rem 1rem 4rem;
-}
-
 .selectedFilters {
   display: flex;
   flex-wrap: wrap;
@@ -146,13 +132,16 @@
   }
 }
 
+/* -------------------------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------------- */
+/* -----------------------------------------------   LIST   ----------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------------- */
 
 .list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-  padding: 1rem 4rem 1rem 4rem;
+  margin: 0rem 8rem;
 }
 
 .h1 {
