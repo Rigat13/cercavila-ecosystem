@@ -3,7 +3,7 @@ import styles from "./UserCard.module.scss";
 import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
 import { User } from "@/modules/users/domain/User";
 import {defaultLang, dictionary} from "@/content";
-import {getRolesAdditionalStyle} from "@/modules/users/domain/user-attributes/UserRoles";
+import {getRolesAdditionalStyle, roleOrderMap} from "@/modules/users/domain/user-attributes/UserRoles";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import {useUsersContext} from "@/app/sections/users/UsersContext";
 import {base64ToBlob} from "@/app/sections/shared/Utilities";
@@ -35,6 +35,12 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
     const [imageBackgroundUrl, setImageBackgroundUrl] = useState<string | null>(null);
     const [title, setTitle] = useState<DigitalProduct | null>(null);
     const [theme, setTheme] = useState<DigitalProduct | null>(null);
+
+    const sortedRoles = roles.toString().split(',').sort((a, b) => {
+            const [roleNameA] = a.split('-');
+            const [roleNameB] = b.split('-');
+            return (roleOrderMap[roleNameA] || 100) - (roleOrderMap[roleNameB] || 100);
+        });
 
     useEffect(() => {
         if (activeUserImage) {
@@ -139,7 +145,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
 
 
                 <div className={styles.selectedElements}>
-                    {roles.toString().split(',')
+                    {sortedRoles.toString().split(',')
                         .map((collaRole, index) => {
                         const [roleName, collaId] = collaRole.split('-');
                         const colla = colles.find((colla) => colla.id === collaId);
