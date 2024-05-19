@@ -599,7 +599,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
                                 onChange={handleActivePinsChange}
                             >
                                 <option value="">{dictionary[lang]?.selectUserActivePins}</option>
-                                {digitalProducts.filter(digitalProduct => digitalProduct.type === digitalProductTypesFixed.digitalProductTypePin)
+                                {selectedDigitalProducts.filter(digitalProduct => digitalProduct.type === digitalProductTypesFixed.digitalProductTypePin)
                                     .map(option => (
                                     <option key={option.id} value={option.id}
                                             disabled={selectedActivePins.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
