@@ -78,31 +78,50 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
     const customTheme = activeUserBackgroundColour && theme ? {
         backgroundColor: theme.primaryColour,
         color: theme.secondaryColour,
-        boxShadow: isHovered ? 'inset 0 0 0rem 0.6rem ' + theme.secondaryColour : '',
+        boxShadow: isHovered ? ' 0 0 0rem 0.6rem ' + theme.secondaryColour : '',
         transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
     } : {};
 
     return (
         <div className={styles.userCard}>
             <div className={styles.userCard__info}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={customTheme}>
-                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImage, styles.userCard__aImage)}
-                   href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
-                    <div className={classNames(detailsStyles.digitalProductDetails__image, styles.userCard__image)}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${name}`}
-                        />
+                <div className={styles.userCard__topLeftPanel}>
+                    <div className={styles.userCard__topLeftPanel__container}>
+                        <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImage, styles.userCard__aImage)}
+                           href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
+                            <div className={classNames(detailsStyles.digitalProductDetails__image, styles.userCard__image)}>
+                                <img
+                                    src={imageUrl}
+                                    alt={`Imatge de ${name}`}
+                                />
+                            </div>
+                        </a>
+                        <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImageFrame, styles.userCard__aImageFrame)}
+                           href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
+                            <div className={classNames(detailsStyles.digitalProductDetails__imageFrame, styles.userCard__imageFrame)}>
+                                <img
+                                    src={imageFrameUrl}
+                                    alt={`Imatge de ${name}`}
+                                />
+                            </div>
+                        </a>
+                        <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aTitle, styles.userCard__aTitle)}>
+                            {title && <div className={classNames(detailsStyles.digitalProductDetails__title, styles.userCard__title)}
+                                           style={{ background: title.primaryColour, color: title.secondaryColour }}>
+                                {title.name}
+                                <div className={detailsStyles.digitalProductDetails__shine}></div>
+                            </div>}
+                        </a>
                     </div>
-                </a>
-                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImageFrame, styles.userCard__aImageFrame)}
-                   href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
-                    <div className={classNames(detailsStyles.digitalProductDetails__imageFrame, styles.userCard__imageFrame)}>
-                        <img
-                            src={imageFrameUrl}
-                            alt={`Imatge de ${name}`}
-                        />
+                </div>
+
+                <div className={styles.userCard__topRightPanel}>
+                    <div className={styles.userCard__topRightPanel__container}>
+                        <div className={styles.userCard__nickname} style={customTheme}>@{nickname} </div>
+                        <p className={styles.userCard__names}>{name+" "+firstSurname+" "+secondSurname}</p>
                     </div>
-                </a>
+                </div>
+
                 <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aBackgroundImage, styles.userCard__aBackgroundImage)}>
                     <div className={classNames(detailsStyles.digitalProductDetails__backgroundImage, styles.userCard__backgroundImage)}>
                         <img
@@ -111,23 +130,12 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                         />
                     </div>
                 </a>
-
-                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aTitle, styles.userCard__aTitle)}>
-                    {title && <div className={classNames(detailsStyles.digitalProductDetails__title, styles.userCard__title)}
-                         style={{ background: title.primaryColour, color: title.secondaryColour }}>
-                        {title.name}
-                        <div className={detailsStyles.digitalProductDetails__shine}></div>
-                    </div>}
-                </a>
-
                 <a href={`/users/update.html?userId=${user.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                     <button className={styles.updateButton}>
                         <img src="/icons/icon-edit.svg" alt="Editar" />
                     </button>
                 </a>
-                <h3 className={styles.userCard__nickname}>@{nickname}</h3>
-                <p className={styles.userCard__name}>{name}</p>
-                <p className={styles.userCard__surnames}>{firstSurname+" "+secondSurname}</p>
+
 
 
                 <div className={styles.selectedElements}>
