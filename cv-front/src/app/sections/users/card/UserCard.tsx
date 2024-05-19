@@ -30,6 +30,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
 
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [imageFrameUrl, setImageFrameUrl] = useState<string | null>(null);
+    const [imageBackgroundUrl, setImageBackgroundUrl] = useState<string | null>(null);
 
     useEffect(() => {
         if (user.activeUserImage) {
@@ -48,7 +49,15 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                 setImageFrameUrl(url);
             }
         }
-    }, [user.activeUserImage, user.activeUserImageFrame]);
+        if (user.activeUserBackgroundImage) {
+            const digitalProduct = digitalProducts.find((dp) => dp.id === user.activeUserBackgroundImage);
+            if (digitalProduct) {
+                const blob = base64ToBlob(digitalProduct.image as unknown as string);
+                const url = URL.createObjectURL(blob);
+                setImageBackgroundUrl(url);
+            }
+        }
+    }, [user.activeUserImage, user.activeUserImageFrame, user.activeUserBackgroundImage, digitalProducts]);
 
     return (
         <div className={styles.userCard}>
@@ -65,6 +74,14 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                     <div className={detailsStyles.digitalProductDetails__imageFrame}>
                         <img
                             src={imageFrameUrl}
+                            alt={`Imatge de ${user.name}`}
+                        />
+                    </div>
+                </a>
+                <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundImage}>
+                    <div className={detailsStyles.digitalProductDetails__backgroundImage}>
+                        <img
+                            src={imageBackgroundUrl}
                             alt={`Imatge de ${user.name}`}
                         />
                     </div>
