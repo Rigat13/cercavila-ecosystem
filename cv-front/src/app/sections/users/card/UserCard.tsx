@@ -85,7 +85,8 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
     return (
         <div className={styles.userCard}>
             <div className={styles.userCard__info}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={customTheme}>
-                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImage, styles.userCard__aImage)}>
+                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImage, styles.userCard__aImage)}
+                   href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
                     <div className={classNames(detailsStyles.digitalProductDetails__image, styles.userCard__image)}>
                         <img
                             src={imageUrl}
@@ -93,7 +94,8 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                         />
                     </div>
                 </a>
-                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImageFrame, styles.userCard__aImageFrame)}>
+                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImageFrame, styles.userCard__aImageFrame)}
+                   href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
                     <div className={classNames(detailsStyles.digitalProductDetails__imageFrame, styles.userCard__imageFrame)}>
                         <img
                             src={imageFrameUrl}

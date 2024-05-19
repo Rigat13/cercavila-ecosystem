@@ -11,11 +11,8 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
             <h1 className={styles.userPage__name}>{`${name} ${user.firstSurname} ${user.secondSurname}`}</h1>
             <p className={styles.userPage__nickname}>@{user.nickname}</p>
             <p className={styles.userPage__email}>{user.email}</p>
-            <p className={styles.userPage__roles}>Roles: {user.roles.join(", ")}</p>
             <p className={styles.userPage__coins}>Coins: {user.coins}</p>
-            <p className={styles.userPage__digitalProducts}>
-                Digital Products: {user.digitalProducts.join(", ")}
-            </p>
+
 
             {/* Display user image */}
             {user.activeUserImage && (
