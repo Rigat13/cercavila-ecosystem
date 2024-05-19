@@ -101,14 +101,14 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                                 />
                             </div>
                         </a>
-                        <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImageFrame, styles.userCard__aImageFrame)}
+                        {imageFrameUrl && <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImageFrame, styles.userCard__aImageFrame)}
                            href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
                             <div className={classNames(detailsStyles.digitalProductDetails__imageFrame, styles.userCard__imageFrame)}>
                                 <img
                                     src={imageFrameUrl}
                                 />
                             </div>
-                        </a>
+                        </a>}
                         <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aTitle, styles.userCard__aTitle)}>
                             {title && <div className={classNames(detailsStyles.digitalProductDetails__title, styles.userCard__title)}
                                            style={{ background: title.primaryColour, color: title.secondaryColour }}>
@@ -126,13 +126,13 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                     </div>
                 </div>
 
-                <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aBackgroundImage, styles.userCard__aBackgroundImage)}>
+                {imageBackgroundUrl && <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aBackgroundImage, styles.userCard__aBackgroundImage)}>
                     <div className={classNames(detailsStyles.digitalProductDetails__backgroundImage, styles.userCard__backgroundImage)}>
                         <img
                             src={imageBackgroundUrl}
                         />
                     </div>
-                </a>
+                </a>}
                 <a href={`/users/update.html?userId=${user.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                     <button className={styles.updateButton}>
                         <img src="/icons/icon-edit.svg" alt="Editar" />
