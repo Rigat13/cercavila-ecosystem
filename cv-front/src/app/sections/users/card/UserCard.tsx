@@ -33,46 +33,62 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
     const [imageFrameUrl, setImageFrameUrl] = useState<string | null>(null);
     const [imageBackgroundUrl, setImageBackgroundUrl] = useState<string | null>(null);
     const [title, setTitle] = useState<DigitalProduct | null>(null);
+    const [theme, setTheme] = useState<DigitalProduct | null>(null);
 
     useEffect(() => {
-        if (user.activeUserImage) {
-            const digitalProduct = digitalProducts.find((dp) => dp.id === user.activeUserImage);
+        if (activeUserImage) {
+            const digitalProduct = digitalProducts.find((dp) => dp.id === activeUserImage);
             if (digitalProduct) {
                 const blob = base64ToBlob(digitalProduct.image as unknown as string);
                 const url = URL.createObjectURL(blob);
                 setImageUrl(url);
             }
         }
-        if (user.activeUserImageFrame) {
-            const digitalProduct = digitalProducts.find((dp) => dp.id === user.activeUserImageFrame);
+        if (activeUserImageFrame) {
+            const digitalProduct = digitalProducts.find((dp) => dp.id === activeUserImageFrame);
             if (digitalProduct) {
                 const blob = base64ToBlob(digitalProduct.image as unknown as string);
                 const url = URL.createObjectURL(blob);
                 setImageFrameUrl(url);
             }
         }
-        if (user.activeUserBackgroundImage) {
-            const digitalProduct = digitalProducts.find((dp) => dp.id === user.activeUserBackgroundImage);
+        if (activeUserBackgroundImage) {
+            const digitalProduct = digitalProducts.find((dp) => dp.id === activeUserBackgroundImage);
             if (digitalProduct) {
                 const blob = base64ToBlob(digitalProduct.image as unknown as string);
                 const url = URL.createObjectURL(blob);
                 setImageBackgroundUrl(url);
             }
         }
-        if (user.activeUserTitle) {
-            const digitalProduct = digitalProducts.find((dp) => dp.id === user.activeUserTitle);
+        if (activeUserTitle) {
+            const digitalProduct = digitalProducts.find((dp) => dp.id === activeUserTitle);
             setTitle(digitalProduct);
         }
-    }, [user.activeUserImage, user.activeUserImageFrame, user.activeUserBackgroundImage, digitalProducts]);
+
+        if (activeUserBackgroundColour) {
+            const digitalProduct = digitalProducts.find((dp) => dp.id === activeUserBackgroundColour);
+            setTheme(digitalProduct);
+        }
+    }, [activeUserImage, activeUserImageFrame, activeUserBackgroundImage, digitalProducts]);
+
+    const [isHovered, setIsHovered] = useState(false);
+    const handleMouseEnter = () => { setIsHovered(true); };
+    const handleMouseLeave = () => { setIsHovered(false); };
+    const customTheme = activeUserBackgroundColour && theme ? {
+        backgroundColor: theme.primaryColour,
+        color: theme.secondaryColour,
+        boxShadow: isHovered ? 'inset 0 0 0rem 0.6rem ' + theme.secondaryColour : '',
+        transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
+    } : {};
 
     return (
         <div className={styles.userCard}>
-            <div className={styles.userCard__info}>
+            <div className={styles.userCard__info}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={customTheme}>
                 <a target="_blank" className={detailsStyles.digitalProductDetails__aImage}>
                     <div className={detailsStyles.digitalProductDetails__image}>
                         <img
                             src={imageUrl}
-                            alt={`Imatge de ${user.name}`}
+                            alt={`Imatge de ${name}`}
                         />
                     </div>
                 </a>
@@ -80,7 +96,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                     <div className={detailsStyles.digitalProductDetails__imageFrame}>
                         <img
                             src={imageFrameUrl}
-                            alt={`Imatge de ${user.name}`}
+                            alt={`Imatge de ${name}`}
                         />
                     </div>
                 </a>
@@ -88,7 +104,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                     <div className={detailsStyles.digitalProductDetails__backgroundImage}>
                         <img
                             src={imageBackgroundUrl}
-                            alt={`Imatge de ${user.name}`}
+                            alt={`Imatge de ${name}`}
                         />
                     </div>
                 </a>
@@ -112,7 +128,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
 
 
                 <div className={styles.selectedElements}>
-                    {user.roles.toString().split(',')
+                    {roles.toString().split(',')
                         .map((collaRole, index) => {
                         const [roleName, collaId] = collaRole.split('-');
                         const colla = colles.find((colla) => colla.id === collaId);
@@ -126,11 +142,6 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                         );
                     })}
                 </div>
-                {/* Include <p className={styles.userCard__roles}>Roles: {roles.join(", ")}</p>
-            <p className={styles.userCard__digitalProducts}>
-                Digital Products: {digitalProducts.join(", ")}
-            </p>
-            {/* Include other user details you want to display */}
             </div>
         </div>
     );
