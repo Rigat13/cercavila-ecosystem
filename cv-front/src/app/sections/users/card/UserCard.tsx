@@ -98,7 +98,6 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                             <div className={classNames(detailsStyles.digitalProductDetails__image, styles.userCard__image)}>
                                 <img
                                     src={imageUrl}
-                                    alt={`Imatge de ${name}`}
                                 />
                             </div>
                         </a>
@@ -107,7 +106,6 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                             <div className={classNames(detailsStyles.digitalProductDetails__imageFrame, styles.userCard__imageFrame)}>
                                 <img
                                     src={imageFrameUrl}
-                                    alt={`Imatge de ${name}`}
                                 />
                             </div>
                         </a>
@@ -132,7 +130,6 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                     <div className={classNames(detailsStyles.digitalProductDetails__backgroundImage, styles.userCard__backgroundImage)}>
                         <img
                             src={imageBackgroundUrl}
-                            alt={`Imatge de ${name}`}
                         />
                     </div>
                 </a>
