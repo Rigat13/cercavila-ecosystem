@@ -86,17 +86,17 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
                 const userData = users.find((user) => user.id === userId);
                 if (!userData) { return; } // Refusing to throw an error to avoid spurious wakeups of useEffect. Old one: throw new Error(dictionary[lang]?.userNotFoundWithId + userId);
 
-                const selectedDigitalProducts = userData.digitalProducts.toString().split(',').map(digitalProductId => {
+                const selectedDigitalProducts = userData.digitalProducts.toString().split(',').map(role => role.trim()).filter(role => role).map(digitalProductId => {
                     return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
                 }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
                 setSelectedDigitalProducts(selectedDigitalProducts as DigitalProduct[]);
 
-                const selectedActivePins = userData.activePins.toString().split(',').map(digitalProductId => {
+                const selectedActivePins = userData.activePins.toString().split(',').map(role => role.trim()).filter(role => role).map(digitalProductId => {
                     return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
                 }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
                 setSelectedActivePins(selectedActivePins as DigitalProduct[]);
 
-                const selectedRoles = userData.roles.toString().split(',');
+                const selectedRoles = userData.roles.toString().split(',').map(role => role.trim()).filter(role => role);
                 setSelectedRoles(selectedRoles as string[]);
 
                 setOriginalNickname(userData.nickname);
@@ -336,7 +336,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
             secondSurname: formData.secondSurname,
             email: formData.email,
             password: formData.password,
-            roles: formData.roles.split(',').map(role => role.trim()),
+            roles: formData.roles.split(',').map(role => role.trim()).map(role => role.trim()).filter(role => role),
             coins: parseFloat(formData.coins),
             digitalProducts: formData.digitalProducts.split(',').map(digitalProduct => digitalProduct.trim()),
             activeUserImage: formData.activeUserImage,
@@ -344,7 +344,7 @@ export function UpdateUserForm({userId, lang}: {userId: string; lang: string}) {
             activeUserBackgroundImage: formData.activeUserBackgroundImage,
             activeUserTitle: formData.activeUserTitle,
             activeUserBackgroundColour: formData.activeUserBackgroundColour,
-            activePins: formData.activePins.split(',').map(pin => pin.trim()),
+            activePins: formData.activePins.split(',').map(pin => pin.trim()).map(role => role.trim()).filter(role => role),
         });
     };
 

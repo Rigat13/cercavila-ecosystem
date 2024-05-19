@@ -288,7 +288,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
             secondSurname: formData.secondSurname,
             email: formData.email,
             password: formData.password,
-            roles: formData.roles.split(',').map(role => role.trim()),
+            roles: formData.roles.split(',').map(role => role.trim()).map(role => role.trim()).filter(role => role),
             coins: parseFloat(formData.coins),
             digitalProducts: formData.digitalProducts.split(',').map(digitalProduct => digitalProduct.trim()),
             activeUserImage: formData.activeUserImage,
@@ -296,7 +296,7 @@ export function CreateUserForm({ lang }: { lang: string }) {
             activeUserBackgroundImage: formData.activeUserBackgroundImage,
             activeUserTitle: formData.activeUserTitle,
             activeUserBackgroundColour: formData.activeUserBackgroundColour,
-            activePins: formData.activePins.split(',').map(pin => pin.trim()),
+            activePins: formData.activePins.split(',').map(pin => pin.trim()).map(role => role.trim()).filter(role => role),
         });
     };
 

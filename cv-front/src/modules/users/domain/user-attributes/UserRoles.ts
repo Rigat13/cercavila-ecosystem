@@ -4,7 +4,7 @@ export const ROLES_ERROR_MESSAGE = `Els rols no són vàlids`;
 
 export function areUserRolesValid(roles: string) : boolean {
     if (!roles) return true;
-    const pureRoles = roles.split(',').map(role => role.split('-')[0]);
+    const pureRoles = roles.split(',').map(role => role.split('-')[0]).map(role => role.trim()).filter(role => role);
     const rolesLabels = userCollaRoles.map(role => role.labelKey);
     return pureRoles.every(role => rolesLabels.includes(role));
 }
