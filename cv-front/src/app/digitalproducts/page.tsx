@@ -3,7 +3,7 @@
 import Image from "next/image";
 import {createApiDigitalProductRepository} from "@/modules/digitalproducts/infrastructure/ApiDigitalProductRepository";
 import {DigitalProductsContextProvider} from "@/app/sections/digitalproducts/DigitalProductsContext";
-import {DigitalProductsList} from "@/app/sections/digitalproducts/list/DigitalProductsList";
+import {FilteredDigitalProductsList} from "@/app/sections/digitalproducts/list/FilteredDigitalProductsList";
 import {CreateDigitalProductForm} from "@/app/sections/digitalproducts/form/CreateDigitalProductForm";
 import {defaultLang, dictionary} from "@/content";
 import {useSearchParams } from "next/navigation";
@@ -41,7 +41,7 @@ function PageContent() {
 
             <div className = "DigitalProducts">
                 <h1 className={globalStyles.h1}>{dictionary[lang]?.cercavilaTitle}</h1>
-                <DigitalProductsList lang={lang}/>
+                <FilteredDigitalProductsList lang={lang}/>
                 <CreateDigitalProductForm lang={lang}/>
             </div>
         </DigitalProductsContextProvider>

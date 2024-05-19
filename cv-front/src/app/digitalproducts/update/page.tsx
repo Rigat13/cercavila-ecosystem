@@ -5,7 +5,7 @@ import {DigitalProductsContextProvider} from "@/app/sections/digitalproducts/Dig
 import {UpdateDigitalProductForm} from "@/app/sections/digitalproducts/update-form/UpdateDigitalProductForm";
 import {useSearchParams } from "next/navigation";
 import {defaultLang, dictionary} from "@/content";
-import styles from "@/app/sections/digitalproducts/list/DigitalProductsList.module.scss";
+import styles from "@/app/sections/digitalproducts/list/FilteredDigitalProductsList.module.scss";
 import {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
