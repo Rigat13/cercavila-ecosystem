@@ -175,7 +175,10 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                             {activePins && activePins.toString().split(",").map((pin, index) => {
                                 const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
                                 if (!digitalProduct) return null;
-                                return (<div key={pin} className={styles.userPage__pin}> <img src={imagePinUrls[index]} alt={digitalProduct.name} /> </div>);
+                                return (<div key={pin}>
+                                    <button className={styles.userPage__deletePinButton} onClick={() => {}}>×</button>
+                                    <img className={styles.userPage__pin} src={imagePinUrls[index]} alt={digitalProduct.name} />
+                                </div>);
                             })}
                         </div>
                     </div>
@@ -264,7 +267,10 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 {activePins && activePins.toString().split(",").map((pin, index) => {
                                     const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
                                     if (!digitalProduct) return null;
-                                    return (<div key={pin} className={styles.userPage__pin}> <img src={imagePinUrls[index]} alt={digitalProduct.name} /> </div>);
+                                    return (<div key={pin}>
+                                        <button className={styles.userPage__deletePinButton} onClick={() => {}}>×</button>
+                                        <img className={styles.userPage__pin} src={imagePinUrls[index]} alt={digitalProduct.name} />
+                                    </div>);
                                 })}
                             </div>
                         </div>

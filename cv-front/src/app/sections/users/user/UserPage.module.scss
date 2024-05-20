@@ -204,20 +204,6 @@
     animation: fadeIn 1s; -webkit-animation: fadeIn 1s; -moz-animation: fadeIn 1s; -o-animation: fadeIn 1s; -ms-animation: fadeIn 1s;
   }
 
-  &__pin {
-    width: 10rem;
-    height: 10rem;
-    margin: 1rem;
-  }
-
-  &__activePins {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 1rem;
-  }
-
-
   @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
   @-moz-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
   @-webkit-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
@@ -248,11 +234,6 @@
     &__image, &__imageFrame, &__sticker, &__pin, &__backgroundColour, &__title {
       width: 10rem;
       height: auto;
-    }
-
-    &__pin {
-      width: 8rem;
-      height: 8rem;
     }
   }
   /* ..................................................................................................... BACKGROUND */
@@ -328,6 +309,51 @@
     100% {
       transform-origin: bottom;
       transform: translateY(0rem) rotate(0deg);
+    }
+  }
+
+  &__activePins {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem;
+  }
+
+  &__pin {
+    width: 10rem;
+    height: 10rem;
+    margin: 1rem;
+  }
+
+  &__deletePinButton {
+    position: absolute;
+    margin-left: 4.5rem;
+    margin-top: 4.5rem;
+    z-index: 3;
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 800;
+    background: white;
+    color: #111111;
+    padding: 0rem 0.9rem 0rem 0.9rem;
+    border-radius: 50%;
+    box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 1);
+
+    &:hover {
+      background-color: #111111;
+      color: white;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    &__pin {
+      width: 8rem;
+      height: 8rem;
+    }
+    &__deletePinButton {
+      margin-left: 3.5rem;
+      margin-top: 3.5rem;
     }
   }
 
