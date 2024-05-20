@@ -147,6 +147,19 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                         </div>
                     </div>
                     <div className={styles.component5}>Component 5</div>
+
+                    {imageBackgroundUrl && <a target="_blank" className={styles.userPage__aBackgroundImage}>
+                        <div className={styles.userPage__backgroundImage}>
+                            <img
+                                src={imageBackgroundUrl}
+                            />
+                        </div>
+                    </a>}
+                    <a href={`/users/update.html?userId=${user.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                        <button className={styles.updateButton}>
+                            <img src="/icons/icon-edit.svg" alt="Editar" />
+                        </button>
+                    </a>
                 </>
             ) : (
                 <>
@@ -207,6 +220,19 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                         </div>
                         <div className={styles.component5}>Component 5</div>
                     </div>
+
+                    {imageBackgroundUrl && <a target="_blank" className={styles.userPage__aBackgroundImage}>
+                        <div className={styles.userPage__backgroundImage}>
+                            <img
+                                src={imageBackgroundUrl}
+                            />
+                        </div>
+                    </a>}
+                    <a href={`/users/update.html?userId=${user.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                        <button className={styles.updateButton}>
+                            <img src="/icons/icon-edit.svg" alt="Editar" />
+                        </button>
+                    </a>
                 </>
             )}
         </div>
