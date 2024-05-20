@@ -95,7 +95,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
             <div className={styles.userCard__info}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={customTheme}>
                 <div className={styles.userCard__topLeftPanel}>
                     <div className={styles.userCard__topLeftPanel__container}>
-                        <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aImage, styles.userCard__aImage)}
+                        <a className={classNames(detailsStyles.digitalProductDetails__aImage, styles.userCard__aImage)}
                            href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
                             <div className={classNames(detailsStyles.digitalProductDetails__image, styles.userCard__image)}>
                                 <img
@@ -112,7 +112,7 @@ export function UserCard({ user, lang }: { user: User; lang: string }) {
                                 />
                             </div>
                         </a>}
-                        <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aTitle, styles.userCard__aTitle)}>
+                        <a className={classNames(detailsStyles.digitalProductDetails__aTitle, styles.userCard__aTitle)}>
                             {title && <div className={classNames(detailsStyles.digitalProductDetails__title, styles.userCard__title)}
                                            style={{ background: title.primaryColour, color: title.secondaryColour }}>
                                 {title.name}

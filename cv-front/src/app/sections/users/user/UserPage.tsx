@@ -18,6 +18,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
         firstSurname,
         secondSurname,
         roles,
+        coins,
         activeUserImage,
         activeUserImageFrame,
         activeUserBackgroundImage,
@@ -25,7 +26,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
         activeUserBackgroundColour,
     } = user;
     const { colles } = useUsersContext();
-    const {digitalProducts } = useUsersContext();
+    const {digitalProducts} = useUsersContext();
 
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [imageFrameUrl, setImageFrameUrl] = useState<string | null>(null);
@@ -216,7 +217,16 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 <div className={styles.userPage__nickname} style={customTheme}>@{nickname} </div>
                                 <p className={styles.userPage__names}>{name+" "+firstSurname+" "+secondSurname}</p>
                             </div>
-                            <div className={styles.component3}>Component 3</div>
+                            <div className={styles.component3}>
+                                <div className={styles.userPage__coinsCount}>
+                                    <span>{coins}</span>
+                                    <img className={styles.userPage__iconCountImg} src="/icons/icon-coin.svg" alt="C" />
+                                </div>
+                                <div className={styles.userPage__inventoryCount}>
+                                    <span>{user.digitalProducts.toString().split(',').length}</span>
+                                    <img className={styles.userPage__iconCountImg} src="/icons/icon-inventory.svg" alt="C" />
+                                </div>
+                            </div>
                         </div>
                         <div className={styles.component5}>Component 5</div>
                     </div>
@@ -236,36 +246,5 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                 </>
             )}
         </div>
-        /*<div className={styles.userPage}>
-            <div className={styles.userPage__info}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={customTheme}>
-                <div className={styles.userPage__topLeftPanel}>
-                    <div className={styles.userPage__topLeftPanel__container}>
-
-
-
-                    </div>
-                </div>
-
-                <div className={styles.userPage__topRightPanel}>
-                    <div className={styles.userPage__topRightPanel__container}>
-
-                    </div>
-                </div>
-
-                {imageBackgroundUrl && <a target="_blank" className={classNames(detailsStyles.digitalProductDetails__aBackgroundImage, styles.userPage__aBackgroundImage)}>
-                    <div className={classNames(detailsStyles.digitalProductDetails__backgroundImage, styles.userPage__backgroundImage)}>
-                        <img
-                            src={imageBackgroundUrl}
-                        />
-                    </div>
-                </a>}
-                <a href={`/users/update.html?userId=${user.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
-                    <button className={styles.updateButton}>
-                        <img src="/icons/icon-edit.svg" alt="Editar" />
-                    </button>
-                </a>
-
-            </div>
-        </div>*/
     );
 };
