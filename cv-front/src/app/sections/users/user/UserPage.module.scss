@@ -602,6 +602,9 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+    gap: 10px;
   }
 
   .pinSelector li {
@@ -612,6 +615,13 @@
 
   .pinSelector li:hover {
     background-color: #f0f0f0;
+  }
+
+  .pinSelector img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 8px;
   }
 
   &__closePinSelectorButton {

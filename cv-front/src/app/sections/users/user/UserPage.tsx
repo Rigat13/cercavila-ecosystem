@@ -107,13 +107,17 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
 
     let availablePins = digitalProducts.filter(dp => dp.type === "digitalProductTypePin" && user.digitalProducts.includes(dp.id) && !visibleActivePins.includes(dp.id));
     const handleAddActivePin = (pinId: string) => {
+        const newVisibleActivePins = [...visibleActivePins, pinId];
         setVisibleActivePins(prevState => [...prevState, pinId]);
         setAddingPins(false);
+        reloadPinUrlsAndAvailablePins(newVisibleActivePins);
     };
     const handleDeleteActivePin = (pin: string) => {
         const newVisibleActivePins = visibleActivePins.filter((activePin) => activePin !== pin);
         setVisibleActivePins(newVisibleActivePins);
-
+        reloadPinUrlsAndAvailablePins(newVisibleActivePins);
+    }
+    function reloadPinUrlsAndAvailablePins(newVisibleActivePins) {
         const pinUrls: string[] = newVisibleActivePins.map((pin) => {
             const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
             if (digitalProduct) {
@@ -231,11 +235,15 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                             <button className={styles.userPage__closePinSelectorButton} type="button" onClick={() => {setAddingPins(!addingPins), setEditingPins(!editingPins || deletingPins)}}>×</button>
                             <p>{dictionary[lang]?.selectUserActivePin}</p>
                             <ul>
-                                {availablePins.map(pin => (
-                                    <li key={pin.id} onClick={() => handleAddActivePin(pin.id)}>
-                                        {pin.name}
-                                    </li>
-                                ))}
+                                {availablePins.map(pin => {
+                                    const pinImageBlob = base64ToBlob(pin.image as unknown as string);
+                                    const pinImageUrl = URL.createObjectURL(pinImageBlob);
+                                    return (
+                                        <li key={pin.id} onClick={() => handleAddActivePin(pin.id)}>
+                                            <img src={pinImageUrl} alt={pin.name} />
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </div>
                     )}
@@ -343,11 +351,15 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                             <button className={styles.userPage__closePinSelectorButton} type="button" onClick={() => {setAddingPins(!addingPins), setEditingPins(!editingPins || deletingPins)}}>×</button>
                             <p>{dictionary[lang]?.selectUserActivePin}</p>
                             <ul>
-                                {availablePins.map(pin => (
-                                    <li key={pin.id} onClick={() => handleAddActivePin(pin.id)}>
-                                        {pin.name}
-                                    </li>
-                                ))}
+                                {availablePins.map(pin => {
+                                    const pinImageBlob = base64ToBlob(pin.image as unknown as string);
+                                    const pinImageUrl = URL.createObjectURL(pinImageBlob);
+                                    return (
+                                        <li key={pin.id} onClick={() => handleAddActivePin(pin.id)}>
+                                            <img src={pinImageUrl} alt={pin.name} />
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </div>
                     )}
