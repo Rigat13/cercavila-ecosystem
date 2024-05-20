@@ -37,8 +37,9 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
     const [theme, setTheme] = useState<DigitalProduct | null>(null);
     const [randomColourFilter] = useState(generateRandomColorFilter());
     const [editingPins, setEditingPins] = useState(false);
+    const [visibleActivePins, setVisibleActivePins] = useState<string[]>(activePins.split(","));
 
-    const sortedRoles = roles.toString().split(',').sort((a, b) => {
+    const sortedRoles = roles.split(',').sort((a, b) => {
         const [roleNameA] = a.split('-');
         const [roleNameB] = b.split('-');
         return (roleOrderMap[roleNameA] || 100) - (roleOrderMap[roleNameB] || 100);
@@ -80,30 +81,46 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
         }
 
         if (activePins) {
-            const pinUrls: string[] = [];
-            activePins.toString().split(",").forEach((pin) => {
+            const pinUrls: string[] = activePins.split(",").map((pin) => {
                 const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
                 if (digitalProduct) {
                     const blob = base64ToBlob(digitalProduct.image as unknown as string);
-                    const url = URL.createObjectURL(blob);
-                    pinUrls.push(url);
+                    return URL.createObjectURL(blob);
                 }
-            });
+                return "";
+            }).filter(url => url !== "");
             setImagePinUrls(pinUrls);
+            setVisibleActivePins(activePins.split(","));
         }
-    }, [activeUserImage, activeUserImageFrame, activeUserBackgroundImage, digitalProducts]);
+    }, [activeUserImage, activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins, digitalProducts]);
 
     const [isHovered, setIsHovered] = useState(false);
     const handleMouseEnter = () => { setIsHovered(true); };
     const handleMouseLeave = () => { setIsHovered(false); };
+
     const customTheme = activeUserBackgroundColour && theme ? {
         backgroundColor: theme.primaryColour,
         color: theme.secondaryColour,
         transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
     } : {};
 
+    const handleDeleteActivePin = (pin: string) => {
+        const newVisibleActivePins = visibleActivePins.filter((activePin) => activePin !== pin);
+        setVisibleActivePins(newVisibleActivePins);
+
+        const pinUrls: string[] = newVisibleActivePins.map((pin) => {
+            const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
+            if (digitalProduct) {
+                const blob = base64ToBlob(digitalProduct.image as unknown as string);
+                return URL.createObjectURL(blob);
+            }
+            return "";
+        }).filter(url => url !== "");
+        setImagePinUrls(pinUrls);
+    }
+
     const isMobile = useMediaQuery('(max-width: 768px)');
-    
+
     return (
         <div className={styles.userPage} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={customTheme}>
             {isMobile ? (
@@ -132,15 +149,15 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                             <a target="_blank" className={styles.userPage__aTitle}>
                                 {title &&
                                     <div className={styles.userPage__title} style={{ background: title.primaryColour, color: title.secondaryColour }}>
-                                    {title.name}
-                                    <div className={detailsStyles.digitalProductDetails__shine}></div>
-                                </div>}
+                                        {title.name}
+                                        <div className={detailsStyles.digitalProductDetails__shine}></div>
+                                    </div>}
                             </a>
                         </div>
                         <div className={styles.column}>
                             <div className={styles.component2}>
                                 <div className={styles.userPage__nickname} style={customTheme}>@{nickname} </div>
-                                <p className={styles.userPage__names}>{name+" "+firstSurname+" "+secondSurname}</p>
+                                <p className={styles.userPage__names}>{name + " " + firstSurname + " " + secondSurname}</p>
                             </div>
                             <div className={styles.component3}>
                                 <div className={styles.userPage__coinsCount}>
@@ -148,7 +165,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                     <img className={styles.userPage__iconCountImg} src="/icons/icon-coin.svg" alt="C" />
                                 </div>
                                 <div className={styles.userPage__inventoryCount}>
-                                    <span>{user.digitalProducts.toString().split(',').length}</span>
+                                    <span>{user.digitalProducts.split(',').length}</span>
                                     <img className={styles.userPage__iconCountImg} src="/icons/icon-inventory.svg" alt="C" />
                                 </div>
                             </div>
@@ -156,35 +173,36 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                     </div>
                     <div className={styles.component4}>
                         <div className={styles.selectedElements}>
-                            {sortedRoles.toString().split(',')
-                                .map((collaRole, index) => {
-                                    const [roleName, collaId] = collaRole.split('-');
-                                    const colla = colles.find((colla) => colla.id === collaId);
-                                    return colla &&(
-                                        <div key={index} className={styles.selectedElementCombined}>
-                                        <span className={styles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
+                            {sortedRoles.map((collaRole, index) => {
+                                const [roleName, collaId] = collaRole.split('-');
+                                const colla = colles.find((colla) => colla.id === collaId);
+                                return colla && (
+                                    <div key={index} className={styles.selectedElementCombined}>
+                                        <span className={styles.selectedRole} style={getRolesAdditionalStyle(roleName)}>
                                             {dictionary[lang]?.[roleName]} </span>
-                                            <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
+                                        <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
                                             {colla?.name} </span>
-                                        </div>
-                                    );
-                                })}
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                     <div className={styles.component5}>
                         <div className={styles.userPage__activePins}>
-                            {activePins && activePins.toString().split(",").map((pin, index) => {
+                            {visibleActivePins.map((pin, index) => {
                                 const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
                                 if (!digitalProduct) return null;
-                                return (<div key={pin}>
-                                    <button className={styles.userPage__deletePinButton} onClick={() => {}}>×</button>
-                                    <img className={styles.userPage__pin} src={imagePinUrls[index]} alt={digitalProduct.name} />
-                                </div>);
+                                return (
+                                    <div key={pin}>
+                                        {editingPins && <button className={styles.userPage__deletePinButton} type="button" onClick={() => handleDeleteActivePin(pin)}>×</button>}
+                                        <img className={styles.userPage__pin} src={imagePinUrls[index]} />
+                                    </div>
+                                );
                             })}
                             <div className={styles.userPage__activePinsEdit}>
-                                <button className={styles.updateButton}>
-                                    <img src="/icons/icon-edit.svg" alt="Editar" />
-                                </button>
+                                <button className={styles.userPage__editPinButton} type="button" onClick={() => setEditingPins(!editingPins)}>×</button>
+                                {editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={() => { }}>✔</button>}
+                                <button className={styles.userPage__editPinButton} type="button" onClick={() => { }}>+</button>
                             </div>
                         </div>
                     </div>
@@ -235,19 +253,18 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                         </div>
                         <div className={styles.component4}>
                             <div className={styles.selectedElements}>
-                                {sortedRoles.toString().split(',')
-                                    .map((collaRole, index) => {
-                                        const [roleName, collaId] = collaRole.split('-');
-                                        const colla = colles.find((colla) => colla.id === collaId);
-                                        return colla &&(
-                                            <div key={index} className={styles.selectedElementCombined}>
-                                        <span className={styles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
-                                            {dictionary[lang]?.[roleName]} </span>
-                                                <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
-                                            {colla?.name} </span>
-                                            </div>
-                                        );
-                                    })}
+                                {sortedRoles.map((collaRole, index) => {
+                                    const [roleName, collaId] = collaRole.split('-');
+                                    const colla = colles.find((colla) => colla.id === collaId);
+                                    return colla && (
+                                        <div key={index} className={styles.selectedElementCombined}>
+                                            <span className={styles.selectedRole} style={getRolesAdditionalStyle(roleName)}>
+                                                {dictionary[lang]?.[roleName]} </span>
+                                            <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
+                                                {colla?.name} </span>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
@@ -255,7 +272,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                         <div className={styles.topRow}>
                             <div className={styles.component2}>
                                 <div className={styles.userPage__nickname} style={customTheme}>@{nickname} </div>
-                                <p className={styles.userPage__names}>{name+" "+firstSurname+" "+secondSurname}</p>
+                                <p className={styles.userPage__names}>{name + " " + firstSurname + " " + secondSurname}</p>
                             </div>
                             <div className={styles.component3}>
                                 <div className={styles.userPage__coinsCount}>
@@ -263,25 +280,27 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                     <img className={styles.userPage__iconCountImg} src="/icons/icon-coin.svg" alt="C" />
                                 </div>
                                 <div className={styles.userPage__inventoryCount}>
-                                    <span>{user.digitalProducts.toString().split(',').length}</span>
+                                    <span>{user.digitalProducts.split(',').length}</span>
                                     <img className={styles.userPage__iconCountImg} src="/icons/icon-inventory.svg" alt="C" />
                                 </div>
                             </div>
                         </div>
                         <div className={styles.component5}>
                             <div className={styles.userPage__activePins}>
-                                {activePins && activePins.toString().split(",").map((pin, index) => {
+                                {visibleActivePins.map((pin, index) => {
                                     const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
                                     if (!digitalProduct) return null;
-                                    return (<div key={pin}>
-                                        { editingPins && <button className={styles.userPage__deletePinButton} type="button" onClick={() => {}}>×</button>}
-                                        <img className={styles.userPage__pin} src={imagePinUrls[index]} alt={digitalProduct.name} />
-                                    </div>);
+                                    return (
+                                        <div key={pin}>
+                                            {editingPins && <button className={styles.userPage__deletePinButton} type="button" onClick={() => handleDeleteActivePin(pin)}>×</button>}
+                                            <img className={styles.userPage__pin} src={imagePinUrls[index]} />
+                                        </div>
+                                    );
                                 })}
                                 <div className={styles.userPage__activePinsEdit}>
-                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => {setEditingPins(!editingPins)}}>×</button>
-                                    { editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={() => {}}>✔</button>}
-                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => {}}>+</button>
+                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => setEditingPins(!editingPins)}>×</button>
+                                    {editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={() => { }}>✔</button>}
+                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => { }}>+</button>
                                 </div>
                             </div>
                         </div>
