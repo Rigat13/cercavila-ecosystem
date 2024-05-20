@@ -22,8 +22,6 @@
       //background: red;
 
       position: relative; /* Ensure the container is positioned */
-      overflow: hidden;
-
       display: flex;
       justify-content: center;
       align-items: center;
@@ -44,12 +42,16 @@
 
       .component2, .component3 {
         flex: 1;
-        background: limegreen;
+        //background: limegreen;
+      }
+      .component3 {
+        display: flex;
+        flex-direction: row;
       }
     }
 
     .component5 {
-      background: orange;
+      //background: orange;
     }
   }
   .row {.column{}}
@@ -79,7 +81,11 @@
 
         .component2, .component3 {
           width: 100%;
-          background: limegreen;
+          //background: limegreen;
+        }
+        .component3 {
+          display: flex;
+          flex-direction: row;
         }
       }
     }
@@ -91,7 +97,7 @@
 
     .component5 {
       width: 100%;
-      background: orange;
+      //background: orange;
     }
   }
 
@@ -163,7 +169,7 @@
   }
 
   /* .....................................................................................................GENERAL */
-  &__aImage, &__aBackgroundImage, &__aSticker, &__aPin, &__aBackgroundColour, &__aTitle {
+  &__aImage, &__aBackgroundImage, &__aSticker, &__aTitle {
     z-index: 1;
     position: relative;
     margin: 1rem;
@@ -174,7 +180,7 @@
     top: -0rem;
   }
 
-  &__image, &__imageFrame, &__backgroundImage, &__sticker, &__pin, &__backgroundColour, &__title {
+  &__image, &__imageFrame, &__backgroundImage, &__pin, &__title {
     width: 17rem;
     height: 17rem;
     background: transparent;
@@ -187,7 +193,7 @@
     box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.4);
   }
 
-  &__image img, &__imageFrame img, &__backgroundImage img, &__sticker img, &__pin img {
+  &__image img, &__imageFrame img, &__backgroundImage img, &__pin img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -197,6 +203,20 @@
 
     animation: fadeIn 1s; -webkit-animation: fadeIn 1s; -moz-animation: fadeIn 1s; -o-animation: fadeIn 1s; -ms-animation: fadeIn 1s;
   }
+
+  &__pin {
+    width: 10rem;
+    height: 10rem;
+    margin: 1rem;
+  }
+
+  &__activePins {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem;
+  }
+
 
   @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
   @-moz-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
@@ -228,6 +248,11 @@
     &__image, &__imageFrame, &__sticker, &__pin, &__backgroundColour, &__title {
       width: 10rem;
       height: auto;
+    }
+
+    &__pin {
+      width: 8rem;
+      height: 8rem;
     }
   }
   /* ..................................................................................................... BACKGROUND */
@@ -462,4 +487,16 @@
     margin-left: 0.6rem;
   }
 
+  @media (max-width: 768px) {
+    &__coinsCount, &__inventoryCount {
+      font-size: 1rem;
+      padding: 0.1rem 0.4rem 0.1rem 0.4rem;
+    }
+
+    &__iconCountImg {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-left: 0.4rem;
+    }
+  }
 }

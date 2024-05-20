@@ -24,6 +24,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
         activeUserBackgroundImage,
         activeUserTitle,
         activeUserBackgroundColour,
+        activePins,
     } = user;
     const { colles } = useUsersContext();
     const {digitalProducts} = useUsersContext();
@@ -31,6 +32,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [imageFrameUrl, setImageFrameUrl] = useState<string | null>(null);
     const [imageBackgroundUrl, setImageBackgroundUrl] = useState<string | null>(null);
+    const [imagePinUrls, setImagePinUrls] = useState<string[]>([]);
     const [title, setTitle] = useState<DigitalProduct | null>(null);
     const [theme, setTheme] = useState<DigitalProduct | null>(null);
     const [randomColourFilter] = useState(generateRandomColorFilter());
@@ -76,6 +78,18 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
             setTheme(digitalProduct);
         }
 
+        if (activePins) {
+            const pinUrls: string[] = [];
+            activePins.toString().split(",").forEach((pin) => {
+                const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
+                if (digitalProduct) {
+                    const blob = base64ToBlob(digitalProduct.image as unknown as string);
+                    const url = URL.createObjectURL(blob);
+                    pinUrls.push(url);
+                }
+            });
+            setImagePinUrls(pinUrls);
+        }
     }, [activeUserImage, activeUserImageFrame, activeUserBackgroundImage, digitalProducts]);
 
     const [isHovered, setIsHovered] = useState(false);
@@ -127,7 +141,16 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 <div className={styles.userPage__nickname} style={customTheme}>@{nickname} </div>
                                 <p className={styles.userPage__names}>{name+" "+firstSurname+" "+secondSurname}</p>
                             </div>
-                            <div className={styles.component3}>Component 3</div>
+                            <div className={styles.component3}>
+                                <div className={styles.userPage__coinsCount}>
+                                    <span>{coins}</span>
+                                    <img className={styles.userPage__iconCountImg} src="/icons/icon-coin.svg" alt="C" />
+                                </div>
+                                <div className={styles.userPage__inventoryCount}>
+                                    <span>{user.digitalProducts.toString().split(',').length}</span>
+                                    <img className={styles.userPage__iconCountImg} src="/icons/icon-inventory.svg" alt="C" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className={styles.component4}>
@@ -147,7 +170,15 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 })}
                         </div>
                     </div>
-                    <div className={styles.component5}>Component 5</div>
+                    <div className={styles.component5}>
+                        <div className={styles.userPage__activePins}>
+                            {activePins && activePins.toString().split(",").map((pin, index) => {
+                                const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
+                                if (!digitalProduct) return null;
+                                return (<div key={pin} className={styles.userPage__pin}> <img src={imagePinUrls[index]} alt={digitalProduct.name} /> </div>);
+                            })}
+                        </div>
+                    </div>
 
                     {imageBackgroundUrl && <a target="_blank" className={styles.userPage__aBackgroundImage}>
                         <div className={styles.userPage__backgroundImage}>
@@ -228,7 +259,15 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 </div>
                             </div>
                         </div>
-                        <div className={styles.component5}>Component 5</div>
+                        <div className={styles.component5}>
+                            <div className={styles.userPage__activePins}>
+                                {activePins && activePins.toString().split(",").map((pin, index) => {
+                                    const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
+                                    if (!digitalProduct) return null;
+                                    return (<div key={pin} className={styles.userPage__pin}> <img src={imagePinUrls[index]} alt={digitalProduct.name} /> </div>);
+                                })}
+                            </div>
+                        </div>
                     </div>
 
                     {imageBackgroundUrl && <a target="_blank" className={styles.userPage__aBackgroundImage}>
