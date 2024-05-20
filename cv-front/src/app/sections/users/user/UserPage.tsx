@@ -39,9 +39,9 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
     const [addingPins, setAddingPins] = useState(false);
     const [editingPins, setEditingPins] = useState(false);
     const [deletingPins, setDeletingPins] = useState(false);
-    const [visibleActivePins, setVisibleActivePins] = useState<string[]>(activePins.split(","));
+    const [visibleActivePins, setVisibleActivePins] = useState<string[]>(activePins.toString().split(","));
 
-    const sortedRoles = roles.split(',').sort((a, b) => {
+    const sortedRoles = roles.toString().split(',').sort((a, b) => {
         const [roleNameA] = a.split('-');
         const [roleNameB] = b.split('-');
         return (roleOrderMap[roleNameA] || 100) - (roleOrderMap[roleNameB] || 100);
@@ -83,7 +83,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
         }
 
         if (activePins) {
-            const pinUrls: string[] = activePins.split(",").map((pin) => {
+            const pinUrls: string[] = activePins.toString().split(",").map((pin) => {
                 const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
                 if (digitalProduct) {
                     const blob = base64ToBlob(digitalProduct.image as unknown as string);
@@ -92,7 +92,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                 return "";
             }).filter(url => url !== "");
             setImagePinUrls(pinUrls);
-            setVisibleActivePins(activePins.split(","));
+            setVisibleActivePins(activePins.toString().split(","));
         }
     }, [activeUserImage, activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins, digitalProducts]);
 
@@ -176,7 +176,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                     <img className={styles.userPage__iconCountImg} src="/icons/icon-coin.svg" alt="C" />
                                 </div>
                                 <div className={styles.userPage__inventoryCount}>
-                                    <span>{user.digitalProducts.split(',').length}</span>
+                                    <span>{user.digitalProducts.toString().split(',').length}</span>
                                     <img className={styles.userPage__iconCountImg} src="/icons/icon-inventory.svg" alt="C" />
                                 </div>
                             </div>
@@ -308,7 +308,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                     <img className={styles.userPage__iconCountImg} src="/icons/icon-coin.svg" alt="C" />
                                 </div>
                                 <div className={styles.userPage__inventoryCount}>
-                                    <span>{user.digitalProducts.split(',').length}</span>
+                                    <span>{user.digitalProducts.toString().split(',').length}</span>
                                     <img className={styles.userPage__iconCountImg} src="/icons/icon-inventory.svg" alt="C" />
                                 </div>
                             </div>
