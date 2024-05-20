@@ -5,7 +5,7 @@ import {Colla} from "@/modules/colles/domain/Colla";
 import classNames from "classnames";
 import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
 import {defaultLang, dictionary} from "@/content";
-import {base64ToBlob, generateRandomColorFilter, getDefaultUserImage} from "@/app/sections/shared/Utilities";
+import useMediaQuery, {base64ToBlob, generateRandomColorFilter, getDefaultUserImage} from "@/app/sections/shared/Utilities";
 import {getRolesAdditionalStyle, roleOrderMap} from "@/modules/users/domain/user-attributes/UserRoles";
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import {useUsersContext} from "@/app/sections/users/UsersContext";
@@ -86,9 +86,40 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
         boxShadow: isHovered ? ' 0 0 0rem 0.6rem ' + theme.secondaryColour : '',
         transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
     } : {};
+
+    const isMobile = useMediaQuery('(max-width: 768px)');
     
     return (
-        <div className={styles.userPage}>
+        <div className={styles.layout}>
+            {isMobile ? (
+                <>
+                    <div className={styles.row}>
+                        <div className={styles.component1}>Component 1</div>
+                        <div className={styles.column}>
+                            <div className={styles.component2}>Component 2</div>
+                            <div className={styles.component3}>Component 3</div>
+                        </div>
+                    </div>
+                    <div className={styles.component4}>Component 4</div>
+                    <div className={styles.component5}>Component 5</div>
+                </>
+            ) : (
+                <>
+                    <div className={styles.leftColumn}>
+                        <div className={styles.component1}>Component 1</div>
+                        <div className={styles.component4}>Component 4</div>
+                    </div>
+                    <div className={styles.rightColumn}>
+                        <div className={styles.topRow}>
+                            <div className={styles.component2}>Component 2</div>
+                            <div className={styles.component3}>Component 3</div>
+                        </div>
+                        <div className={styles.component5}>Component 5</div>
+                    </div>
+                </>
+            )}
+        </div>
+        /*<div className={styles.userPage}>
             <div className={styles.userPage__info}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={customTheme}>
                 <div className={styles.userPage__topLeftPanel}>
                     <div className={styles.userPage__topLeftPanel__container}>
@@ -116,6 +147,22 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 <div className={detailsStyles.digitalProductDetails__shine}></div>
                             </div>}
                         </a>
+
+                        <div className={styles.selectedElements}>
+                            {sortedRoles.toString().split(',')
+                                .map((collaRole, index) => {
+                                    const [roleName, collaId] = collaRole.split('-');
+                                    const colla = colles.find((colla) => colla.id === collaId);
+                                    return colla &&(
+                                        <div key={index} className={styles.selectedElementCombined}>
+                                        <span className={styles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
+                                            {dictionary[lang]?.[roleName]} </span>
+                                            <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
+                                            {colla?.name} </span>
+                                        </div>
+                                    );
+                                })}
+                        </div>
                     </div>
                 </div>
 
@@ -139,24 +186,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                     </button>
                 </a>
 
-
-
-                <div className={styles.selectedElements}>
-                    {sortedRoles.toString().split(',')
-                        .map((collaRole, index) => {
-                            const [roleName, collaId] = collaRole.split('-');
-                            const colla = colles.find((colla) => colla.id === collaId);
-                            return colla &&(
-                                <div key={index} className={styles.selectedElementCombined}>
-                                        <span className={styles.selectedRole} style={ getRolesAdditionalStyle(roleName) }>
-                                            {dictionary[lang]?.[roleName]} </span>
-                                    <span className={styles.selectedColla} style={{ backgroundColor: colla.primaryColour, color: getContrastColour(colla.primaryColour) }}>
-                                            {colla?.name} </span>
-                                </div>
-                            );
-                        })}
-                </div>
             </div>
-        </div>
+        </div>*/
     );
 };
