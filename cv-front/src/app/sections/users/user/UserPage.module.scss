@@ -356,7 +356,7 @@
     flex-direction: column;
   }
 
-  &__editPinButton, &__confirmEditPinButton {
+  &__editPinButton, &__confirmEditPinButton, &__closePinSelectorButton {
     position: relative;
     border: none;
     cursor: pointer;
@@ -573,5 +573,52 @@
       height: 1.5rem;
       margin-left: 0.4rem;
     }
+  }
+
+  /* ---------------------------------------------------- Pin Selector ---------------------------------------------------- */
+  .pinSelector {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #fff;
+    box-shadow: 0 0 4rem rgba(0, 0, 0, 1);
+    border-radius: 8px;
+    z-index: 1000; // Ensure it's on top of other elements
+    padding: 20px;
+  }
+
+  .pinSelector p {
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-right: 2rem;
+    color: #111111;
+  }
+
+  .pinSelector ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pinSelector li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .pinSelector li:hover {
+    background-color: #f0f0f0;
+  }
+
+  &__closePinSelectorButton {
+    box-shadow: none;
+    display: flex;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
   }
 }

@@ -288,6 +288,7 @@ interface DictionaryEntry {
     selectUserActiveUserBackgroundColour: string;
     // --- USER ACTIVE PINS
     selectUserActivePins: string;
+    selectUserActivePin: string;
 
     // CREATE USER
     usersTitle: string;
@@ -647,6 +648,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectUserActiveUserBackgroundColour: "-- Color de fons d'usuari --",
         // --- USER ACTIVE PINS
         selectUserActivePins: "-- Pins --",
+        selectUserActivePin: "Seleccioneu el pin a activar:",
 
         // CREATE USER
         usersTitle: "Usuaris registrats",
@@ -1005,6 +1007,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectUserActiveUserBackgroundColour: "-- Color de fondo de usuario --",
         // --- USER ACTIVE PINS
         selectUserActivePins: "-- Pins --",
+        selectUserActivePin: "Selecciona el pin a activar:",
 
         // CREATE USER
         usersTitle: "Usuarios registrados",
@@ -1363,6 +1366,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectUserActiveUserBackgroundColour: "-- User background colour --",
         // --- USER ACTIVE PINS
         selectUserActivePins: "-- Pins --",
+        selectUserActivePin: "Select the pin to activate:",
 
         // CREATE USER
         usersTitle: "Registered users",

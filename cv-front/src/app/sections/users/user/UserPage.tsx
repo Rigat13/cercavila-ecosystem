@@ -36,7 +36,9 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
     const [title, setTitle] = useState<DigitalProduct | null>(null);
     const [theme, setTheme] = useState<DigitalProduct | null>(null);
     const [randomColourFilter] = useState(generateRandomColorFilter());
+    const [addingPins, setAddingPins] = useState(false);
     const [editingPins, setEditingPins] = useState(false);
+    const [deletingPins, setDeletingPins] = useState(false);
     const [visibleActivePins, setVisibleActivePins] = useState<string[]>(activePins.split(","));
 
     const sortedRoles = roles.split(',').sort((a, b) => {
@@ -97,13 +99,17 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
     const [isHovered, setIsHovered] = useState(false);
     const handleMouseEnter = () => { setIsHovered(true); };
     const handleMouseLeave = () => { setIsHovered(false); };
-
     const customTheme = activeUserBackgroundColour && theme ? {
         backgroundColor: theme.primaryColour,
         color: theme.secondaryColour,
         transition: 'background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
     } : {};
 
+    let availablePins = digitalProducts.filter(dp => dp.type === "digitalProductTypePin" && user.digitalProducts.includes(dp.id) && !visibleActivePins.includes(dp.id));
+    const handleAddActivePin = (pinId: string) => {
+        setVisibleActivePins(prevState => [...prevState, pinId]);
+        setAddingPins(false);
+    };
     const handleDeleteActivePin = (pin: string) => {
         const newVisibleActivePins = visibleActivePins.filter((activePin) => activePin !== pin);
         setVisibleActivePins(newVisibleActivePins);
@@ -117,6 +123,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
             return "";
         }).filter(url => url !== "");
         setImagePinUrls(pinUrls);
+        availablePins = digitalProducts.filter(dp => dp.type === "digitalProductTypePin" && user.digitalProducts.includes(dp.id) && !visibleActivePins.includes(dp.id));
     }
 
     const isMobile = useMediaQuery('(max-width: 768px)');
@@ -194,15 +201,15 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 if (!digitalProduct) return null;
                                 return (
                                     <div key={pin}>
-                                        {editingPins && <button className={styles.userPage__deletePinButton} type="button" onClick={() => handleDeleteActivePin(pin)}>×</button>}
+                                        {deletingPins && <button className={styles.userPage__deletePinButton} type="button" onClick={() => handleDeleteActivePin(pin)}>×</button>}
                                         <img className={styles.userPage__pin} src={imagePinUrls[index]} />
                                     </div>
                                 );
                             })}
                             <div className={styles.userPage__activePinsEdit}>
-                                <button className={styles.userPage__editPinButton} type="button" onClick={() => setEditingPins(!editingPins)}>×</button>
+                                <button className={styles.userPage__editPinButton} type="button" onClick={() => {setDeletingPins(!deletingPins), setEditingPins(!editingPins || addingPins)}}>×</button>
                                 {editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={() => { }}>✔</button>}
-                                <button className={styles.userPage__editPinButton} type="button" onClick={() => { }}>+</button>
+                                <button className={styles.userPage__editPinButton} type="button" onClick={() => {setAddingPins(!addingPins), setEditingPins(!editingPins || deletingPins)}}>+</button>
                             </div>
                         </div>
                     </div>
@@ -219,6 +226,19 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                             <img src="/icons/icon-edit.svg" alt="Editar" />
                         </button>
                     </a>
+                    {addingPins && (
+                        <div className={styles.pinSelector}>
+                            <button className={styles.userPage__closePinSelectorButton} type="button" onClick={() => {setAddingPins(!addingPins), setEditingPins(!editingPins || deletingPins)}}>×</button>
+                            <p>{dictionary[lang]?.selectUserActivePin}</p>
+                            <ul>
+                                {availablePins.map(pin => (
+                                    <li key={pin.id} onClick={() => handleAddActivePin(pin.id)}>
+                                        {pin.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </>
             ) : (
                 <>
@@ -292,15 +312,15 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                     if (!digitalProduct) return null;
                                     return (
                                         <div key={pin}>
-                                            {editingPins && <button className={styles.userPage__deletePinButton} type="button" onClick={() => handleDeleteActivePin(pin)}>×</button>}
+                                            {deletingPins && <button className={styles.userPage__deletePinButton} type="button" onClick={() => handleDeleteActivePin(pin)}>×</button>}
                                             <img className={styles.userPage__pin} src={imagePinUrls[index]} />
                                         </div>
                                     );
                                 })}
                                 <div className={styles.userPage__activePinsEdit}>
-                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => setEditingPins(!editingPins)}>×</button>
+                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => {setDeletingPins(!deletingPins), setEditingPins(!editingPins || addingPins)}}>×</button>
                                     {editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={() => { }}>✔</button>}
-                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => { }}>+</button>
+                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => {setAddingPins(!addingPins), setEditingPins(!editingPins || deletingPins)}}>+</button>
                                 </div>
                             </div>
                         </div>
@@ -318,6 +338,19 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                             <img src="/icons/icon-edit.svg" alt="Editar" />
                         </button>
                     </a>
+                    {addingPins && (
+                        <div className={styles.pinSelector}>
+                            <button className={styles.userPage__closePinSelectorButton} type="button" onClick={() => {setAddingPins(!addingPins), setEditingPins(!editingPins || deletingPins)}}>×</button>
+                            <p>{dictionary[lang]?.selectUserActivePin}</p>
+                            <ul>
+                                {availablePins.map(pin => (
+                                    <li key={pin.id} onClick={() => handleAddActivePin(pin.id)}>
+                                        {pin.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </>
             )}
         </div>
