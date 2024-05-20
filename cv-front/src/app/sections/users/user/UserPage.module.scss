@@ -319,7 +319,7 @@
     margin: 1rem;
   }
 
-  &__pin {
+  &__pin, &__activePinsEdit {
     width: 10rem;
     height: 10rem;
     margin: 1rem;
@@ -338,6 +338,7 @@
     padding: 0rem 0.9rem 0rem 0.9rem;
     border-radius: 50%;
     box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 1);
+    animation: zoomIn 0.5s; -webkit-animation: zoomIn 0.5s; -moz-animation: zoomIn 0.5s; -o-animation: zoomIn 0.5s; -ms-animation: zoomIn 0.5s;
 
     &:hover {
       background-color: #111111;
@@ -345,9 +346,51 @@
     }
   }
 
+  &__activePinsEdit {
+    background: transparent;
+    box-shadow: inset 0 0 0 0.8rem white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &__editPinButton, &__confirmEditPinButton {
+    position: relative;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 800;
+    background: white;
+    color: #111111;
+    padding: 0rem 0.9rem 0rem 0.9rem;
+    border-radius: 50%;
+    box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 1);
+    margin: 0.5rem;
+    animation: zoomIn 0.5s; -webkit-animation: zoomIn 0.5s; -moz-animation: zoomIn 0.5s; -o-animation: zoomIn 0.5s; -ms-animation: zoomIn 0.5s;
+
+    &:hover {
+      background-color: #111111;
+      color: white;
+    }
+    &:active {
+      background-color: #111111;
+      color: white;
+      transform: scale(1.5);
+    }
+  }
+
+  &__confirmEditPinButton {
+    background: #33da8f;
+    color: white;
+    padding: 0.2rem 0.9rem 0.2rem 0.9rem;
+  }
 
   @media (max-width: 768px) {
-    &__pin {
+    &__pin, &__activePinsEdit {
       width: 8rem;
       height: 8rem;
     }
@@ -356,6 +399,12 @@
       margin-top: 3.5rem;
     }
   }
+
+  @keyframes zoomIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+  @-moz-keyframes zoomIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+  @-webkit-keyframes fadeIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+  @-o-keyframes zoomIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+  @-ms-keyframes zoomIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
   /* ..................................................................................................... BACKGROUND COLOUR */
 

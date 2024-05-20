@@ -36,6 +36,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
     const [title, setTitle] = useState<DigitalProduct | null>(null);
     const [theme, setTheme] = useState<DigitalProduct | null>(null);
     const [randomColourFilter] = useState(generateRandomColorFilter());
+    const [editingPins, setEditingPins] = useState(false);
 
     const sortedRoles = roles.toString().split(',').sort((a, b) => {
         const [roleNameA] = a.split('-');
@@ -180,6 +181,11 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                     <img className={styles.userPage__pin} src={imagePinUrls[index]} alt={digitalProduct.name} />
                                 </div>);
                             })}
+                            <div className={styles.userPage__activePinsEdit}>
+                                <button className={styles.updateButton}>
+                                    <img src="/icons/icon-edit.svg" alt="Editar" />
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -268,10 +274,15 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                     const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
                                     if (!digitalProduct) return null;
                                     return (<div key={pin}>
-                                        <button className={styles.userPage__deletePinButton} onClick={() => {}}>×</button>
+                                        { editingPins && <button className={styles.userPage__deletePinButton} type="button" onClick={() => {}}>×</button>}
                                         <img className={styles.userPage__pin} src={imagePinUrls[index]} alt={digitalProduct.name} />
                                     </div>);
                                 })}
+                                <div className={styles.userPage__activePinsEdit}>
+                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => {setEditingPins(!editingPins)}}>×</button>
+                                    { editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={() => {}}>✔</button>}
+                                    <button className={styles.userPage__editPinButton} type="button" onClick={() => {}}>+</button>
+                                </div>
                             </div>
                         </div>
                     </div>
