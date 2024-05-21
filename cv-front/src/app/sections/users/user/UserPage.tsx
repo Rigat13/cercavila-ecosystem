@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { User } from "@/modules/users/domain/User";
 import styles from "./UserPage.module.scss";
-import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
 import {defaultLang, dictionary} from "@/content";
 import useMediaQuery, {base64ToBlob, generateRandomColorFilter, getDefaultUserImage} from "@/app/sections/shared/Utilities";
 import {getRolesAdditionalStyle, roleOrderMap} from "@/modules/users/domain/user-attributes/UserRoles";
@@ -161,8 +160,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                 <>
                     <div className={styles.row}>
                         <div className={styles.component1}>
-                            <a target="_blank" className={styles.userPage__aImage}
-                               href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
+                            <a target="_blank" className={styles.userPage__aImage}>
                                 <div className={styles.userPage__image}>
                                     <img
                                         src={imageUrl || getDefaultUserImage()}
@@ -170,8 +168,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                     />
                                 </div>
                                 {imageFrameUrl &&
-                                    <a target="_blank" className={styles.userPage__aImageFrame}
-                                       href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
+                                    <a target="_blank" className={styles.userPage__aImageFrame}>
                                         <div className={styles.userPage__imageFrame}>
                                             <img
                                                 src={imageFrameUrl}
@@ -184,7 +181,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 {title &&
                                     <div className={styles.userPage__title} style={{ background: title.primaryColour, color: title.secondaryColour }}>
                                         {title.name}
-                                        <div className={detailsStyles.digitalProductDetails__shine}></div>
+                                        <div className={styles.userPage__shine}></div>
                                     </div>}
                             </a>
                         </div>
@@ -278,8 +275,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                 <>
                     <div className={styles.leftColumn}>
                         <div className={styles.component1}>
-                            <a target="_blank" className={styles.userPage__aImage}
-                               href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
+                            <a target="_blank" className={styles.userPage__aImage}>
                                 <div className={styles.userPage__image}>
                                     <img
                                         src={imageUrl || getDefaultUserImage()}
@@ -287,8 +283,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                     />
                                 </div>
                                 {imageFrameUrl &&
-                                    <a target="_blank" className={styles.userPage__aImageFrame}
-                                       href={lang === defaultLang ? `/users/user.html?userId=${user.id}` : `/users/user.html?userId=${user.id}&lang=${lang}`}>
+                                    <a target="_blank" className={styles.userPage__aImageFrame}>
                                         <div className={styles.userPage__imageFrame}>
                                             <img
                                                 src={imageFrameUrl}
@@ -301,7 +296,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 {title &&
                                     <div className={styles.userPage__title} style={{ background: title.primaryColour, color: title.secondaryColour }}>
                                         {title.name}
-                                        <div className={detailsStyles.digitalProductDetails__shine}></div>
+                                        <div className={styles.userPage__shine}></div>
                                     </div>}
                             </a>
                         </div>
