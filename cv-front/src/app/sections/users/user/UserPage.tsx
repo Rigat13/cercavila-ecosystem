@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { User } from "@/modules/users/domain/User";
 import styles from "./UserPage.module.scss";
-import {Colla} from "@/modules/colles/domain/Colla";
-import classNames from "classnames";
 import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
 import {defaultLang, dictionary} from "@/content";
 import useMediaQuery, {base64ToBlob, generateRandomColorFilter, getDefaultUserImage} from "@/app/sections/shared/Utilities";
@@ -10,6 +8,7 @@ import {getRolesAdditionalStyle, roleOrderMap} from "@/modules/users/domain/user
 import {getContrastColour} from "@/app/sections/shared/getContrastColour";
 import {useUsersContext} from "@/app/sections/users/UsersContext";
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct"; // Import SCSS module for styles
+import { useUpdateUserForm, FormStatus } from "@/app/sections/users/update-form/useUpdateUserForm";
 
 export function UserPage({ user, lang }: { user: User; lang: string }) {
     const {
@@ -33,13 +32,16 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
     const [imageFrameUrl, setImageFrameUrl] = useState<string | null>(null);
     const [imageBackgroundUrl, setImageBackgroundUrl] = useState<string | null>(null);
     const [imagePinUrls, setImagePinUrls] = useState<string[]>([]);
+
     const [title, setTitle] = useState<DigitalProduct | null>(null);
     const [theme, setTheme] = useState<DigitalProduct | null>(null);
     const [randomColourFilter] = useState(generateRandomColorFilter());
+
     const [addingPins, setAddingPins] = useState(false);
     const [editingPins, setEditingPins] = useState(false);
     const [deletingPins, setDeletingPins] = useState(false);
     const [visibleActivePins, setVisibleActivePins] = useState<string[]>(activePins.toString().split(","));
+    const { submitForm, formStatus } = useUpdateUserForm();
 
     const sortedRoles = roles.toString().split(',').sort((a, b) => {
         const [roleNameA] = a.split('-');
@@ -129,6 +131,27 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
         setImagePinUrls(pinUrls);
         availablePins = digitalProducts.filter(dp => dp.type === "digitalProductTypePin" && user.digitalProducts.includes(dp.id) && !visibleActivePins.includes(dp.id));
     }
+    const handleUpdateActivePins = () => {
+        submitForm({
+            id: user.id,
+            nickname: user.nickname,
+            name: user.name,
+            firstSurname: user.firstSurname,
+            secondSurname: user.secondSurname,
+            email: user.email,
+            password: user.password,
+            roles: user.roles.toString().split(','),
+            coins: user.coins,
+            digitalProducts: user.digitalProducts.toString().split(','),
+            activeUserImage: user.activeUserImage,
+            activeUserImageFrame: user.activeUserImageFrame,
+            activeUserBackgroundImage: user.activeUserBackgroundImage,
+            activeUserTitle: user.activeUserTitle,
+            activeUserBackgroundColour: user.activeUserBackgroundColour,
+            activePins: visibleActivePins,
+        });
+    };
+
 
     const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -327,7 +350,10 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 })}
                                 <div className={styles.userPage__activePinsEdit}>
                                     <button className={styles.userPage__editPinButton} type="button" onClick={() => {setDeletingPins(!deletingPins), setEditingPins(!editingPins || addingPins)}}>×</button>
-                                    {editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={() => { }}>✔</button>}
+                                    {editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={handleUpdateActivePins}>✔</button>}
+                                    {formStatus === FormStatus.Loading && <p>Updating...</p>}
+                                    {formStatus === FormStatus.Success && <p>Update Successful!</p>}
+                                    {formStatus === FormStatus.Error && <p>Error updating pins.</p>}
                                     <button className={styles.userPage__editPinButton} type="button" onClick={() => {setAddingPins(!addingPins), setEditingPins(!editingPins || deletingPins)}}>+</button>
                                 </div>
                             </div>
