@@ -1,6 +1,6 @@
 package cat.cercavila.cvapi.configuration.security.jwt;
 
-public class AuthenticationRequest {
+public class AuthRequest {
     private String username;
     private String password;
 
