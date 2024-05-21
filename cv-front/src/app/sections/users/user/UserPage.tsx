@@ -191,7 +191,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                         <div className={styles.column}>
                             <div className={styles.component2}>
                                 <div className={styles.userPage__nickname} style={customTheme}>@{nickname} </div>
-                                <p className={styles.userPage__names}>{name + " " + firstSurname + " " + secondSurname}</p>
+                                <p className={styles.userPage__names} style={customTheme}>{name + " " + firstSurname + " " + secondSurname}</p>
                             </div>
                             <div className={styles.component3}>
                                 <div className={styles.userPage__coinsCount}>
@@ -326,7 +326,7 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                         <div className={styles.topRow}>
                             <div className={styles.component2}>
                                 <div className={styles.userPage__nickname} style={customTheme}>@{nickname} </div>
-                                <p className={styles.userPage__names}>{name + " " + firstSurname + " " + secondSurname}</p>
+                                <p className={styles.userPage__names} style={customTheme}>{name + " " + firstSurname + " " + secondSurname}</p>
                             </div>
                             <div className={styles.component3}>
                                 <div className={styles.userPage__coinsCount}>

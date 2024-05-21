@@ -12,7 +12,7 @@
     flex: 0 0 30%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 6rem;
     height: fit-content;
     z-index: 2;
 
@@ -25,6 +25,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+    .component1 {
+      margin-top: calc(100vw / 4 - 25.5rem) ;// Leave a margin top that is 1/4 of the whole screen width - some extra rem
     }
   }
 
@@ -43,15 +46,18 @@
       .component2, .component3 {
         flex: 1;
         //background: limegreen;
+        margin-top: calc(100vw / 4 - 11.5rem) ;// Leave a margin top that is 1/4 of the whole screen width - some extra rem
       }
       .component3 {
         display: flex;
         flex-direction: row;
+        margin-top: calc(100vw / 4 - 5.5rem) ;// Leave a margin top that is 1/4 of the whole screen width - some extra rem
       }
     }
 
     .component5 {
       //background: orange;
+      margin-top: 4rem;
     }
   }
   .row {.column{}}
@@ -83,9 +89,13 @@
           width: 100%;
           //background: limegreen;
         }
+        .component2 {
+          margin-top: calc(100vw / 4);// Leave a margin top that is 1/4 of the whole screen width
+        }
         .component3 {
           display: flex;
           flex-direction: row;
+          padding: 1rem;
         }
       }
     }
@@ -117,9 +127,11 @@
 
   &__names {
     font-size: 2rem;
-    padding-top: 0.4rem;
-    padding-left: 0.8rem;
+    margin-top: 0.6rem;
+    padding: 0rem 1.2rem 0rem 1.2rem;
     font-style: italic;
+    border-radius: 2rem;
+    width: fit-content;
   }
 
   .updateButton{
@@ -150,13 +162,13 @@
   @media (max-width: 768px) {
     &__nickname {
       font-size: 2rem;
-      padding: 0.2rem 0.6rem 0.2rem 0.4rem;
+      padding: 0.2rem 0.8rem 0.2rem 0.8rem;
     }
 
     &__names {
       font-size: 1rem;
-      padding-top: 0.2rem;
-      padding-left: 0.4rem;
+      margin-top: 0.4rem;
+      padding: 0rem 0.8rem 0rem 0.8rem;
     }
 
     .updateButton{
