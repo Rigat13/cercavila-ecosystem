@@ -235,7 +235,10 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                             })}
                             <div className={styles.userPage__activePinsEdit}>
                                 <button className={styles.userPage__editPinButton} type="button" onClick={() => {setDeletingPins(!deletingPins), setEditingPins(!editingPins || addingPins)}}>×</button>
-                                {editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={() => { }}>✔</button>}
+                                {editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={handleUpdateActivePins}>✔</button>}
+                                {editingPins && formStatus === FormStatus.Loading && <p className={styles.userPage__updateUserStatusLoading} >{dictionary[lang]?.loading}</p>}
+                                {editingPins && formStatus === FormStatus.Success && <p className={styles.userPage__updateUserStatusSuccess} >{dictionary[lang]?.successUpdate}</p>}
+                                {editingPins && formStatus === FormStatus.Error && <p className={styles.userPage__updateUserStatusError} >{dictionary[lang]?.errorUpdate}</p>}
                                 <button className={styles.userPage__editPinButton} type="button" onClick={() => {setAddingPins(!addingPins), setEditingPins(!editingPins || deletingPins)}}>+</button>
                             </div>
                         </div>
@@ -351,9 +354,9 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 <div className={styles.userPage__activePinsEdit}>
                                     <button className={styles.userPage__editPinButton} type="button" onClick={() => {setDeletingPins(!deletingPins), setEditingPins(!editingPins || addingPins)}}>×</button>
                                     {editingPins && <button className={styles.userPage__confirmEditPinButton} type="button" onClick={handleUpdateActivePins}>✔</button>}
-                                    {formStatus === FormStatus.Loading && <p>Updating...</p>}
-                                    {formStatus === FormStatus.Success && <p>Update Successful!</p>}
-                                    {formStatus === FormStatus.Error && <p>Error updating pins.</p>}
+                                    {editingPins && formStatus === FormStatus.Loading && <p className={styles.userPage__updateUserStatusLoading} >{dictionary[lang]?.loading}</p>}
+                                    {editingPins && formStatus === FormStatus.Success && <p className={styles.userPage__updateUserStatusSuccess} >{dictionary[lang]?.successUpdate}</p>}
+                                    {editingPins && formStatus === FormStatus.Error && <p className={styles.userPage__updateUserStatusError} >{dictionary[lang]?.errorUpdate}</p>}
                                     <button className={styles.userPage__editPinButton} type="button" onClick={() => {setAddingPins(!addingPins), setEditingPins(!editingPins || deletingPins)}}>+</button>
                                 </div>
                             </div>

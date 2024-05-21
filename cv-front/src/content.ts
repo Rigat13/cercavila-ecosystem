@@ -11,6 +11,10 @@ interface DictionaryEntry {
     sinceYear: string;
     coinAcronym: string;
 
+    loading: string;
+    successUpdate: string;
+    errorUpdate: string;
+
     // -------------------------------------------------------------------------------------------- CCGM
     ccgmAcronym: string;
     ccgmName: string;
@@ -371,6 +375,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         sinceYear: "Des de l'any ",
         coinAcronym: "C",
 
+        loading: "Carregant...",
+        successUpdate: "Actualització feta!",
+        errorUpdate: "Error en l'actualització :(",
+
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
@@ -730,6 +738,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         sinceYear: "Desde el año ",
         coinAcronym: "C",
 
+        loading: "Cargando...",
+        successUpdate: "Actualización hecha!",
+        errorUpdate: "Error en la actualización :(",
+
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
@@ -1088,6 +1100,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         maxFileSize: "Maximum file size: ",
         sinceYear: "Since year ",
         coinAcronym: "C",
+
+        loading: "Loading...",
+        successUpdate: "Update done!",
+        errorUpdate: "Update error :(",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",

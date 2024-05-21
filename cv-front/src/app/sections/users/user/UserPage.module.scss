@@ -631,4 +631,25 @@
     top: 0.5rem;
     right: 0.5rem;
   }
+
+  &__updateUserStatusSuccess, &__updateUserStatusError, &__updateUserStatusLoading {
+    color: white;
+    padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+    border-radius: 1rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 130%;
+    opacity: 0;
+    animation: fadeOutDelayed 4s; -webkit-animation: fadeOutDelayed 4s; -moz-animation: fadeOutDelayed 4s; -o-animation: fadeOutDelayed 4s; -ms-animation: fadeOutDelayed 4s;
+  }
+  &__updateUserStatusSuccess { background: #33da8f; }
+  &__updateUserStatusError { background: #ff4d4d; }
+  &__updateUserStatusLoading { background: #111111; }
+
+  @keyframes fadeOutDelayed { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
+  @-moz-keyframes fadeOutDelayed { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
+  @-webkit-keyframes fadeOutDelayed { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
+  @-o-keyframes fadeOutDelayed { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
+  @-ms-keyframes fadeOutDelayed { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
 }
