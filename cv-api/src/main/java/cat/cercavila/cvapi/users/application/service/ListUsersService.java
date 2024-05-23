@@ -21,13 +21,13 @@ public class ListUsersService implements ListUsers {
     }
 
     @Override
-    public UserListing getUserByName(String name) {
-        return listCollesPort.loadUserByName(name)
+    public UserListing getUserByNickname(String name) {
+        return listCollesPort.loadUserByNickname(name)
                 .orElseThrow(() -> new UserNotFound(name));
     }
 
     @Override
-    public List<UserListing> getAllUsersByName() { return listCollesPort.loadAllUsersByName(); }
+    public List<UserListing> getAllUsersByNickname() { return listCollesPort.loadAllUsersByNickname(); }
 
     @Override
     public List<UserListing> getAllUsers() { return listCollesPort.loadAllUsers(); }

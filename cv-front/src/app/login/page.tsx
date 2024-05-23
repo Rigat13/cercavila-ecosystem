@@ -31,27 +31,21 @@ function PageContent() {
 
     const [token, setToken] = useState<string | null>(null);
     const handleLogin = (token: string) => {
+        console.log("Logging in with token:", token);
         setToken(token);
         localStorage.setItem('token', token); // Optionally store it in local storage
+        console.log("Token state after login:", token);
+        console.log(localStorage.getItem('token'));
     };
 
+
+
     return (
-        <UsersContextProvider repository={repository}>
             <Suspense fallback={<div>Loading...</div>}>
-                <div className="flex justify-center items-center">
-                    <Image src="/cercavila_logo.svg" alt="Logotip de Cercavila" className="}" width={80} height={80} />
-                </div>
-                <div className={stylesSidebar.sidebar}>
-                    <button className={stylesSidebar.sidebarButton} onClick={toggleSidebar}>
-                        <img src="/icons/icon-burger.svg" alt="Side bar" />
-                    </button>
-                    <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
-                </div>
 
                 <div>
-                    {token ? <UserProfile token={token} /> : <Login onLogin={handleLogin} />}
+                    {token ? <p> Success </p> : <Login onLogin={handleLogin} />}
                 </div>
             </Suspense>
-        </UsersContextProvider>
     )
 }

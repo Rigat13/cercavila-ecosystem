@@ -1,4 +1,4 @@
-package cat.cercavila.cvapi.configuration.restClient;
+package cat.cercavila.cvapi.configuration.adapter.in.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

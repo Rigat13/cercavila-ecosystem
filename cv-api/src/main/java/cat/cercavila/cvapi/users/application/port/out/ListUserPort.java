@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface ListUserPort {
     Optional<UserListing> loadUserById(String id);
-    Optional<UserListing> loadUserByName(String name);
+    Optional<UserListing> loadUserByNickname(String name);
 
-    List<UserListing> loadAllUsersByName();
+    List<UserListing> loadAllUsersByNickname();
     List<UserListing> loadAllUsers();
     List<String> loadAllUserNicknames();
 }

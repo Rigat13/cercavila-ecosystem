@@ -1,9 +1,9 @@
 package cat.cercavila.cvapi.configuration.security.jwt;
 
-public class AuthResponse {
+public class AuthenticationResponse {
     private String jwt;
 
-    public AuthResponse(String jwt) {
+    public AuthenticationResponse(String jwt) {
         this.jwt = jwt;
     }
 

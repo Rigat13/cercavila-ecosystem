@@ -21,10 +21,10 @@ public class ListUsersController {
     public UserListing getUserById(@PathVariable String id) { return listUsers.getUserById(id); }
 
     @GetMapping("/api/users/name/{name}")
-    public UserListing getUserByName(@PathVariable String name) { return listUsers.getUserByName(name); }
+    public UserListing getUserByNickname(@PathVariable String name) { return listUsers.getUserByNickname(name); }
 
     @GetMapping("/api/users/name")
-    public List<UserListing> getAllUsersByName() { return listUsers.getAllUsersByName(); }
+    public List<UserListing> getAllUsersByNickname() { return listUsers.getAllUsersByNickname(); }
 
     @GetMapping("/api/users")
     public List<UserListing> getAllUsers() { return listUsers.getAllUsers(); }

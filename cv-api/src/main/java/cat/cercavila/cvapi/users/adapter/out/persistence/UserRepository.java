@@ -36,9 +36,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
                             u.coins, u.digitalProducts, u.activeUserImage, u.activeUserImageFrame, u.activeUserBackgroundImage, 
                             u.activeUserTitle, u.activeUserBackgroundColour, u.activePins)
             from user u
-            where u.name = :name
+            where u.nickname = :nickname
         """)
-    Optional<UserListing> getByName(@Param("name") String name);
+    Optional<UserListing> getByNickname(@Param("nickname") String nickname);
 
     @Query("""
             select new cat.cercavila.cvapi.users.application.port.in.list.UserListing(
@@ -46,9 +46,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
                             u.coins, u.digitalProducts, u.activeUserImage, u.activeUserImageFrame, u.activeUserBackgroundImage, 
                             u.activeUserTitle, u.activeUserBackgroundColour, u.activePins)
             from user u
-            order by u.name
+            order by u.nickname
         """)
-    List<UserListing> loadAllUsersByName();
+    List<UserListing> loadAllUsersByNickname();
 
     @Query("""
             select new cat.cercavila.cvapi.users.application.port.in.list.UserListing(

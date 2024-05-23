@@ -23,14 +23,14 @@ public class FetchUserListingAdapter implements ListUserPort {
     }
 
     @Override
-    public Optional<UserListing> loadUserByName(String name) {
-        Optional<UserListing> userListingOptional = userRepository.getByName(name);
+    public Optional<UserListing> loadUserByNickname(String name) {
+        Optional<UserListing> userListingOptional = userRepository.getByNickname(name);
         return userListingOptional.map(this::createUserListingFromListing);
     }
 
     @Override
-    public List<UserListing> loadAllUsersByName() {
-        List<UserListing> userListings = userRepository.loadAllUsersByName();
+    public List<UserListing> loadAllUsersByNickname() {
+        List<UserListing> userListings = userRepository.loadAllUsersByNickname();
         return userListings.stream()
                 .map(this::createUserListingFromListing)
                 .collect(Collectors.toList());

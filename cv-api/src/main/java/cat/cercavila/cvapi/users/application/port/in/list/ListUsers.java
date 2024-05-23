@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface ListUsers {
     UserListing getUserById(String id);
-    UserListing getUserByName(String name);
-    List<UserListing> getAllUsersByName();
+    UserListing getUserByNickname(String name);
+    List<UserListing> getAllUsersByNickname();
     List<UserListing> getAllUsers();
     List<String> getAllUserNicknames();
 }

@@ -10,7 +10,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ token }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('http://81.25.126.202:8080/api/user', {
+            const response = await fetch('http://localhost/auth/api/users', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
