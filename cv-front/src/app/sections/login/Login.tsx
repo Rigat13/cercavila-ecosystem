@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { LoginResponse } from './types';
-import {URL_PREFIX} from "@/modules/users/infrastructure/configuration";
-import {User} from "@/modules/users/domain/User";
 
 interface LoginProps {
-    onLogin: (token: string) => void;
+    onLogin: (token: string, username: string) => void;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
@@ -16,7 +14,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8080/auth/api/login', {
+            const response = await fetch('http://81.25.126.202:8080/auth/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,11 +26,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             }
 
             const data: LoginResponse = await response.json();
-            console.log("Received token:", data.jwt); // Log the received token
-            onLogin(data.jwt);  // Pass the token to the parent component or context
+            onLogin(data.jwt, username);  // Pass the token and username to the parent component
 
-            // Save the token to localStorage (or another secure place)
             localStorage.setItem('token', data.jwt);
+            localStorage.setItem('username', username);
 
         } catch (error) {
             console.error("Login error:", error);
