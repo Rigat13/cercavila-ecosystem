@@ -28,10 +28,17 @@ async function storeColla(colla: Colla) {
         formData.append("instagram", colla.instagram);
         formData.append("figures", colla.figures);
 
-        await fetch(URL_PREFIX + "/api/colles", {
+        const token = localStorage.getItem('token');
+
+        const headers = new Headers();
+        if (token) { headers.append('Authorization', 'Bearer ' + token); }
+
+        const response = await fetch(URL_PREFIX + "/api/colles", {
             method: "POST",
             body: formData,
+            headers: headers,
         });
+        if (!response.ok) { throw new Error("La resposta del servidor no ha estat OK.");}
     } catch (error) {
         throw new Error("No s'ha pogut crear la colla. \nMotiu: " + error);
     }

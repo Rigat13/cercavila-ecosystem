@@ -21,7 +21,7 @@ export function CCGMCard({ colla, lang }: { colla: Colla; lang: string }) {
     const imageOutlineColour = { borderColor: colla.secondaryColour };
 
     const instagramLogo = isLightContrast ? "/icons/dark-icon-instagram.png" : "/icons/icon-instagram.png";
-    const updateLogo = isLightContrast ? "/icons/dark-icon-edit.svg" : "/icons/icon-edit.svg";
+    const updateLogo = isLightContrast ? "/icons/dark-icon-edit.svg" : "/icons/icon-edit-white.svg";
     const emailLogo = isLightContrast ? "/icons/dark-icon-email.svg" : "/icons/icon-email.svg";
 
     const [isInstagramVisible, setIsInstagramVisible] = useState<boolean>(false);
