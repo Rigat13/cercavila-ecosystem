@@ -28,15 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(noOpPasswordEncoder());
-
-        //auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()); TODO
-    }
-
-    @Bean
-    public PasswordEncoder noOpPasswordEncoder() {
-        // Return NoOpPasswordEncoder instance
-        return NoOpPasswordEncoder.getInstance();
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
