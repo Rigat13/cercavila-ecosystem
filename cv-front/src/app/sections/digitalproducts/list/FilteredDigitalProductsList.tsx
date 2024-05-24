@@ -5,7 +5,7 @@ import styles from "./FilteredDigitalProductsList.module.scss";
 import { dictionary } from "@/content";
 import {digitalProductTypes} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
 
-export function FilteredDigitalProductsList({ lang }: { lang: string }) {
+export function FilteredDigitalProductsList({ lang,  isStore }: { lang: string, isStore: boolean }) {
     const { digitalProductsNoImage, digitalProducts } = useDigitalProductsContext();
     const [loadedDigitalProducts, setLoadedDigitalProducts] = useState([]);
     const [isDigitalProductsImagesLoaded, setIsDigitalProductsImagesLoaded] = useState(false);
@@ -105,7 +105,8 @@ export function FilteredDigitalProductsList({ lang }: { lang: string }) {
             {/* -----------------------------------------------------------------------------------------------------------------*/}
             {/* ------------------------------------------------ PRODUCTS RESULT ------------------------------------------------*/}
             {/* -----------------------------------------------------------------------------------------------------------------*/}
-            <h2 className={styles.h2}>{dictionary[lang]?.digitalProductsTitle}</h2>
+            { isStore && <h2 className={styles.h2}>{dictionary[lang]?.storeTitle}</h2> }
+            { !isStore && <h2 className={styles.h2}>{dictionary[lang]?.digitalProductsTitle}</h2> }
             <div className={styles.list}>
 
                 {/* Render digitalProducts with no images */}
@@ -116,7 +117,7 @@ export function FilteredDigitalProductsList({ lang }: { lang: string }) {
                         || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase()) ) &&
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((digitalProduct) => (
-                        <DigitalProductCard key={digitalProduct.id} digitalProduct={digitalProduct} isBuyable={true} lang={lang}/>
+                        <DigitalProductCard key={digitalProduct.id} digitalProduct={digitalProduct} isBuyable={isStore} lang={lang}/>
                     ))}
 
                 {/* Render loaded digitalProducts with images */}
@@ -127,7 +128,7 @@ export function FilteredDigitalProductsList({ lang }: { lang: string }) {
                             || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase()) ) &&
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((loadedDigitalProduct) => (
-                        <DigitalProductCard key={loadedDigitalProduct.id} digitalProduct={loadedDigitalProduct} isBuyable={true} lang={lang}/>
+                        <DigitalProductCard key={loadedDigitalProduct.id} digitalProduct={loadedDigitalProduct} isBuyable={isStore} lang={lang}/>
                     ))}
             </div>
         </section>

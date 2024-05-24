@@ -218,6 +218,7 @@ interface DictionaryEntry {
 
     // CREATE DIGITAL PRODUCT
     digitalProductsTitle: string;
+    storeTitle: string;
     createDigitalProductTitle: string;
     createDigitalProductButton: string;
 
@@ -592,6 +593,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         // CREATE DIGITAL PRODUCT
         digitalProductsTitle: "Productes digitals registrats",
+        storeTitle: "Botiga",
         createDigitalProductTitle: "Crea un nou producte digital",
         createDigitalProductButton: "Crea el producte digital",
 
@@ -965,6 +967,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         // CREATE DIGITAL PRODUCT
         digitalProductsTitle: "Productos digitales registrados",
+        storeTitle: "Tienda",
         createDigitalProductTitle: "Crea un nuevo producto digital",
         createDigitalProductButton: "Crea el producto digital",
 
@@ -1338,6 +1341,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         // CREATE DIGITAL PRODUCT
         digitalProductsTitle: "Registered digital products",
+        storeTitle: "Store",
         createDigitalProductTitle: "Create a new digital product",
         createDigitalProductButton: "Create digital product",
 

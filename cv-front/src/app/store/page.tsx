@@ -41,7 +41,7 @@ function PageContent() {
 
             <div className = "DigitalProducts">
                 <h1 className={globalStyles.h1}>{dictionary[lang]?.cercavilaTitle}</h1>
-                <FilteredDigitalProductsList lang={lang} isStore={false}/>
+                <FilteredDigitalProductsList lang={lang} isStore={true}/>
                 <CreateDigitalProductForm lang={lang}/>
             </div>
         </DigitalProductsContextProvider>
