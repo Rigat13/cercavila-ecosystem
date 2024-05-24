@@ -98,10 +98,20 @@
     left: 0;
   }
 
+  .menuContainer {
+    height: calc(100vh); /* Adjust this as necessary to leave space for other elements */
+    overflow-y: auto;
+    overflow-x: visible;
+  }
+
   .menu {
-    padding-top: 150px; /* Adjust as needed */
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 4rem;
+  }
+
+  .userCardContainer {
+    scale: 0.8;
   }
 }

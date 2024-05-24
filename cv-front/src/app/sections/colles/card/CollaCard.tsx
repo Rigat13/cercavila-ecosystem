@@ -22,7 +22,7 @@ export function CollaCard({ colla, lang }: { colla: Colla; lang: string }) {
     const backgroundColourBorderColour = { backgroundColor: colla.primaryColour, border: isCollaHovered ? `1.35rem solid ${colla.secondaryColour}` : '1.35rem solid transparent' };
 
     const instagramLogo = isLightContrast ? "/icons/dark-icon-instagram.png" : "/icons/icon-instagram.png";
-    const updateLogo = isLightContrast ? "/icons/dark-icon-edit.svg" : "/icons/icon-edit.svg";
+    const updateLogo = isLightContrast ? "/icons/dark-icon-edit.svg" : "/icons/icon-edit-white.svg";
     const emailLogo = isLightContrast ? "/icons/dark-icon-email.svg" : "/icons/icon-email.svg";
 
     const [isInstagramVisible, setIsInstagramVisible] = useState<boolean>(false);
