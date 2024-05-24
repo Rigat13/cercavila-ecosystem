@@ -115,7 +115,7 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
                 <p className={styles.digitalProductCard__type}>{dictionary[lang]?.[digitalProduct.type]}</p>
                 <h3 className={styles.digitalProductCard__name}>{digitalProduct.name}</h3>
                 <p className={styles.digitalProductCard__description}>{digitalProduct.description}</p>
-                {buyable && (
+                {buyable && !alreadyObtained && (
                     <button type="button" className={styles.selectedElementCombined} >
                         <span className={styles.buyText}> {dictionary[lang]?.digitalProductStoreBuyButton} </span>
                         <span className={styles.priceText}> {digitalProduct.price + " " + dictionary[lang]?.coinAcronym} </span>

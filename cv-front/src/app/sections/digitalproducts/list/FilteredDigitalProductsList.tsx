@@ -124,11 +124,7 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
                             || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((digitalProduct) => (
-                        <DigitalProductCard
-                            key={digitalProduct.id}
-                            digitalProduct={digitalProduct}
-                            isBuyable={isStore}
-                            lang={lang}
+                        <DigitalProductCard key={digitalProduct.id} digitalProduct={digitalProduct} isBuyable={isStore} lang={lang}
                             alreadyObtained={userDigitalProducts.includes(digitalProduct.id)} // Check if the product is obtained
                         />
                     ))}
@@ -141,11 +137,7 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
                             || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((loadedDigitalProduct) => (
-                        <DigitalProductCard
-                            key={loadedDigitalProduct.id}
-                            digitalProduct={loadedDigitalProduct}
-                            isBuyable={isStore}
-                            lang={lang}
+                        <DigitalProductCard key={loadedDigitalProduct.id} digitalProduct={loadedDigitalProduct} isBuyable={isStore} lang={lang}
                             alreadyObtained={userDigitalProducts.includes(loadedDigitalProduct.id)} // Check if the product is obtained
                         />
                     ))}
