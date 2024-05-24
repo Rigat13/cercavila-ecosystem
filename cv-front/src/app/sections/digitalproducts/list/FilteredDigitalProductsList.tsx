@@ -130,7 +130,7 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((digitalProduct) => (
                         <DigitalProductCard key={digitalProduct.id} digitalProduct={digitalProduct} isBuyable={isStore && isLoggedIn} lang={lang}
-                                            alreadyObtained={userDigitalProducts.includes(digitalProduct.id)} // Check if the product is obtained
+                                            alreadyObtained={userDigitalProducts.includes(digitalProduct.id)} isEditable={isLoggedIn} // Check if the product is obtained
                         />
                     ))}
 
@@ -143,7 +143,7 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((loadedDigitalProduct) => (
                         <DigitalProductCard key={loadedDigitalProduct.id} digitalProduct={loadedDigitalProduct} isBuyable={isStore && isLoggedIn} lang={lang}
-                                            alreadyObtained={userDigitalProducts.includes(loadedDigitalProduct.id)} // Check if the product is obtained
+                                            alreadyObtained={userDigitalProducts.includes(loadedDigitalProduct.id)} isEditable={isLoggedIn} // Check if the product is obtained
                         />
                     ))}
             </div>

@@ -5,18 +5,20 @@ import { defaultLang, dictionary } from "@/content";
 import React, {useEffect, useState} from "react";
 import {base64ToBlob} from "@/app/sections/shared/Utilities";
 
-export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObtained }: { digitalProduct: DigitalProduct; lang: string; isBuyable: boolean, alreadyObtained: boolean }) {
+export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObtained, isEditable }: { digitalProduct: DigitalProduct; lang: string; isBuyable: boolean, alreadyObtained: boolean, isEditable: boolean }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [buyable, setBuyable] = useState<boolean>(false);
+    const [editable, setEditable] = useState<boolean>(isEditable);
 
     useEffect(() => {
         setBuyable(isBuyable);
+        setEditable(isEditable);
         if (digitalProduct.image) {
             const blob = base64ToBlob(digitalProduct.image as unknown as string);
             const url = URL.createObjectURL(blob);
             setImageUrl(url);
         }
-    }, [digitalProduct.image, isBuyable]);
+    }, [digitalProduct.image, isBuyable, isEditable]);
 
     // ---------------------------------------------------------- CARD COLOUR CHANGE ON HOVER IF BACKGROUND COLOUR TYPE
     const [isHovered, setIsHovered] = useState(false);
@@ -106,7 +108,7 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
         <div className={styles.digitalProductCard} style={productCardOverlayStyle}>
             <div className={`${styles.digitalProductCard__info}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={hoverStyle} >
                 {renderProductDetails()}
-                {!buyable && (<a href={`digitalproducts/update.html?digitalProductId=${digitalProduct.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                {!buyable && editable && (<a href={`digitalproducts/update.html?digitalProductId=${digitalProduct.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                     <button className={styles.updateButton}>
                         <img src="/icons/icon-edit.svg" alt="Editar" />
                     </button>
@@ -115,7 +117,7 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
                 <p className={styles.digitalProductCard__type}>{dictionary[lang]?.[digitalProduct.type]}</p>
                 <h3 className={styles.digitalProductCard__name}>{digitalProduct.name}</h3>
                 <p className={styles.digitalProductCard__description}>{digitalProduct.description}</p>
-                {buyable && !alreadyObtained && (
+                {buyable && editable && !alreadyObtained && (
                     <button type="button" className={styles.selectedElementCombined} >
                         <span className={styles.buyText}> {dictionary[lang]?.digitalProductStoreBuyButton} </span>
                         <span className={styles.priceText}> {digitalProduct.price + " " + dictionary[lang]?.coinAcronym} </span>
