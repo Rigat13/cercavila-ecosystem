@@ -1,11 +1,13 @@
 import {DigitalProductRepository} from "@/modules/digitalproducts/domain/DigitalProductRepository";
 import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 import {URL_PREFIX} from "@/modules/digitalproducts/infrastructure/configuration";
+import {User} from "@/modules/users/domain/User";
 
 export function createApiDigitalProductRepository(): DigitalProductRepository {
     return {
         storeDigitalProduct, getDigitalProductById, getDigitalProductByName, getAllDigitalProductsByName,
-        getAllDigitalProductsByPrice, getAllDigitalProductsByType, getAllDigitalProducts, updateDigitalProduct, deleteDigitalProduct, getAllDigitalProductsNoImage
+        getAllDigitalProductsByPrice, getAllDigitalProductsByType, getAllDigitalProducts, updateDigitalProduct, deleteDigitalProduct, getAllDigitalProductsNoImage,
+        getAllUsers
     };
 }
 
@@ -130,4 +132,15 @@ async function deleteDigitalProduct(id: string) {
             }),
         });
     } catch (error) { throw new Error("No s'ha pogut eliminar el producte digital. \nMotiu: " + error); }
+}
+
+async function getAllUsers() {
+    try {
+        const users = await fetch(URL_PREFIX + `/api/users`).then(
+            (response) => response.json() as Promise<User[]>
+        );
+        return users;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir totes els usuaris. \nMotiu: " + error);
+    }
 }

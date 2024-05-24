@@ -5,7 +5,7 @@ import { defaultLang, dictionary } from "@/content";
 import React, {useEffect, useState} from "react";
 import {base64ToBlob} from "@/app/sections/shared/Utilities";
 
-export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digitalProduct: DigitalProduct; lang: string; isBuyable: boolean }) {
+export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObtained }: { digitalProduct: DigitalProduct; lang: string; isBuyable: boolean, alreadyObtained: boolean }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     const [buyable, setBuyable] = useState<boolean>(false);
@@ -28,6 +28,10 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
         color: digitalProduct.secondaryColour,
         boxShadow: 'inset 0 0 0rem 0.6rem ' + digitalProduct.secondaryColour,
         transition: 'background-color 0.3s ease, color 0.3s ease',
+    } : {};
+
+    const productCardOverlayStyle = alreadyObtained ? {
+        opacity: 0.5,
     } : {};
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -99,7 +103,7 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
     };
 
     return (
-        <div className={styles.digitalProductCard}>
+        <div className={styles.digitalProductCard} style={productCardOverlayStyle}>
             <div className={`${styles.digitalProductCard__info}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={hoverStyle} >
                 {renderProductDetails()}
                 {!buyable && (<a href={`digitalproducts/update.html?digitalProductId=${digitalProduct.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>

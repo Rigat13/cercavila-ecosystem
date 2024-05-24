@@ -1,4 +1,5 @@
 import {DigitalProduct} from './DigitalProduct';
+import {User} from "@/modules/users/domain/User";
 
 export interface DigitalProductRepository {
     storeDigitalProduct: (digitalProducts: DigitalProduct) => Promise<void>;
@@ -11,4 +12,6 @@ export interface DigitalProductRepository {
     getAllDigitalProductsNoImage:() => Promise<DigitalProduct[]>;
     updateDigitalProduct:(digitalProducts: DigitalProduct) => Promise<void>;
     deleteDigitalProduct:(id: string) => Promise<void>;
+
+    getAllUsers: () => Promise<User[]>;
 }

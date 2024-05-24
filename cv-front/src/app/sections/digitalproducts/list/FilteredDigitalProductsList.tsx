@@ -3,10 +3,10 @@ import { DigitalProductCard } from "@/app/sections/digitalproducts/card/DigitalP
 import { useDigitalProductsContext } from "@/app/sections/digitalproducts/DigitalProductsContext";
 import styles from "./FilteredDigitalProductsList.module.scss";
 import { dictionary } from "@/content";
-import {digitalProductTypes} from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
+import { digitalProductTypes } from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
 
-export function FilteredDigitalProductsList({ lang,  isStore }: { lang: string, isStore: boolean }) {
-    const { digitalProductsNoImage, digitalProducts } = useDigitalProductsContext();
+export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, isStore: boolean }) {
+    const { digitalProductsNoImage, digitalProducts, users } = useDigitalProductsContext();
     const [loadedDigitalProducts, setLoadedDigitalProducts] = useState([]);
     const [isDigitalProductsImagesLoaded, setIsDigitalProductsImagesLoaded] = useState(false);
 
@@ -24,14 +24,11 @@ export function FilteredDigitalProductsList({ lang,  isStore }: { lang: string, 
         }
     }, [digitalProducts, digitalProductsNoImage]);
 
-
     const [searchTerm, setSearchTerm] = useState<string>('');
-
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [filterType, setFilterType] = useState<string>('');
 
     const handleNameSearch = (event: React.ChangeEvent<HTMLInputElement>) => { setSearchTerm(event.target.value); };
-
     const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => { setFilterType(event.target.value); };
     const handleAddType = () => { if (filterType && !selectedTypes.includes(filterType)) { setSelectedTypes([...selectedTypes, filterType]); } };
 
@@ -50,6 +47,16 @@ export function FilteredDigitalProductsList({ lang,  isStore }: { lang: string, 
             default: return {};
         }
     }
+
+    // Retrieve current user's digital products from local storage
+    const getCurrentUserDigitalProducts = () => {
+        if (!localStorage) return [];
+        const username = localStorage.getItem('username');
+        const user = users.find(user => user.nickname === username);
+        return user?.digitalProducts || [];
+    };
+
+    const userDigitalProducts = getCurrentUserDigitalProducts();
 
     return (
         <section>
@@ -105,19 +112,25 @@ export function FilteredDigitalProductsList({ lang,  isStore }: { lang: string, 
             {/* -----------------------------------------------------------------------------------------------------------------*/}
             {/* ------------------------------------------------ PRODUCTS RESULT ------------------------------------------------*/}
             {/* -----------------------------------------------------------------------------------------------------------------*/}
-            { isStore && <h2 className={styles.h2}>{dictionary[lang]?.storeTitle}</h2> }
-            { !isStore && <h2 className={styles.h2}>{dictionary[lang]?.digitalProductsTitle}</h2> }
+            {isStore && <h2 className={styles.h2}>{dictionary[lang]?.storeTitle}</h2>}
+            {!isStore && <h2 className={styles.h2}>{dictionary[lang]?.digitalProductsTitle}</h2>}
             <div className={styles.list}>
 
                 {/* Render digitalProducts with no images */}
                 {!isDigitalProductsImagesLoaded && digitalProductsNoImage
                     .filter(digitalProduct =>
                         (searchTerm.trim() === ''
-                        || digitalProduct.name.toLowerCase().includes(searchTerm.toLowerCase())
-                        || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase()) ) &&
+                            || digitalProduct.name.toLowerCase().includes(searchTerm.toLowerCase())
+                            || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((digitalProduct) => (
-                        <DigitalProductCard key={digitalProduct.id} digitalProduct={digitalProduct} isBuyable={isStore} lang={lang}/>
+                        <DigitalProductCard
+                            key={digitalProduct.id}
+                            digitalProduct={digitalProduct}
+                            isBuyable={isStore}
+                            lang={lang}
+                            alreadyObtained={userDigitalProducts.includes(digitalProduct.id)} // Check if the product is obtained
+                        />
                     ))}
 
                 {/* Render loaded digitalProducts with images */}
@@ -125,10 +138,16 @@ export function FilteredDigitalProductsList({ lang,  isStore }: { lang: string, 
                     .filter(digitalProduct =>
                         (searchTerm.trim() === ''
                             || digitalProduct.name.toLowerCase().includes(searchTerm.toLowerCase())
-                            || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase()) ) &&
+                            || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((loadedDigitalProduct) => (
-                        <DigitalProductCard key={loadedDigitalProduct.id} digitalProduct={loadedDigitalProduct} isBuyable={isStore} lang={lang}/>
+                        <DigitalProductCard
+                            key={loadedDigitalProduct.id}
+                            digitalProduct={loadedDigitalProduct}
+                            isBuyable={isStore}
+                            lang={lang}
+                            alreadyObtained={userDigitalProducts.includes(loadedDigitalProduct.id)} // Check if the product is obtained
+                        />
                     ))}
             </div>
         </section>

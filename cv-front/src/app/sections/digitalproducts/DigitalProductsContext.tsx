@@ -8,10 +8,13 @@ import {getAllDigitalProductsNoImage} from "@/modules/digitalproducts/applicatio
 import {storeDigitalProduct} from "@/modules/digitalproducts/application/store/storeDigitalProduct";
 import {updateDigitalProduct} from "@/modules/digitalproducts/application/update/updateDigitalProduct";
 import {deleteDigitalProduct} from "@/modules/digitalproducts/application/delete/deleteDigitalProduct";
+import {User} from "@/modules/users/domain/User";
+import {getAllUsers_digiProduRepo} from "@/modules/users/application/get-all/getAllUsers";
 
 export interface ContextState {
     digitalProducts: DigitalProduct[];
     digitalProductsNoImage: DigitalProduct[];
+    users: User[];
     createDigitalProduct: (digitalProduct: { id: string; name: string; description: string; image: File | null; primaryColour: string; secondaryColour: string; price: number; type: string; }) => Promise<void>;
     updateDigitalProduct: (digitalProduct: { id: string; name: string; description: string; image: File | null; primaryColour: string; secondaryColour: string; price: number; type: string; }) => Promise<void>;
     deleteDigitalProduct: (digitalProductId: string) => Promise<void>;
@@ -25,6 +28,7 @@ export const DigitalProductsContextProvider = ({
 }: React.PropsWithChildren<{ repository: DigitalProductRepository }>) => {
     const [digitalProducts, setDigitalProducts] = useState<DigitalProduct[]>([]);
     const [digitalProductsNoImage, setDigitalProductsNoImage] = useState<DigitalProduct[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
 
     async function create({ id, name, description, image, primaryColour, secondaryColour, price, type }:
         { id: string; name: string; description: string; image: File | null; primaryColour: string; secondaryColour: string; price: number; type: string; }) {
@@ -44,6 +48,12 @@ export const DigitalProductsContextProvider = ({
         });
     }
 
+    async function getUsers() {
+        return getAllUsers_digiProduRepo(repository).then((users) => {
+            setUsers(users);
+        });
+    }
+
     async function update({ id, name, description, image, primaryColour, secondaryColour, price, type }:
         { id: string; name: string; description: string; image: File | null; primaryColour: string; secondaryColour: string; price: number; type: string; }) {
         await updateDigitalProduct(repository, { id, name, description, image, primaryColour, secondaryColour, price, type });
@@ -57,10 +67,11 @@ export const DigitalProductsContextProvider = ({
     useEffect(() => {
         getDigitalProductsNoImage();
         getDigitalProducts();
+        getUsers();
     }, []);
 
     return (
-        <DigitalProductsContext.Provider value={{ digitalProducts, digitalProductsNoImage, createDigitalProduct: create, updateDigitalProduct: update, deleteDigitalProduct: deleteC }}>
+        <DigitalProductsContext.Provider value={{ digitalProducts, digitalProductsNoImage, users, createDigitalProduct: create, updateDigitalProduct: update, deleteDigitalProduct: deleteC }}>
             {children}
         </DigitalProductsContext.Provider>
     );
