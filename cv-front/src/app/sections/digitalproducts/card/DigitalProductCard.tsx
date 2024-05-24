@@ -30,8 +30,9 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
         transition: 'background-color 0.3s ease, color 0.3s ease',
     } : {};
 
-    const productCardOverlayStyle = alreadyObtained ? {
+    const productCardOverlayStyle = (alreadyObtained && buyable) ? { // If the product is already obtained, make it semi-transparent and unclickable (when on store, buyable)
         opacity: 0.5,
+        //pointerEvents: 'none',
     } : {};
 
     // ----------------------------------------------------------------------------------------------------------------
