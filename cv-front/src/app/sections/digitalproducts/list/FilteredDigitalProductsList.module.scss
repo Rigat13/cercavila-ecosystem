@@ -10,17 +10,25 @@
   margin: 4rem 8rem;
 }
 
+.centeredSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .h1 {
   font-style: normal;
   font-weight: 1200;
   font-size: 2.5rem;
   padding: 1rem 4rem 1rem 4rem;
 }
-.h2 {
+.title {
   font-style: normal;
-  font-weight: 800;
-  font-size: 1.875rem;
+  font-weight: 900;
+  font-size: 7rem;
   padding: 1rem 4rem 1rem 4rem;
+  color: #000088;
 }
 
 @media (max-width: 1024px) {

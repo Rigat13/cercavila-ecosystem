@@ -63,6 +63,10 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
 
     return (
         <section>
+            <section className={styles.centeredSection}>
+                {isStore && <h1 className={styles.title}>{dictionary[lang]?.storeTitle}</h1>}
+                {!isStore && <h1 className={styles.h1}>{dictionary[lang]?.digitalProductsTitle}</h1>}
+            </section>
             {/* ------------------------------------------------- TYPE SELECTOR -------------------------------------------------*/}
             <div className={styles.filter}>
                 <div className={styles.filtersWrapper}>
@@ -115,8 +119,6 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
             {/* -----------------------------------------------------------------------------------------------------------------*/}
             {/* ------------------------------------------------ PRODUCTS RESULT ------------------------------------------------*/}
             {/* -----------------------------------------------------------------------------------------------------------------*/}
-            {isStore && <h2 className={styles.h2}>{dictionary[lang]?.storeTitle}</h2>}
-            {!isStore && <h2 className={styles.h2}>{dictionary[lang]?.digitalProductsTitle}</h2>}
             <div className={styles.list}>
 
                 {/* Render digitalProducts with no images */}
