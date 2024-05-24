@@ -38,6 +38,8 @@ function PageContent() {
         localStorage.setItem('username', username);
         console.log("Token and Username after login:", token, username);
         console.log(localStorage.getItem('token'), localStorage.getItem('username'));
+
+        window.location.reload();
     };
 
     const handleLogout = () => {
