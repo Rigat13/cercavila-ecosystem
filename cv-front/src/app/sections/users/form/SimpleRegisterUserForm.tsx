@@ -42,7 +42,7 @@ let emailErrorMessage = "";
 
 const lang = defaultLang;
 
-export function CreateUserForm({ lang }: { lang: string }) {
+export function SimpleRegisterUserForm({ lang }: { lang: string }) {
     const { formData, updateForm, resetForm } = useUserFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useUserForm();
     const [errors, setErrors] = useState(initialState);

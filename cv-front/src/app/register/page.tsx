@@ -9,7 +9,7 @@ import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import { Suspense } from "react";
 import { UserPageHolder } from "@/app/sections/users/user/UserPageHolder";
-import Login from "@/app/sections/login/Login";
+import {SimpleRegisterUserForm} from "@/app/sections/users/form/SimpleRegisterUserForm";
 
 export default function Page() {
     return (
@@ -73,7 +73,7 @@ function PageContent() {
                 {token && username ? (
                     <UserDetailsSection token={token} username={username} onLogout={handleLogout} lang={lang} />
                 ) : (
-                    <Login onLogin={handleLogin} />
+                    <SimpleRegisterUserForm lang={lang} />
                 )}
             </div>
         </UsersContextProvider>
