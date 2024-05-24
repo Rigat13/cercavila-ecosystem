@@ -54,7 +54,7 @@ function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
                 <div className={styles.menu}>
                     {loggedInUser ? (
                         <div className={styles.userCardContainer}>
-                            <UserCard userId={loggedInUser.id} user={loggedInUser} />
+                            <UserCard user={loggedInUser} lang={lang} />
                             <button className={styles.sidebarActionButton} onClick={handleLogout}>{dictionary[lang]?.logoutButton}</button>
                         </div>
                     ) : (

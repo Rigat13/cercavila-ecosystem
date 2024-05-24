@@ -6,6 +6,7 @@ import {URL_PREFIX} from "@/modules/users/infrastructure/configuration"; // Impo
 
 interface LoginProps {
     onLogin: (token: string, username: string) => void;
+    lang: string;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin, lang }) => {
