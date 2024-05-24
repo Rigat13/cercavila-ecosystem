@@ -7,7 +7,6 @@ import {base64ToBlob} from "@/app/sections/shared/Utilities";
 
 export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObtained }: { digitalProduct: DigitalProduct; lang: string; isBuyable: boolean, alreadyObtained: boolean }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
-
     const [buyable, setBuyable] = useState<boolean>(false);
 
     useEffect(() => {
