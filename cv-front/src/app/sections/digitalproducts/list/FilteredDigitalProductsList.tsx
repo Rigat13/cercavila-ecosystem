@@ -4,11 +4,15 @@ import { useDigitalProductsContext } from "@/app/sections/digitalproducts/Digita
 import styles from "./FilteredDigitalProductsList.module.scss";
 import { dictionary } from "@/content";
 import { digitalProductTypes } from "@/modules/digitalproducts/domain/digitalproducts-attributes/DigitalProductType";
+import { BuyConfirmationPopup } from "@/app/sections/digitalproducts/list/BuyConfirmationPopup";
 
 export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, isStore: boolean }) {
     const { digitalProductsNoImage, digitalProducts, users } = useDigitalProductsContext();
     const [loadedDigitalProducts, setLoadedDigitalProducts] = useState([]);
     const [isDigitalProductsImagesLoaded, setIsDigitalProductsImagesLoaded] = useState(false);
+    const [popupVisible, setPopupVisible] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         if (digitalProducts.length > 0) {
@@ -21,6 +25,7 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
             });
             setLoadedDigitalProducts(mappedLoadedDigitalProducts);
             setIsDigitalProductsImagesLoaded(true);
+            if(localStorage) setIsLoggedIn(localStorage.getItem('username') !== null);
         }
     }, [digitalProducts, digitalProductsNoImage]);
 
@@ -58,8 +63,16 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
 
     const userDigitalProducts = getCurrentUserDigitalProducts();
 
-    // Check if the user is logged in
-    const isLoggedIn = localStorage.getItem('username') !== null;
+    // Handle buy button click
+    const handleBuyButtonClick = (digitalProduct) => {
+        setSelectedProduct(digitalProduct);
+        setPopupVisible(true);
+    };
+
+    const handleClosePopup = () => {
+        setPopupVisible(false);
+        setSelectedProduct(null);
+    };
 
     return (
         <section>
@@ -129,8 +142,14 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
                             || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((digitalProduct) => (
-                        <DigitalProductCard key={digitalProduct.id} digitalProduct={digitalProduct} isBuyable={isStore && isLoggedIn} lang={lang}
-                                            alreadyObtained={userDigitalProducts.includes(digitalProduct.id)} isEditable={isLoggedIn} // Check if the product is obtained
+                        <DigitalProductCard
+                            key={digitalProduct.id}
+                            digitalProduct={digitalProduct}
+                            isBuyable={isStore && isLoggedIn}
+                            isEditable={!isStore && isLoggedIn}
+                            lang={lang}
+                            alreadyObtained={userDigitalProducts.includes(digitalProduct.id)} // Check if the product is obtained
+                            onBuyButtonClick={() => handleBuyButtonClick(digitalProduct)} // Handle buy button click
                         />
                     ))}
 
@@ -142,11 +161,25 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
                             || digitalProduct.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
                         (selectedTypes.length === 0 || selectedTypes.some(type => digitalProduct.type.localeCompare(type) === 0))
                     ).map((loadedDigitalProduct) => (
-                        <DigitalProductCard key={loadedDigitalProduct.id} digitalProduct={loadedDigitalProduct} isBuyable={isStore && isLoggedIn} lang={lang}
-                                            alreadyObtained={userDigitalProducts.includes(loadedDigitalProduct.id)} isEditable={isLoggedIn} // Check if the product is obtained
+                        <DigitalProductCard
+                            key={loadedDigitalProduct.id}
+                            digitalProduct={loadedDigitalProduct}
+                            isBuyable={isStore && isLoggedIn}
+                            isEditable={!isStore && isLoggedIn}
+                            lang={lang}
+                            alreadyObtained={userDigitalProducts.includes(loadedDigitalProduct.id)} // Check if the product is obtained
+                            onBuyButtonClick={() => handleBuyButtonClick(loadedDigitalProduct)} // Handle buy button click
                         />
                     ))}
             </div>
+            {popupVisible && selectedProduct && localStorage && (
+                <BuyConfirmationPopup
+                    digitalProduct={selectedProduct}
+                    onClose={handleClosePopup}
+                    lang={lang}
+                    userCoins={users.find(user => user.nickname === localStorage.getItem('username'))?.coins || 0}
+                />
+            )}
         </section>
     )
 }

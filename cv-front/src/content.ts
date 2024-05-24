@@ -254,6 +254,12 @@ interface DictionaryEntry {
     // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT STORE
 
     digitalProductStoreBuyButton: string;
+    digitalProductConfirmBuyTitle: string;
+    digitalProductConfirmBuyMessage: string;
+    digitalProductProductPrice: string;
+    digitalProductInsufficientCoins: string;
+    digitalProductCancelBuyButton: string;
+    digitalProductSuccessBuyMessage: string;
 
     // -------------------------------------------------------------------------------------------- USER
     userNickname: string;
@@ -629,6 +635,12 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT STORE
 
         digitalProductStoreBuyButton: "Comprar",
+        digitalProductConfirmBuyTitle: "Confirmar compra",
+        digitalProductConfirmBuyMessage: "Voleu comprar l'article {product}?",
+        digitalProductProductPrice: "El preu és de {price} monedes.",
+        digitalProductInsufficientCoins: "Us falten {remaining} monedes per poder comprar l'article. No passa res, aviat les podreu aconseguir!",
+        digitalProductCancelBuyButton: "Cancel·lar",
+        digitalProductSuccessBuyMessage: "Fet! Ja ho tens!",
 
         // -------------------------------------------------------------------------------------------- USER
         userNickname: "Nom d'usuari",
@@ -1003,6 +1015,12 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT STORE
 
         digitalProductStoreBuyButton: "Comprar",
+        digitalProductConfirmBuyTitle: "Confirmar compra",
+        digitalProductConfirmBuyMessage: "¿Quiere comprar el artículo {product}?",
+        digitalProductProductPrice: "El precio es de {price} monedas.",
+        digitalProductInsufficientCoins: "Le faltan {remaining} monedas para poder comprar el artículo. ¡No pasa nada, pronto las podrá conseguir!",
+        digitalProductCancelBuyButton: "Cancelar",
+        digitalProductSuccessBuyMessage: "¡Hecho! ¡Ya lo tienes!",
 
         // -------------------------------------------------------------------------------------------- USER
         userNickname: "Nombre de usuario",
@@ -1377,6 +1395,12 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // -------------------------------------------------------------------------------------------- DIGITAL PRODUCT STORE
 
         digitalProductStoreBuyButton: "Buy",
+        digitalProductConfirmBuyTitle: "Confirm purchase",
+        digitalProductConfirmBuyMessage: "Do you want to buy the item {product}?",
+        digitalProductProductPrice: "The price is {price} coins.",
+        digitalProductInsufficientCoins: "You need {remaining} coins to buy the item. Don't worry, you'll get them soon!",
+        digitalProductCancelBuyButton: "Cancel",
+        digitalProductSuccessBuyMessage: "Done! You have it!",
 
         // -------------------------------------------------------------------------------------------- USER
         userNickname: "Nickname",
