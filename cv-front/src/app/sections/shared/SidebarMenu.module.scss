@@ -1,11 +1,11 @@
-.sidebar{
+.sidebar {
   /* ---------------------------------------------------- LANGUAGE SELECTOR ---------------------------------------------------- */
   .languageSelector {
-  display: inline-block;
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-}
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
 
   .languageButton {
     background-color: blue;
@@ -45,7 +45,6 @@
   }
 
   /* ---------------------------------------------------- SIDE BAR ---------------------------------------------------- */
-
   .sidebarButton {
     position: fixed;
     top: 0;
@@ -101,7 +100,6 @@
   .menuContainer {
     height: calc(100vh); /* Adjust this as necessary to leave space for other elements */
     overflow-y: auto;
-    overflow-x: visible;
   }
 
   .menu {
@@ -112,6 +110,37 @@
   }
 
   .userCardContainer {
-    scale: 0.8;
+    margin: 1rem 0;
+    padding: 1rem;
+    overflow-x: auto; /* Enable horizontal overflow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .authButtonsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0;
+  }
+
+  .sidebarActionButton {
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    max-width: 250px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+  }
+
+  .sidebarActionButton:hover {
+    background-color: darkblue;
   }
 }

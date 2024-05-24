@@ -15,6 +15,15 @@ interface DictionaryEntry {
     successUpdate: string;
     errorUpdate: string;
 
+    // -------------------------------------------------------------------------------------------- LOGIN
+    loginTitle: string;
+    loginButton: string;
+    loginError: string;
+    registerTitle: string;
+    registerButton: string;
+    registerError: string;
+    logoutButton: string;
+
     // -------------------------------------------------------------------------------------------- CCGM
     ccgmAcronym: string;
     ccgmName: string;
@@ -379,6 +388,15 @@ export const dictionary: Record<string, DictionaryEntry> = {
         successUpdate: "Actualització feta!",
         errorUpdate: "Error en l'actualització :(",
 
+        // -------------------------------------------------------------------------------------------- LOGIN
+        loginTitle: "Inicia sessió",
+        loginButton: "Inicia sessió",
+        loginError: "Error en iniciar sessió",
+        registerTitle: "Registra't",
+        registerButton: "Registra't",
+        registerError: "Error en registrar-se",
+        logoutButton: "Tanca sessió",
+
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
@@ -741,6 +759,15 @@ export const dictionary: Record<string, DictionaryEntry> = {
         loading: "Cargando...",
         successUpdate: "Actualización hecha!",
         errorUpdate: "Error en la actualización :(",
+
+        // -------------------------------------------------------------------------------------------- LOGIN
+        loginTitle: "Inicia sesión",
+        loginButton: "Inicia sesión",
+        loginError: "Error en iniciar sesión",
+        registerTitle: "Regístrate",
+        registerButton: "Regístrate",
+        registerError: "Error en registrarse",
+        logoutButton: "Cierra sesión",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -1105,6 +1132,15 @@ export const dictionary: Record<string, DictionaryEntry> = {
         successUpdate: "Update done!",
         errorUpdate: "Update error :(",
 
+        // -------------------------------------------------------------------------------------------- LOGIN
+        loginTitle: "Log in",
+        loginButton: "Log in",
+        loginError: "Error logging in",
+        registerTitle: "Register",
+        registerButton: "Register",
+        registerError: "Error registering",
+        logoutButton: "Log out",
+        
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",

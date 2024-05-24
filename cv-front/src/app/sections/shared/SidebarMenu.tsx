@@ -3,9 +3,9 @@ import { defaultLang, dictionary } from "@/content";
 import styles from "./SidebarMenu.module.scss";
 import { useSearchParams } from "next/navigation";
 import UserCard from "@/app/sections/users/card/UserCard";
-import {UsersContextProvider, useUsersContext} from "@/app/sections/users/UsersContext";
+import { UsersContextProvider, useUsersContext } from "@/app/sections/users/UsersContext";
 import { User } from "@/modules/users/domain/User";
-import {createApiUserRepository} from "@/modules/users/infrastructure/ApiUserRepository";
+import { createApiUserRepository } from "@/modules/users/infrastructure/ApiUserRepository";
 
 interface SidebarMenuProps {
     isOpen: boolean;
@@ -39,19 +39,30 @@ function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
         }
     }, [users]);
 
+    const handleLogout = () => {
+        localStorage.removeItem('username');
+        setLoggedInUser(null);
+        // Redirect to home page or perform other actions after logout
+    };
+
     return (
         <div className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
             <button className={styles.sidebarButton} onClick={onClose}>
                 <img src="/icons/icon-burger-inverted.svg" alt="Side bar" />
             </button>
-
             <div className={styles.menuContainer}>
-                {loggedInUser && (
-                    <div className={styles.userCardContainer}>
-                        <UserCard userId={loggedInUser.id} user={loggedInUser} />
-                    </div>
-                )}
                 <div className={styles.menu}>
+                    {loggedInUser ? (
+                        <div className={styles.userCardContainer}>
+                            <UserCard userId={loggedInUser.id} user={loggedInUser} />
+                            <button className={styles.sidebarActionButton} onClick={handleLogout}>{dictionary[lang]?.logoutButton}</button>
+                        </div>
+                    ) : (
+                        <div className={styles.authButtonsContainer}>
+                            <a className={styles.sidebarActionButton} href="/login.html">{dictionary[lang]?.loginButton}</a>
+                            <a className={styles.sidebarActionButton} href="/register.html">{dictionary[lang]?.registerButton}</a>
+                        </div>
+                    )}
                     <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/" : `/?lang=${lang}`}>{dictionary[lang]?.cercavilaTitle}</a>
                     <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/ccgm.html" : `/ccgm.html?lang=${lang}`}>{dictionary[lang]?.ccgmAcronym}</a>
                     <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>{dictionary[lang]?.collesTitle}</a>
