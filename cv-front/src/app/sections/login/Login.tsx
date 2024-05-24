@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { LoginResponse } from './types';
+import styles from './Login.module.scss';
+import {dictionary} from "@/content"; // Import the SCSS module
 
 interface LoginProps {
     onLogin: (token: string, username: string) => void;
 }
 
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const Login: React.FC<LoginProps> = ({ onLogin, lang }) => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
@@ -33,27 +35,32 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
         } catch (error) {
             console.error("Login error:", error);
-            setError((error as Error).message);
+            setError(dictionary[lang]?.loginError);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>
-                    Username:
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Password:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </label>
-            </div>
-            {error && <div style={{ color: 'red' }}>{error}</div>}
-            <button type="submit">Login</button>
-        </form>
+        <div className={styles.loginContainer}>
+            <form onSubmit={handleSubmit} className={styles.formContainer}>
+                <h1 className={styles.loginTitle}>{dictionary[lang]?.loginTitle}</h1>
+                <div>
+                    <label>
+                        {dictionary[lang]?.userNickname}:
+                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        {dictionary[lang]?.userPassword}:
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </label>
+                </div>
+                {error && <div className={styles.errorMessage}>{error}</div>}
+                <div className={styles.buttonContainer}>
+                    <button type="submit">{dictionary[lang]?.loginButton}:</button>
+                </div>
+            </form>
+        </div>
     );
 };
 

@@ -73,7 +73,7 @@ function PageContent() {
                 {token && username ? (
                     <UserDetailsSection token={token} username={username} onLogout={handleLogout} lang={lang} />
                 ) : (
-                    <Login onLogin={handleLogin} lang={lang}/>
+                    <Login onLogin={handleLogin} />
                 )}
             </div>
         </UsersContextProvider>

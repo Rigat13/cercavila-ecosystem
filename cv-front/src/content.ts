@@ -389,7 +389,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorUpdate: "Error en l'actualització :(",
 
         // -------------------------------------------------------------------------------------------- LOGIN
-        loginTitle: "Inicia sessió",
+        loginTitle: "És hora d'entrar a Cercavila!",
         loginButton: "Inicia sessió",
         loginError: "Error en iniciar sessió",
         registerTitle: "Registra't",
@@ -761,7 +761,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorUpdate: "Error en la actualización :(",
 
         // -------------------------------------------------------------------------------------------- LOGIN
-        loginTitle: "Inicia sesión",
+        loginTitle: "Es hora de entrar en Cercavila!",
         loginButton: "Inicia sesión",
         loginError: "Error en iniciar sesión",
         registerTitle: "Regístrate",
@@ -1133,7 +1133,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorUpdate: "Update error :(",
 
         // -------------------------------------------------------------------------------------------- LOGIN
-        loginTitle: "Log in",
+        loginTitle: "It's time to enter Cercavila!",
         loginButton: "Log in",
         loginError: "Error logging in",
         registerTitle: "Register",
