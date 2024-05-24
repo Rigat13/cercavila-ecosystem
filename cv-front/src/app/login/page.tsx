@@ -3,13 +3,13 @@ import Image from "next/image";
 import { createApiUserRepository } from "@/modules/users/infrastructure/ApiUserRepository";
 import { UsersContextProvider, useUsersContext } from "@/app/sections/users/UsersContext";
 import { useSearchParams } from "next/navigation";
-import { defaultLang } from "@/content";
+import {defaultLang, dictionary} from "@/content";
 import { useEffect, useState } from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import { Suspense } from "react";
 import { UserPageHolder } from "@/app/sections/users/user/UserPageHolder";
-import Login from "@/app/sections/login/Login";
+import Login from "@/app/sections/users/login/Login";
 
 export default function Page() {
     return (
@@ -86,8 +86,7 @@ function UserDetailsSection({ token, username, onLogout, lang }) {
 
     return (
         <div>
-            <p>Success. Token: {token}</p>
-            <button onClick={onLogout}>Logout</button>
+            <h1>{dictionary[lang]?.cercavilaWelcome} {username}!</h1>
             {user && <UserPageHolder userId={user.id} lang={lang} />}
         </div>
     );

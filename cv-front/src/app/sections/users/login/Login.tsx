@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { LoginResponse } from './types';
 import styles from './Login.module.scss';
-import {dictionary} from "@/content"; // Import the SCSS module
+import {dictionary} from "@/content";
+import {URL_PREFIX} from "@/modules/users/infrastructure/configuration"; // Import the SCSS module
 
 interface LoginProps {
     onLogin: (token: string, username: string) => void;
@@ -16,7 +17,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, lang }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://81.25.126.202:8080/auth/api/login', {
+            const response = await fetch(URL_PREFIX + '/auth/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

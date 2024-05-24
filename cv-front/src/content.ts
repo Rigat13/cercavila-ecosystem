@@ -4,6 +4,7 @@ export const defaultLang = "ca";
 interface DictionaryEntry {
     // -------------------------------------------------------------------------------------------- GENERAL
     cercavilaTitle: string;
+    cercavilaWelcome: string;
     errorFound: string;
     unreachablePage: string;
     retry: string;
@@ -377,6 +378,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
     ca: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
+        cercavilaWelcome: "Heu arribat a Cercavila, ",
         errorFound: "Hi ha hagut un error",
         unreachablePage: "No s'esperava arribar aquí",
         retry: "Torna a intentar",
@@ -749,6 +751,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
     es: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
+        cercavilaWelcome: "Ha llegado a Cercavila, ",
         errorFound: "Ha habido un error",
         unreachablePage: "No se esperaba llegar aquí",
         retry: "Vuelve a intentar",
@@ -1121,6 +1124,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
     en: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
+        cercavilaWelcome: "You have arrived at Cercavila, ",
         errorFound: "An error has occurred",
         unreachablePage: "Unexpected path",
         retry: "Retry",
