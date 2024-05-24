@@ -177,7 +177,7 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
                     digitalProduct={selectedProduct}
                     onClose={handleClosePopup}
                     lang={lang}
-                    userCoins={users.find(user => user.nickname === localStorage.getItem('username'))?.coins || 0}
+                    user={users.find(user => user.nickname === localStorage.getItem('username'))}
                 />
             )}
         </section>

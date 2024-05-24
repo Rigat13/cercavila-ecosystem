@@ -5,7 +5,7 @@ import { defaultLang, dictionary } from "@/content";
 import React, {useEffect, useState} from "react";
 import {base64ToBlob} from "@/app/sections/shared/Utilities";
 
-export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObtained, isEditable, onBuyButtonClick  }: { digitalProduct: DigitalProduct; lang: string; isBuyable: boolean, alreadyObtained: boolean, isEditable: boolean }) {
+export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObtained, isEditable, onBuyButtonClick  }: { digitalProduct: DigitalProduct; lang: string; isBuyable: boolean, alreadyObtained: boolean, isEditable: boolean, onBuyButtonClick: () => void }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [buyable, setBuyable] = useState<boolean>(false);
     const [editable, setEditable] = useState<boolean>(isEditable);

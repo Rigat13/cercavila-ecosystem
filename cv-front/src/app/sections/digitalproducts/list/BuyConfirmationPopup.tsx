@@ -3,12 +3,17 @@ import styles from './BuyConfirmationPopup.module.scss';
 import { dictionary } from "@/content";
 import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
 import {base64ToBlob} from "@/app/sections/shared/Utilities";
+import { useUsersContext } from "@/app/sections/users/UsersContext";
+import { useUpdateUserForm, FormStatus } from "@/app/sections/users/update-form/useUpdateUserForm";
 
-export function BuyConfirmationPopup({ digitalProduct, onClose, lang, userCoins }) {
-    const canBuy = userCoins >= digitalProduct.price;
-    const remainingCoins = digitalProduct.price - userCoins;
+export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
+    const canBuy = user.coins >= digitalProduct.price;
+    const remainingCoins = digitalProduct.price - user.coins;
 
     const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const { submitForm, formStatus } = useUpdateUserForm();
+    const { digitalProducts } = useUsersContext();
+
     useEffect(() => {
         if (digitalProduct.image) {
             const blob = base64ToBlob(digitalProduct.image);
@@ -83,7 +88,31 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, userCoins 
         }
     };
 
+    const handleBuy = () => {
+        const updatedCoins = user.coins - digitalProduct.price;
+        const updatedDigitalProducts = [...user.digitalProducts, digitalProduct.id];
 
+        submitForm({
+            id: user.id,
+            nickname: user.nickname,
+            name: user.name,
+            firstSurname: user.firstSurname,
+            secondSurname: user.secondSurname,
+            email: user.email,
+            password: user.password,
+            roles: user.roles.toString().split(','),
+            coins: updatedCoins,
+            digitalProducts: updatedDigitalProducts,
+            activeUserImage: user.activeUserImage,
+            activeUserImageFrame: user.activeUserImageFrame,
+            activeUserBackgroundImage: user.activeUserBackgroundImage,
+            activeUserTitle: user.activeUserTitle,
+            activeUserBackgroundColour: user.activeUserBackgroundColour,
+            activePins: user.activePins,
+        });
+
+        onClose();
+    };
 
     return (
         <div className={styles.popupOverlay}>
@@ -91,7 +120,7 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, userCoins 
                 {renderProductDetails()}
                 <button className={styles.closePopupButton} type="button" onClick={onClose}>×</button>
                 <div className={styles.coinsCount}>
-                    <span>{userCoins}</span>
+                    <span>{user.coins}</span>
                     <img className={styles.iconCountImg} src="/icons/icon-coin.svg" alt="C" />
                 </div>
                 <h2 className={styles.confirmBuyTitle}>{dictionary[lang]?.digitalProductConfirmBuyTitle}</h2>
@@ -100,7 +129,7 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, userCoins 
 
                 <div className={styles.buttonsContainer}>
                     {canBuy ? (
-                        <button className={styles.confirmButton} onClick={() => { /* Add buy logic here */ }}>
+                        <button className={styles.confirmButton} onClick={handleBuy}>
                             {digitalProduct.price}
                             <img className={styles.iconCountImgGeneral} src="/icons/icon-coin.svg" alt="C" />
                             {dictionary[lang]?.digitalProductStoreBuyButton}
