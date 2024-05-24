@@ -42,7 +42,12 @@ let emailErrorMessage = "";
 
 const lang = defaultLang;
 
-export function SimpleRegisterUserForm({ lang }: { lang: string }) {
+interface RegisterProps {
+    lang: string;
+    onRegisterSuccess: (token: string, username: string) => void;
+}
+
+export function SimpleRegisterUserForm({ lang, onRegisterSuccess }: RegisterProps) {
     const { formData, updateForm, resetForm } = useUserFormData(initialState);
     const { formStatus, submitForm, resetFormStatus } = useUserForm();
     const [errors, setErrors] = useState(initialState);
@@ -117,6 +122,13 @@ export function SimpleRegisterUserForm({ lang }: { lang: string }) {
             activePins: []
         });
     };
+
+    useEffect(() => {
+        if (formStatus === FormStatus.Success) {
+            onRegisterSuccess(localStorage.getItem("token"), formData.nickname);
+            resetForm();
+        }
+    }, [formStatus]);
 
     switch (formStatus) {
         case FormStatus.Loading:

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { createApiUserRepository } from "@/modules/users/infrastructure/ApiUserRepository";
 import { UsersContextProvider, useUsersContext } from "@/app/sections/users/UsersContext";
 import { useSearchParams } from "next/navigation";
-import { defaultLang } from "@/content";
+import {defaultLang, dictionary} from "@/content";
 import { useEffect, useState } from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
@@ -49,6 +49,14 @@ function PageContent() {
         localStorage.removeItem('username');
     };
 
+    const handleRegisterSuccess = (token: string, username: string) => {
+        setToken(token);
+        setUsername(username);
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
+        window.location.reload();
+    };
+
     useEffect(() => {
         const storedToken = localStorage.getItem('token');
         const storedUsername = localStorage.getItem('username');
@@ -73,7 +81,7 @@ function PageContent() {
                 {token && username ? (
                     <UserDetailsSection token={token} username={username} onLogout={handleLogout} lang={lang} />
                 ) : (
-                    <SimpleRegisterUserForm lang={lang} />
+                    <SimpleRegisterUserForm lang={lang} onRegisterSuccess={handleRegisterSuccess} />
                 )}
             </div>
         </UsersContextProvider>
@@ -86,8 +94,7 @@ function UserDetailsSection({ token, username, onLogout, lang }) {
 
     return (
         <div>
-            <p>Success. Token: {token}</p>
-            <button onClick={onLogout}>Logout</button>
+            <h1>{dictionary[lang]?.cercavilaWelcome} {username}!</h1>
             {user && <UserPageHolder userId={user.id} lang={lang} />}
         </div>
     );
