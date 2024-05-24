@@ -102,11 +102,12 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable }: { digita
         <div className={styles.digitalProductCard}>
             <div className={`${styles.digitalProductCard__info}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={hoverStyle} >
                 {renderProductDetails()}
-                <a href={`digitalproducts/update.html?digitalProductId=${digitalProduct.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                {!buyable && (<a href={`digitalproducts/update.html?digitalProductId=${digitalProduct.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
                     <button className={styles.updateButton}>
                         <img src="/icons/icon-edit.svg" alt="Editar" />
                     </button>
                 </a>
+                )}
                 <p className={styles.digitalProductCard__type}>{dictionary[lang]?.[digitalProduct.type]}</p>
                 <h3 className={styles.digitalProductCard__name}>{digitalProduct.name}</h3>
                 <p className={styles.digitalProductCard__description}>{digitalProduct.description}</p>
