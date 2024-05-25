@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .popupContent {
@@ -104,16 +104,7 @@
   }
 }
 
-@keyframes fadeInFromLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
+
 
 .superCongratulationsTitle {
   font-size: 5rem;
@@ -122,9 +113,14 @@
   margin-top: 5rem;
   line-height: 1;
   opacity: 0;
-  animation: fadeInFromLeft 0.5s ease-out forwards;
+  animation: fadeInFromLeft 0.8s ease-out forwards; -webkit-animation: fadeInFromLeft 0.8s ease-out forwards; -moz-animation: fadeInFromLeft 0.8s ease-out forwards; -o-animation: fadeInFromLeft 0.8s ease-out forwards; -ms-animation: fadeInFromLeft 0.8s ease-out forwards;
 }
 
+@keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
+@-moz-keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
+@-webkit-keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
+@-o-keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
+@-ms-keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
 
 .insufficientCoins {
   color: rgba(190, 38, 38, 0.55);

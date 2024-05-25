@@ -5,6 +5,7 @@ import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.sc
 import { base64ToBlob } from "@/app/sections/shared/Utilities";
 import { useUpdateUserForm, FormStatus } from "@/app/sections/digitalproducts/list/useUpdateUserForm"; // Updated path
 import { useDigitalProductsContext } from "@/app/sections/digitalproducts/DigitalProductsContext";
+import confetti from 'canvas-confetti';
 
 export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
     const canBuy = user.coins >= digitalProduct.price;
@@ -21,6 +22,17 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
             setImageUrl(url);
         }
     }, [digitalProduct.image]);
+
+    useEffect(() => {
+        if (formStatus === FormStatus.Success) {
+            confetti({
+                zIndex: 200,
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    }, [formStatus]);
 
     const renderProductDetails = () => {
         if (!imageUrl && digitalProduct.type !== 'digitalProductTypeUserBackgroundColour' && digitalProduct.type !== 'digitalProductTypeUserTitle') return null;
