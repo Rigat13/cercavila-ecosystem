@@ -121,7 +121,10 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
                 {buyable && !alreadyObtained && (
                     <button type="button" onClick={onBuyButtonClick} className={styles.selectedElementCombined} >
                         <span className={styles.buyText}> {dictionary[lang]?.digitalProductStoreBuyButton} </span>
-                        <span className={styles.priceText}> {digitalProduct.price + " " + dictionary[lang]?.coinAcronym} </span>
+                        <span className={styles.priceText}>
+                            {digitalProduct.price}
+                            <img className={styles.iconCountImgGeneral} src="/icons/icon-coin.svg" alt="C" />
+                        </span>
                     </button>
                 )}
             </div>

@@ -105,17 +105,12 @@
     color: #ffffff;
     align-self: center;
     margin: 0.6rem;
-    background-color: #f32336;
     border-radius: 1rem;
 
     position: absolute;
     bottom: 0.5rem;
     display: flex;
     align-items: center;
-
-    &:hover {
-      background-color: #f32336; // Darker shade on hover
-    }
   }
 
 
@@ -137,7 +132,7 @@
     width: fit-content;
     background: #ffffff;
     color: #000000;
-    padding: 0.33rem 1rem;
+    padding: 0.1rem 1rem;
     border-radius: 0 1rem 1rem 0;
     display: flex;
     align-items: center;
@@ -146,5 +141,13 @@
     &:hover {
       transform: scale(1.2);
     }
+  }
+
+  .iconCountImgGeneral {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    padding: 0.2rem;
+    margin-left: 0.4rem;
   }
 }
