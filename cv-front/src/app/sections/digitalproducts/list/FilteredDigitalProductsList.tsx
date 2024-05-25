@@ -88,7 +88,7 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
             <div className={styles.filter}>
 
                 <div className={styles.filtersWrapper}>
-                    {user &&
+                    {isStore && user &&
                         <div className={styles.coinsCount}>
                             <span>{user.coins}</span>
                             <img className={styles.iconCountImg} src="/icons/icon-coin.svg" alt="C" />

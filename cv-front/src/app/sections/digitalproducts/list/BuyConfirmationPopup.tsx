@@ -169,7 +169,7 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
                             <img className={styles.iconCountImgGeneral} src="/icons/icon-coin.svg" alt="C" />
                             {dictionary[lang]?.digitalProductStoreBuyButton}
                         </button>
-                    ) : !canBuy ? (
+                    ) : !canBuy && buyOrCancelButtonsVisible ? (
                         <p className={styles.insufficientCoins}>
                             {dictionary[lang]?.digitalProductInsufficientCoins.replace('{remaining}', remainingCoins + "")}
                         </p>
