@@ -44,7 +44,7 @@
     text-align: center; /* Center the text */
   }
 
-  &__type {
+  &__type, &__eventExclusiveTag {
     margin-top: 1em;
 
     z-index: 2;
@@ -56,6 +56,13 @@
     text-transform: uppercase;
   }
 
+  &__eventExclusiveTag {
+    margin-top: 3.5em;
+    margin-bottom: -0.5rem;
+    font-weight: 800;
+    background: #9d2239;
+    color: #ffc667;
+  }
 
 
   /* ---------------------------------------------------- Buttons ---------------------------------------------------- */

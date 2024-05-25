@@ -116,6 +116,7 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
                     </button>
                 </a>
                 )}
+                {eventExclusive && (<p className={styles.digitalProductCard__eventExclusiveTag}>{dictionary[lang]?.digitalProductEventExclusive}</p>)}
                 <p className={styles.digitalProductCard__type}>{dictionary[lang]?.[digitalProduct.type]}</p>
                 <h3 className={styles.digitalProductCard__name}>{digitalProduct.name}</h3>
                 <p className={styles.digitalProductCard__description}>{digitalProduct.description}</p>

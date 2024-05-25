@@ -206,6 +206,8 @@ interface DictionaryEntry {
     digitalProductPrice: string;
     digitalProductType: string;
 
+    digitalProductEventExclusive: string;
+
     // --- DIGITAL PRODUCT TYPE
     selectDigitalProductType: string;
     digitalProductTypeUserImage: string;
@@ -587,6 +589,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         digitalProductPrice: "Preu",
         digitalProductType: "Tipus",
 
+        digitalProductEventExclusive: "Exclusiu d'esdeveniment",
+
         // --- DIGITAL PRODUCT TYPE
         selectDigitalProductType: "-- Tipus de producte digital --",
         digitalProductTypeUserImage: "Imatge d'usuari",
@@ -967,6 +971,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         digitalProductPrice: "Precio",
         digitalProductType: "Tipo",
 
+        digitalProductEventExclusive: "Exclusivo de evento",
+
         // --- DIGITAL PRODUCT TYPE
         selectDigitalProductType: "-- Tipo de producto digital --",
         digitalProductTypeUserImage: "Imagen de usuario",
@@ -1346,6 +1352,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         digitalProductSecondaryColour: "Secondary colour",
         digitalProductPrice: "Price",
         digitalProductType: "Type",
+
+        digitalProductEventExclusive: "Event exclusive",
 
         // --- DIGITAL PRODUCT TYPE
         selectDigitalProductType: "-- Digital product type --",
