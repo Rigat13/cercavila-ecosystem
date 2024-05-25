@@ -23,6 +23,7 @@
 }
 
 .closePopupButton {
+  z-index: 100;
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -103,13 +104,27 @@
   }
 }
 
+@keyframes fadeInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .superCongratulationsTitle {
   font-size: 5rem;
   font-weight: 1000;
   font-style: italic;
-  margin-top: 4rem;
+  margin-top: 5rem;
   line-height: 1;
+  opacity: 0;
+  animation: fadeInFromLeft 0.5s ease-out forwards;
 }
+
 
 .insufficientCoins {
   color: rgba(190, 38, 38, 0.55);
