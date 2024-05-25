@@ -9,6 +9,7 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [buyable, setBuyable] = useState<boolean>(false);
     const [editable, setEditable] = useState<boolean>(isEditable);
+    const eventExclusive = digitalProduct.price === 0;
 
     useEffect(() => {
         setBuyable(isBuyable);
@@ -118,7 +119,7 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
                 <p className={styles.digitalProductCard__type}>{dictionary[lang]?.[digitalProduct.type]}</p>
                 <h3 className={styles.digitalProductCard__name}>{digitalProduct.name}</h3>
                 <p className={styles.digitalProductCard__description}>{digitalProduct.description}</p>
-                {buyable && !alreadyObtained && (
+                {!eventExclusive && buyable && !alreadyObtained && (
                     <button type="button" onClick={onBuyButtonClick} className={styles.selectedElementCombined} >
                         <span className={styles.buyText}> {dictionary[lang]?.digitalProductStoreBuyButton} </span>
                         <span className={styles.priceText}>
