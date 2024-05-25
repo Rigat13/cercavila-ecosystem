@@ -13,7 +13,7 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const { submitForm, formStatus } = useUpdateUserForm();
     const { digitalProducts } = useDigitalProductsContext();
-
+    const [buyOrCancelButtonsVisible, setBuyOrCancelButtonsVisible] = useState(true);
     useEffect(() => {
         if (digitalProduct.image) {
             const blob = base64ToBlob(digitalProduct.image);
@@ -108,6 +108,7 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
         const updatedCoins = user.coins - digitalProduct.price;
         const updatedDigitalProducts = user.digitalProducts ? user.digitalProducts.split(',') : [];
         updatedDigitalProducts.push(digitalProduct.id);
+        setBuyOrCancelButtonsVisible(false);
 
         await submitForm({
             id: user.id,
@@ -128,35 +129,40 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
             activePins: user.activePins,
         });
 
-        //onClose();
     };
+
+    const handleClose = () => {
+        setBuyOrCancelButtonsVisible(true);
+        onClose();
+    }
 
     return (
         <div className={styles.popupOverlay}>
             <div className={styles.popupContent}>
                 {renderProductDetails()}
-                <button className={styles.closePopupButton} type="button" onClick={onClose}>×</button>
+                <button className={styles.closePopupButton} type="button" onClick={handleClose}>×</button>
                 <div className={styles.coinsCount}>
                     <span>{user.coins}</span>
                     <img className={styles.iconCountImg} src="/icons/icon-coin.svg" alt="C" />
                 </div>
-                <h2 className={styles.confirmBuyTitle}>{dictionary[lang]?.digitalProductConfirmBuyTitle}</h2>
-                <p>{dictionary[lang]?.digitalProductConfirmBuyMessage.replace('{product}', digitalProduct.name)}</p>
-                <p>{dictionary[lang]?.digitalProductProductPrice.replace('{price}', digitalProduct.price)}</p>
+                {formStatus != FormStatus.Success  && <h2 className={styles.confirmBuyTitle}>{dictionary[lang]?.digitalProductConfirmBuyTitle}</h2>}
+                {formStatus != FormStatus.Success  && <p>{dictionary[lang]?.digitalProductConfirmBuyMessage.replace('{product}', digitalProduct.name)}</p>}
+                {formStatus != FormStatus.Success  && <p>{dictionary[lang]?.digitalProductProductPrice.replace('{price}', digitalProduct.price)}</p>}
+                {formStatus === FormStatus.Success  && <p className={styles.superCongratulationsTitle}>{dictionary[lang]?.digitalProductSuccessBuyMessage}</p>}
 
                 <div className={styles.buttonsContainer}>
-                    {canBuy ? (
+                    {canBuy && buyOrCancelButtonsVisible ? (
                         <button className={styles.confirmButton} onClick={handleBuy}>
                             {digitalProduct.price}
                             <img className={styles.iconCountImgGeneral} src="/icons/icon-coin.svg" alt="C" />
                             {dictionary[lang]?.digitalProductStoreBuyButton}
                         </button>
-                    ) : (
+                    ) : !canBuy ? (
                         <p className={styles.insufficientCoins}>
                             {dictionary[lang]?.digitalProductInsufficientCoins.replace('{remaining}', remainingCoins + "")}
                         </p>
-                    )}
-                    <button className={styles.cancelButton} onClick={onClose}>{dictionary[lang]?.digitalProductCancelBuyButton}</button>
+                    ) : null}
+                    {buyOrCancelButtonsVisible && <button className={styles.cancelButton} onClick={onClose}>{dictionary[lang]?.digitalProductCancelBuyButton}</button>}
                     {formStatus === FormStatus.Loading && <p className={styles.updateUserStatusLoading}>{dictionary[lang]?.loading}</p>}
                     {formStatus === FormStatus.Success && <p className={styles.updateUserStatusSuccess}>{dictionary[lang]?.successUpdate}</p>}
                     {formStatus === FormStatus.Error && <p className={styles.updateUserStatusError}>{dictionary[lang]?.errorUpdate}</p>}
