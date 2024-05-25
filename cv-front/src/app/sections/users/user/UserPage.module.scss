@@ -192,7 +192,7 @@
     top: -0rem;
   }
 
-  &__image, &__imageFrame, &__backgroundImage, &__pin, &__title {
+  &__image, &__imageFrame, &__backgroundImage, &__pin, &__title, &__magnetPin {
     width: 17rem;
     height: 17rem;
     background: transparent;
@@ -205,7 +205,9 @@
     box-shadow: 0rem 1rem 2rem rgba(0, 0, 0, 0.4);
   }
 
-  &__image img, &__imageFrame img, &__backgroundImage img, &__pin img {
+
+
+  &__image img, &__imageFrame img, &__backgroundImage img, &__pin img, &__magnetPin img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -221,6 +223,8 @@
   @-webkit-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
   @-o-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
   @-ms-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+
 
   &__image:hover {
     transform: scale(1.1);
@@ -681,4 +685,39 @@
   @-webkit-keyframes fadeOutDelayed { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
   @-o-keyframes fadeOutDelayed { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
   @-ms-keyframes fadeOutDelayed { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
+
+
+  &__pinContainer {
+    position: relative; /* Ensure the shine effect is positioned relative to this container */
+    display: inline-block; /* Keep inline-block for correct spacing and positioning */
+  }
+
+  &__goldenShine {
+    position: absolute;
+    top: 0;
+    left: -250%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+                    120deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 188, 118, 0.5) 30%,
+                    rgba(215, 255, 134, 0.5) 50%,
+                    rgba(255, 228, 204, 0.76) 80%,
+                    rgba(255, 255, 255, 0) 100%
+    );
+    mix-blend-mode: overlay;
+    transform: skewX(-30deg);
+    transition: none;
+    pointer-events: none; /* Ensure clicks go through to the image */
+    z-index: 1000; /* Ensure it's above the image */
+
+    animation: shine 1.5s linear infinite; -webkit-animation: shine 1.5s linear infinite; -moz-animation: shine 1.5s linear infinite; -o-animation: shine 1.5s linear infinite; -ms-animation: shine 1.5s linear infinite;
+  }
+
+  @keyframes shine { 0% {left: -300%;} 100% {left: 150%;} }
+  @-moz-keyframes shine { 0% {left: -300%;} 100% {left: 150%;} }
+  @-webkit-keyframes shine { 0% {left: -300%;} 100% {left: 150%;} }
+  @-o-keyframes shine { 0% {left: -300%;} 100% {left: 150%;} }
+  @-ms-keyframes shine { 0% {left: -300%;} 100% {left: 150%;} }
 }

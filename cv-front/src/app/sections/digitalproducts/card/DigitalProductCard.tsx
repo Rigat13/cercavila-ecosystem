@@ -73,7 +73,6 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
                     <div className={detailsStyles.digitalProductDetails__title}
                         style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
                         {digitalProduct.name}
-                        <div className={detailsStyles.digitalProductDetails__shine}></div>
                     </div>
                 </a>;
             case 'digitalProductTypeUserBackgroundColour':
@@ -84,12 +83,14 @@ export function DigitalProductCard({ digitalProduct, lang, isBuyable, alreadyObt
                     </div>
                 </a>;
             case 'digitalProductTypeSticker': case 'digitalProductTypePin':
+                let isSpecialEditionMagnet = digitalProduct.name.includes('-E-');
                 return <a target="_blank" className={detailsStyles.digitalProductDetails__aSticker}>
                     <div className={detailsStyles.digitalProductDetails__sticker}>
                         <img
                             src={imageUrl}
                             alt={`Imatge de ${digitalProduct.name}`}
                         />
+                        {isSpecialEditionMagnet && <div className={detailsStyles.digitalProductDetails__goldenShine}></div>}
                     </div>
                 </a>;
             case 'digitalProductTypePin':

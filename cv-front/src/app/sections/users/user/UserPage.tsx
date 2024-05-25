@@ -341,10 +341,13 @@ export function UserPage({ user, lang }: { user: User; lang: string }) {
                                 {visibleActivePins.map((pin, index) => {
                                     const digitalProduct = digitalProducts.find((dp) => dp.id === pin);
                                     if (!digitalProduct) return null;
+                                    let isSpecialEditionMagnet = digitalProduct.name.includes('-E-');
                                     return (
-                                        <div key={pin}>
+                                        <div key={pin} className={styles.userPage__pinContainer}>
                                             {deletingPins && <button className={styles.userPage__deletePinButton} type="button" onClick={() => handleDeleteActivePin(pin)}>×</button>}
-                                            <img className={styles.userPage__pin} src={imagePinUrls[index]} />
+                                            <img className={styles.userPage__pin} src={imagePinUrls[index]}
+                                            />
+                                            {isSpecialEditionMagnet && <div className={styles.userPage__goldenShine}></div>}
                                         </div>
                                     );
                                 })}
