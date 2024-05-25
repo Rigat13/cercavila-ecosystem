@@ -192,7 +192,7 @@
     top: -0rem;
   }
 
-  &__image, &__imageFrame, &__backgroundImage, &__pin, &__title, &__magnetPin {
+  &__image, &__imageFrame, &__backgroundImage, &__pin, &__title {
     width: 17rem;
     height: 17rem;
     background: transparent;
@@ -207,7 +207,7 @@
 
 
 
-  &__image img, &__imageFrame img, &__backgroundImage img, &__pin img, &__magnetPin img {
+  &__image img, &__imageFrame img, &__backgroundImage img, &__pin img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -343,8 +343,8 @@
 
   &__deletePinButton {
     position: absolute;
-    margin-left: 4.5rem;
-    margin-top: 4.5rem;
+    margin-left: 3rem;
+    margin-top: 3rem;
     z-index: 3;
     cursor: pointer;
     font-size: 2rem;
@@ -406,13 +406,13 @@
   }
 
   @media (max-width: 768px) {
-    &__pin, &__activePinsEdit {
+     &__activePinsEdit {
       width: 8rem;
       height: 8rem;
     }
     &__deletePinButton {
-      margin-left: 3.5rem;
-      margin-top: 3.5rem;
+      margin-left: 2rem;
+      margin-top: 2rem;
     }
   }
 
@@ -687,9 +687,50 @@
   @-ms-keyframes fadeOutDelayed { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
 
 
+  &__pinContainerHolder {
+    z-index: 1;
+    position: relative;
+    margin: 0.8rem 1rem;
+  }
+
   &__pinContainer {
-    position: relative; /* Ensure the shine effect is positioned relative to this container */
-    display: inline-block; /* Keep inline-block for correct spacing and positioning */
+    width: 9rem;
+    height: 9rem;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+
+
+    border-radius: 0rem;
+    box-shadow: none;
+    filter: drop-shadow(0rem 0rem 0.6rem rgba(0, 0, 0, 0.6));
+    transition: transform 0.3s ease;
+  }
+
+  &__pinContainer:hover {
+    transform: scale(1.2);
+    animation: danceAnimation 1s infinite alternate;
+  }
+
+  &__pinContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.3s ease;
+    background: transparent;
+
+    animation: fadeIn 1s; -webkit-animation: fadeIn 1s; -moz-animation: fadeIn 1s; -o-animation: fadeIn 1s; -ms-animation: fadeIn 1s;
+  }
+
+  @media (max-width: 768px) {
+    &__pinContainer {
+      width: 7rem;
+      height: 7rem;
+    }
   }
 
   &__goldenShine {
