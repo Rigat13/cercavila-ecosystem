@@ -47,38 +47,6 @@
   }
 }
 
-.coinsCount {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin: 1rem 0;
-  border-radius: 3rem;
-  background: white;
-  color: #111111;
-  padding: 0.5rem 1rem;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-}
-
-.iconCountImg {
-  width: 2rem;
-  height: 2rem;
-  margin-left: 0.6rem;
-  border-radius: 50%;
-  padding: 0.2rem;
-}
-
-.iconCountImgGeneral {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  padding: 0.2rem;
-  margin-left: 0.4rem;
-}
-
 .buttonsContainer {
   display: flex;
   justify-content: center;
@@ -146,6 +114,39 @@
 .insufficientCoins {
   color: rgba(190, 38, 38, 0.55);
   font-weight: bold;
+}
+
+
+.coinsCount {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 1rem 0;
+  border-radius: 3rem;
+  background: white;
+  color: #111111;
+  padding: 0.5rem 1rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.iconCountImg {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 0.6rem;
+  border-radius: 50%;
+  padding: 0.2rem;
+}
+
+.iconCountImgGeneral {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  padding: 0.2rem;
+  margin-left: 0.4rem;
 }
 
 

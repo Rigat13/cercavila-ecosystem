@@ -35,6 +35,9 @@
   .list {
     margin: 4rem 4rem;
   }
+  .title {
+    font-size: 5rem;
+  }
 }
 
 /* -------------------------------------------------------------------------------------------------------- */
@@ -174,5 +177,45 @@
         background-color: #f32336; // Darker shade on hover
       }
     }
+  }
+}
+
+
+.coinsCount {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 2rem 0;
+  border-radius: 3rem;
+  background: white;
+  color: #111111;
+  padding: 0.5rem 1rem;
+  position: relative;
+  top: 0.7rem;
+  left: -1.4rem;
+  border: 0.3rem solid #000088;
+}
+
+.iconCountImg {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 0.6rem;
+  border-radius: 50%;
+  padding: 0.2rem;
+}
+
+.iconCountImgGeneral {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+@media (max-width: 1024px) {
+  .coinsCount {
+    top: 0rem;
+    left: 0rem;
+    margin: 0rem 0;
   }
 }

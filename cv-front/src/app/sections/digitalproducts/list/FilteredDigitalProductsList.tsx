@@ -13,6 +13,7 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         if (digitalProducts.length > 0) {
@@ -25,7 +26,10 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
             });
             setLoadedDigitalProducts(mappedLoadedDigitalProducts);
             setIsDigitalProductsImagesLoaded(true);
-            if(localStorage) setIsLoggedIn(localStorage.getItem('username') !== null);
+            if(localStorage) {
+                setIsLoggedIn(localStorage.getItem('username') !== null);
+                setUser(users.find(user => user.nickname === localStorage.getItem('username')));
+            }
         }
     }, [digitalProducts, digitalProductsNoImage]);
 
@@ -82,7 +86,14 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
             </section>
             {/* ------------------------------------------------- TYPE SELECTOR -------------------------------------------------*/}
             <div className={styles.filter}>
+
                 <div className={styles.filtersWrapper}>
+                    {user &&
+                        <div className={styles.coinsCount}>
+                            <span>{user.coins}</span>
+                            <img className={styles.iconCountImg} src="/icons/icon-coin.svg" alt="C" />
+                        </div>
+                    }
                     <div className={styles.filterSection}>
                         <label className={styles.filterTitle} htmlFor="name">{dictionary[lang]?.collaFilterByName}</label>
                         <div className={styles.filterInnerSection}>
