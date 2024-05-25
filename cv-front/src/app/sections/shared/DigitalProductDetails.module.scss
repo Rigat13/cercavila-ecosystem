@@ -111,31 +111,20 @@
 
   &__sticker:hover, &__pin:hover {
     transform: scale(1.2);
-    animation: danceAnimation 1s infinite alternate;
+    animation: danceAnimation 1s infinite alternate both; -webkit-animation: danceAnimation 1s infinite alternate both; -moz-animation: danceAnimation 1s infinite alternate both; -o-animation: danceAnimation 1s infinite alternate both; -ms-animation: danceAnimation 1s infinite alternate both;
   }
 
   @keyframes danceAnimation {
-    0% {
-      transform-origin: bottom;
-      transform: translateY(0rem) rotate(0deg);
-    }
-    25% {
-      transform-origin: bottom;
-      transform: translateY(-1.4rem) rotate(-5deg);
-    }
-    50% {
-      transform-origin: bottom;
-      transform: translateY(0rem) rotate(0deg);
-    }
-    75% {
-      transform-origin: bottom;
-      transform: translateY(-1.4rem) rotate(5deg);
-    }
-    100% {
-      transform-origin: bottom;
-      transform: translateY(0rem) rotate(0deg);
-    }
+    0% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+    25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);}
+    50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
+    75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);}
+    100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);}
   }
+  @-moz-keyframes danceAnimation { 0% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} 25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);} 50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} 75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);} 100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} }
+  @-webkit-keyframes danceAnimation { 0% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} 25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);} 50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} 75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);} 100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} }
+  @-o-keyframes danceAnimation { 0% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} 25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);} 50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} 75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);} 100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} }
+  @-ms-keyframes danceAnimation { 0% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} 25% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(-5deg);} 50% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} 75% {transform-origin: bottom;transform: translateY(-1.4rem) rotate(5deg);} 100% {transform-origin: bottom;transform: translateY(0rem) rotate(0deg);} }
 
   /* ..................................................................................................... BACKGROUND COLOUR */
 
