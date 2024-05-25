@@ -7,7 +7,7 @@ export function createApiDigitalProductRepository(): DigitalProductRepository {
     return {
         storeDigitalProduct, getDigitalProductById, getDigitalProductByName, getAllDigitalProductsByName,
         getAllDigitalProductsByPrice, getAllDigitalProductsByType, getAllDigitalProducts, updateDigitalProduct, deleteDigitalProduct, getAllDigitalProductsNoImage,
-        getAllUsers
+        getAllUsers, updateUser
     };
 }
 
@@ -143,4 +143,36 @@ async function getAllUsers() {
     } catch (error) {
         throw new Error("No s'ha pogut obtenir totes els usuaris. \nMotiu: " + error);
     }
+}
+
+async function updateUser(user: User) {
+    try {
+        const formData = new FormData();
+        formData.append("id", user.id);
+        formData.append("nickname", user.nickname);
+        formData.append("name", user.name);
+        formData.append("firstSurname", user.firstSurname);
+        formData.append("secondSurname", user.secondSurname);
+        formData.append("email", user.email);
+        formData.append("password", user.password);
+        formData.append("roles", user.roles.join(","));
+        formData.append("coins", user.coins.toString());
+        formData.append("digitalProducts", user.digitalProducts.join(","));
+        formData.append("activeUserImage", user.activeUserImage);
+        formData.append("activeUserImageFrame", user.activeUserImageFrame);
+        formData.append("activeUserBackgroundImage", user.activeUserBackgroundImage);
+        formData.append("activeUserTitle", user.activeUserTitle);
+        formData.append("activeUserBackgroundColour", user.activeUserBackgroundColour);
+        formData.append("activePins", user.activePins.toString().split(",").join(","));
+
+        const response = await fetch(URL_PREFIX + "/api/users", {
+            method: "PUT",
+            body: formData,
+        });
+
+        if (!response.ok) {
+            if (response.status === 409) { throw new Error("El nom d'usuari o el correu ja existeixen."); }
+            else { throw new Error("Error de servidor inesperat.");}
+        }
+    } catch (error) { throw new Error("No s'ha pogut actualitzar l'usuari. \nMotiu: " + error); }
 }

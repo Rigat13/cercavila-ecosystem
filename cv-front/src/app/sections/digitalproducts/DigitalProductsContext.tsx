@@ -10,6 +10,7 @@ import {updateDigitalProduct} from "@/modules/digitalproducts/application/update
 import {deleteDigitalProduct} from "@/modules/digitalproducts/application/delete/deleteDigitalProduct";
 import {User} from "@/modules/users/domain/User";
 import {getAllUsers_digiProduRepo} from "@/modules/users/application/get-all/getAllUsers";
+import {updateUser_digiProduRepo} from "@/modules/users/application/update/updateUser";
 
 export interface ContextState {
     digitalProducts: DigitalProduct[];
@@ -18,6 +19,10 @@ export interface ContextState {
     createDigitalProduct: (digitalProduct: { id: string; name: string; description: string; image: File | null; primaryColour: string; secondaryColour: string; price: number; type: string; }) => Promise<void>;
     updateDigitalProduct: (digitalProduct: { id: string; name: string; description: string; image: File | null; primaryColour: string; secondaryColour: string; price: number; type: string; }) => Promise<void>;
     deleteDigitalProduct: (digitalProductId: string) => Promise<void>;
+
+    updateUser: (user: { id: string; nickname: string; name: string; firstSurname: string; secondSurname: string; email: string;
+        password: string; roles: string[]; coins: number; digitalProducts: string[]; activeUserImage: string; activeUserImageFrame: string;
+        activeUserBackgroundImage: string; activeUserTitle: string; activeUserBackgroundColour: string; activePins: string[]; }) => Promise<void>;
 }
 
 export const DigitalProductsContext = createContext({} as ContextState);
@@ -64,6 +69,17 @@ export const DigitalProductsContextProvider = ({
         await deleteDigitalProduct(repository, digitalProductId);
     }
 
+    async function updateU({ id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
+                              activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }:
+                              { id: string; nickname: string; name: string; firstSurname: string; secondSurname: string; email: string; password: string; roles: string[];
+                                  coins: number; digitalProducts: string[]; activeUserImage: string; activeUserImageFrame: string; activeUserBackgroundImage: string;
+                                  activeUserTitle: string; activeUserBackgroundColour: string; activePins: string[]; }) {
+        try { await updateUser_digiProduRepo(repository, { id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
+            activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins });
+        } catch (e) { throw "L'error en l'actualització de l'usuari és: "+e; }
+        await getUsers();
+    }
+
     useEffect(() => {
         getDigitalProductsNoImage();
         getDigitalProducts();
@@ -71,7 +87,7 @@ export const DigitalProductsContextProvider = ({
     }, []);
 
     return (
-        <DigitalProductsContext.Provider value={{ digitalProducts, digitalProductsNoImage, users, createDigitalProduct: create, updateDigitalProduct: update, deleteDigitalProduct: deleteC }}>
+        <DigitalProductsContext.Provider value={{ digitalProducts, digitalProductsNoImage, users, createDigitalProduct: create, updateDigitalProduct: update, deleteDigitalProduct: deleteC, updateUser: updateU }}>
             {children}
         </DigitalProductsContext.Provider>
     );

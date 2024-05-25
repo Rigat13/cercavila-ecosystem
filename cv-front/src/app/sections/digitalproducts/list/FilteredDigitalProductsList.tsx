@@ -55,7 +55,7 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
 
     // Retrieve current user's digital products from local storage
     const getCurrentUserDigitalProducts = () => {
-        if (!localStorage) return [];
+        if (typeof window === 'undefined' || typeof localStorage === 'undefined') { return []; }
         const username = localStorage.getItem('username');
         const user = users.find(user => user.nickname === username);
         return user?.digitalProducts || [];

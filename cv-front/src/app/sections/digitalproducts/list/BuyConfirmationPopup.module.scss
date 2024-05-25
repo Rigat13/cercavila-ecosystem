@@ -108,6 +108,16 @@
     transform: scale(1.1);
   }
 }
+.updateUserStatusSuccess, .updateUserStatusError, .updateUserStatusLoading {
+  color: white;
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+}
+
+.updateUserStatusSuccess { background: #33da8f; }
+.updateUserStatusError { background: #ff4d4d; }
+.updateUserStatusLoading { background: #111111; }
+
 
 .confirmBuyTitle {
   font-size: 2rem;
@@ -126,9 +136,10 @@
 }
 
 .insufficientCoins {
-  color: #393150;
+  color: rgba(190, 38, 38, 0.55);
   font-weight: bold;
 }
+
 
 @media (max-width: 768px) {
   .coinsCount {
@@ -147,3 +158,4 @@
     padding: 0.4rem 0.8rem;
   }
 }
+

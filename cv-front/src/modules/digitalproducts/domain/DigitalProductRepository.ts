@@ -14,4 +14,5 @@ export interface DigitalProductRepository {
     deleteDigitalProduct:(id: string) => Promise<void>;
 
     getAllUsers: () => Promise<User[]>;
+    updateUser: (user: User) => Promise<void>;
 }

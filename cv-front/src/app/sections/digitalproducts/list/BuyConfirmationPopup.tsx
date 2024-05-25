@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './BuyConfirmationPopup.module.scss';
 import { dictionary } from "@/content";
 import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
-import {base64ToBlob} from "@/app/sections/shared/Utilities";
-import { useUsersContext } from "@/app/sections/users/UsersContext";
-import { useUpdateUserForm, FormStatus } from "@/app/sections/users/update-form/useUpdateUserForm";
+import { base64ToBlob } from "@/app/sections/shared/Utilities";
+import { useUpdateUserForm, FormStatus } from "@/app/sections/digitalproducts/list/useUpdateUserForm"; // Updated path
+import { useDigitalProductsContext } from "@/app/sections/digitalproducts/DigitalProductsContext";
 
 export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
     const canBuy = user.coins >= digitalProduct.price;
@@ -12,7 +12,7 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
 
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const { submitForm, formStatus } = useUpdateUserForm();
-    const { digitalProducts } = useUsersContext();
+    const { digitalProducts } = useDigitalProductsContext();
 
     useEffect(() => {
         if (digitalProduct.image) {
@@ -23,76 +23,93 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
     }, [digitalProduct.image]);
 
     const renderProductDetails = () => {
-        if (!imageUrl && digitalProduct.type !='digitalProductTypeUserBackgroundColour' && digitalProduct.type!='digitalProductTypeUserTitle') return null;
+        if (!imageUrl && digitalProduct.type !== 'digitalProductTypeUserBackgroundColour' && digitalProduct.type !== 'digitalProductTypeUserTitle') return null;
         switch (digitalProduct.type) {
             case 'digitalProductTypeUserImage':
-                return <a target="_blank" className={detailsStyles.digitalProductDetails__aImage}>
-                    <div className={detailsStyles.digitalProductDetails__image}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${digitalProduct.name}`}
-                        />
-                    </div>
-                </a>;
+                return (
+                    <a target="_blank" className={detailsStyles.digitalProductDetails__aImage}>
+                        <div className={detailsStyles.digitalProductDetails__image}>
+                            <img
+                                src={imageUrl}
+                                alt={`Imatge de ${digitalProduct.name}`}
+                            />
+                        </div>
+                    </a>
+                );
             case 'digitalProductTypeUserImageFrame':
-                return <a target="_blank" className={detailsStyles.digitalProductDetails__aImageFrame}>
-                    <div className={detailsStyles.digitalProductDetails__imageFrame}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${digitalProduct.name}`}
-                        />
-                    </div>
-                </a>;
+                return (
+                    <a target="_blank" className={detailsStyles.digitalProductDetails__aImageFrame}>
+                        <div className={detailsStyles.digitalProductDetails__imageFrame}>
+                            <img
+                                src={imageUrl}
+                                alt={`Imatge de ${digitalProduct.name}`}
+                            />
+                        </div>
+                    </a>
+                );
             case 'digitalProductTypeUserBackgroundImage':
-                return <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundImage}>
-                    <div className={detailsStyles.digitalProductDetails__backgroundImage}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${digitalProduct.name}`}
-                        />
-                    </div>
-                </a>;
+                return (
+                    <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundImage}>
+                        <div className={detailsStyles.digitalProductDetails__backgroundImage}>
+                            <img
+                                src={imageUrl}
+                                alt={`Imatge de ${digitalProduct.name}`}
+                            />
+                        </div>
+                    </a>
+                );
             case 'digitalProductTypeUserTitle':
-                return <a target="_blank" className={detailsStyles.digitalProductDetails__aTitle}>
-                    <div className={detailsStyles.digitalProductDetails__title}
-                         style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
-                        {digitalProduct.name}
-                        <div className={detailsStyles.digitalProductDetails__shine}></div>
-                    </div>
-                </a>;
+                return (
+                    <a target="_blank" className={detailsStyles.digitalProductDetails__aTitle}>
+                        <div className={detailsStyles.digitalProductDetails__title}
+                             style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
+                            {digitalProduct.name}
+                            <div className={detailsStyles.digitalProductDetails__shine}></div>
+                        </div>
+                    </a>
+                );
             case 'digitalProductTypeUserBackgroundColour':
-                return <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundColour} >
-                    <div className={detailsStyles.digitalProductDetails__backgroundColour}
-                         style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
-                        Abc
-                    </div>
-                </a>;
+                return (
+                    <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundColour} >
+                        <div className={detailsStyles.digitalProductDetails__backgroundColour}
+                             style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
+                            Abc
+                        </div>
+                    </a>
+                );
             case 'digitalProductTypeSticker': case 'digitalProductTypePin':
-                return <a target="_blank" className={detailsStyles.digitalProductDetails__aSticker}>
-                    <div className={detailsStyles.digitalProductDetails__sticker}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${digitalProduct.name}`}
-                        />
-                    </div>
-                </a>;
+                return (
+                    <a target="_blank" className={detailsStyles.digitalProductDetails__aSticker}>
+                        <div className={detailsStyles.digitalProductDetails__sticker}>
+                            <img
+                                src={imageUrl}
+                                alt={`Imatge de ${digitalProduct.name}`}
+                            />
+                        </div>
+                    </a>
+                );
             case 'digitalProductTypePin':
-                return <a target="_blank" className={detailsStyles.digitalProductDetails__aPin}>
-                    <div className={detailsStyles.digitalProductDetails__pin}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${digitalProduct.name}`}
-                        />
-                    </div>
-                </a>;
+                return (
+                    <a target="_blank" className={detailsStyles.digitalProductDetails__aPin}>
+                        <div className={detailsStyles.digitalProductDetails__pin}>
+                            <img
+                                src={imageUrl}
+                                alt={`Imatge de ${digitalProduct.name}`}
+                            />
+                        </div>
+                    </a>
+                );
+            default:
+                return null;
         }
     };
 
-    const handleBuy = () => {
+    const handleBuy = async () => {
         const updatedCoins = user.coins - digitalProduct.price;
-        const updatedDigitalProducts = [...user.digitalProducts, digitalProduct.id];
+        const updatedDigitalProducts = user.digitalProducts ? user.digitalProducts.split(',') : [];
+        updatedDigitalProducts.push(digitalProduct.id);
 
-        submitForm({
+        await submitForm({
             id: user.id,
             nickname: user.nickname,
             name: user.name,
@@ -111,7 +128,7 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
             activePins: user.activePins,
         });
 
-        onClose();
+        //onClose();
     };
 
     return (
@@ -140,6 +157,9 @@ export function BuyConfirmationPopup({ digitalProduct, onClose, lang, user }) {
                         </p>
                     )}
                     <button className={styles.cancelButton} onClick={onClose}>{dictionary[lang]?.digitalProductCancelBuyButton}</button>
+                    {formStatus === FormStatus.Loading && <p className={styles.updateUserStatusLoading}>{dictionary[lang]?.loading}</p>}
+                    {formStatus === FormStatus.Success && <p className={styles.updateUserStatusSuccess}>{dictionary[lang]?.successUpdate}</p>}
+                    {formStatus === FormStatus.Error && <p className={styles.updateUserStatusError}>{dictionary[lang]?.errorUpdate}</p>}
                 </div>
             </div>
         </div>
