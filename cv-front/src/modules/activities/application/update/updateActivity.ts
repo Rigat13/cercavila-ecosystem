@@ -1,7 +1,7 @@
-import {FiguraRepository} from "@/modules/figures/domain/FiguraRepository";
-import {Figura, ensureFiguraIsValid} from "@/modules/figures/domain/Figura";
+import {ActivityRepository} from "@/modules/activities/domain/ActivityRepository";
+import {Activity, ensureActivityIsValid} from "@/modules/activities/domain/Activity";
 
-export async function updateActivity(figuraRepository: FiguraRepository, figura: Figura): Promise<void> {
-    ensureFiguraIsValid(figura);
-    await figuraRepository.updateFigura(figura);
+export async function updateActivity(activityRepository: ActivityRepository, activity: Activity): Promise<void> {
+    ensureActivityIsValid(activity);
+    await activityRepository.updateActivity(activity);
 }

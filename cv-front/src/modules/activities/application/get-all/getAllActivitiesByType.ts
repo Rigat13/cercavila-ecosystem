@@ -1,6 +1,6 @@
-import {FiguraRepository} from "@/modules/figures/domain/FiguraRepository";
-import {Figura} from "@/modules/figures/domain/Figura";
+import {ActivityRepository} from "@/modules/activities/domain/ActivityRepository";
+import {Activity} from "@/modules/activities/domain/Activity";
 
-export async function getAllActivitiesByType(figuraRepository: FiguraRepository): Promise<Figura[]> {
-    return figuraRepository.getAllFiguresByType();
+export async function getAllActivitiesByType(activityRepository: ActivityRepository): Promise<Activity[]> {
+    return activityRepository.getAllActivitiesByType();
 }

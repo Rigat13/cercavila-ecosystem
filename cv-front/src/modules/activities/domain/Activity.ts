@@ -1,46 +1,51 @@
-import {FiguraIdNotValidError, isFiguraIdValid} from "@/modules/figures/domain/figura-attributes/FiguraId";
-import {FiguraNameNotValidError, isFiguraNameValid} from "@/modules/figures/domain/figura-attributes/FiguraName";
-import {FiguraTypeNotValidError, isFiguraTypeValid} from "@/modules/figures/domain/figura-attributes/FiguraType";
-import {FiguraImageNotValidError, isFiguraImageValid} from "@/modules/figures/domain/figura-attributes/FiguraImage";
-import {FiguraWebUrlNotValidError, isFiguraWebUrlValid} from "@/modules/figures/domain/figura-attributes/FiguraWebUrl";
-import {FiguraYearNotValidError, isFiguraYearValid} from "@/modules/figures/domain/figura-attributes/FiguraYear";
+import {ActivityIdNotValidError, isActivityIdValid} from "@/modules/activities/domain/activity-attributes/ActivityId";
+import {ActivityQuestionNotValidError, isActivityQuestionValid} from "@/modules/activities/domain/activity-attributes/ActivityName";
+import {ActivityTypeNotValidError, isActivityTypeValid} from "@/modules/activities/domain/activity-attributes/ActivityType";
+import {ActivityImageNotValidError, isActivityImageValid} from "@/modules/activities/domain/activity-attributes/ActivityImage";
+import {ActivityCorrectAnswerNotValidError, isActivityCorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityWebUrl";
+import {ActivityFirstIncorrectAnswerNotValidError, isActivityFirstIncorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityDescription";
+import {ActivitySecondIncorrectAnswerNotValidError, isActivitySecondIncorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityDescription";
 
 export interface Activity {
     id: string;
-    name: string;
-    year: number;
+    question: string;
     type: string;
     image: File | null;
-    webUrl: string;
+    correctAnswer: string;
+    firstIncorrectAnswer: string;
+    secondIncorrectAnswer: string;
 }
 
-export function ensureFiguraIsValid({id, name, year, type, image, webUrl}: Activity): void {
-    if (!isFiguraIdValid(id)) {
-        throw FiguraIdNotValidError(id);
+export function ensureActivityIsValid({id, question, type, image, correctAnswer, firstIncorrectAnswer, secondIncorrectAnswer}: Activity): void {
+    if (!isActivityIdValid(id)) {
+        throw ActivityIdNotValidError(id);
     }
-    ensureFiguraIsValidEmptyId({id, name, year, type, image, webUrl});
+    ensureActivityIsValidEmptyId({id, question, type, image, correctAnswer, firstIncorrectAnswer, secondIncorrectAnswer});
 }
 
-export function ensureFiguraIsValidEmptyId({id, name, year, type, image, webUrl}: Activity): void {
-    if (!isFiguraNameValid(name)) {
-        throw FiguraNameNotValidError(name);
+export function ensureActivityIsValidEmptyId({id, question, type, image, correctAnswer, firstIncorrectAnswer, secondIncorrectAnswer}: Activity): void {
+    if (!isActivityQuestionValid(question)) {
+        throw ActivityQuestionNotValidError(question);
     }
-    if (!isFiguraYearValid(year)) {
-        throw FiguraYearNotValidError(year);
+    if (!isActivityTypeValid(type, "")) {
+        throw ActivityTypeNotValidError(type);
     }
-    if (!isFiguraTypeValid(type, "")) {
-        throw FiguraTypeNotValidError(type);
+    if (!isActivityImageValid(image)) {
+        throw ActivityImageNotValidError(image);
     }
-    if (!isFiguraImageValid(image)) {
-        throw FiguraImageNotValidError(image);
+    if (!isActivityCorrectAnswerValid(correctAnswer)) {
+        throw ActivityCorrectAnswerNotValidError(correctAnswer);
     }
-    if (!isFiguraWebUrlValid(webUrl)) {
-        throw FiguraWebUrlNotValidError(webUrl);
+    if (!isActivityFirstIncorrectAnswerValid(firstIncorrectAnswer)) {
+        throw ActivityFirstIncorrectAnswerNotValidError(firstIncorrectAnswer);
+    }
+    if (!isActivitySecondIncorrectAnswerValid(secondIncorrectAnswer)) {
+        throw ActivitySecondIncorrectAnswerNotValidError(secondIncorrectAnswer);
     }
 }
 
-export function ensureFiguraIdIsValid(id: string): void {
-    if (!isFiguraIdValid(id)) {
-        throw FiguraIdNotValidError(id);
+export function ensureActivityIdIsValid(id: string): void {
+    if (!isActivityIdValid(id)) {
+        throw ActivityIdNotValidError(id);
     }
 }

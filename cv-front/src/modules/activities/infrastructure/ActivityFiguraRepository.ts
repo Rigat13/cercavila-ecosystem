@@ -1,121 +1,114 @@
-import {FiguraRepository} from "@/modules/figures/domain/FiguraRepository";
-import {Figura} from "@/modules/figures/domain/Figura";
-import {URL_PREFIX} from "@/modules/figures/infrastructure/configuration";
+import {ActivityRepository} from "@/modules/activities/domain/ActivityRepository";
+import {Activity} from "@/modules/activities/domain/Activity";
+import {URL_PREFIX} from "@/modules/activities/infrastructure/conactivitytion";
 
-export function createApiFiguraRepository(): FiguraRepository {
+export function createApiActivityRepository(): ActivityRepository {
     return {
-        storeFigura, getFiguraById, getFiguraByName, getAllFiguresByName,
-        getAllFiguresByYear, getAllFiguresByType, getAllFigures, updateFigura, deleteFigura, getAllFiguresNoImage
+        storeActivity, getActivityById, getActivityByQuestion, getAllActivitiesByQuestion,
+        getAllActivitiesByType, getAllActivities, updateActivity, deleteActivity, getAllActivitiesNoImage
     };
 }
 
-async function storeFigura(figura: Figura) {
+async function storeActivity(activity: Activity) {
     try {
         const formData = new FormData();
-        formData.append("id", figura.id);
-        formData.append("name", figura.name);
-        formData.append("year", figura.year.toString());
-        formData.append("type", figura.type);
-        if (figura.image) formData.append("image", figura.image, figura.image.name);
-        formData.append("webUrl", figura.webUrl);
+        formData.append("id", activity.id);
+        formData.append("question", activity.question);
+        formData.append("type", activity.type);
+        if (activity.image) formData.append("image", activity.image, activity.image.name);
+        formData.append("correctAnswer", activity.correctAnswer);
+        formData.append("firstIncorrectAnswer", activity.firstIncorrectAnswer);
+        formData.append("secondIncorrectAnswer", activity.secondIncorrectAnswer);
 
-        await fetch(URL_PREFIX + "/api/figures", {
+        await fetch(URL_PREFIX + "/api/activities", {
             method: "POST",
             body: formData,
         });
     } catch (error) {
-        throw new Error("No s'ha pogut crear la figura. \nMotiu: " + error);
+        throw new Error("No s'ha pogut crear la activity. \nMotiu: " + error);
     }
 }
 
-async function getFiguraById(id: string) {
+async function getActivityById(id: string) {
     try {
-        const figura = await fetch(URL_PREFIX + `/api/figures/id/${id}`).then(
-        (response) => response.json() as Promise<Figura>
+        const activity = await fetch(URL_PREFIX + `/api/activities/id/${id}`).then(
+        (response) => response.json() as Promise<Activity>
         );
-        return figura;
-    } catch (error) { throw new Error("No s'ha pogut obtenir la figura amb l'id. \nMotiu: " + error); }
+        return activity;
+    } catch (error) { throw new Error("No s'ha pogut obtenir la activity amb l'id. \nMotiu: " + error); }
 }
 
-async function getFiguraByName(name: string) {
+async function getActivityByQuestion(question: string) {
     try {
-        const figura = await fetch(URL_PREFIX + `/api/figures/name/${name}`).then(
-        (response) => response.json() as Promise<Figura>
+        const activity = await fetch(URL_PREFIX + `/api/activities/question/${question}`).then(
+        (response) => response.json() as Promise<Activity>
         );
-        return figura;
-    } catch (error) { throw new Error("No s'ha pogut obtenir la figura amb el nom. \nMotiu: " + error); }
+        return activity;
+    } catch (error) { throw new Error("No s'ha pogut obtenir la activity amb el nom. \nMotiu: " + error); }
 }
 
-async function getAllFiguresByName() {
+async function getAllActivitiesByQuestion() {
     try {
-        const figures = await fetch(URL_PREFIX + `/api/figures/name`).then(
-            (response) => response.json() as Promise<Figura[]>
+        const activities = await fetch(URL_PREFIX + `/api/activities/question`).then(
+            (response) => response.json() as Promise<Activity[]>
         );
-        return figures;
-    } catch (error) { throw new Error("No s'ha pogut obtenir totes les figures ordenades per nom. \nMotiu: " + error); }
+        return activities;
+    } catch (error) { throw new Error("No s'ha pogut obtenir totes les activities ordenades per nom. \nMotiu: " + error); }
 }
 
-async function getAllFiguresByYear() {
+async function getAllActivitiesByType() {
     try {
-        const figures = await fetch(URL_PREFIX + `/api/figures/year`).then(
-            (response) => response.json() as Promise<Figura[]>
+        const activities = await fetch(URL_PREFIX + `/api/activities/type`).then(
+            (response) => response.json() as Promise<Activity[]>
         );
-        return figures;
-    } catch (error) { throw new Error("No s'ha pogut obtenir totes les figures ordenades per any de fundació. \nMotiu: " + error); }
-}
-
-async function getAllFiguresByType() {
-    try {
-        const figures = await fetch(URL_PREFIX + `/api/figures/type`).then(
-            (response) => response.json() as Promise<Figura[]>
-        );
-        return figures;
-    } catch (error) { throw new Error("No s'ha pogut obtenir totes les figures ordenades per tipus. \nMotiu: " + error); }
+        return activities;
+    } catch (error) { throw new Error("No s'ha pogut obtenir totes les activities ordenades per tipus. \nMotiu: " + error); }
 
 }
 
-async function getAllFigures() {
+async function getAllActivities() {
     try {
-        const figures = await fetch(URL_PREFIX + `/api/figures`).then(
-            (response) => response.json() as Promise<Figura[]>
+        const activities = await fetch(URL_PREFIX + `/api/activities`).then(
+            (response) => response.json() as Promise<Activity[]>
         );
-        return figures;
+        return activities;
     } catch (error) {
-        throw new Error("No s'ha pogut obtenir totes les figures. \nMotiu: " + error);
+        throw new Error("No s'ha pogut obtenir totes les activities. \nMotiu: " + error);
     }
 }
 
-async function getAllFiguresNoImage() {
+async function getAllActivitiesNoImage() {
     try {
-        const figures = await fetch(URL_PREFIX + `/api/figures/noimage`).then(
-            (response) => response.json() as Promise<Figura[]>
+        const activities = await fetch(URL_PREFIX + `/api/activities/noimage`).then(
+            (response) => response.json() as Promise<Activity[]>
         );
-        return figures;
+        return activities;
     } catch (error) {
-        throw new Error("No s'ha pogut obtenir totes les figures sense imatge. \nMotiu: " + error);
+        throw new Error("No s'ha pogut obtenir totes les activities sense imatge. \nMotiu: " + error);
     }
 }
 
-async function updateFigura(figura: Figura) {
+async function updateActivity(activity: Activity) {
     try {
         const formData = new FormData();
-        formData.append("id", figura.id);
-        formData.append("name", figura.name);
-        formData.append("year", figura.year.toString());
-        formData.append("type", figura.type);
-        if (figura.image) formData.append("image", figura.image, figura.image.name);
-        formData.append("webUrl", figura.webUrl);
+        formData.append("id", activity.id);
+        formData.append("question", activity.question);
+        formData.append("type", activity.type);
+        if (activity.image) formData.append("image", activity.image, activity.image.name);
+        formData.append("correctAnswer", activity.correctAnswer);
+        formData.append("firstIncorrectAnswer", activity.firstIncorrectAnswer);
+        formData.append("secondIncorrectAnswer", activity.secondIncorrectAnswer);
 
-        await fetch(URL_PREFIX + "/api/figures", {
+        await fetch(URL_PREFIX + "/api/activities", {
             method: "PUT",
             body: formData,
         });
-    } catch (error) { throw new Error("No s'ha pogut actualitzar la figura. \nMotiu: " + error); }
+    } catch (error) { throw new Error("No s'ha pogut actualitzar la activity. \nMotiu: " + error); }
 }
 
-async function deleteFigura(id: string) {
+async function deleteActivity(id: string) {
     try {
-        await fetch(URL_PREFIX + "/api/figures", {
+        await fetch(URL_PREFIX + "/api/activities", {
             method: "DELETE",
             headers: new Headers({
                 accept: "application/json",
@@ -125,5 +118,5 @@ async function deleteFigura(id: string) {
                 id: id,
             }),
         });
-    } catch (error) { throw new Error("No s'ha pogut eliminar la figura. \nMotiu: " + error); }
+    } catch (error) { throw new Error("No s'ha pogut eliminar la activity. \nMotiu: " + error); }
 }

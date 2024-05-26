@@ -1,14 +1,13 @@
-import {Activity} from './Figura';
+import {Activity} from './Activity';
 
 export interface ActivityRepository {
-    storeFigura: (figura: Activity) => Promise<void>;
-    getFiguraById:(id: string) => Promise<Activity | null>;
-    getFiguraByName:(name: string) => Promise<Activity | null>;
-    getAllFiguresByName:() => Promise<Activity[]>;
-    getAllFiguresByYear:() => Promise<Activity[]>;
-    getAllFiguresByType:() => Promise<Activity[]>;
-    getAllFigures:() => Promise<Activity[]>;
-    getAllFiguresNoImage:() => Promise<Activity[]>;
-    updateFigura:(figura: Activity) => Promise<void>;
-    deleteFigura:(id: string) => Promise<void>;
+    storeActivity: (activity: Activity) => Promise<void>;
+    getActivityById:(id: string) => Promise<Activity | null>;
+    getActivityByQuestion:(question: string) => Promise<Activity | null>;
+    getAllActivitiesByQuestion:() => Promise<Activity[]>;
+    getAllActivitiesByType:() => Promise<Activity[]>;
+    getAllActivities:() => Promise<Activity[]>;
+    getAllActivitiesNoImage:() => Promise<Activity[]>;
+    updateActivity:(activity: Activity) => Promise<void>;
+    deleteActivity:(id: string) => Promise<void>;
 }

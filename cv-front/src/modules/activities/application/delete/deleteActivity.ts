@@ -1,7 +1,7 @@
-import {FiguraRepository} from "@/modules/figures/domain/FiguraRepository";
-import {ensureFiguraIdIsValid} from "@/modules/figures/domain/Figura";
+import {ActivityRepository} from "@/modules/activities/domain/ActivityRepository";
+import {ensureActivityIdIsValid} from "@/modules/activities/domain/Activity";
 
-export async function deleteActivity(figuraRepository: FiguraRepository, figuraId : string): Promise<void> {
-    ensureFiguraIdIsValid(figuraId);
-    await figuraRepository.deleteFigura(figuraId);
+export async function deleteActivity(activityRepository: ActivityRepository, activityId : string): Promise<void> {
+    ensureActivityIdIsValid(activityId);
+    await activityRepository.deleteActivity(activityId);
 }

@@ -1,7 +1,7 @@
-import {FiguraRepository} from "@/modules/figures/domain/FiguraRepository";
-import {Figura, ensureFiguraIsValidEmptyId} from "@/modules/figures/domain/Figura";
+import {ActivityRepository} from "@/modules/activities/domain/ActivityRepository";
+import {Activity, ensureActivityIsValidEmptyId} from "@/modules/activities/domain/Activity";
 
-export async function storeActivity(figuraRepository: FiguraRepository, figura: Figura): Promise<void> {
-    ensureFiguraIsValidEmptyId(figura);
-    await figuraRepository.storeFigura(figura);
+export async function storeActivity(activityRepository: ActivityRepository, activity: Activity): Promise<void> {
+    ensureActivityIsValidEmptyId(activity);
+    await activityRepository.storeActivity(activity);
 }

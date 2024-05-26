@@ -1,13 +1,13 @@
-export const NAME_MIN_LENGTH = 3;
-export const NAME_MAX_LENGTH = 120;
-export const NAME_ERROR_MESSAGE = `El nom no és vàlid. El nom ha de tenir entre ${NAME_MIN_LENGTH} i ${NAME_MAX_LENGTH} caràcters vàlids.`;
+export const QUESTION_MIN_LENGTH = 3;
+export const QUESTION_MAX_LENGTH = 120;
+export const QUESTION_ERROR_MESSAGE = `La pregunta no és vàlida. La pregunta ha de tenir entre ${QUESTION_MIN_LENGTH} i ${QUESTION_MAX_LENGTH} caràcters vàlids.`;
 
-export function isFiguraNameValid(name: string): boolean {
-    if (name.length < NAME_MIN_LENGTH || name.length > NAME_MAX_LENGTH+1) return false;
+export function isActivityQuestionValid(question: string): boolean {
+    if (question.length < QUESTION_MIN_LENGTH || question.length > QUESTION_MAX_LENGTH+1) return false;
     const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
-    return regexExp.test(name);
+    return regexExp.test(question);
 }
 
-export function FiguraNameNotValidError(name: string): Error {
-    return new Error(NAME_ERROR_MESSAGE);
+export function ActivityQuestionNotValidError(name: string): Error {
+    return new Error(QUESTION_ERROR_MESSAGE);
 }

@@ -1,13 +1,13 @@
-export const WEBURL_MIN_LENGTH = 3;
-export const WEBURL_MAX_LENGTH = 120;
-export const WEBURL_ERROR_MESSAGE = `L'URL del web no és vàlid. Ha de tenir entre ${WEBURL_MIN_LENGTH} i ${WEBURL_MAX_LENGTH} caràcters vàlids.`;
+export const CORRECT_ANSWER_MIN_LENGTH = 3;
+export const CORRECT_ANSWER_MAX_LENGTH = 120;
+export const CORRECT_ANSWER_ERROR_MESSAGE = `La resposta no és vàlida. Ha de tenir entre ${CORRECT_ANSWER_MIN_LENGTH} i ${CORRECT_ANSWER_MAX_LENGTH} caràcters vàlids.`;
 
-export function isFiguraWebUrlValid(webUrl: string): boolean {
-    if (!webUrl || webUrl === "") return true; // WebUrl is optional
-    if (webUrl.length <= WEBURL_MIN_LENGTH || webUrl.length > WEBURL_MAX_LENGTH+1) return false;
-    return true;
+export function isActivityAnswerValid(answer: string): boolean {
+    if (answer.length < CORRECT_ANSWER_MIN_LENGTH || answer.length > CORRECT_ANSWER_MAX_LENGTH+1) return false;
+    const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
+    return regexExp.test(answer);
 }
 
-export function FiguraWebUrlNotValidError(webUrl: string): Error {
-    return new Error(WEBURL_ERROR_MESSAGE);
+export function ActivityAnswerNotValidError(answer: string): Error {
+    return new Error(CORRECT_ANSWER_ERROR_MESSAGE);
 }
