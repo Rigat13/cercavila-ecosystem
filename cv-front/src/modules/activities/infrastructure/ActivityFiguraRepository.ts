@@ -15,7 +15,7 @@ async function storeActivity(activity: Activity) {
         formData.append("id", activity.id);
         formData.append("question", activity.question);
         formData.append("type", activity.type);
-        if (activity.image) formData.append("image", activity.image, activity.image.name);
+        if (activity.image) formData.append("image", activity.image, activity.image.question);
         formData.append("correctAnswer", activity.correctAnswer);
         formData.append("firstIncorrectAnswer", activity.firstIncorrectAnswer);
         formData.append("secondIncorrectAnswer", activity.secondIncorrectAnswer);
@@ -94,7 +94,7 @@ async function updateActivity(activity: Activity) {
         formData.append("id", activity.id);
         formData.append("question", activity.question);
         formData.append("type", activity.type);
-        if (activity.image) formData.append("image", activity.image, activity.image.name);
+        if (activity.image) formData.append("image", activity.image, activity.image.question);
         formData.append("correctAnswer", activity.correctAnswer);
         formData.append("firstIncorrectAnswer", activity.firstIncorrectAnswer);
         formData.append("secondIncorrectAnswer", activity.secondIncorrectAnswer);
