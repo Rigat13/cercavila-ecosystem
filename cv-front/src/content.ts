@@ -361,6 +361,53 @@ interface DictionaryEntry {
     errorRetrievingUserMessage: string;
     errorRetrievingUsersMessage: string;
 
+    // -------------------------------------------------------------------------------------------- ACTIVITY
+
+    activityQuestion: string;
+    activityType: string;
+    activityImage: string;
+    activityCorrectAnswer: string;
+    activityFirstIncorrectAnswer: string;
+    activitySecondIncorrectAnswer: string;
+
+    // --- ACTIVITY TYPE
+    selectActivityType: string;
+    activityTypeCercatrivia: string;
+    activityTypeGeganquesta: string;
+
+    // CREATE ACTIVITY
+    activitiesTitle: string;
+    createActivityTitle: string;
+    createActivityButton: string;
+
+    activityQuestionInvalid: string;
+    activityTypeInvalid: string;
+    activityImageInvalid: string;
+    activityCorrectAnswerInvalid: string;
+    activityFirstIncorrectAnswerInvalid: string;
+    activitySecondIncorrectAnswerInvalid: string;
+
+    successCreateActivityMessage: string;
+    errorCreateActivityMessage: string;
+    createAnotherActivityButton: string;
+    retryCreateActivityButton: string;
+
+    // UPDATE ACTIVITY
+    updateActivityTitle: string;
+    updateActivityButton: string;
+    goToActivitiesButton: string;
+    deleteActivityButton: string;
+    warningDeleteActivityMessage: string;
+    cancelDeleteActivityButton: string;
+    confirmDeleteActivityButton: string;
+    successUpdateActivityMessage: string;
+    errorUpdateActivityMessage: string;
+    successDeleteActivityMessage: string;
+    errorDeleteActivityMessage: string;
+    activityNotFoundWithId: string;
+    errorRetrievingActivityMessage: string;
+    errorRetrievingActivitiesMessage: string;
+
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
@@ -742,7 +789,54 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteUserMessage: "L'usuari no s'ha pogut esborrar. \nMotiu: ",
         userNotFoundWithId: "Usuari no trobat amb id: ",
         errorRetrievingUserMessage: "Error en obtenir la informació de l'usuari. \nMotiu: ",
-        errorRetrievingUsersMessage: "Error en obtenir la informació dels usuaris. \nMotiu: "
+        errorRetrievingUsersMessage: "Error en obtenir la informació dels usuaris. \nMotiu: ",
+
+        // -------------------------------------------------------------------------------------------- ACTIVITY
+
+        activityQuestion: "Pregunta",
+        activityType: "Tipus",
+        activityImage: "Imatge",
+        activityCorrectAnswer: "Resposta correcta",
+        activityFirstIncorrectAnswer: "Primera resposta incorrecta",
+        activitySecondIncorrectAnswer: "Segona resposta incorrecta",
+
+        // --- ACTIVITY TYPE
+        selectActivityType: "-- Tipus d'activitat --",
+        activityTypeCercatrivia: "Cercatrivia",
+        activityTypeGeganquesta: "Geganquesta",
+
+        // CREATE ACTIVITY
+        activitiesTitle: "Activitats registrades",
+        createActivityTitle: "Crea una nova activitat",
+        createActivityButton: "Crea l'activitat",
+
+        activityQuestionInvalid: "La pregunta no és vàlida. Ha de tenir caràcters vàlids entre: ",
+        activityTypeInvalid: "El tipus no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+        activityImageInvalid: "La imatge no és vàlida. Ha de ser un fitxer vàlid amb mida inferior a: ",
+        activityCorrectAnswerInvalid: "La resposta correcta no és vàlida. Ha de tenir caràcters vàlids entre: ",
+        activityFirstIncorrectAnswerInvalid: "La primera resposta incorrecta no és vàlida. Ha de tenir caràcters vàlids entre: ",
+        activitySecondIncorrectAnswerInvalid: "La segona resposta incorrecta no és vàlida. Ha de tenir caràcters vàlids entre: ",
+
+        successCreateActivityMessage: "L'activitat s'ha creat amb èxit",
+        errorCreateActivityMessage: "L'activitat no s'ha pogut crear. \nMotiu: ",
+        createAnotherActivityButton: "Crear una altra activitat",
+        retryCreateActivityButton: "Torna a intentar",
+
+        // UPDATE ACTIVITY
+        updateActivityTitle: "Edita l'activitat",
+        updateActivityButton: "Edita l'activitat",
+        goToActivitiesButton: "Torna a les activitats",
+        deleteActivityButton: "Esborrar l'activitat",
+        warningDeleteActivityMessage: "Voleu esborrar l'activitat de manera permanent? No es pot desfer aquesta acció.",
+        cancelDeleteActivityButton: "Cancel·lar",
+        confirmDeleteActivityButton: "Esborrar permanentment",
+        successUpdateActivityMessage: "L'activitat s'ha editat amb èxit",
+        errorUpdateActivityMessage: "L'activitat no s'ha pogut editar. \nMotiu: ",
+        successDeleteActivityMessage: "L'activitat s'ha esborrat amb èxit",
+        errorDeleteActivityMessage: "L'activitat no s'ha pogut esborrar. \nMotiu: ",
+        activityNotFoundWithId: "Activitat no trobada amb id: ",
+        errorRetrievingActivityMessage: "Error en obtenir la informació de l'activitat. \nMotiu: ",
+        errorRetrievingActivitiesMessage: "Error en obtenir la informació de les activitats. \nMotiu: "
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1124,7 +1218,54 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteUserMessage: "El usuario no se ha podido borrar. \nMotivo: ",
         userNotFoundWithId: "Usuario no encontrado con id: ",
         errorRetrievingUserMessage: "Error al obtener la información del usuario. \nMotivo: ",
-        errorRetrievingUsersMessage: "Error al obtener la información de los usuarios. \nMotivo: "
+        errorRetrievingUsersMessage: "Error al obtener la información de los usuarios. \nMotivo: ",
+
+        // -------------------------------------------------------------------------------------------- ACTIVITY
+
+        activityQuestion: "Pregunta",
+        activityType: "Tipo",
+        activityImage: "Imagen",
+        activityCorrectAnswer: "Respuesta correcta",
+        activityFirstIncorrectAnswer: "Primera respuesta incorrecta",
+        activitySecondIncorrectAnswer: "Segunda respuesta incorrecta",
+
+        // --- ACTIVITY TYPE
+        selectActivityType: "-- Tipo de actividad --",
+        activityTypeCercatrivia: "Cercatrivia",
+        activityTypeGeganquesta: "Geganquesta",
+
+        // CREATE ACTIVITY
+        activitiesTitle: "Actividades registradas",
+        createActivityTitle: "Crea una nueva actividad",
+        createActivityButton: "Crea la actividad",
+
+        activityQuestionInvalid: "La pregunta no es válida. Debe tener carácteres válidos entre: ",
+        activityTypeInvalid: "El tipo no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+        activityImageInvalid: "La imagen no es válida. Debe ser un archivo válido con tamaño inferior a: ",
+        activityCorrectAnswerInvalid: "La respuesta correcta no es válida. Debe tener carácteres válidos entre: ",
+        activityFirstIncorrectAnswerInvalid: "La primera respuesta incorrecta no es válida. Debe tener carácteres válidos entre: ",
+        activitySecondIncorrectAnswerInvalid: "La segunda respuesta incorrecta no es válida. Debe tener carácteres válidos entre: ",
+
+        successCreateActivityMessage: "La actividad se ha creado con éxito",
+        errorCreateActivityMessage: "La actividad no se ha podido crear. \nMotivo: ",
+        createAnotherActivityButton: "Crear otra actividad",
+        retryCreateActivityButton: "Volver a intentar",
+
+        // UPDATE ACTIVITY
+        updateActivityTitle: "Edita la actividad",
+        updateActivityButton: "Edita la actividad",
+        goToActivitiesButton: "Vuelve a las actividades",
+        deleteActivityButton: "Borrar la actividad",
+        warningDeleteActivityMessage: "¿Quiere borrar la actividad de manera permanente? No se puede deshacer esta acción.",
+        cancelDeleteActivityButton: "Cancelar",
+        confirmDeleteActivityButton: "Borrar permanentemente",
+        successUpdateActivityMessage: "La actividad se ha editado con éxito",
+        errorUpdateActivityMessage: "La actividad no se ha podido editar. \nMotivo: ",
+        successDeleteActivityMessage: "La actividad se ha borrado con éxito",
+        errorDeleteActivityMessage: "La actividad no se ha podido borrar. \nMotivo: ",
+        activityNotFoundWithId: "Actividad no encontrada con id: ",
+        errorRetrievingActivityMessage: "Error al obtener la información de la actividad. \nMotivo: ",
+        errorRetrievingActivitiesMessage: "Error al obtener la información de las actividades. \nMotivo: "
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1506,6 +1647,53 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteUserMessage: "The user could not be deleted. \nReason: ",
         userNotFoundWithId: "User not found with id: ",
         errorRetrievingUserMessage: "Error retrieving user information. \nReason: ",
-        errorRetrievingUsersMessage: "Error retrieving users information. \nReason: "
+        errorRetrievingUsersMessage: "Error retrieving users information. \nReason: ",
+
+        // -------------------------------------------------------------------------------------------- ACTIVITY
+
+        activityQuestion: "Question",
+        activityType: "Type",
+        activityImage: "Image",
+        activityCorrectAnswer: "Correct answer",
+        activityFirstIncorrectAnswer: "First incorrect answer",
+        activitySecondIncorrectAnswer: "Second incorrect answer",
+
+        // --- ACTIVITY TYPE
+        selectActivityType: "-- Activity type --",
+        activityTypeCercatrivia: "Cercatrivia",
+        activityTypeGeganquesta: "Geganquesta",
+
+        // CREATE ACTIVITY
+        activitiesTitle: "Registered activities",
+        createActivityTitle: "Create a new activity",
+        createActivityButton: "Create activity",
+
+        activityQuestionInvalid: "The question is not valid. It must have valid characters between: ",
+        activityTypeInvalid: "The type is not valid. It must be one from the list, with valid characters between: ",
+        activityImageInvalid: "The image is not valid. It must be a valid file with size lower than: ",
+        activityCorrectAnswerInvalid: "The correct answer is not valid. It must have valid characters between: ",
+        activityFirstIncorrectAnswerInvalid: "The first incorrect answer is not valid. It must have valid characters between: ",
+        activitySecondIncorrectAnswerInvalid: "The second incorrect answer is not valid. It must have valid characters between: ",
+
+        successCreateActivityMessage: "The activity has been created successfully",
+        errorCreateActivityMessage: "The activity could not be created. \nReason: ",
+        createAnotherActivityButton: "Create another activity",
+        retryCreateActivityButton: "Retry",
+
+        // UPDATE ACTIVITY
+        updateActivityTitle: "Edit activity",
+        updateActivityButton: "Edit activity",
+        goToActivitiesButton: "Go back to activities",
+        deleteActivityButton: "Delete activity",
+        warningDeleteActivityMessage: "Do you want to delete the activity permanently? This action cannot be undone.",
+        cancelDeleteActivityButton: "Cancel",
+        confirmDeleteActivityButton: "Delete permanently",
+        successUpdateActivityMessage: "The activity has been edited successfully",
+        errorUpdateActivityMessage: "The activity could not be edited. \nReason: ",
+        successDeleteActivityMessage: "The activity has been deleted successfully",
+        errorDeleteActivityMessage: "The activity could not be deleted. \nReason: ",
+        activityNotFoundWithId: "Activity not found with id: ",
+        errorRetrievingActivityMessage: "Error retrieving activity information. \nReason: ",
+        errorRetrievingActivitiesMessage: "Error retrieving activities information. \nReason: "
     }
 }
