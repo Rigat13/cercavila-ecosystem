@@ -4,15 +4,15 @@
   padding: 0.5rem;
   overflow: hidden;
   background: transparent;
-  color: #000088;
-
+  width: 20rem;
+  height: 10rem;
   /* ---------------------------------------------------- Info ---------------------------------------------------- */
 
   &__info {
     flex: 1;
     height: 70%;
     width: 70%;
-    background: #000088;
+    background: #111111;
     color: white;
     border-radius: 0rem 2rem 2rem 0rem;
     position: absolute;
@@ -94,7 +94,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: 0.6rem solid #000088;
+    border: 0.6rem solid #111111;
     overflow: hidden;
     transition: transform 0.3s ease;
   }
