@@ -1,8 +1,11 @@
 package cat.cercavila.cvapi.activities.domain;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Activity {
+    private static final int COINS_REWARD = 1;
+    private static final int COINS_REWARD_FIRST_DAY_MULTIPLIER = 2;
     private String id;
     private String question;
     private String type;
@@ -21,6 +24,15 @@ public class Activity {
         this.correctAnswer = correctAnswer;
         this.firstIncorrectAnswer = firstIncorrectAnswer;
         this.secondIncorrectAnswer = secondIncorrectAnswer;
+    }
+
+    public float getCoinsReward(Date publishedDate, Date answeredDate, String answer) {
+        boolean isAnswerCorrect = answer.compareTo(correctAnswer) == 0;
+        if (!isAnswerCorrect) return 0;
+
+        boolean answeredDuringFirstDay = (answeredDate.getTime() - publishedDate.getTime()) < 86400000;
+        if (answeredDuringFirstDay) return COINS_REWARD * COINS_REWARD_FIRST_DAY_MULTIPLIER;
+        else return COINS_REWARD;
     }
 
     public String getId() { return id; }
