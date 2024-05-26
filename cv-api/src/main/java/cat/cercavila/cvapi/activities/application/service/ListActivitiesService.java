@@ -10,34 +10,31 @@ import java.util.List;
 
 @Service
 public class ListActivitiesService implements ListActivities {
-    private final ListActivityPort listFiguresPort;
+    private final ListActivityPort listActivitiesPort;
 
-    ListActivitiesService(ListActivityPort listFiguresPort) { this.listFiguresPort = listFiguresPort; }
+    ListActivitiesService(ListActivityPort listActivitiesPort) { this.listActivitiesPort = listActivitiesPort; }
 
     @Override
-    public ActivityListing getFiguraById(String id) {
-        return listFiguresPort.loadFiguraById(id)
+    public ActivityListing getActivityById(String id) {
+        return listActivitiesPort.loadActivityById(id)
                 .orElseThrow(() -> new ActivityNotFound(id));
     }
 
     @Override
-    public ActivityListing getFiguraByName(String name) {
-        return listFiguresPort.loadFiguraByName(name)
-                .orElseThrow(() -> new ActivityNotFound(name));
+    public ActivityListing getActivityByQuestion(String question) {
+        return listActivitiesPort.loadActivityByQuestion(question)
+                .orElseThrow(() -> new ActivityNotFound(question));
     }
 
     @Override
-    public List<ActivityListing> getAllFiguresByName() { return listFiguresPort.loadAllFiguresByName(); }
+    public List<ActivityListing> getAllActivitiesByQuestion() { return listActivitiesPort.loadAllActivitiesByQuestion(); }
 
     @Override
-    public List<ActivityListing> getAllFiguresByYear() { return listFiguresPort.loadAllFiguresByYear(); }
+    public List<ActivityListing> getAllActivitiesByType() { return listActivitiesPort.loadAllActivitiesByType(); }
 
     @Override
-    public List<ActivityListing> getAllFiguresByType() { return listFiguresPort.loadAllFiguresByType(); }
+    public List<ActivityListing> getAllActivities() { return listActivitiesPort.loadAllActivities(); }
 
     @Override
-    public List<ActivityListing> getAllFigures() { return listFiguresPort.loadAllFigures(); }
-
-    @Override
-    public List<ActivityListing> getAllFiguresNoImage() { return listFiguresPort.loadAllFiguresNoImage(); }
+    public List<ActivityListing> getAllActivitiesNoImage() { return listActivitiesPort.loadAllActivitiesNoImage(); }
 }

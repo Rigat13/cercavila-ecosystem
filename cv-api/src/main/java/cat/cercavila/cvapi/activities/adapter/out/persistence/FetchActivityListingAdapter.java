@@ -22,74 +22,67 @@ public class FetchActivityListingAdapter implements ListActivityPort {
     }
 
     @Override
-    public Optional<ActivityListing> loadFiguraById(String id) {
-        Optional<ActivityListing> figuraListingOptional = activityRepository.getById(id);
-        return figuraListingOptional.map(this::createFiguraListingFromListing);
+    public Optional<ActivityListing> loadActivityById(String id) {
+        Optional<ActivityListing> activityListingOptional = activityRepository.getById(id);
+        return activityListingOptional.map(this::createActivityListingFromListing);
     }
 
     @Override
-    public Optional<ActivityListing> loadFiguraByName(String name) {
-        Optional<ActivityListing> figuraListingOptional = activityRepository.getByName(name);
-        return figuraListingOptional.map(this::createFiguraListingFromListing);
+    public Optional<ActivityListing> loadActivityByQuestion(String name) {
+        Optional<ActivityListing> activityListingOptional = activityRepository.getByQuestion(name);
+        return activityListingOptional.map(this::createActivityListingFromListing);
     }
 
     @Override
-    public List<ActivityListing> loadAllFiguresByName() {
-        List<ActivityListing> activityListings = activityRepository.loadAllFiguresByName();
+    public List<ActivityListing> loadAllActivitiesByQuestion() {
+        List<ActivityListing> activityListings = activityRepository.loadAllActivitiesByQuestion();
         return activityListings.stream()
-                .map(this::createFiguraListingFromListing)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ActivityListing> loadAllFiguresByYear() {
-        List<ActivityListing> activityListings = activityRepository.loadAllFiguresByYear();
-        return activityListings.stream()
-                .map(this::createFiguraListingFromListing)
+                .map(this::createActivityListingFromListing)
                 .collect(Collectors.toList());
     }
     
     @Override
-    public List<ActivityListing> loadAllFiguresByType() {
-        List<ActivityListing> activityListings = activityRepository.loadAllFiguresByType();
+    public List<ActivityListing> loadAllActivitiesByType() {
+        List<ActivityListing> activityListings = activityRepository.loadAllActivitiesByType();
         return activityListings.stream()
-                .map(this::createFiguraListingFromListing)
+                .map(this::createActivityListingFromListing)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ActivityListing> loadAllFigures() {
+    public List<ActivityListing> loadAllActivities() {
         List<ActivityListing> activityListings = activityRepository.findAllListing();
         return activityListings.stream()
-                .map(this::createFiguraListingFromListing)
+                .map(this::createActivityListingFromListing)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ActivityListing> loadAllFiguresNoImage() {
+    public List<ActivityListing> loadAllActivitiesNoImage() {
         List<ActivityListing> activityListings = activityRepository.findAllListing();
         return activityListings;
     }
 
-    private ActivityListing createFiguraListingFromListing(ActivityListing activityListing) {
+    private ActivityListing createActivityListingFromListing(ActivityListing activityListing) {
         // Fetch the image file using the imageKey
         byte[] imageBytes = (activityListing.imageKey() == null) ? null : fetchImageFromServer(activityListing.imageKey());
 
         // Create a ActivityListing object with database fields and image data
         return new ActivityListing(
                 activityListing.id(),
-                activityListing.name(),
-                activityListing.year(),
+                activityListing.question(),
                 activityListing.type(),
                 activityListing.imageKey(),
                 imageBytes,
-                activityListing.webUrl()
+                activityListing.correctAnswer(),
+                activityListing.firstIncorrectAnswer(),
+                activityListing.secondIncorrectAnswer()
         );
     }
 
     private byte[] fetchImageFromServer(String imageKeyName) {
         try {
-            Path directoryPath = Paths.get("/srv/cv-api/images/figures");
+            Path directoryPath = Paths.get("/srv/cv-api/images/activities");
             if (Files.isDirectory(directoryPath)) {
                 try (Stream<Path> paths = Files.list(directoryPath)) {
                     Optional<Path> imagePathOptional = paths.filter(path -> path.getFileName().toString().equals(imageKeyName)).findFirst();

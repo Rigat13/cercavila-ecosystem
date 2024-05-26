@@ -14,8 +14,8 @@ public class DeleteActivityService implements DeleteActivityUseCase {
     }
 
     @Override
-    public void deleteFigura(DeleteActivityCommand deleteActivityCommand) {
+    public void deleteActivity(DeleteActivityCommand deleteActivityCommand) {
         // TODO perform checks
-        deleteActivityPort.deleteFigura(deleteActivityCommand);
+        deleteActivityPort.deleteActivity(deleteActivityCommand);
     }
 }

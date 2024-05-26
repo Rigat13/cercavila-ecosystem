@@ -16,12 +16,12 @@ public class DeleteActivityAdapter implements DeleteActivityPort {
     public DeleteActivityAdapter(ActivityRepository activityRepository) { this.activityRepository = activityRepository; }
 
     @Override
-    public void deleteFigura(DeleteActivityCommand deleteActivityCommand) {
+    public void deleteActivity(DeleteActivityCommand deleteActivityCommand) {
         removeCurrentImage(deleteActivityCommand);
-        activityRepository.delete(deleteFiguraCommand2FiguraEntity(deleteActivityCommand));
+        activityRepository.delete(deleteActivityCommand2ActivityEntity(deleteActivityCommand));
     }
 
-    private ActivityEntity deleteFiguraCommand2FiguraEntity(DeleteActivityCommand deleteActivityCommand) {
+    private ActivityEntity deleteActivityCommand2ActivityEntity(DeleteActivityCommand deleteActivityCommand) {
         ActivityEntity activityEntity = new ActivityEntity();
         activityEntity.setId(deleteActivityCommand.id()); // IMPORTANT: Here, an existing ID is used to delete the Activity
         // The other fields are not necessary for the deletion
@@ -29,17 +29,17 @@ public class DeleteActivityAdapter implements DeleteActivityPort {
     }
 
     private void removeCurrentImage(DeleteActivityCommand deleteActivityCommand) {
-        String figuraId = deleteActivityCommand.id();
+        String activityId = deleteActivityCommand.id();
 
         ActivityListing currentActivityListing;
-        try { currentActivityListing = activityRepository.getById(figuraId).orElseThrow(); }
+        try { currentActivityListing = activityRepository.getById(activityId).orElseThrow(); }
         catch (Exception e) { e.printStackTrace(); return; }
-        ActivityEntity currentFigura = MapperActivityActivityEntity.figuraListingToFiguraEntity(currentActivityListing);
+        ActivityEntity currentActivity = MapperActivityActivityEntity.activityListingToActivityEntity(currentActivityListing);
 
-        String currentImageKey = currentFigura.getImageKey();
+        String currentImageKey = currentActivity.getImageKey();
         if (currentImageKey != null && !currentImageKey.isEmpty()) {
             try {
-                Path logoPath = Paths.get("/srv/cv-api/images/figures", currentImageKey);
+                Path logoPath = Paths.get("/srv/cv-api/images/activities", currentImageKey);
                 Files.deleteIfExists(logoPath);
             } catch (Exception e) { e.printStackTrace(); }
         }

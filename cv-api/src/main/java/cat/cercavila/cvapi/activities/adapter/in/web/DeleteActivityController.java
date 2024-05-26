@@ -12,8 +12,8 @@ public class DeleteActivityController {
 
     public DeleteActivityController(DeleteActivityUseCase deleteActivityUseCase) { this.deleteActivityUseCase = deleteActivityUseCase; }
 
-    @DeleteMapping("/api/figures")
-    public void deleteFigura(@RequestBody DeleteActivityCommand deleteActivityCommand) {
-        deleteActivityUseCase.deleteFigura(deleteActivityCommand);
+    @DeleteMapping("/api/activities")
+    public void deleteActivity(@RequestBody DeleteActivityCommand deleteActivityCommand) {
+        deleteActivityUseCase.deleteActivity(deleteActivityCommand);
     }
 }

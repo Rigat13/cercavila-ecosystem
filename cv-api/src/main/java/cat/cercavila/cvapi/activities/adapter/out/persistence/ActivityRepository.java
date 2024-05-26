@@ -11,52 +11,41 @@ import java.util.Optional;
 public interface ActivityRepository extends JpaRepository<ActivityEntity, Long> {
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
-
-            from activity f 
-            where f.id = :id
+            select new cat.cercavila.cvapi.activities.application.port.in.list.ActivityListing(
+                            a.id, a.question, a.type, a.imageKey, a.correctAnswer, a.firstIncorrectAnswer, a.secondIncorrectAnswer)
+            from activity a 
+            where a.id = :id
         """)
     Optional<ActivityListing> getById(@Param("id") String nom);
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
-
-            from activity f 
-            where f.name = :name
+            select new cat.cercavila.cvapi.activities.application.port.in.list.ActivityListing(
+                            a.id, a.question, a.type, a.imageKey, a.correctAnswer, a.firstIncorrectAnswer, a.secondIncorrectAnswer)
+            from activity a 
+            where a.question = :question
         """)
-    Optional<ActivityListing> getByName(@Param("name") String name);
+    Optional<ActivityListing> getByQuestion(@Param("question") String name);
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
-            from activity f 
-            order by f.name
+            select new cat.cercavila.cvapi.activities.application.port.in.list.ActivityListing(
+                            a.id, a.question, a.type, a.imageKey, a.correctAnswer, a.firstIncorrectAnswer, a.secondIncorrectAnswer)
+            from activity a 
+            order by a.question
         """)
-    List<ActivityListing> loadAllFiguresByName();
+    List<ActivityListing> loadAllActivitiesByQuestion();
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
-            from activity f 
-            order by f.year
+            select new cat.cercavila.cvapi.activities.application.port.in.list.ActivityListing(
+                            a.id, a.question, a.type, a.imageKey, a.correctAnswer, a.firstIncorrectAnswer, a.secondIncorrectAnswer)
+            from activity a 
+            order by a.type
         """)
-    List<ActivityListing> loadAllFiguresByYear();
+    List<ActivityListing> loadAllActivitiesByType();
 
     @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
-            from activity f 
-            order by f.type
-        """)
-    List<ActivityListing> loadAllFiguresByType();
-
-    @Query("""
-            select new cat.cercavila.cvapi.figures.application.port.in.list.FiguraListing(
-                            f.id, f.name, f.year, f.type, f.imageKey, f.webUrl)
-
-                            from activity f
+            select new cat.cercavila.cvapi.activities.application.port.in.list.ActivityListing(
+                            a.id, a.question, a.type, a.imageKey, a.correctAnswer, a.firstIncorrectAnswer, a.secondIncorrectAnswer)
+            from activity a 
         """)
     List<ActivityListing> findAllListing();
 }

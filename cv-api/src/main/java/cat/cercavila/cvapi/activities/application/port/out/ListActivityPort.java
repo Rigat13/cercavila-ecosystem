@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ListActivityPort {
-    Optional<ActivityListing> loadFiguraById(String id);
-    Optional<ActivityListing> loadFiguraByName(String name);
+    Optional<ActivityListing> loadActivityById(String id);
+    Optional<ActivityListing> loadActivityByQuestion(String name);
 
-    List<ActivityListing> loadAllFiguresByName();
-    List<ActivityListing> loadAllFiguresByYear();
-    List<ActivityListing> loadAllFiguresByType();
-    List<ActivityListing> loadAllFigures();
-    List<ActivityListing> loadAllFiguresNoImage();
+    List<ActivityListing> loadAllActivitiesByQuestion();
+    List<ActivityListing> loadAllActivitiesByType();
+    List<ActivityListing> loadAllActivities();
+    List<ActivityListing> loadAllActivitiesNoImage();
 }

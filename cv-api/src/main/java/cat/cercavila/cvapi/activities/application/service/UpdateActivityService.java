@@ -14,8 +14,8 @@ public class UpdateActivityService implements UpdateActivityUseCase {
     }
 
     @Override
-    public void updateFigura(UpdateActivityCommand updateActivityCommand) {
+    public void updateActivity(UpdateActivityCommand updateActivityCommand) {
         // TODO perform checks
-        updateActivityPort.updateFigura(updateActivityCommand);
+        updateActivityPort.updateActivity(updateActivityCommand);
     }
 }

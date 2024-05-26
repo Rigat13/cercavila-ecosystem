@@ -6,5 +6,5 @@ import javax.validation.Valid;
 
 @Validated
 public interface CreateActivityUseCase {
-    void createFigura(@Valid CreateActivityCommand createActivityCommand);
+    void createActivity(@Valid CreateActivityCommand createActivityCommand);
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@ComponentScan({"cat.cercavila.cvapi.figures.application.port.in.list.ListActivities"})
+@ComponentScan({"cat.cercavila.cvapi.activities.application.port.in.list.ListActivities"})
 @RestController
 public class ListActivitiesController {
     private final ListActivities listActivities;
@@ -17,24 +17,21 @@ public class ListActivitiesController {
 
     public ListActivitiesController(ListActivities listActivities) { this.listActivities = listActivities; }
 
-    @GetMapping("/api/figures/id/{id}")
-    public ActivityListing getFiguraById(@PathVariable String id) { return listActivities.getFiguraById(id); }
+    @GetMapping("/api/activities/id/{id}")
+    public ActivityListing getActivityById(@PathVariable String id) { return listActivities.getActivityById(id); }
 
-    @GetMapping("/api/figures/name/{name}")
-    public ActivityListing getFiguraByName(@PathVariable String name) { return listActivities.getFiguraByName(name); }
+    @GetMapping("/api/activities/question/{question}")
+    public ActivityListing getActivityByQuestion(@PathVariable String question) { return listActivities.getActivityByQuestion(question); }
 
-    @GetMapping("/api/figures/name")
-    public List<ActivityListing> getAllFiguresByName() { return listActivities.getAllFiguresByName(); }
+    @GetMapping("/api/activities/question")
+    public List<ActivityListing> getAllActivitiesByQuestion() { return listActivities.getAllActivitiesByQuestion(); }
 
-    @GetMapping("/api/figures/year")
-    public List<ActivityListing> getAllFiguresByYear() { return listActivities.getAllFiguresByYear(); }
+    @GetMapping("/api/activities/type")
+    public List<ActivityListing> getAllActivitiesByType() { return listActivities.getAllActivitiesByType(); }
 
-    @GetMapping("/api/figures/type")
-    public List<ActivityListing> getAllFiguresByType() { return listActivities.getAllFiguresByType(); }
+    @GetMapping("/api/activities")
+    public List<ActivityListing> getAllActivities() { return listActivities.getAllActivities(); }
 
-    @GetMapping("/api/figures")
-    public List<ActivityListing> getAllFigures() { return listActivities.getAllFigures(); }
-
-    @GetMapping("/api/figures/noimage")
-    public List<ActivityListing> getAllFiguresNoImage() { return listActivities.getAllFiguresNoImage(); }
+    @GetMapping("/api/activities/noimage")
+    public List<ActivityListing> getAllActivitiesNoImage() { return listActivities.getAllActivitiesNoImage(); }
 }

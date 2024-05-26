@@ -14,8 +14,8 @@ public class StoreActivityController {
         this.createActivityUseCase = createActivityUseCase;
     }
 
-    @PostMapping("/api/figures")
-    public void storeFigura(@ModelAttribute CreateActivityCommand createActivityCommand) {
-        createActivityUseCase.createFigura(createActivityCommand);
+    @PostMapping("/api/activities")
+    public void storeActivity(@ModelAttribute CreateActivityCommand createActivityCommand) {
+        createActivityUseCase.createActivity(createActivityCommand);
     }
 }

@@ -18,23 +18,24 @@ public class UpdateActivityAdapter implements UpdateActivityPort {
     public UpdateActivityAdapter(ActivityRepository activityRepository) { this.activityRepository = activityRepository; }
 
     @Override
-    public void updateFigura(UpdateActivityCommand updateActivityCommand) {
+    public void updateActivity(UpdateActivityCommand updateActivityCommand) {
         String imageKeyName = generateImageKeyName(updateActivityCommand);
         if (!imageKeyName.equals("")) {
             removeCurrentImage(updateActivityCommand);
             saveImageToServer(updateActivityCommand.image(), imageKeyName);
         }
-        activityRepository.save(updateFiguraCommand2FiguraEntity(updateActivityCommand, imageKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
+        activityRepository.save(updateActivityCommand2ActivityEntity(updateActivityCommand, imageKeyName)); // NOTE: save does not mean "create"; if it exists, it will update
     }
 
-    private ActivityEntity updateFiguraCommand2FiguraEntity(UpdateActivityCommand updateActivityCommand, String imageKey) {
+    private ActivityEntity updateActivityCommand2ActivityEntity(UpdateActivityCommand updateActivityCommand, String imageKey) {
         ActivityEntity activityEntity = new ActivityEntity();
         activityEntity.setId(updateActivityCommand.id());
-        activityEntity.setName(updateActivityCommand.name());
-        activityEntity.setYear(updateActivityCommand.year());
+        activityEntity.setQuestion(updateActivityCommand.question());
         activityEntity.setType(updateActivityCommand.type());
         activityEntity.setImageKey(imageKey);
-        activityEntity.setWebUrl(updateActivityCommand.webUrl());
+        activityEntity.setCorrectAnswer(updateActivityCommand.correctAnswer());
+        activityEntity.setFirstIncorrectAnswer(updateActivityCommand.firstIncorrectAnswer());
+        activityEntity.setSecondIncorrectAnswer(updateActivityCommand.secondIncorrectAnswer());
 
         return activityEntity;
     }
@@ -43,23 +44,23 @@ public class UpdateActivityAdapter implements UpdateActivityPort {
         if (updateActivityCommand.image() == null || updateActivityCommand.image().isEmpty()) return "";
         String original = updateActivityCommand.image().getOriginalFilename();
         String extension = original.substring(original.lastIndexOf("."));
-        String figuraName = updateActivityCommand.name();
-        figuraName = figuraName.replaceAll("[^a-zA-Z0-9.-]", "_");
-        return "image_figura_" + figuraName + "_" + UUID.randomUUID() + extension;
+        String activityName = updateActivityCommand.question();
+        activityName = activityName.replaceAll("[^a-zA-Z0-9.-]", "_");
+        return "image_activity_" + activityName + "_" + UUID.randomUUID() + extension;
     }
 
     private void removeCurrentImage(UpdateActivityCommand updateActivityCommand) {
-        String figuraId = updateActivityCommand.id();
+        String activityId = updateActivityCommand.id();
 
         ActivityListing currentActivityListing;
-        try { currentActivityListing = activityRepository.getById(figuraId).orElseThrow(); }
+        try { currentActivityListing = activityRepository.getById(activityId).orElseThrow(); }
         catch (Exception e) { e.printStackTrace(); return; }
-        ActivityEntity currentFigura = MapperActivityActivityEntity.figuraListingToFiguraEntity(currentActivityListing);
+        ActivityEntity currentActivity = MapperActivityActivityEntity.activityListingToActivityEntity(currentActivityListing);
 
-        String currentImageKey = currentFigura.getImageKey();
+        String currentImageKey = currentActivity.getImageKey();
         if (currentImageKey != null && !currentImageKey.isEmpty()) {
             try {
-                Path imagePath = Paths.get("/srv/cv-api/images/figures", currentImageKey);
+                Path imagePath = Paths.get("/srv/cv-api/images/activities", currentImageKey);
                 Files.deleteIfExists(imagePath);
             } catch (Exception e) { e.printStackTrace(); }
         }
@@ -68,7 +69,7 @@ public class UpdateActivityAdapter implements UpdateActivityPort {
     private void saveImageToServer(MultipartFile imageFile, String imageKeyName) {
         if (imageFile == null || imageFile.isEmpty()) return;
         try {
-            Path filePath = Paths.get("/srv/cv-api/images/figures", imageKeyName);
+            Path filePath = Paths.get("/srv/cv-api/images/activities", imageKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (Exception e) { e.printStackTrace(); }
     }

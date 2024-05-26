@@ -7,31 +7,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "figura")
-@Table(name = "figures")
+@Entity(name = "activity")
+@Table(name = "activities")
 public class ActivityEntity {
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
-    private String name;
-    private int year;
+    private String question;
     private String type;
     private String imageKey;
-    private String webUrl;
+    private String correctAnswer;
+    private String firstIncorrectAnswer;
+    private String secondIncorrectAnswer;
 
     public void setId(String id) { this.id = id; }
     public String getId() { return id; }
 
-    public String getName() {return name; }
-    public void setName(String name) { this.name = name; }
-    public int getYear() { return year; }
-    public void setYear(int year) { this.year = year; }
+    public String getQuestion() {return question; }
+    public void setQuestion(String name) { this.question = name; }
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
     public String getImageKey() { return imageKey; }
     public void setImageKey(String imageKey) { this.imageKey = imageKey; }
-    public String getWebUrl() { return webUrl; }
-    public void setWebUrl(String webUrl) { this.webUrl = webUrl; }
+    public String getCorrectAnswer() { return correctAnswer; }
+    public void setCorrectAnswer(String webUrl) { this.correctAnswer = webUrl; }
+    public String getFirstIncorrectAnswer() { return firstIncorrectAnswer; }
+    public void setFirstIncorrectAnswer(String firstIncorrectAnswer) { this.firstIncorrectAnswer = firstIncorrectAnswer; }
+    public String getSecondIncorrectAnswer() { return secondIncorrectAnswer; }
+    public void setSecondIncorrectAnswer(String secondIncorrectAnswer) { this.secondIncorrectAnswer = secondIncorrectAnswer; }
 
 }

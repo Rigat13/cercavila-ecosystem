@@ -12,8 +12,8 @@ public class UpdateActivityController {
 
     public UpdateActivityController(UpdateActivityUseCase updateActivityUseCase) { this.updateActivityUseCase = updateActivityUseCase; }
 
-    @PutMapping("/api/figures")
-    public void updateFigura(@ModelAttribute UpdateActivityCommand updateActivityCommand) {
-        updateActivityUseCase.updateFigura(updateActivityCommand);
+    @PutMapping("/api/activities")
+    public void updateActivity(@ModelAttribute UpdateActivityCommand updateActivityCommand) {
+        updateActivityUseCase.updateActivity(updateActivityCommand);
     }
 }

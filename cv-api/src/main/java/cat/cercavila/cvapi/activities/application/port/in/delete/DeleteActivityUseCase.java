@@ -6,5 +6,5 @@ import javax.validation.Valid;
 
 @Validated
 public interface DeleteActivityUseCase {
-    void deleteFigura(@Valid DeleteActivityCommand deleteActivityCommand);
+    void deleteActivity(@Valid DeleteActivityCommand deleteActivityCommand);
 }

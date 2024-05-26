@@ -13,10 +13,10 @@ public class ExceptionHandlingAdviceActivity {
     @ResponseBody
     @ExceptionHandler(ActivityNotFound.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String figuraNotFoundHandler(ActivityNotFound ex) { return ex.getMessage(); }
+    String activityNotFoundHandler(ActivityNotFound ex) { return ex.getMessage(); }
 
     @ResponseBody
     @ExceptionHandler(ActivityAlreadyExists.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    String figuraAlreadyExistsHandler(ActivityAlreadyExists ex) { return ex.getMessage(); }
+    String activityAlreadyExistsHandler(ActivityAlreadyExists ex) { return ex.getMessage(); }
 }

@@ -6,5 +6,5 @@ import javax.validation.Valid;
 
 @Validated
 public interface UpdateActivityUseCase {
-    void updateFigura(@Valid UpdateActivityCommand updateActivityCommand);
+    void updateActivity(@Valid UpdateActivityCommand updateActivityCommand);
 }

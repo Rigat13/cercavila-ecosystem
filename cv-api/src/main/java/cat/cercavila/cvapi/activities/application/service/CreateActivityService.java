@@ -14,9 +14,9 @@ public class CreateActivityService implements CreateActivityUseCase {
     }
 
     @Override
-    public void createFigura(CreateActivityCommand createActivityCommand) {
+    public void createActivity(CreateActivityCommand createActivityCommand) {
         // TODO perform checks
-        storeActivityPort.storeFigura(createActivityCommand);
+        storeActivityPort.storeActivity(createActivityCommand);
     }
 
 }

@@ -41,10 +41,10 @@ public class Activity {
     public String toString() {
         return "Activity{" +
                 "id='" + id +
-                ", name='" + question +
+                ", question='" + question +
                 ", type='" + type +
                 ", imageKey='" + imageKey +
-                ", webUrl='" + correctAnswer +
+                ", correctAnswer='" + correctAnswer +
                 ", firstIncorrectAnswer='" + firstIncorrectAnswer +
                 ", secondIncorrectAnswer='" + secondIncorrectAnswer +
                 '}';
