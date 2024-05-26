@@ -16,7 +16,7 @@ export function useUpdateActivityForm(): {
     const { updateActivity } = useActivitiesContext();
 
     function submitForm({ id, question, type, image, correctAnswer, firstIncorrectAnswer, secondIncorrectAnswer }:
-                            { id: string; name: string; year: number; type: string; image: File | null; webUrl: string; }) {
+                            { id: string; question: string; type: string; image: File | null; correctAnswer: string; firstIncorrectAnswer: string; secondIncorrectAnswer: string; }) {
         setFormStatus(FormStatus.Loading);
         try {
             updateActivity({ id, question, type, image, correctAnswer, firstIncorrectAnswer, secondIncorrectAnswer })

@@ -1,10 +1,10 @@
 import {ActivityIdNotValidError, isActivityIdValid} from "@/modules/activities/domain/activity-attributes/ActivityId";
-import {ActivityQuestionNotValidError, isActivityQuestionValid} from "@/modules/activities/domain/activity-attributes/ActivityName";
+import {ActivityQuestionNotValidError, isActivityQuestionValid} from "@/modules/activities/domain/activity-attributes/ActivityQuestion";
 import {ActivityTypeNotValidError, isActivityTypeValid} from "@/modules/activities/domain/activity-attributes/ActivityType";
 import {ActivityImageNotValidError, isActivityImageValid} from "@/modules/activities/domain/activity-attributes/ActivityImage";
-import {ActivityCorrectAnswerNotValidError, isActivityCorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityWebUrl";
-import {ActivityFirstIncorrectAnswerNotValidError, isActivityFirstIncorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityDescription";
-import {ActivitySecondIncorrectAnswerNotValidError, isActivitySecondIncorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityDescription";
+import {ActivityCorrectAnswerNotValidError, isActivityCorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityCorrectAnswer";
+import {ActivityFirstIncorrectAnswerNotValidError, isActivityFirstIncorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityFirstIncorrectAnswer";
+import {ActivitySecondIncorrectAnswerNotValidError, isActivitySecondIncorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivitySecondIncorrectAnswer";
 
 export interface Activity {
     id: string;

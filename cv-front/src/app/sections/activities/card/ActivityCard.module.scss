@@ -25,15 +25,10 @@
     margin-left: 4.5rem;
   }
 
-  &__name {
+  &__question {
     margin: 2.3rem 2.3rem 0rem 2.3rem;
     font-size: 1.5rem;
     font-weight: 900;
-  }
-
-  &__year {
-    font-size: 1.5rem;
-    font-weight: 300;
   }
 
   &__type {
@@ -44,7 +39,7 @@
     padding: 0rem 0.5rem 0rem 0.5rem;
   }
 
-  &__webUrl {
+  &__answer {
     margin-top: 0.5em;
     font-size: 1rem;
   }

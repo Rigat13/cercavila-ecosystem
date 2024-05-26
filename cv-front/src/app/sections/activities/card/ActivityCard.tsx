@@ -6,6 +6,9 @@ import {useEffect, useState} from "react";
 export function ActivityCard({ activity, lang }: { activity: Activity; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
+    const answers = [activity.correctAnswer, activity.firstIncorrectAnswer, activity.secondIncorrectAnswer];
+    answers.sort(() => Math.random() - 0.5);
+
     useEffect(() => {
         if (activity.image) {
             const blob = base64ToBlob(activity.image as unknown as string);
@@ -17,14 +20,12 @@ export function ActivityCard({ activity, lang }: { activity: Activity; lang: str
     return (
         <div className={styles.activityCard}>
             {imageUrl && (
-                <a href={getWebUrl(activity.webUrl)} target="_blank" className={styles.activityCard__aImage}>
-                    <div className={styles.activityCard__image}>
-                        <img
-                            src={imageUrl}
-                            alt={`Imatge de ${activity.question}`}
-                        />
-                    </div>
-                </a>
+                <div className={styles.activityCard__image}>
+                    <img
+                        src={imageUrl}
+                        alt={`Imatge de ${activity.question}`}
+                    />
+                </div>
             )}
             <div className={styles.activityCard__info}>
                 <a href={`activities/update.html?activityId=${activity.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
@@ -32,31 +33,14 @@ export function ActivityCard({ activity, lang }: { activity: Activity; lang: str
                         <img src="/icons/icon-edit.svg" alt="Editar" />
                     </button>
                 </a>
-                <h3 className={styles.activityCard__name}>{activity.question}</h3>
-                <p className={styles.activityCard__year}>{activity.year}</p>
+                <h3 className={styles.activityCard__question}>{activity.question}</h3>
                 <p className={styles.activityCard__type}>{dictionary[lang]?.[activity.type]}</p>
-
-                {activity.webUrl && (
-                    <a href={getWebUrl(activity.webUrl)} target="_blank">
-                        <button className={styles.outerLink}>
-                            <img src="/icons/icon-web.png" alt="Història"/>
-                        </button>
-                    </a>
-                )}
+                <p className={styles.activityCard__answer}>{answers[0]}</p>
+                <p className={styles.activityCard__answer}>{answers[1]}</p>
+                <p className={styles.activityCard__answer}>{answers[2]}</p>
             </div>
         </div>
     );
-}
-
-function getWebUrl(url: string): string {
-    if (url.startsWith('http:')) {
-        return url;
-    } else if (url.startsWith('www.gegantsmataro')) {
-        return `http://${url}`;
-    } else if (url.startsWith('gegantsmataro.cat')) {
-        return `http://${url}`;
-    }
-    return url;
 }
 
 function base64ToBlob(base64: string): Blob {

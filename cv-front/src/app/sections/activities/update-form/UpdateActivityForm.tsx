@@ -9,7 +9,7 @@ import {defaultLang, dictionary} from "@/content";
 import {isActivityQuestionValid, QUESTION_MAX_LENGTH, QUESTION_MIN_LENGTH} from "@/modules/activities/domain/activity-attributes/ActivityQuestion";
 import {isActivityTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,activityTypes} from "@/modules/activities/domain/activity-attributes/ActivityType";
 import {isActivityImageValid, IMAGE_MAX_MBS} from "@/modules/activities/domain/activity-attributes/ActivityImage";
-import {isActivityAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityCorrectAnswer";
+import {isActivityCorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityCorrectAnswer";
 import {CORRECT_ANSWER_MAX_LENGTH, CORRECT_ANSWER_MIN_LENGTH} from "@/modules/activities/domain/activity-attributes/ActivityCorrectAnswer";
 import {FIRST_INCORRECT_ANSWER_MAX_LENGTH, FIRST_INCORRECT_ANSWER_MIN_LENGTH} from "@/modules/activities/domain/activity-attributes/ActivityFirstIncorrectAnswer";
 import {SECOND_INCORRECT_ANSWER_MAX_LENGTH, SECOND_INCORRECT_ANSWER_MIN_LENGTH} from "@/modules/activities/domain/activity-attributes/ActivitySecondIncorrectAnswer";
@@ -141,9 +141,9 @@ export function UpdateActivityForm({activityId, lang}: {activityId: string; lang
         isTypeValid = isActivityTypeValid(type, dictionary[lang]?.selectActivityType+"");
         if (!isImageAlreadyValid) isImageValid = isActivityImageValid(image);
         setImageAlreadyValid(isImageValid);
-        isCorrectAnswerValid = isActivityAnswerValid(correctAnswer);
-        isFirstIncorrectAnswerValid = isActivityAnswerValid(firstIncorrectAnswer);
-        isSecondIncorrectAnswerValid = isActivityAnswerValid(secondIncorrectAnswer);
+        isCorrectAnswerValid = isActivityCorrectAnswerValid(correctAnswer);
+        isFirstIncorrectAnswerValid = isActivityCorrectAnswerValid(firstIncorrectAnswer);
+        isSecondIncorrectAnswerValid = isActivityCorrectAnswerValid(secondIncorrectAnswer);
 
         setErrors({
             id: "",
@@ -238,11 +238,11 @@ export function UpdateActivityForm({activityId, lang}: {activityId: string; lang
                         }}
                     >
                         <div className={styles.formGroup}>
-                            <label htmlFor="question">{dictionary[lang]?.activityName}</label>
+                            <label htmlFor="question">{dictionary[lang]?.activityQuestion}</label>
                             <input
                                 type="text"
                                 id="question"
-                                question="question"
+                                name="question"
                                 value={formData.question}
                                 onChange={handleQuestionChange}
                             />
@@ -255,7 +255,7 @@ export function UpdateActivityForm({activityId, lang}: {activityId: string; lang
                             <label htmlFor="type">{dictionary[lang]?.activityType}</label>
                             <select
                                 id="type"
-                                question="type"
+                                name="type"
                                 value={formData.type}
                                 onChange={handleTypeChange}
                             >
@@ -283,7 +283,7 @@ export function UpdateActivityForm({activityId, lang}: {activityId: string; lang
                             <input
                                 type="file"
                                 id="image"
-                                question="image"
+                                name="image"
                                 accept="image/*,.avif" // Specify accepted file types (images)
                                 onChange={handleImageChange}
                             />
@@ -300,7 +300,7 @@ export function UpdateActivityForm({activityId, lang}: {activityId: string; lang
                             <input
                                 type="text"
                                 id="correctAnswer"
-                                question="correctAnswer"
+                                name="correctAnswer"
                                 value={formData.correctAnswer}
                                 onChange={handleCorrectAnswerChange}
                             />
@@ -314,7 +314,7 @@ export function UpdateActivityForm({activityId, lang}: {activityId: string; lang
                             <input
                                 type="text"
                                 id="firstIncorrectAnswer"
-                                question="firstIncorrectAnswer"
+                                name="firstIncorrectAnswer"
                                 value={formData.firstIncorrectAnswer}
                                 onChange={handleFirstIncorrectAnswerChange}
                             />
@@ -328,7 +328,7 @@ export function UpdateActivityForm({activityId, lang}: {activityId: string; lang
                             <input
                                 type="text"
                                 id="secondIncorrectAnswer"
-                                question="secondIncorrectAnswer"
+                                name="secondIncorrectAnswer"
                                 value={formData.secondIncorrectAnswer}
                                 onChange={handleSecondIncorrectAnswerChange}
                             />
