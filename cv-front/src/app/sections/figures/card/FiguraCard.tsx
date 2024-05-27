@@ -16,12 +16,21 @@ export function FiguraCard({ figura, lang }: { figura: Figura; lang: string }) {
 
     return (
         <div className={styles.figuraCard}>
-            {imageUrl && (
+            {imageUrl ? (
                 <a href={getWebUrl(figura.webUrl)} target="_blank" className={styles.figuraCard__aImage}>
                     <div className={styles.figuraCard__image}>
-                        <img
+                        <img className={styles.figuraCard__imageImg}
                             src={imageUrl}
                             alt={`Imatge de ${figura.name}`}
+                        />
+                    </div>
+                </a>
+            ) : (
+                <a href={getWebUrl(figura.webUrl)} target="_blank" className={styles.figuraCard__aImage}>
+                    <div className={styles.figuraCard__imageTemp}>
+                        <img className={styles.figuraCard__imageImg}
+                            src="/icons/default-user-image.svg"
+                            alt={`Imatge temporal de ${figura.name}`}
                         />
                     </div>
                 </a>
