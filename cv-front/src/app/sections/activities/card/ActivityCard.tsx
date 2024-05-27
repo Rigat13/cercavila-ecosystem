@@ -19,13 +19,24 @@ export function ActivityCard({ activity, lang }: { activity: Activity; lang: str
 
     return (
         <div className={styles.activityCard}>
-            {imageUrl && (
-                <div className={styles.activityCard__image}>
-                    <img
-                        src={imageUrl}
-                        alt={`Imatge de ${activity.question}`}
-                    />
-                </div>
+            {imageUrl ? (
+                <a className={styles.activityCard__aImage}>
+                    <div className={styles.activityCard__image}>
+                        <img className={styles.activityCard__imageImg}
+                             src={imageUrl}
+                             alt={`Imatge de ${activity.question}`}
+                        />
+                    </div>
+                </a>
+            ) : (
+                <a className={styles.activityCard__aImage}>
+                    <div className={styles.activityCard__imageTemp}>
+                        <img className={styles.activityCard__imageImg}
+                             src="/icons/default-user-image.svg"
+                             alt={`Imatge temporal de ${activity.question}`}
+                        />
+                    </div>
+                </a>
             )}
             <div className={styles.activityCard__info}>
                 <a href={`activities/update.html?activityId=${activity.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
