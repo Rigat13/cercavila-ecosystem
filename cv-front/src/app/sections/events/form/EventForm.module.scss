@@ -1,0 +1,138 @@
+.eventForm {
+  position: relative;
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    label {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #000088;
+      border-radius: 7px;
+    }
+    textarea {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #000088;
+      border-radius: 7px;
+    }
+    select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #000088;
+      border-radius: 7px;
+    }
+    p {
+      font-size: 0.9rem;
+      font-weight: 500;
+      font-style: italic;
+      color: #646464;
+    }
+  }
+
+
+  .actionButton {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 1rem 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 7px;
+    background: #000088;
+    color: #f8f1f1;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background: #f8f1f1;
+      color: #000088;
+    }
+    &:disabled {
+      background-color: #c0c0c0;
+      color: #808080;
+      cursor: not-allowed;
+    }
+  }
+
+  .deleteButton {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 1rem 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 7px;
+    background: #444444;
+    color: #f8f1f1;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background: #ff4646;
+      color: #ffffff;
+    }
+  }
+
+  padding: 2rem;
+  overflow: hidden;
+  background: transparent;
+  color: #000088;
+
+
+  .h2 {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.875rem;
+    padding: 1rem;
+  }
+
+  .h2error {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.875rem;
+    padding: 1rem;
+    color: #ff4646;
+  }
+
+  .warningMessage {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #ff4646;
+  }
+
+  .imagePreviewContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+  }
+
+  .imagePreview {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  .imagePreview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: top;
+  }
+
+  .colourPreviewButton {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    overflow: hidden;
+    margin: 0 0.5rem 0.5rem 0rem;
+  }
+}
