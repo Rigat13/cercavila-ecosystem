@@ -4,7 +4,7 @@ export const QUESTION_ERROR_MESSAGE = `La pregunta no és vàlida. La pregunta h
 
 export function isActivityQuestionValid(question: string): boolean {
     if (question.length < QUESTION_MIN_LENGTH || question.length > QUESTION_MAX_LENGTH+1) return false;
-    const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
+    const regexExp =/^[\p{L}\p{N}\p{Zs}·.',?!"()-]+$/gmu;
     return regexExp.test(question);
 }
 

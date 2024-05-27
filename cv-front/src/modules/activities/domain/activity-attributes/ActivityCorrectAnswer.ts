@@ -4,7 +4,7 @@ export const CORRECT_ANSWER_ERROR_MESSAGE = `La resposta no és vàlida. Ha de t
 
 export function isActivityCorrectAnswerValid(answer: string): boolean {
     if (answer.length < CORRECT_ANSWER_MIN_LENGTH || answer.length > CORRECT_ANSWER_MAX_LENGTH+1) return false;
-    const regexExp =/^[\p{L}\p{N}\p{Zs}·.',-]+$/gmu;
+    const regexExp =/^[\p{L}\p{N}\p{Zs}·.',?!"()-]+$/gmu;
     return regexExp.test(answer);
 }
 
