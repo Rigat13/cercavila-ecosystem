@@ -1,7 +1,7 @@
-import {DigitalProductRepository} from "@/modules/digitalproducts/domain/DigitalProductRepository";
-import {DigitalProduct, ensureDigitalProductIsValidEmptyId} from "@/modules/digitalproducts/domain/DigitalProduct";
+import {EventRepository} from "@/modules/events/domain/EventRepository";
+import {Event, ensureEventIsValidEmptyId} from "@/modules/events/domain/Event";
 
-export async function storeEvent(digitalProductRepository: DigitalProductRepository, digitalProduct: DigitalProduct): Promise<void> {
-    ensureDigitalProductIsValidEmptyId(digitalProduct);
-    await digitalProductRepository.storeDigitalProduct(digitalProduct);
+export async function storeEvent(eventRepository: EventRepository, event: Event): Promise<void> {
+    ensureEventIsValidEmptyId(event);
+    await eventRepository.storeEvent(event);
 }

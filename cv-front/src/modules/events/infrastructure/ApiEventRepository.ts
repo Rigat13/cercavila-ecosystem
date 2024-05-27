@@ -1,29 +1,41 @@
-import {DigitalProductRepository} from "@/modules/digitalproducts/domain/DigitalProductRepository";
-import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
-import {URL_PREFIX} from "@/modules/digitalproducts/infrastructure/configuration";
+import {EventRepository} from "@/modules/events/domain/EventRepository";
+import {Event} from "@/modules/events/domain/Event";
+import {URL_PREFIX} from "@/modules/events/infrastructure/configuration";
 import {User} from "@/modules/users/domain/User";
 
-export function createApiDigitalProductRepository(): DigitalProductRepository {
+export function createApiEventRepository(): EventRepository {
     return {
-        storeDigitalProduct, getDigitalProductById, getDigitalProductByName, getAllDigitalProductsByName,
-        getAllDigitalProductsByPrice, getAllDigitalProductsByType, getAllDigitalProducts, updateDigitalProduct, deleteDigitalProduct, getAllDigitalProductsNoImage,
+        storeEvent, getEventById, getEventByName, getAllEventsByName,
+        getAllEventsByType, getAllEvents, updateEvent, deleteEvent, getAllEventsNoImage,
         getAllUsers, updateUser
     };
 }
 
-async function storeDigitalProduct(digitalProduct: DigitalProduct) {
+async function storeEvent(event: Event) {
     try {
         const formData = new FormData();
-        formData.append("id", digitalProduct.id);
-        formData.append("name", digitalProduct.name);
-        formData.append("description", digitalProduct.description);
-        if (digitalProduct.image) formData.append("image", digitalProduct.image, digitalProduct.image.name);
-        formData.append("primaryColour", digitalProduct.primaryColour);
-        formData.append("secondaryColour", digitalProduct.secondaryColour);
-        formData.append("price", digitalProduct.price.toString());
-        formData.append("type", digitalProduct.type);
+        formData.append("id", event.id);
+        formData.append("name", event.name);
+        formData.append("description", event.description);
+        if (event.image) formData.append("image", event.image, event.image.name);
+        formData.append("primaryColour", event.primaryColour);
+        formData.append("secondaryColour", event.secondaryColour);
+        formData.append("type", event.type);
+        formData.append("startDate", event.startDate);
+        formData.append("endDate", event.endDate);
+        formData.append("cercatrivies", event.cercatrivies.join(","));
+        formData.append("firstCoinsReward", event.firstCoinsReward.toString());
+        formData.append("firstDigitalProductsReward", event.firstDigitalProductsReward.join(","));
+        formData.append("secondCoinsReward", event.secondCoinsReward.toString());
+        formData.append("secondDigitalProductsReward", event.secondDigitalProductsReward.join(","));
+        formData.append("thirdCoinsReward", event.thirdCoinsReward.toString());
+        formData.append("thirdDigitalProductsReward", event.thirdDigitalProductsReward.join(","));
+        formData.append("fourthTenthCoinsReward", event.fourthTenthCoinsReward.toString());
+        formData.append("fourthTenthDigitalProductsReward", event.fourthTenthDigitalProductsReward.join(","));
+        formData.append("allCoinsReward", event.allCoinsReward.toString());
+        formData.append("allDigitalProductsReward", event.allDigitalProductsReward.join(","));
 
-        await fetch(URL_PREFIX + "/api/digitalproducts", {
+        await fetch(URL_PREFIX + "/api/events", {
             method: "POST",
             body: formData,
         });
@@ -32,96 +44,99 @@ async function storeDigitalProduct(digitalProduct: DigitalProduct) {
     }
 }
 
-async function getDigitalProductById(id: string) {
+async function getEventById(id: string) {
     try {
-        const digitalProduct = await fetch(URL_PREFIX + `/api/digitalproducts/id/${id}`).then(
-        (response) => response.json() as Promise<DigitalProduct>
+        const event = await fetch(URL_PREFIX + `/api/events/id/${id}`).then(
+        (response) => response.json() as Promise<Event>
         );
-        return digitalProduct;
+        return event;
     } catch (error) { throw new Error("No s'ha pogut obtenir el producte digital amb l'id. \nMotiu: " + error); }
 }
 
-async function getDigitalProductByName(name: string) {
+async function getEventByName(name: string) {
     try {
-        const digitalProduct = await fetch(URL_PREFIX + `/api/digitalproducts/name/${name}`).then(
-        (response) => response.json() as Promise<DigitalProduct>
+        const event = await fetch(URL_PREFIX + `/api/events/name/${name}`).then(
+        (response) => response.json() as Promise<Event>
         );
-        return digitalProduct;
+        return event;
     } catch (error) { throw new Error("No s'ha pogut obtenir el producte digital amb el nom. \nMotiu: " + error); }
 }
 
-async function getAllDigitalProductsByName() {
+async function getAllEventsByName() {
     try {
-        const digitalProducts = await fetch(URL_PREFIX + `/api/digitalproducts/name`).then(
-            (response) => response.json() as Promise<DigitalProduct[]>
+        const events = await fetch(URL_PREFIX + `/api/events/name`).then(
+            (response) => response.json() as Promise<Event[]>
         );
-        return digitalProducts;
+        return events;
     } catch (error) { throw new Error("No s'ha pogut obtenir tots els producte digitals ordenats per nom. \nMotiu: " + error); }
 }
 
-async function getAllDigitalProductsByPrice() {
+async function getAllEventsByType() {
     try {
-        const digitalProducts = await fetch(URL_PREFIX + `/api/digitalproducts/price`).then(
-            (response) => response.json() as Promise<DigitalProduct[]>
+        const events = await fetch(URL_PREFIX + `/api/events/type`).then(
+            (response) => response.json() as Promise<Event[]>
         );
-        return digitalProducts;
-    } catch (error) { throw new Error("No s'ha pogut obtenir tots els producte digitals ordenats per preu. \nMotiu: " + error); }
-}
-
-async function getAllDigitalProductsByType() {
-    try {
-        const digitalProducts = await fetch(URL_PREFIX + `/api/digitalproducts/type`).then(
-            (response) => response.json() as Promise<DigitalProduct[]>
-        );
-        return digitalProducts;
+        return events;
     } catch (error) { throw new Error("No s'ha pogut obtenir tots els producte digitals ordenats per tipus. \nMotiu: " + error); }
 
 }
 
-async function getAllDigitalProducts() {
+async function getAllEvents() {
     try {
-        const digitalProducts = await fetch(URL_PREFIX + `/api/digitalproducts`).then(
-            (response) => response.json() as Promise<DigitalProduct[]>
+        const events = await fetch(URL_PREFIX + `/api/events`).then(
+            (response) => response.json() as Promise<Event[]>
         );
-        return digitalProducts;
+        return events;
     } catch (error) {
         throw new Error("No s'ha pogut obtenir tots els producte digitals. \nMotiu: " + error);
     }
 }
 
-async function getAllDigitalProductsNoImage() {
+async function getAllEventsNoImage() {
     try {
-        const digitalProducts = await fetch(URL_PREFIX + `/api/digitalproducts/noimage`).then(
-            (response) => response.json() as Promise<DigitalProduct[]>
+        const events = await fetch(URL_PREFIX + `/api/events/noimage`).then(
+            (response) => response.json() as Promise<Event[]>
         );
-        return digitalProducts;
+        return events;
     } catch (error) {
         throw new Error("No s'ha pogut obtenir tots els producte digitals sense imatge. \nMotiu: " + error);
     }
 }
 
-async function updateDigitalProduct(digitalProduct: DigitalProduct) {
+async function updateEvent(event: Event) {
     try {
         const formData = new FormData();
-        formData.append("id", digitalProduct.id);
-        formData.append("name", digitalProduct.name);
-        formData.append("description", digitalProduct.description);
-        if (digitalProduct.image) formData.append("image", digitalProduct.image, digitalProduct.image.name);
-        formData.append("primaryColour", digitalProduct.primaryColour);
-        formData.append("secondaryColour", digitalProduct.secondaryColour);
-        formData.append("price", digitalProduct.price.toString());
-        formData.append("type", digitalProduct.type);
+        formData.append("id", event.id);
+        formData.append("name", event.name);
+        formData.append("description", event.description);
+        if (event.image) formData.append("image", event.image, event.image.name);
+        formData.append("primaryColour", event.primaryColour);
+        formData.append("secondaryColour", event.secondaryColour);
+        formData.append("type", event.type);
+        formData.append("startDate", event.startDate);
+        formData.append("endDate", event.endDate);
+        formData.append("cercatrivies", event.cercatrivies.join(","));
+        formData.append("firstCoinsReward", event.firstCoinsReward.toString());
+        formData.append("firstDigitalProductsReward", event.firstDigitalProductsReward.join(","));
+        formData.append("secondCoinsReward", event.secondCoinsReward.toString());
+        formData.append("secondDigitalProductsReward", event.secondDigitalProductsReward.join(","));
+        formData.append("thirdCoinsReward", event.thirdCoinsReward.toString());
+        formData.append("thirdDigitalProductsReward", event.thirdDigitalProductsReward.join(","));
+        formData.append("fourthTenthCoinsReward", event.fourthTenthCoinsReward.toString());
+        formData.append("fourthTenthDigitalProductsReward", event.fourthTenthDigitalProductsReward.join(","));
+        formData.append("allCoinsReward", event.allCoinsReward.toString());
+        formData.append("allDigitalProductsReward", event.allDigitalProductsReward.join(","));
 
-        await fetch(URL_PREFIX + "/api/digitalproducts", {
+        await fetch(URL_PREFIX + "/api/events", {
             method: "PUT",
             body: formData,
         });
     } catch (error) { throw new Error("No s'ha pogut actualitzar el producte digital. \nMotiu: " + error); }
 }
 
-async function deleteDigitalProduct(id: string) {
+async function deleteEvent(id: string) {
     try {
-        await fetch(URL_PREFIX + "/api/digitalproducts", {
+        await fetch(URL_PREFIX + "/api/events", {
             method: "DELETE",
             headers: new Headers({
                 accept: "application/json",

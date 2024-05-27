@@ -1,6 +1,6 @@
-import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
-import {DigitalProductRepository} from "@/modules/digitalproducts/domain/DigitalProductRepository";
+import {Event} from "@/modules/events/domain/Event";
+import {EventRepository} from "@/modules/events/domain/EventRepository";
 
-export async function getEventByName(digitalProductRepository : DigitalProductRepository, digitalProductName : string) : Promise<DigitalProduct | null> {
-    return digitalProductRepository.getDigitalProductByName(digitalProductName);
+export async function getEventByName(eventRepository : EventRepository, eventName : string) : Promise<Event | null> {
+    return eventRepository.getEventByName(eventName);
 }

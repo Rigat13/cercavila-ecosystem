@@ -1,7 +1,7 @@
-import {DigitalProductRepository} from "@/modules/digitalproducts/domain/DigitalProductRepository";
-import {DigitalProduct, ensureDigitalProductIsValid} from "@/modules/digitalproducts/domain/DigitalProduct";
+import {EventRepository} from "@/modules/events/domain/EventRepository";
+import {Event, ensureEventIsValid} from "@/modules/events/domain/Event";
 
-export async function updateEvent(digitalProductRepository: DigitalProductRepository, digitalProduct: DigitalProduct): Promise<void> {
-    ensureDigitalProductIsValid(digitalProduct);
-    await digitalProductRepository.updateDigitalProduct(digitalProduct);
+export async function updateEvent(eventRepository: EventRepository, event: Event): Promise<void> {
+    ensureEventIsValid(event);
+    await eventRepository.updateEvent(event);
 }

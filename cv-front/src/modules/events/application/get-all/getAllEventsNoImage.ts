@@ -1,7 +1,6 @@
-import {DigitalProductRepository} from "@/modules/digitalproducts/domain/DigitalProductRepository";
-import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
-import {CollaRepository} from "@/modules/colles/domain/CollaRepository";
+import {EventRepository} from "@/modules/events/domain/EventRepository";
+import {Event} from "@/modules/events/domain/Event";
 
-export async function getAllEventsNoImage(digitalProductRepository: DigitalProductRepository): Promise<DigitalProduct[]> {
-    return digitalProductRepository.getAllDigitalProductsNoImage();
+export async function getAllEventsNoImage(eventRepository: EventRepository): Promise<Event[]> {
+    return eventRepository.getAllEventsNoImage();
 }
