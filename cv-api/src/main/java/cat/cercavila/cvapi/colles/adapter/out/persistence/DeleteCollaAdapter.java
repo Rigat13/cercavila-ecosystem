@@ -40,7 +40,7 @@ public class DeleteCollaAdapter implements DeleteCollaPort {
         String currentLogoKey = currentColla.getLogoKey();
         if (currentLogoKey != null && !currentLogoKey.isEmpty()) {
             try {
-                Path logoPath = Paths.get("/srv/cv-api/images", currentLogoKey);
+                Path logoPath = Paths.get("/srv/cv-api/images/colles", currentLogoKey);
                 Files.deleteIfExists(logoPath);
             } catch (Exception e) { e.printStackTrace(); }
         }

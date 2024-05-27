@@ -56,7 +56,7 @@ public class StoreCollaAdapter implements StoreCollaPort {
     private void saveImageToServer(MultipartFile imageFile, String logoKeyName) {
         if (imageFile == null || imageFile.isEmpty()) return;
         try {
-            Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
+            Path filePath = Paths.get("/srv/cv-api/images/colles", logoKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (Exception e) { e.printStackTrace(); }
     }

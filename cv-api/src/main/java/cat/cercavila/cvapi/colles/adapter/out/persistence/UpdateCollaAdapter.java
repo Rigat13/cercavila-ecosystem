@@ -69,7 +69,7 @@ public class UpdateCollaAdapter implements UpdateCollaPort {
         String currentLogoKey = currentColla.getLogoKey();
         if (currentLogoKey != null && !currentLogoKey.isEmpty()) {
             try {
-                Path logoPath = Paths.get("/srv/cv-api/images", currentLogoKey);
+                Path logoPath = Paths.get("/srv/cv-api/images/colles", currentLogoKey);
                 Files.deleteIfExists(logoPath);
             } catch (Exception e) { e.printStackTrace(); }
         }
@@ -78,7 +78,7 @@ public class UpdateCollaAdapter implements UpdateCollaPort {
     private void saveImageToServer(MultipartFile imageFile, String logoKeyName) {
         if (imageFile == null || imageFile.isEmpty()) return;
         try {
-            Path filePath = Paths.get("/srv/cv-api/images", logoKeyName);
+            Path filePath = Paths.get("/srv/cv-api/images/colles", logoKeyName);
             Files.copy(imageFile.getInputStream(), filePath);
         } catch (Exception e) { e.printStackTrace(); }
     }

@@ -83,7 +83,7 @@ public class FetchCollaListingAdapter implements ListCollaPort {
 
     private byte[] fetchImageFromServer(String logoKeyName) {
         try {
-            Path directoryPath = Paths.get("/srv/cv-api/images");
+            Path directoryPath = Paths.get("/srv/cv-api/images/colles");
             if (Files.isDirectory(directoryPath)) {
                 try (Stream<Path> paths = Files.list(directoryPath)) {
                     Optional<Path> imagePathOptional = paths.filter(path -> path.getFileName().toString().equals(logoKeyName)).findFirst();
