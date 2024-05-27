@@ -1,5 +1,6 @@
 import {Event} from './Event';
 import {User} from "@/modules/users/domain/User";
+import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
 
 export interface EventRepository {
     storeEvent: (events: Event) => Promise<void>;
@@ -11,6 +12,9 @@ export interface EventRepository {
     getAllEventsNoImage:() => Promise<Event[]>;
     updateEvent:(events: Event) => Promise<void>;
     deleteEvent:(id: string) => Promise<void>;
+
+    getAllActivitiesNoImage: () => Promise<Event[]>;
+    getAllDigitalProducts: () => Promise<DigitalProduct[]>;
 
     getAllUsers: () => Promise<User[]>;
     updateUser: (user: User) => Promise<void>;

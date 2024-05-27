@@ -14,6 +14,38 @@ import { DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH, isEventDescriptionValid
 import { isEventColourValid } from "@/modules/events/domain/events-attributes/EventColours";
 import { isEventPriceValid } from "@/modules/events/domain/events-attributes/EventPrice";
 import ColourPicker from "@/app/sections/shared/ColourPicker";
+import {isEventStartDateValid} from "../../../../modules/events/domain/digitalproducts-attributes/EventStartDate";
+import {isEventCercatriviesValid} from "../../../../modules/events/domain/digitalproducts-attributes/EventCercatrivies";
+import {
+    isEventFirstCoinsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventFirstCoinsReward";
+import {
+    isEventFirstDigitalProductsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventFirstDigitalProductsReward";
+import {
+    isEventSecondCoinsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventSecondCoinsReward";
+import {
+    isEventSecondDigitalProductsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventSecondDigitalProductsReward";
+import {
+    isEventFourthTenthCoinsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventFourthTenthCoinsReward";
+import {
+    isEventAllCoinsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventAllCoinsReward";
+import {
+    isEventFourthTenthDigitalProductsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventFourthTenthDigitalProductsReward";
+import {
+    isEventThirdCoinsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventThirdCoinsReward";
+import {
+    isEventThirdDigitalProductsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventThirdDigitalProductsReward";
+import {
+    isEventAllDigitalProductsRewardValid
+} from "../../../../modules/events/domain/digitalproducts-attributes/EventAllDigitalProductsReward";
 
 const initialState = {
     id: "",
@@ -22,10 +54,26 @@ const initialState = {
     image: null as File | null,
     primaryColour: "",
     secondaryColour: "",
-    price: "",
     type: "",
-}
-export let isNameValid, isDescriptionValid, isImageValid, isPrimaryColourValid, isSecondaryColourValid, isPriceValid, isTypeValid = false;
+    startDate: "",
+    endDate: "",
+    cercatrivies: "",
+    firstCoinsReward: "",
+    firstDigitalProductsReward: "",
+    secondCoinsReward: "",
+    secondDigitalProductsReward: "",
+    thirdCoinsReward: "",
+    thirdDigitalProductsReward: "",
+    fourthTenthCoinsReward: "",
+    fourthTenthDigitalProductsReward: "",
+    allCoinsReward: "",
+    allDigitalProductsReward: "",
+};
+
+export let isNameValid, isDescriptionValid, isImageValid, isPrimaryColourValid, isSecondaryColourValid, isTypeValid,
+    isStartDateValid, isEndDateValid, isCercatriviesValid, isFirstCoinsRewardValid, isFirstDigitalProductsRewardValid,
+    isSecondCoinsRewardValid, isSecondDigitalProductsRewardValid, isThirdCoinsRewardValid, isThirdDigitalProductsRewardValid,
+    isFourthTenthCoinsRewardValid, isFourthTenthDigitalProductsRewardValid, isAllCoinsRewardValid, isAllDigitalProductsRewardValid = false;
 const lang = defaultLang;
 
 export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}) {
@@ -45,6 +93,9 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [isImageAlreadyValid, setImageAlreadyValid] = useState(false);
     const [isFirstTimeValidation, setIsFirstTimeValidation] = useState(true);
+
+    const { cercatrivies } = useEventsContext();
+    const { digitalProducts } = useEventsContext();
 
     lang = lang;
 
@@ -72,8 +123,20 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                     image: imageFile,
                     primaryColour: eventData.primaryColour,
                     secondaryColour: eventData.secondaryColour,
-                    price: eventData.price+"",
                     type: eventData.type,
+                    startDate: eventData.startDate,
+                    endDate: eventData.endDate,
+                    cercatrivies: eventData.cercatrivies.toString(),
+                    firstCoinsReward: eventData.firstCoinsReward+"",
+                    firstDigitalProductsReward: eventData.firstDigitalProductsReward.toString(),
+                    secondCoinsReward: eventData.secondCoinsReward+"",
+                    secondDigitalProductsReward: eventData.secondDigitalProductsReward.toString(),
+                    thirdCoinsReward: eventData.thirdCoinsReward+"",
+                    thirdDigitalProductsReward: eventData.thirdDigitalProductsReward.toString(),
+                    fourthTenthCoinsReward: eventData.fourthTenthCoinsReward+"",
+                    fourthTenthDigitalProductsReward: eventData.fourthTenthDigitalProductsReward.toString(),
+                    allCoinsReward: eventData.allCoinsReward+"",
+                    allDigitalProductsReward: eventData.allDigitalProductsReward.toString(),
                 });
 
                 const syntheticEvent: { target: { files: any[] } } = {
@@ -140,27 +203,114 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
         validateFormData({ ...formData, secondaryColour: newSecondaryColour });
     }
 
-    const handlePriceChange = (ev) => {
-        const newPrice = ev.target.value;
-        updateForm({ price: newPrice+"" });
-        validateFormData({ ...formData, price: Number(newPrice) });
-    }
-
     const handleTypeChange = (ev) => {
         const newType = ev.target.value;
         updateForm({ type: newType });
         validateFormData({ ...formData, type: newType });
     }
 
-    const validateFormData = ({ id, name, description, image, primaryColour, secondaryColour, price, type }) => {
+    const handleStartDateChange = (ev) => {
+        const newStartDate = ev.target.value;
+        updateForm({ startDate: newStartDate });
+        validateFormData({ ...formData, startDate: newStartDate });
+    }
+
+    const handleEndDateChange = (ev) => {
+        const newEndDate = ev.target.value;
+        updateForm({ endDate: newEndDate });
+        validateFormData({ ...formData, endDate: newEndDate });
+    }
+
+    const handleCercatriviesChange = (ev) => {
+        const newCercatrivies = ev.target.value;
+        updateForm({ cercatrivies: newCercatrivies });
+        validateFormData({ ...formData, cercatrivies: newCercatrivies });
+    }
+
+    const handleFirstCoinsRewardChange = (ev) => {
+        const newFirstCoinsReward = ev.target.value;
+        updateForm({ firstCoinsReward: newFirstCoinsReward });
+        validateFormData({ ...formData, firstCoinsReward: newFirstCoinsReward });
+    }
+
+    const handleFirstDigitalProductsRewardChange = (ev) => {
+        const newFirstDigitalProductsReward = ev.target.value;
+        updateForm({ firstDigitalProductsReward: newFirstDigitalProductsReward });
+        validateFormData({ ...formData, firstDigitalProductsReward: newFirstDigitalProductsReward });
+    }
+
+    const handleSecondCoinsRewardChange = (ev) => {
+        const newSecondCoinsReward = ev.target.value;
+        updateForm({ secondCoinsReward: newSecondCoinsReward });
+        validateFormData({ ...formData, secondCoinsReward: newSecondCoinsReward });
+    }
+
+    const handleSecondDigitalProductsRewardChange = (ev) => {
+        const newSecondDigitalProductsReward = ev.target.value;
+        updateForm({ secondDigitalProductsReward: newSecondDigitalProductsReward });
+        validateFormData({ ...formData, secondDigitalProductsReward: newSecondDigitalProductsReward });
+    }
+
+    const handleThirdCoinsRewardChange = (ev) => {
+        const newThirdCoinsReward = ev.target.value;
+        updateForm({ thirdCoinsReward: newThirdCoinsReward });
+        validateFormData({ ...formData, thirdCoinsReward: newThirdCoinsReward });
+    }
+
+    const handleThirdDigitalProductsRewardChange = (ev) => {
+        const newThirdDigitalProductsReward = ev.target.value;
+        updateForm({ thirdDigitalProductsReward: newThirdDigitalProductsReward });
+        validateFormData({ ...formData, thirdDigitalProductsReward: newThirdDigitalProductsReward });
+    }
+
+    const handleFourthTenthCoinsRewardChange = (ev) => {
+        const newFourthTenthCoinsReward = ev.target.value;
+        updateForm({ fourthTenthCoinsReward: newFourthTenthCoinsReward });
+        validateFormData({ ...formData, fourthTenthCoinsReward: newFourthTenthCoinsReward });
+    }
+
+    const handleFourthTenthDigitalProductsRewardChange = (ev) => {
+        const newFourthTenthDigitalProductsReward = ev.target.value;
+        updateForm({ fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
+        validateFormData({ ...formData, fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
+    }
+
+    const handleAllCoinsRewardChange = (ev) => {
+        const newAllCoinsReward = ev.target.value;
+        updateForm({ allCoinsReward: newAllCoinsReward });
+        validateFormData({ ...formData, allCoinsReward: newAllCoinsReward });
+    }
+
+    const handleAllDigitalProductsRewardChange = (ev) => {
+        const newAllDigitalProductsReward = ev.target.value;
+        updateForm({ allDigitalProductsReward: newAllDigitalProductsReward });
+        validateFormData({ ...formData, allDigitalProductsReward: newAllDigitalProductsReward });
+    }
+
+    const validateFormData = ({ id, name, description, image, primaryColour, secondaryColour, type, startDate, endDate, cercatrivies,
+                                  firstCoinsReward, firstDigitalProductsReward, secondCoinsReward, secondDigitalProductsReward,
+                                  thirdCoinsReward, thirdDigitalProductsReward, fourthTenthCoinsReward, fourthTenthDigitalProductsReward,
+                                  allCoinsReward, allDigitalProductsReward }) => {
         isNameValid = isEventNameValid(name);
         isDescriptionValid = isEventDescriptionValid(description);
         if (!isImageAlreadyValid) isImageValid = isEventImageValid(image);
         setImageAlreadyValid(isImageValid);
         isPrimaryColourValid = isEventColourValid(primaryColour);
         isSecondaryColourValid = isEventColourValid(secondaryColour);
-        isPriceValid = isEventPriceValid(price);
         isTypeValid = isEventTypeValid(type, dictionary[lang]?.selectEventType+"");
+        isStartDateValid = isEventStartDateValid(startDate);
+        isEndDateValid = isEventStartDateValid(endDate);
+        isCercatriviesValid = isEventCercatriviesValid(cercatrivies);
+        isFirstCoinsRewardValid = isEventFirstCoinsRewardValid(firstCoinsReward);
+        isFirstDigitalProductsRewardValid = isEventFirstDigitalProductsRewardValid(firstDigitalProductsReward);
+        isSecondCoinsRewardValid = isEventSecondCoinsRewardValid(secondCoinsReward);
+        isSecondDigitalProductsRewardValid = isEventSecondDigitalProductsRewardValid(secondDigitalProductsReward);
+        isThirdCoinsRewardValid = isEventThirdCoinsRewardValid(thirdCoinsReward);
+        isThirdDigitalProductsRewardValid = isEventThirdDigitalProductsRewardValid(thirdDigitalProductsReward);
+        isFourthTenthCoinsRewardValid = isEventFourthTenthCoinsRewardValid(fourthTenthCoinsReward);
+        isFourthTenthDigitalProductsRewardValid = isEventFourthTenthDigitalProductsRewardValid(fourthTenthDigitalProductsReward);
+        isAllCoinsRewardValid = isEventAllCoinsRewardValid(allCoinsReward);
+        isAllDigitalProductsRewardValid = isEventAllDigitalProductsRewardValid(allDigitalProductsReward);
 
         setErrors({
             id: "",
@@ -169,13 +319,28 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
             image: null,
             primaryColour: isPrimaryColourValid ? "" : dictionary[lang]?.eventPrimaryColourInvalid + "",
             secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.eventSecondaryColourInvalid + "",
-            price: isPriceValid ? "" : dictionary[lang]?.eventPriceInvalid + "",
             type: isTypeValid ? "" : dictionary[lang]?.eventTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
+            startDate: isStartDateValid ? "" : dictionary[lang]?.eventStartDateInvalid,
+            endDate: isEndDateValid ? "" : dictionary[lang]?.eventEndDateInvalid,
+            cercatrivies: isCercatriviesValid ? "" : dictionary[lang]?.eventCercatriviesInvalid,
+            firstCoinsReward: isFirstCoinsRewardValid ? "" : dictionary[lang]?.eventFirstCoinsRewardInvalid,
+            firstDigitalProductsReward: isFirstDigitalProductsRewardValid ? "" : dictionary[lang]?.eventFirstDigitalProductsRewardInvalid,
+            secondCoinsReward: isSecondCoinsRewardValid ? "" : dictionary[lang]?.eventSecondCoinsRewardInvalid,
+            secondDigitalProductsReward: isSecondDigitalProductsRewardValid ? "" : dictionary[lang]?.eventSecondDigitalProductsRewardInvalid,
+            thirdCoinsReward: isThirdCoinsRewardValid ? "" : dictionary[lang]?.eventThirdCoinsRewardInvalid,
+            thirdDigitalProductsReward: isThirdDigitalProductsRewardValid ? "" : dictionary[lang]?.eventThirdDigitalProductsRewardInvalid,
+            fourthTenthCoinsReward: isFourthTenthCoinsRewardValid ? "" : dictionary[lang]?.eventFourthTenthCoinsRewardInvalid,
+            fourthTenthDigitalProductsReward: isFourthTenthDigitalProductsRewardValid ? "" : dictionary[lang]?.eventFourthTenthDigitalProductsRewardInvalid,
+            allCoinsReward: isAllCoinsRewardValid ? "" : dictionary[lang]?.eventAllCoinsRewardInvalid,
+            allDigitalProductsReward: isAllDigitalProductsRewardValid ? "" : dictionary[lang]?.eventAllDigitalProductsRewardInvalid,
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isPriceValid || !isTypeValid) { return; }
+        if (!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isTypeValid
+            || !isStartDateValid || !isEndDateValid || !isCercatriviesValid || !isFirstCoinsRewardValid || !isFirstDigitalProductsRewardValid
+            || !isSecondCoinsRewardValid || !isSecondDigitalProductsRewardValid || !isThirdCoinsRewardValid || !isThirdDigitalProductsRewardValid
+            || !isFourthTenthCoinsRewardValid || !isFourthTenthDigitalProductsRewardValid || !isAllCoinsRewardValid || !isAllDigitalProductsRewardValid) { return; }
 
         const formDataWithImage = { ...formData };
         if (image) { formDataWithImage.image = image; }
@@ -188,8 +353,20 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
             image: formDataWithImage.image,
             primaryColour: formData.primaryColour,
             secondaryColour: formData.secondaryColour,
-            price: Number(formData.price),
             type: formData.type,
+            startDate: formData.startDate,
+            endDate: formData.endDate,
+            cercatrivies: formData.cercatrivies.split(",").map(id => id.trim()).filter(id => id),
+            firstCoinsReward: parseFloat(formData.firstCoinsReward),
+            firstDigitalProductsReward: formData.firstDigitalProductsReward.split(",").map(id => id.trim()).filter(id => id),
+            secondCoinsReward: parseFloat(formData.secondCoinsReward),
+            secondDigitalProductsReward: formData.secondDigitalProductsReward.split(",").map(id => id.trim()).filter(id => id),
+            thirdCoinsReward: parseFloat(formData.thirdCoinsReward),
+            thirdDigitalProductsReward: formData.thirdDigitalProductsReward.split(",").map(id => id.trim()).filter(id => id),
+            fourthTenthCoinsReward: parseFloat(formData.fourthTenthCoinsReward),
+            fourthTenthDigitalProductsReward: formData.fourthTenthDigitalProductsReward.split(",").map(id => id.trim()).filter(id => id),
+            allCoinsReward: parseFloat(formData.allCoinsReward),
+            allDigitalProductsReward: formData.allDigitalProductsReward.split(",").map(id => id.trim()).filter(id => id),
         });
     };
 
@@ -256,7 +433,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             handleSubmit(ev);
                         }}
                     >
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- NAME */}
                             <label htmlFor="name">{dictionary[lang]?.eventName}</label>
                             <input
                                 type="text"
@@ -270,7 +447,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- DESCRIPTION */}
                             <label htmlFor="description">{dictionary[lang]?.eventDescription}</label>
                             <textarea
                                 id="description"
@@ -283,7 +460,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- IMAGE */}
                             <label htmlFor="image">{dictionary[lang]?.eventImage}</label>
                             <div className={styles.imagePreviewContainer}>
                                 {imagePreview && (
@@ -307,8 +484,8 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             <p>{dictionary[lang]?.maxFileSize + IMAGE_MAX_MBS + "MB"}</p>
                         </div>
 
-                        <div className={styles.formGroup}>
-                            <label htmlFor="primaryColour">{dictionary[lang]?.collaPrimaryColour}</label>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- PRIMARY COLOUR */}
+                            <label htmlFor="primaryColour">{dictionary[lang]?.eventPrimaryColour}</label>
                             <button
                                 className={styles.colourPreviewButton}
                                 id="primaryColourPreviewButton"
@@ -327,8 +504,8 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
-                            <label htmlFor="secondaryColour">{dictionary[lang]?.collaSecondaryColour}</label>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- SECONDARY COLOUR */}
+                            <label htmlFor="secondaryColour">{dictionary[lang]?.eventSecondaryColour}</label>
                             <button
                                 className={styles.colourPreviewButton}
                                 id="secondaryColourPreviewButton"
@@ -347,21 +524,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             )}
                         </div>
 
-                        <div className={styles.formGroup}>
-                            <label htmlFor="price">{dictionary[lang]?.eventPrice}</label>
-                            <input
-                                type="number"
-                                id="price"
-                                name="price"
-                                value={formData.price}
-                                onChange={handlePriceChange}
-                            /> {" " + dictionary[lang]?.coinAcronym}
-                            {formData.price && errors.price && (
-                                <div style={{ color: "tomato" }}>{errors.price}</div>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- TYPE */}
                             <label htmlFor="type">{dictionary[lang]?.eventType}</label>
                             <select
                                 id="type"
@@ -380,10 +543,281 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                 <div style={{ color: "tomato" }}>{errors.type}</div>
                             )}
                         </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- START DATE */}
+                            <label htmlFor="startDate">{dictionary[lang]?.eventStartDate}</label>
+                            <input
+                                type="date"
+                                id="startDate"
+                                name="startDate"
+                                value={formData.startDate}
+                                onChange={handleStartDateChange}
+                            />
+                            {formData.startDate && errors.startDate && (
+                                <div style={{ color: "tomato" }}>{errors.startDate}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- END DATE */}
+                            <label htmlFor="endDate">{dictionary[lang]?.eventEndDate}</label>
+                            <input
+                                type="date"
+                                id="endDate"
+                                name="endDate"
+                                value={formData.endDate}
+                                onChange={handleEndDateChange}
+                            />
+                            {formData.endDate && errors.endDate && (
+                                <div style={{ color: "tomato" }}>{errors.endDate}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- CERCATRIVIES */}
+                            <label htmlFor="cercatrivies">{dictionary[lang]?.eventCercatrivies}</label>
+                            <select
+                                id="cercatrivies"
+                                name="cercatrivies"
+                                value={formData.cercatrivies}
+                                onChange={handleCercatriviesChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectEventCercatrivies}</option>
+                                {Array.isArray(cercatrivies) ? (
+                                    cercatrivies.map(option => (
+                                        <option
+                                            key={option.id}
+                                            value={option.id}
+                                            disabled={cercatrivies.some(cercatrivia => cercatrivia.id === cercatrivia.id)}
+                                        >
+                                            {option.question}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>{dictionary[lang]?.loading}</option>
+                                )}
+                            </select>
+                            {formData.cercatrivies && errors.cercatrivies && (
+                                <div style={{ color: "tomato" }}>{errors.cercatrivies}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- FIRST COINS REWARD */}
+                            <label htmlFor="firstCoinsReward">{dictionary[lang]?.eventFirstCoinsReward}</label>
+                            <input
+                                type="number"
+                                id="firstCoinsReward"
+                                name="firstCoinsReward"
+                                value={formData.firstCoinsReward}
+                                onChange={handleFirstCoinsRewardChange}
+                            />
+                            {formData.firstCoinsReward && errors.firstCoinsReward && (
+                                <div style={{ color: "tomato" }}>{errors.firstCoinsReward}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- FIRST DIGITAL PRODUCTS REWARD */}
+                            <label htmlFor="firstDigitalProductsReward">{dictionary[lang]?.eventFirstDigitalProductsReward}</label>
+                            <select
+                                id="firstDigitalProductsReward"
+                                name="firstDigitalProductsReward"
+                                value={formData.firstDigitalProductsReward}
+                                onChange={handleFirstDigitalProductsRewardChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectEventFirstDigitalProductsReward}</option>
+                                {Array.isArray(digitalProducts) ? (
+                                    digitalProducts.map(option => (
+                                        <option
+                                            key={option.id}
+                                            value={option.id}
+                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                        >
+                                            {option.name}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>{dictionary[lang]?.loading}</option>
+                                )}
+                            </select>
+                            {formData.firstDigitalProductsReward && errors.firstDigitalProductsReward && (
+                                <div style={{ color: "tomato" }}>{errors.firstDigitalProductsReward}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- SECOND COINS REWARD */}
+                            <label htmlFor="secondCoinsReward">{dictionary[lang]?.eventSecondCoinsReward}</label>
+                            <input
+                                type="number"
+                                id="secondCoinsReward"
+                                name="secondCoinsReward"
+                                value={formData.secondCoinsReward}
+                                onChange={handleSecondCoinsRewardChange}
+                            />
+                            {formData.secondCoinsReward && errors.secondCoinsReward && (
+                                <div style={{ color: "tomato" }}>{errors.secondCoinsReward}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- SECOND DIGITAL PRODUCTS REWARD */}
+                            <label htmlFor="secondDigitalProductsReward">{dictionary[lang]?.eventSecondDigitalProductsReward}</label>
+                            <select
+                                id="secondDigitalProductsReward"
+                                name="secondDigitalProductsReward"
+                                value={formData.secondDigitalProductsReward}
+                                onChange={handleSecondDigitalProductsRewardChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectEventSecondDigitalProductsReward}</option>
+                                {Array.isArray(digitalProducts) ? (
+                                    digitalProducts.map(option => (
+                                        <option
+                                            key={option.id}
+                                            value={option.id}
+                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                        >
+                                            {option.name}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>{dictionary[lang]?.loading}</option>
+                                )}
+                            </select>
+                            {formData.secondDigitalProductsReward && errors.secondDigitalProductsReward && (
+                                <div style={{ color: "tomato" }}>{errors.secondDigitalProductsReward}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- THIRD COINS REWARD */}
+                            <label htmlFor="thirdCoinsReward">{dictionary[lang]?.eventThirdCoinsReward}</label>
+                            <input
+                                type="number"
+                                id="thirdCoinsReward"
+                                name="thirdCoinsReward"
+                                value={formData.thirdCoinsReward}
+                                onChange={handleThirdCoinsRewardChange}
+                            />
+                            {formData.thirdCoinsReward && errors.thirdCoinsReward && (
+                                <div style={{ color: "tomato" }}>{errors.thirdCoinsReward}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- THIRD DIGITAL PRODUCTS REWARD */}
+                            <label htmlFor="thirdDigitalProductsReward">{dictionary[lang]?.eventThirdDigitalProductsReward}</label>
+                            <select
+                                id="thirdDigitalProductsReward"
+                                name="thirdDigitalProductsReward"
+                                value={formData.thirdDigitalProductsReward}
+                                onChange={handleThirdDigitalProductsRewardChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectEventThirdDigitalProductsReward}</option>
+                                {Array.isArray(digitalProducts) ? (
+                                    digitalProducts.map(option => (
+                                        <option
+                                            key={option.id}
+                                            value={option.id}
+                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                        >
+                                            {option.name}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>{dictionary[lang]?.loading}</option>
+                                )}
+                            </select>
+                            {formData.thirdDigitalProductsReward && errors.thirdDigitalProductsReward && (
+                                <div style={{ color: "tomato" }}>{errors.thirdDigitalProductsReward}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- FOURTH-TENTH COINS REWARD */}
+                            <label htmlFor="fourthTenthCoinsReward">{dictionary[lang]?.eventFourthTenthCoinsReward}</label>
+                            <input
+                                type="number"
+                                id="fourthTenthCoinsReward"
+                                name="fourthTenthCoinsReward"
+                                value={formData.fourthTenthCoinsReward}
+                                onChange={handleFourthTenthCoinsRewardChange}
+                            />
+                            {formData.fourthTenthCoinsReward && errors.fourthTenthCoinsReward && (
+                                <div style={{ color: "tomato" }}>{errors.fourthTenthCoinsReward}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- FOURTH-TENTH DIGITAL PRODUCTS REWARD */}
+                            <label htmlFor="fourthTenthDigitalProductsReward">{dictionary[lang]?.eventFourthTenthDigitalProductsReward}</label>
+                            <select
+                                id="fourthTenthDigitalProductsReward"
+                                name="fourthTenthDigitalProductsReward"
+                                value={formData.fourthTenthDigitalProductsReward}
+                                onChange={handleFourthTenthDigitalProductsRewardChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectEventFourthTenthDigitalProductsReward}</option>
+                                {Array.isArray(digitalProducts) ? (
+                                    digitalProducts.map(option => (
+                                        <option
+                                            key={option.id}
+                                            value={option.id}
+                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                        >
+                                            {option.name}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>{dictionary[lang]?.loading}</option>
+                                )}
+                            </select>
+                            {formData.fourthTenthDigitalProductsReward && errors.fourthTenthDigitalProductsReward && (
+                                <div style={{ color: "tomato" }}>{errors.fourthTenthDigitalProductsReward}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ALL COINS REWARD */}
+                            <label htmlFor="allCoinsReward">{dictionary[lang]?.eventAllCoinsReward}</label>
+                            <input
+                                type="number"
+                                id="allCoinsReward"
+                                name="allCoinsReward"
+                                value={formData.allCoinsReward}
+                                onChange={handleAllCoinsRewardChange}
+                            />
+                            {formData.allCoinsReward && errors.allCoinsReward && (
+                                <div style={{ color: "tomato" }}>{errors.allCoinsReward}</div>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ALL DIGITAL PRODUCTS REWARD */}
+                            <label htmlFor="allDigitalProductsReward">{dictionary[lang]?.eventAllDigitalProductsReward}</label>
+                            <select
+                                id="allDigitalProductsReward"
+                                name="allDigitalProductsReward"
+                                value={formData.allDigitalProductsReward}
+                                onChange={handleAllDigitalProductsRewardChange}
+                            >
+                                <option value="">{dictionary[lang]?.selectEventAllDigitalProductsReward}</option>
+                                {Array.isArray(digitalProducts) ? (
+                                    digitalProducts.map(option => (
+                                        <option
+                                            key={option.id}
+                                            value={option.id}
+                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                        >
+                                            {option.name}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>{dictionary[lang]?.loading}</option>
+                                )}
+                            </select>
+                            {formData.allDigitalProductsReward && errors.allDigitalProductsReward && (
+                                <div style={{ color: "tomato" }}>{errors.allDigitalProductsReward}</div>
+                            )}
+                        </div>
+
+
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isPriceValid || !isTypeValid}
+                            disabled={!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isTypeValid
+                                || !isStartDateValid || !isEndDateValid || !isCercatriviesValid || !isFirstCoinsRewardValid || !isFirstDigitalProductsRewardValid
+                                || !isSecondCoinsRewardValid || !isSecondDigitalProductsRewardValid || !isThirdCoinsRewardValid || !isThirdDigitalProductsRewardValid
+                                || !isFourthTenthCoinsRewardValid || !isFourthTenthDigitalProductsRewardValid || !isAllCoinsRewardValid || !isAllDigitalProductsRewardValid}
                         >
                             {dictionary[lang]?.updateEventButton}
                         </button>

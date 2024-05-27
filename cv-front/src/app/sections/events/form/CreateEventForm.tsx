@@ -21,11 +21,26 @@ const initialState = {
     image: null as File | null,
     primaryColour: "",
     secondaryColour: "",
-    price: "",
     type: "",
-}
+    startDate: "",
+    endDate: "",
+    cercatrivies: "",
+    firstCoinsReward: "",
+    firstDigitalProductsReward: "",
+    secondCoinsReward: "",
+    secondDigitalProductsReward: "",
+    thirdCoinsReward: "",
+    thirdDigitalProductsReward: "",
+    fourthTenthCoinsReward: "",
+    fourthTenthDigitalProductsReward: "",
+    allCoinsReward: "",
+    allDigitalProductsReward: "",
+};
 
-export let isNameValid, isDescriptionValid, isImageValid, isPrimaryColourValid, isSecondaryColourValid, isPriceValid, isTypeValid = false;
+export let isNameValid, isDescriptionValid, isImageValid, isPrimaryColourValid, isSecondaryColourValid, isTypeValid,
+    isStartDateValid, isEndDateValid, isCercatriviesValid, isFirstCoinsRewardValid, isFirstDigitalProductsRewardValid,
+    isSecondCoinsRewardValid, isSecondDigitalProductsRewardValid, isThirdCoinsRewardValid, isThirdDigitalProductsRewardValid,
+    isFourthTenthCoinsRewardValid, isFourthTenthDigitalProductsRewardValid, isAllCoinsRewardValid, isAllDigitalProductsRewardValid = false;
 
 const lang = defaultLang;
 
@@ -130,7 +145,10 @@ export function CreateEventForm({ lang }: { lang: string }) {
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isPriceValid || !isTypeValid) { return; }
+        if (!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isTypeValid
+            || !isStartDateValid || !isEndDateValid || !isCercatriviesValid || !isFirstCoinsRewardValid || !isFirstDigitalProductsRewardValid
+            || !isSecondCoinsRewardValid || !isSecondDigitalProductsRewardValid || !isThirdCoinsRewardValid || !isThirdDigitalProductsRewardValid
+            || !isFourthTenthCoinsRewardValid || !isFourthTenthDigitalProductsRewardValid || !isAllCoinsRewardValid || !isAllDigitalProductsRewardValid) { return; }
 
         const formDataWithImage = { ...formData };
         if (image) { formDataWithImage.image = image; }
@@ -298,7 +316,10 @@ export function CreateEventForm({ lang }: { lang: string }) {
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isPriceValid || !isTypeValid}
+                            disabled={!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isTypeValid
+                                || !isStartDateValid || !isEndDateValid || !isCercatriviesValid || !isFirstCoinsRewardValid || !isFirstDigitalProductsRewardValid
+                                || !isSecondCoinsRewardValid || !isSecondDigitalProductsRewardValid || !isThirdCoinsRewardValid || !isThirdDigitalProductsRewardValid
+                                || !isFourthTenthCoinsRewardValid || !isFourthTenthDigitalProductsRewardValid || !isAllCoinsRewardValid || !isAllDigitalProductsRewardValid}
                         >
                             {dictionary[lang]?.createEventButton}
                         </button>

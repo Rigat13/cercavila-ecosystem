@@ -2,6 +2,8 @@ import {EventRepository} from "@/modules/events/domain/EventRepository";
 import {Event} from "@/modules/events/domain/Event";
 import {URL_PREFIX} from "@/modules/events/infrastructure/configuration";
 import {User} from "@/modules/users/domain/User";
+import {Activity} from "../../activities/domain/Activity";
+import {DigitalProduct} from "../../digitalproducts/domain/DigitalProduct";
 
 export function createApiEventRepository(): EventRepository {
     return {
@@ -149,6 +151,28 @@ async function deleteEvent(id: string) {
     } catch (error) { throw new Error("No s'ha pogut eliminar el producte digital. \nMotiu: " + error); }
 }
 
+async function getAllActivitiesNoImage() {
+    try {
+        const activities = await fetch(URL_PREFIX + `/api/activities/noimage`).then(
+            (response) => response.json() as Promise<Activity[]>
+        );
+        return activities;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir totes les activities sense imatge. \nMotiu: " + error);
+    }
+}
+
+async function getAllDigitalProducts() {
+    try {
+        const digitalProducts = await fetch(URL_PREFIX + `/api/digitalproducts`).then(
+            (response) => response.json() as Promise<DigitalProduct[]>
+        );
+        return digitalProducts;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir tots els producte digitals. \nMotiu: " + error);
+    }
+}
+
 async function getAllUsers() {
     try {
         const users = await fetch(URL_PREFIX + `/api/users`).then(
@@ -191,3 +215,4 @@ async function updateUser(user: User) {
         }
     } catch (error) { throw new Error("No s'ha pogut actualitzar l'usuari. \nMotiu: " + error); }
 }
+

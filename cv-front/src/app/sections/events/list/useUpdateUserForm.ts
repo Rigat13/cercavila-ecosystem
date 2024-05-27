@@ -9,10 +9,10 @@ export const enum FormStatus {
 }
 
 export function useUpdateUserForm(): {
-    submitForm: ({ id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, events, activeUserImage,
+    submitForm: ({ id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
                      activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }:
                      { id: string; nickname: string; name: string; firstSurname: string; secondSurname: string; email: string; password: string; roles: string[];
-                         coins: number; events: string[]; activeUserImage: string; activeUserImageFrame: string; activeUserBackgroundImage: string;
+                         coins: number; digitalProducts: string[]; activeUserImage: string; activeUserImageFrame: string; activeUserBackgroundImage: string;
                          activeUserTitle: string; activeUserBackgroundColour: string; activePins: string[]; })
         => void; formStatus: FormStatus; resetFormStatus: () => void
 } {
@@ -21,11 +21,11 @@ export function useUpdateUserForm(): {
 
     async function submitForm({
                                   id, nickname, name, firstSurname, secondSurname, email, password, roles,
-                                  coins, events, activeUserImage, activeUserImageFrame, activeUserBackgroundImage,
+                                  coins, digitalProducts, activeUserImage, activeUserImageFrame, activeUserBackgroundImage,
                                   activeUserTitle, activeUserBackgroundColour, activePins
                               }: {
         id: string, nickname: string; name: string; firstSurname: string; secondSurname: string;
-        email: string; password: string; roles: string[]; coins: number; events: string[];
+        email: string; password: string; roles: string[]; coins: number; digitalProducts: string[];
         activeUserImage: string; activeUserImageFrame: string; activeUserBackgroundImage: string;
         activeUserTitle: string; activeUserBackgroundColour: string; activePins: string[];
     }) {
@@ -36,7 +36,7 @@ export function useUpdateUserForm(): {
         try {
             await updateUser({
                 id, nickname, name, firstSurname, secondSurname, email, password, roles, coins,
-                events, activeUserImage, activeUserImageFrame, activeUserBackgroundImage,
+                digitalProducts, activeUserImage, activeUserImageFrame, activeUserBackgroundImage,
                 activeUserTitle, activeUserBackgroundColour, activePins
             });
             setFormStatus(FormStatus.Success);

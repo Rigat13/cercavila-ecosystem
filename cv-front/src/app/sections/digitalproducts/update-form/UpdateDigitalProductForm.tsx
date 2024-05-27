@@ -308,7 +308,7 @@ export function UpdateDigitalProductForm({digitalProductId, lang}: {digitalProdu
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="primaryColour">{dictionary[lang]?.collaPrimaryColour}</label>
+                            <label htmlFor="primaryColour">{dictionary[lang]?.digitalProductPrimaryColour}</label>
                             <button
                                 className={styles.colourPreviewButton}
                                 id="primaryColourPreviewButton"
@@ -328,7 +328,7 @@ export function UpdateDigitalProductForm({digitalProductId, lang}: {digitalProdu
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="secondaryColour">{dictionary[lang]?.collaSecondaryColour}</label>
+                            <label htmlFor="secondaryColour">{dictionary[lang]?.digitalProductSecondaryColour}</label>
                             <button
                                 className={styles.colourPreviewButton}
                                 id="secondaryColourPreviewButton"
