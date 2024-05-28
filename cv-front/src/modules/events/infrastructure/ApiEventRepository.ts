@@ -70,7 +70,7 @@ async function getAllEventsByName() {
             (response) => response.json() as Promise<Event[]>
         );
         return events;
-    } catch (error) { throw new Error("No s'ha pogut obtenir tots els producte digitals ordenats per nom. \nMotiu: " + error); }
+    } catch (error) { throw new Error("No s'ha pogut obtenir tots els esdeveniments ordenats per nom. \nMotiu: " + error); }
 }
 
 async function getAllEventsByType() {
@@ -79,7 +79,7 @@ async function getAllEventsByType() {
             (response) => response.json() as Promise<Event[]>
         );
         return events;
-    } catch (error) { throw new Error("No s'ha pogut obtenir tots els producte digitals ordenats per tipus. \nMotiu: " + error); }
+    } catch (error) { throw new Error("No s'ha pogut obtenir tots els esdeveniments ordenats per tipus. \nMotiu: " + error); }
 
 }
 
@@ -90,7 +90,7 @@ async function getAllEvents() {
         );
         return events;
     } catch (error) {
-        throw new Error("No s'ha pogut obtenir tots els producte digitals. \nMotiu: " + error);
+        throw new Error("No s'ha pogut obtenir tots els esdeveniments. \nMotiu: " + error);
     }
 }
 
@@ -101,7 +101,7 @@ async function getAllEventsNoImage() {
         );
         return events;
     } catch (error) {
-        throw new Error("No s'ha pogut obtenir tots els producte digitals sense imatge. \nMotiu: " + error);
+        throw new Error("No s'ha pogut obtenir tots els esdeveniments sense imatge. \nMotiu: " + error);
     }
 }
 
@@ -169,7 +169,7 @@ async function getAllDigitalProducts() {
         );
         return digitalProducts;
     } catch (error) {
-        throw new Error("No s'ha pogut obtenir tots els producte digitals. \nMotiu: " + error);
+        throw new Error("No s'ha pogut obtenir tots els esdeveniments. \nMotiu: " + error);
     }
 }
 

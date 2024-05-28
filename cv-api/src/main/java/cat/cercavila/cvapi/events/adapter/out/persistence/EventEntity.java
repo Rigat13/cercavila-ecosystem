@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity(name = "event")
-@Table(name = "digital_products")
+@Table(name = "events")
 public class EventEntity {
     @Id
     @GeneratedValue(generator="system-uuid")
