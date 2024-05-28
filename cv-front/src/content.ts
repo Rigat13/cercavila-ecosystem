@@ -408,6 +408,86 @@ interface DictionaryEntry {
     errorRetrievingActivityMessage: string;
     errorRetrievingActivitiesMessage: string;
 
+    // -------------------------------------------------------------------------------------------- EVENT
+    eventName: string;
+    eventDescription: string;
+    eventImage: string;
+    eventPrimaryColour: string;
+    eventSecondaryColour: string;
+    eventType: string;
+    eventStartDate: string;
+    eventEndDate: string;
+    eventCercatrivies: string;
+    eventFirstCoinsReward: string;
+    eventFirstDigitalProductsReward: string;
+    eventSecondCoinsReward: string;
+    eventSecondDigitalProductsReward: string;
+    eventThirdCoinsReward: string;
+    eventThirdDigitalProductsReward: string;
+    eventFourthTenthCoinsReward: string;
+    eventFourthTenthDigitalProductsReward: string;
+    eventAllCoinsReward: string;
+    eventAllDigitalProductsReward: string;
+
+    // --- EVENT TYPE
+    selectEventType: string;
+    eventTypeCercampionatMensual: string;
+    eventTypeCercampionatAnual: string;
+    eventTypeCelebracio: string;
+    eventTypeCompensacio: string;
+
+    // CREATE EVENT
+    eventsTitle: string;
+    createEventTitle: string;
+    createEventButton: string;
+
+    eventNameInvalid: string;
+    eventDescriptionInvalid: string;
+    eventImageInvalid: string;
+    eventPrimaryColourInvalid: string;
+    eventSecondaryColourInvalid: string;
+    eventTypeInvalid: string;
+    eventStartDateInvalid: string;
+    eventEndDateInvalid: string;
+    eventCercatriviesInvalid: string;
+    eventFirstCoinsRewardInvalid: string;
+    eventFirstDigitalProductsRewardInvalid: string;
+    eventSecondCoinsRewardInvalid: string;
+    eventSecondDigitalProductsRewardInvalid: string;
+    eventThirdCoinsRewardInvalid: string;
+    eventThirdDigitalProductsRewardInvalid: string;
+    eventFourthTenthCoinsRewardInvalid: string;
+    eventFourthTenthDigitalProductsRewardInvalid: string;
+    eventAllCoinsRewardInvalid: string;
+    eventAllDigitalProductsRewardInvalid: string;
+
+    successCreateEventMessage: string;
+    errorCreateEventMessage: string;
+    createAnotherEventButton: string;
+    retryCreateEventButton: string;
+
+    // UPDATE EVENT
+    updateEventTitle: string;
+    updateEventButton: string;
+    goToEventsButton: string;
+    deleteEventButton: string;
+    warningDeleteEventMessage: string;
+    cancelDeleteEventButton: string;
+    confirmDeleteEventButton: string;
+    successUpdateEventMessage: string;
+    errorUpdateEventMessage: string;
+    successDeleteEventMessage: string;
+    errorDeleteEventMessage: string;
+    eventNotFoundWithId: string;
+    errorRetrievingEventMessage: string;
+    errorRetrievingEventsMessage: string;
+
+    // CHAMPIONSHIP PLACES
+    firstPlace: string;
+    secondPlace: string;
+    thirdPlace: string;
+    fourthToTenthPlace: string;
+    allParticipants: string;
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
@@ -836,7 +916,89 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteActivityMessage: "L'activitat no s'ha pogut esborrar. \nMotiu: ",
         activityNotFoundWithId: "Activitat no trobada amb id: ",
         errorRetrievingActivityMessage: "Error en obtenir la informació de l'activitat. \nMotiu: ",
-        errorRetrievingActivitiesMessage: "Error en obtenir la informació de les activitats. \nMotiu: "
+        errorRetrievingActivitiesMessage: "Error en obtenir la informació de les activitats. \nMotiu: ",
+
+        // -------------------------------------------------------------------------------------------- EVENT
+        eventName: "Nom",
+        eventDescription: "Descripció",
+        eventImage: "Imatge",
+        eventPrimaryColour: "Color primari",
+        eventSecondaryColour: "Color secundari",
+        eventType: "Tipus",
+        eventStartDate: "Data d'inici",
+        eventEndDate: "Data de finalització",
+        eventCercatrivies: "Cercatrivies",
+        eventFirstCoinsReward: "1r lloc - Premi en monedes",
+        eventFirstDigitalProductsReward: "1r lloc - Premi en productes digitals",
+        eventSecondCoinsReward: "2n lloc - Premi en monedes",
+        eventSecondDigitalProductsReward: "2n lloc - Premi en productes digitals",
+        eventThirdCoinsReward: "3r lloc - Premi en monedes",
+        eventThirdDigitalProductsReward: "3r lloc - Premi en productes digitals",
+        eventFourthTenthCoinsReward: "4t-10è lloc - Premi en monedes",
+        eventFourthTenthDigitalProductsReward: "4t-10è lloc - Premi en productes digitals",
+        eventAllCoinsReward: "Tots els participants - Premi en monedes",
+        eventAllDigitalProductsReward: "Tots els participants - Premi en productes digitals",
+
+        // --- EVENT TYPE
+        selectEventType: "-- Tipus d'esdeveniment --",
+        eventTypeCercampionatMensual: "Cercampionat mensual",
+        eventTypeCercampionatAnual: "Cercampionat anual",
+        eventTypeCelebracio: "Celebració",
+        eventTypeCompensacio: "Compensació",
+
+        // CREATE EVENT
+        eventsTitle: "Esdeveniments registrats",
+        createEventTitle: "Crea un nou esdeveniment",
+        createEventButton: "Crea l'esdeveniment",
+
+        eventNameInvalid: "El nom no és vàlid. Ha de contenir caràcters vàlids i tenir entre: ",
+        eventDescriptionInvalid: "La descripció no és vàlida. Ha de tenir caràcters vàlids entre: ",
+        eventImageInvalid: "La imatge no és vàlida. Ha de ser un fitxer vàlid amb mida inferior a: ",
+        eventPrimaryColourInvalid: "El color primari no és vàlid. Ha de seguir el format hexadecimal.",
+        eventSecondaryColourInvalid: "El color secundari no és vàlid. Ha de seguir el format hexadecimal.",
+        eventTypeInvalid: "El tipus no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+        eventStartDateInvalid: "La data d'inici no és vàlida. Ha de ser una data vàlida.",
+        eventEndDateInvalid: "La data de finalització no és vàlida. Ha de ser una data vàlida.",
+        eventCercatriviesInvalid: "Les Cercatrivies no són vàlides.",
+        eventFirstCoinsRewardInvalid: "El premi en monedes del 1r lloc no és vàlid. Ha de ser un número positiu.",
+        eventFirstDigitalProductsRewardInvalid: "El premi en productes digitals del 1r lloc no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+        eventSecondCoinsRewardInvalid: "El premi en monedes del 2n lloc no és vàlid. Ha de ser un número positiu.",
+        eventSecondDigitalProductsRewardInvalid: "El premi en productes digitals del 2n lloc no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+        eventThirdCoinsRewardInvalid: "El premi en monedes del 3r lloc no és vàlid. Ha de ser un número positiu.",
+        eventThirdDigitalProductsRewardInvalid: "El premi en productes digitals del 3r lloc no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+        eventFourthTenthCoinsRewardInvalid: "El premi en monedes del 4t-10è lloc no és vàlid. Ha de ser un número positiu.",
+        eventFourthTenthDigitalProductsRewardInvalid: "El premi en productes digitals del 4t-10è lloc no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+        eventAllCoinsRewardInvalid: "El premi en monedes de tots els participants no és vàlid. Ha de ser un número positiu.",
+        eventAllDigitalProductsRewardInvalid: "El premi en productes digitals de tots els participants no és vàlid. Ha de ser un de la llista, amb caràcters vàlids entre: ",
+
+        successCreateEventMessage: "L'esdeveniment s'ha creat amb èxit",
+        errorCreateEventMessage: "L'esdeveniment no s'ha pogut crear. \nMotiu: ",
+        createAnotherEventButton: "Crear un altre esdeveniment",
+        retryCreateEventButton: "Torna a intentar",
+
+        // UPDATE EVENT
+        updateEventTitle: "Edita l'esdeveniment",
+        updateEventButton: "Edita l'esdeveniment",
+        goToEventsButton: "Torna als esdeveniments",
+        deleteEventButton: "Esborrar l'esdeveniment",
+        warningDeleteEventMessage: "Voleu esborrar l'esdeveniment de manera permanent? No es pot desfer aquesta acció.",
+        cancelDeleteEventButton: "Cancel·lar",
+        confirmDeleteEventButton: "Esborrar permanentment",
+        successUpdateEventMessage: "L'esdeveniment s'ha editat amb èxit",
+        errorUpdateEventMessage: "L'esdeveniment no s'ha pogut editar. \nMotiu: ",
+        successDeleteEventMessage: "L'esdeveniment s'ha esborrat amb èxit",
+        errorDeleteEventMessage: "L'esdeveniment no s'ha pogut esborrar. \nMotiu: ",
+        eventNotFoundWithId: "Esdeveniment no trobat amb id: ",
+        errorRetrievingEventMessage: "Error en obtenir la informació de l'esdeveniment. \nMotiu: ",
+        errorRetrievingEventsMessage: "Error en obtenir la informació dels esdeveniments. \nMotiu: ",
+
+        // CHAMPIONSHIP PLACES
+        firstPlace: "1r lloc",
+        secondPlace: "2n lloc",
+        thirdPlace: "3r lloc",
+        fourthToTenthPlace: "4t-10è lloc",
+        allParticipants: "Participants"
+
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1265,7 +1427,89 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteActivityMessage: "La actividad no se ha podido borrar. \nMotivo: ",
         activityNotFoundWithId: "Actividad no encontrada con id: ",
         errorRetrievingActivityMessage: "Error al obtener la información de la actividad. \nMotivo: ",
-        errorRetrievingActivitiesMessage: "Error al obtener la información de las actividades. \nMotivo: "
+        errorRetrievingActivitiesMessage: "Error al obtener la información de las actividades. \nMotivo: ",
+
+        // -------------------------------------------------------------------------------------------- EVENT
+        eventName: "Nombre",
+        eventDescription: "Descripción",
+        eventImage: "Imagen",
+        eventPrimaryColour: "Color primario",
+        eventSecondaryColour: "Color secundario",
+        eventType: "Tipo",
+        eventStartDate: "Fecha de inicio",
+        eventEndDate: "Fecha de finalización",
+        eventCercatrivies: "Cercatrivias",
+        eventFirstCoinsReward: "1r lugar - Premio en monedas",
+        eventFirstDigitalProductsReward: "1r lugar - Premio en productos digitales",
+        eventSecondCoinsReward: "2n lugar - Premio en monedas",
+        eventSecondDigitalProductsReward: "2n lugar - Premio en productos digitales",
+        eventThirdCoinsReward: "3r lugar - Premio en monedas",
+        eventThirdDigitalProductsReward: "3r lugar - Premio en productos digitales",
+        eventFourthTenthCoinsReward: "4t-10º lugar - Premio en monedas",
+        eventFourthTenthDigitalProductsReward: "4t-10º lugar - Premio en productos digitales",
+        eventAllCoinsReward: "Todos los participantes - Premio en monedas",
+        eventAllDigitalProductsReward: "Todos los participantes - Premio en productos digitales",
+
+        // --- EVENT TYPE
+        selectEventType: "-- Tipo de evento --",
+        eventTypeCercampionatMensual: "Cercampionat mensual",
+        eventTypeCercampionatAnual: "Cercampionat anual",
+        eventTypeCelebracio: "Celebración",
+        eventTypeCompensacio: "Compensación",
+
+        // CREATE EVENT
+        eventsTitle: "Eventos registrados",
+        createEventTitle: "Crea un nuevo evento",
+        createEventButton: "Crea el evento",
+
+        eventNameInvalid: "El nombre no es válido. Debe contener carácteres válidos y tener entre: ",
+        eventDescriptionInvalid: "La descripción no es válida. Debe tener carácteres válidos entre: ",
+        eventImageInvalid: "La imagen no es válida. Debe ser un archivo válido con tamaño inferior a: ",
+        eventPrimaryColourInvalid: "El color primario no es válido. Debe seguir el formato hexadecimal.",
+        eventSecondaryColourInvalid: "El color secundario no es válido. Debe seguir el formato hexadecimal.",
+        eventTypeInvalid: "El tipo no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+        eventStartDateInvalid: "La fecha de inicio no es válida. Debe ser una fecha válida.",
+        eventEndDateInvalid: "La fecha de finalización no es válida. Debe ser una fecha válida.",
+        eventCercatriviesInvalid: "Los Cercatrivies no son válidos.",
+        eventFirstCoinsRewardInvalid: "El premio en monedas del 1r lugar no es válido. Debe ser un número positivo.",
+        eventFirstDigitalProductsRewardInvalid: "El premio en productos digitales del 1r lugar no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+        eventSecondCoinsRewardInvalid: "El premio en monedas del 2n lugar no es válido. Debe ser un número positivo.",
+        eventSecondDigitalProductsRewardInvalid: "El premio en productos digitales del 2n lugar no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+        eventThirdCoinsRewardInvalid: "El premio en monedas del 3r lugar no es válido. Debe ser un número positivo.",
+        eventThirdDigitalProductsRewardInvalid: "El premio en productos digitales del 3r lugar no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+        eventFourthTenthCoinsRewardInvalid: "El premio en monedas del 4t-10è lugar no es válido. Debe ser un número positivo.",
+        eventFourthTenthDigitalProductsRewardInvalid: "El premio en productos digitales del 4t-10è lugar no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+        eventAllCoinsRewardInvalid: "El premio en monedas de todos los participantes no es válido. Debe ser un número positivo.",
+        eventAllDigitalProductsRewardInvalid: "El premio en productos digitales de todos los participantes no es válido. Debe ser uno de la lista, con carácteres válidos entre: ",
+
+        successCreateEventMessage: "El evento se ha creado con éxito",
+        errorCreateEventMessage: "El evento no se ha podido crear. \nMotivo: ",
+        createAnotherEventButton: "Crear otro evento",
+        retryCreateEventButton: "Volver a intentar",
+
+        // UPDATE EVENT
+        updateEventTitle: "Edita el evento",
+        updateEventButton: "Edita el evento",
+        goToEventsButton: "Vuelve a los eventos",
+        deleteEventButton: "Borrar el evento",
+        warningDeleteEventMessage: "¿Quiere borrar el evento de manera permanente? No se puede deshacer esta acción.",
+        cancelDeleteEventButton: "Cancelar",
+        confirmDeleteEventButton: "Borrar permanentemente",
+        successUpdateEventMessage: "El evento se ha editado con éxito",
+        errorUpdateEventMessage: "El evento no se ha podido editar. \nMotivo: ",
+        successDeleteEventMessage: "El evento se ha borrado con éxito",
+        errorDeleteEventMessage: "El evento no se ha podido borrar. \nMotivo: ",
+        eventNotFoundWithId: "Evento no encontrado con id: ",
+        errorRetrievingEventMessage: "Error al obtener la información del evento. \nMotivo: ",
+        errorRetrievingEventsMessage: "Error al obtener la información de los eventos. \nMotivo: ",
+
+        // CHAMPIONSHIP PLACES
+        firstPlace: "1r lugar",
+        secondPlace: "2o lugar",
+        thirdPlace: "3r lugar",
+        fourthToTenthPlace: "4o-10o lugar",
+        allParticipants: "Participantes"
+
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1312,7 +1556,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         registerButton: "Register",
         registerError: "Error registering",
         logoutButton: "Log out",
-        
+
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
         ccgmName: "Coordinadora de Colles Geganteres de Mataró",
@@ -1694,6 +1938,87 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorDeleteActivityMessage: "The activity could not be deleted. \nReason: ",
         activityNotFoundWithId: "Activity not found with id: ",
         errorRetrievingActivityMessage: "Error retrieving activity information. \nReason: ",
-        errorRetrievingActivitiesMessage: "Error retrieving activities information. \nReason: "
+        errorRetrievingActivitiesMessage: "Error retrieving activities information. \nReason: ",
+
+        // -------------------------------------------------------------------------------------------- EVENT
+        eventName: "Name",
+        eventDescription: "Description",
+        eventImage: "Image",
+        eventPrimaryColour: "Primary colour",
+        eventSecondaryColour: "Secondary colour",
+        eventType: "Type",
+        eventStartDate: "Start date",
+        eventEndDate: "End date",
+        eventCercatrivies: "Cercatrivies",
+        eventFirstCoinsReward: "1st place - Coins reward",
+        eventFirstDigitalProductsReward: "1st place - Digital products reward",
+        eventSecondCoinsReward: "2nd place - Coins reward",
+        eventSecondDigitalProductsReward: "2nd place - Digital products reward",
+        eventThirdCoinsReward: "3rd place - Coins reward",
+        eventThirdDigitalProductsReward: "3rd place - Digital products reward",
+        eventFourthTenthCoinsReward: "4th-10th place - Coins reward",
+        eventFourthTenthDigitalProductsReward: "4th-10th place - Digital products reward",
+        eventAllCoinsReward: "All participants - Coins reward",
+        eventAllDigitalProductsReward: "All participants - Digital products reward",
+
+        // --- EVENT TYPE
+        selectEventType: "-- Event type --",
+        eventTypeCercampionatMensual: "Monthly Cercampionat",
+        eventTypeCercampionatAnual: "Annual Cercampionat",
+        eventTypeCelebracio: "Celebration",
+        eventTypeCompensacio: "Compensation",
+
+        // CREATE EVENT
+        eventsTitle: "Registered events",
+        createEventTitle: "Create a new event",
+        createEventButton: "Create event",
+
+        eventNameInvalid: "The name is not valid. It must contain valid characters and be between: ",
+        eventDescriptionInvalid: "The description is not valid. It must have valid characters between: ",
+        eventImageInvalid: "The image is not valid. It must be a valid file with size lower than: ",
+        eventPrimaryColourInvalid: "The primary colour is not valid. It must follow the hexadecimal format.",
+        eventSecondaryColourInvalid: "The secondary colour is not valid. It must follow the hexadecimal format.",
+        eventTypeInvalid: "The type is not valid. It must be one from the list, with valid characters between: ",
+        eventStartDateInvalid: "The start date is not valid. It must be a valid date.",
+        eventEndDateInvalid: "The end date is not valid. It must be a valid date.",
+        eventCercatriviesInvalid: "The Cercatrivies are not valid.",
+        eventFirstCoinsRewardInvalid: "The 1st place coins reward is not valid. It must be a positive number.",
+        eventFirstDigitalProductsRewardInvalid: "The 1st place digital products reward is not valid. It must be one from the list, with valid characters between: ",
+        eventSecondCoinsRewardInvalid: "The 2nd place coins reward is not valid. It must be a positive number.",
+        eventSecondDigitalProductsRewardInvalid: "The 2nd place digital products reward is not valid. It must be one from the list, with valid characters between: ",
+        eventThirdCoinsRewardInvalid: "The 3rd place coins reward is not valid. It must be a positive number.",
+        eventThirdDigitalProductsRewardInvalid: "The 3rd place digital products reward is not valid. It must be one from the list, with valid characters between: ",
+        eventFourthTenthCoinsRewardInvalid: "The 4th-10th place coins reward is not valid. It must be a positive number.",
+        eventFourthTenthDigitalProductsRewardInvalid: "The 4th-10th place digital products reward is not valid. It must be one from the list, with valid characters between: ",
+        eventAllCoinsRewardInvalid: "The all participants coins reward is not valid. It must be a positive number.",
+        eventAllDigitalProductsRewardInvalid: "The all participants digital products reward is not valid. It must be one from the list, with valid characters between: ",
+
+        successCreateEventMessage: "The event has been created successfully",
+        errorCreateEventMessage: "The event could not be created. \nReason: ",
+        createAnotherEventButton: "Create another event",
+        retryCreateEventButton: "Retry",
+
+        // UPDATE EVENT
+        updateEventTitle: "Edit event",
+        updateEventButton: "Edit event",
+        goToEventsButton: "Go back to events",
+        deleteEventButton: "Delete event",
+        warningDeleteEventMessage: "Do you want to delete the event permanently? This action cannot be undone.",
+        cancelDeleteEventButton: "Cancel",
+        confirmDeleteEventButton: "Delete permanently",
+        successUpdateEventMessage: "The event has been edited successfully",
+        errorUpdateEventMessage: "The event could not be edited. \nReason: ",
+        successDeleteEventMessage: "The event has been deleted successfully",
+        errorDeleteEventMessage: "The event could not be deleted. \nReason: ",
+        eventNotFoundWithId: "Event not found with id: ",
+        errorRetrievingEventMessage: "Error retrieving event information. \nReason: ",
+        errorRetrievingEventsMessage: "Error retrieving events information. \nReason: ",
+
+        // CHAMPIONSHIP PLACES
+        firstPlace: "1st place",
+        secondPlace: "2nd place",
+        thirdPlace: "3rd place",
+        fourthToTenthPlace: "4th-10th place",
+        allParticipants: "All participants"
     }
 }

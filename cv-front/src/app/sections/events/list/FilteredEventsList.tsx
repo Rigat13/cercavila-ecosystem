@@ -4,9 +4,9 @@ import { useEventsContext } from "@/app/sections/events/EventsContext";
 import styles from "./FilteredEventsList.module.scss";
 import { dictionary } from "@/content";
 import { eventTypes } from "@/modules/events/domain/events-attributes/EventType";
-import { BuyConfirmationPopup } from "@/app/sections/events/list/BuyConfirmationPopup";
+import { TO_REMOVE_BuyConfirmationPopup } from "@/app/sections/events/list/BuyConfirmationPopup";
 
-export function FilteredEventsList({ lang, isStore }: { lang: string, isStore: boolean }) {
+export function FilteredEventsList({ lang }: { lang: string }) {
     const { eventsNoImage, events, users } = useEventsContext();
     const [loadedEvents, setLoadedEvents] = useState([]);
     const [isEventsImagesLoaded, setIsEventsImagesLoaded] = useState(false);
@@ -39,7 +39,7 @@ export function FilteredEventsList({ lang, isStore }: { lang: string, isStore: b
 
     const handleNameSearch = (event: React.ChangeEvent<HTMLInputElement>) => { setSearchTerm(event.target.value); };
     const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => { setFilterType(event.target.value); };
-    const handleAddType = () => { if (filterType && !selectedTypes.includes(filterType)) { setSelectedTypes([...selectedTypes, filterType]); } };
+    const handleAddType = () => { if (filterType && !selectedTypes.toString().includes(filterType)) { setSelectedTypes([...selectedTypes, filterType]); } };
 
     const handleRemoveFilter = (type: string, category: string) => {
         switch (category) {
@@ -55,45 +55,17 @@ export function FilteredEventsList({ lang, isStore }: { lang: string, isStore: b
                 return { backgroundColor, color };
             default: return {};
         }
-    }
-
-    // Retrieve current user's digital products from local storage
-    const getCurrentUserEvents = () => {
-        if (typeof window === 'undefined' || typeof localStorage === 'undefined') { return []; }
-        const username = localStorage.getItem('username');
-        const user = users.find(user => user.nickname === username);
-        return user?.events || [];
-    };
-
-    const userEvents = getCurrentUserEvents();
-
-    // Handle buy button click
-    const handleBuyButtonClick = (event) => {
-        setSelectedProduct(event);
-        setPopupVisible(true);
-    };
-
-    const handleClosePopup = () => {
-        setPopupVisible(false);
-        setSelectedProduct(null);
     };
 
     return (
         <section>
             <section className={styles.centeredSection}>
-                {isStore && <h1 className={styles.title}>{dictionary[lang]?.storeTitle}</h1>}
-                {!isStore && <h1 className={styles.h1}>{dictionary[lang]?.eventsTitle}</h1>}
+                <h1 className={styles.title}>{dictionary[lang]?.eventsTitle}</h1>
             </section>
             {/* ------------------------------------------------- TYPE SELECTOR -------------------------------------------------*/}
             <div className={styles.filter}>
 
                 <div className={styles.filtersWrapper}>
-                    {isStore && user &&
-                        <div className={styles.coinsCount}>
-                            <span>{user.coins}</span>
-                            <img className={styles.iconCountImg} src="/icons/icon-coin.svg" alt="C" />
-                        </div>
-                    }
                     <div className={styles.filterSection}>
                         <label className={styles.filterTitle} htmlFor="name">{dictionary[lang]?.collaFilterByName}</label>
                         <div className={styles.filterInnerSection}>
@@ -116,7 +88,7 @@ export function FilteredEventsList({ lang, isStore }: { lang: string, isStore: b
                                     <option
                                         key={option.labelKey}
                                         value={option.labelKey}
-                                        disabled={selectedTypes.includes(option.labelKey)}
+                                        disabled={selectedTypes.toString().includes(option.labelKey)}
                                     > {dictionary[lang]?.[option.labelKey]} </option>
                                 ))}
                             </select>
@@ -156,11 +128,7 @@ export function FilteredEventsList({ lang, isStore }: { lang: string, isStore: b
                         <EventCard
                             key={event.id}
                             event={event}
-                            isBuyable={isStore && isLoggedIn}
-                            isEditable={!isStore && isLoggedIn}
                             lang={lang}
-                            alreadyObtained={userEvents.includes(event.id)} // Check if the product is obtained
-                            onBuyButtonClick={() => handleBuyButtonClick(event)} // Handle buy button click
                         />
                     ))}
 
@@ -175,22 +143,10 @@ export function FilteredEventsList({ lang, isStore }: { lang: string, isStore: b
                         <EventCard
                             key={loadedEvent.id}
                             event={loadedEvent}
-                            isBuyable={isStore && isLoggedIn}
-                            isEditable={!isStore && isLoggedIn}
                             lang={lang}
-                            alreadyObtained={userEvents.includes(loadedEvent.id)} // Check if the product is obtained
-                            onBuyButtonClick={() => handleBuyButtonClick(loadedEvent)} // Handle buy button click
                         />
                     ))}
             </div>
-            {popupVisible && selectedProduct && localStorage && (
-                <BuyConfirmationPopup
-                    event={selectedProduct}
-                    onClose={handleClosePopup}
-                    lang={lang}
-                    user={users.find(user => user.nickname === localStorage.getItem('username'))}
-                />
-            )}
         </section>
     )
 }

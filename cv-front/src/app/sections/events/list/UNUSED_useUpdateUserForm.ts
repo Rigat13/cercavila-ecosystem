@@ -8,7 +8,7 @@ export const enum FormStatus {
     Initial,
 }
 
-export function useUpdateUserForm(): {
+export function UNUSED_useUpdateUserForm(): {
     submitForm: ({ id, nickname, name, firstSurname, secondSurname, email, password, roles, coins, digitalProducts, activeUserImage,
                      activeUserImageFrame, activeUserBackgroundImage, activeUserTitle, activeUserBackgroundColour, activePins }:
                      { id: string; nickname: string; name: string; firstSurname: string; secondSurname: string; email: string; password: string; roles: string[];

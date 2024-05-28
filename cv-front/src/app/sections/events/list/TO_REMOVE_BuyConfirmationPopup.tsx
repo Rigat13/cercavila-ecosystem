@@ -3,16 +3,16 @@ import styles from './BuyConfirmationPopup.module.scss';
 import { dictionary } from "@/content";
 import detailsStyles from "@/app/sections/shared/EventDetails.module.scss";
 import { base64ToBlob } from "@/app/sections/shared/Utilities";
-import { useUpdateUserForm, FormStatus } from "@/app/sections/events/list/useUpdateUserForm"; // Updated path
+import { UNUSED_useUpdateUserForm, FormStatus } from "@/app/sections/events/list/useUpdateUserForm"; // Updated path
 import { useEventsContext } from "@/app/sections/events/EventsContext";
 import confetti from 'canvas-confetti';
 
-export function BuyConfirmationPopup({ event, onClose, lang, user }) {
+export function TO_REMOVE_BuyConfirmationPopup({ event, onClose, lang, user }) {
     const canBuy = user.coins >= event.price;
     const remainingCoins = event.price - user.coins;
 
     const [imageUrl, setImageUrl] = useState<string | null>(null);
-    const { submitForm, formStatus } = useUpdateUserForm();
+    const { submitForm, formStatus } = UNUSED_useUpdateUserForm();
     const { events } = useEventsContext();
     const [buyOrCancelButtonsVisible, setBuyOrCancelButtonsVisible] = useState(true);
     useEffect(() => {

@@ -12,40 +12,19 @@ import {isEventImageValid, IMAGE_MAX_MBS} from "@/modules/events/domain/events-a
 import { DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH, isEventDescriptionValid } from "@/modules/events/domain/events-attributes/EventDescription";
 
 import { isEventColourValid } from "@/modules/events/domain/events-attributes/EventColours";
-import { isEventPriceValid } from "@/modules/events/domain/events-attributes/EventPrice";
 import ColourPicker from "@/app/sections/shared/ColourPicker";
-import {isEventStartDateValid} from "../../../../modules/events/domain/digitalproducts-attributes/EventStartDate";
-import {isEventCercatriviesValid} from "../../../../modules/events/domain/digitalproducts-attributes/EventCercatrivies";
-import {
-    isEventFirstCoinsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventFirstCoinsReward";
-import {
-    isEventFirstDigitalProductsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventFirstDigitalProductsReward";
-import {
-    isEventSecondCoinsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventSecondCoinsReward";
-import {
-    isEventSecondDigitalProductsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventSecondDigitalProductsReward";
-import {
-    isEventFourthTenthCoinsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventFourthTenthCoinsReward";
-import {
-    isEventAllCoinsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventAllCoinsReward";
-import {
-    isEventFourthTenthDigitalProductsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventFourthTenthDigitalProductsReward";
-import {
-    isEventThirdCoinsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventThirdCoinsReward";
-import {
-    isEventThirdDigitalProductsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventThirdDigitalProductsReward";
-import {
-    isEventAllDigitalProductsRewardValid
-} from "../../../../modules/events/domain/digitalproducts-attributes/EventAllDigitalProductsReward";
+import {isEventStartDateValid} from "../../../../modules/events/domain/events-attributes/EventStartDate";
+import {isEventCercatriviesValid} from "../../../../modules/events/domain/events-attributes/EventCercatrivies";
+import {isEventFirstCoinsRewardValid} from "../../../../modules/events/domain/events-attributes/EventFirstCoinsReward";
+import {isEventFirstDigitalProductsRewardValid} from "../../../../modules/events/domain/events-attributes/EventFirstDigitalProductsReward";
+import {isEventSecondCoinsRewardValid} from "../../../../modules/events/domain/events-attributes/EventSecondCoinsReward";
+import {isEventSecondDigitalProductsRewardValid} from "../../../../modules/events/domain/events-attributes/EventSecondDigitalProductsReward";
+import {isEventFourthTenthCoinsRewardValid} from "../../../../modules/events/domain/events-attributes/EventFourthTenthCoinsReward";
+import {isEventAllCoinsRewardValid} from "../../../../modules/events/domain/events-attributes/EventAllCoinsReward";
+import {isEventFourthTenthDigitalProductsRewardValid} from "../../../../modules/events/domain/events-attributes/EventFourthTenthDigitalProductsReward";
+import {isEventThirdCoinsRewardValid} from "../../../../modules/events/domain/events-attributes/EventThirdCoinsReward";
+import {isEventThirdDigitalProductsRewardValid} from "../../../../modules/events/domain/events-attributes/EventThirdDigitalProductsReward";
+import {isEventAllDigitalProductsRewardValid} from "../../../../modules/events/domain/events-attributes/EventAllDigitalProductsReward";
 
 const initialState = {
     id: "",
