@@ -71,6 +71,7 @@ function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
                     <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/digitalproducts.html" : `/digitalproducts.html?lang=${lang}`}>{dictionary[lang]?.digitalProductsTitle}</a>
                     <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/users.html" : `/users.html?lang=${lang}`}>{dictionary[lang]?.usersTitle}</a>
                     <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/activities.html" : `/activities.html?lang=${lang}`}>{dictionary[lang]?.activitiesTitle}</a>
+                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/events.html" : `/events.html?lang=${lang}`}>{dictionary[lang]?.eventsTitle}</a>
                 </div>
             </div>
             <div className={styles.languageSelector}>
