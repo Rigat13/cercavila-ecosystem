@@ -15,15 +15,15 @@ const EventFactory = Factory.define<Event>(() => ({
     endDate: faker.date.future().toISOString(),
     cercatrivies: [faker.lorem.word()],
     firstCoinsReward: faker.datatype.number(),
-    firstEventsReward: [faker.lorem.word()],
+    firstDigitalProductsReward: [faker.lorem.word()],
     secondCoinsReward: faker.datatype.number(),
-    secondEventsReward: [faker.lorem.word()],
+    secondDigitalProductsReward: [faker.lorem.word()],
     thirdCoinsReward: faker.datatype.number(),
-    thirdEventsReward: [faker.lorem.word()],
+    thirdDigitalProductsReward: [faker.lorem.word()],
     fourthTenthCoinsReward: faker.datatype.number(),
-    fourthTenthEventsReward: [faker.lorem.word()],
+    fourthTenthDigitalProductsReward: [faker.lorem.word()],
     allCoinsReward: faker.datatype.number(),
-    allEventsReward: [faker.lorem.word()],
+    allDigitalProductsReward: [faker.lorem.word()],
 }));
 
 export const EventMother = {
@@ -51,11 +51,6 @@ export const EventMother = {
     createWithTooLongType: (): Event => {
         return EventFactory.build({
             type: faker.lorem.sentence(NAME_MAX_LENGTH + 1),
-        });
-    },
-    createWithTooLowPrice: (): Event => {
-        return EventFactory.build({
-            price: -1,
         });
     },
     createWithTooShortDescription: (): Event => {

@@ -1,6 +1,5 @@
 import { Event } from "@/modules/events/domain/Event";
 import styles from "./EventCard.module.scss";
-import detailsStyles from "@/app/sections/shared/EventDetails.module.scss";
 import { defaultLang, dictionary } from "@/content";
 import React, { useEffect, useState } from "react";
 import { base64ToBlob } from "@/app/sections/shared/Utilities";
@@ -43,15 +42,15 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const renderAllRewards = () => {
         return (
             <div className={styles.eventCard__allRewards}>
-                <p>{dictionary[lang]?.allParticipants}: {event.allCoinsReward} coins, {event.allDigitalProductsReward.join(", ")}</p>
+                {event.allDigitalProductsReward && (<p>{dictionary[lang]?.allParticipants}: {event.allCoinsReward} coins, {event.allDigitalProductsReward.join(", ")}</p>)}
             </div>
         );
     };
 
     const renderEventDetails = () => {
         return (
-            <a target="_blank" className={detailsStyles.eventDetails__aImage}>
-                <div className={detailsStyles.eventDetails__image}>
+            <a target="_blank" className={styles.eventCard__aImage}>
+                <div className={styles.eventCard__image}>
                     <img src={imageUrl} alt={`Image of ${event.name}`} />
                 </div>
             </a>
@@ -70,13 +69,13 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                 <p className={styles.eventCard__dates}>
                     {formattedStartDate} - {formattedEndDate}
                 </p>
-                <div className={styles.eventCard__cercatrivies}>
+                {event.cercatrivies  && (<div className={styles.eventCard__cercatrivies}>
                     <ul>
                         {event.cercatrivies.map((trivia, index) => (
                             <li key={index}>{trivia}</li>
                         ))}
                     </ul>
-                </div>
+                </div>)}
                 {isMajorEvent ? renderRewards() : renderAllRewards()}
             </div>
         </div>

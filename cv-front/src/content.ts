@@ -436,6 +436,13 @@ interface DictionaryEntry {
     eventTypeCelebracio: string;
     eventTypeCompensacio: string;
 
+    selectEventCercatrivies: string;
+    selectEventFirstDigitalProductsReward: string;
+    selectEventSecondDigitalProductsReward: string;
+    selectEventThirdDigitalProductsReward: string;
+    selectEventFourthTenthDigitalProductsReward: string;
+    selectEventAllDigitalProductsReward: string;
+
     // CREATE EVENT
     eventsTitle: string;
     createEventTitle: string;
@@ -945,6 +952,13 @@ export const dictionary: Record<string, DictionaryEntry> = {
         eventTypeCercampionatAnual: "Cercampionat anual",
         eventTypeCelebracio: "Celebració",
         eventTypeCompensacio: "Compensació",
+
+        selectEventCercatrivies: "-- Cercatrivies --",
+        selectEventFirstDigitalProductsReward: "-- 1r lloc - Productes digitals de premi --",
+        selectEventSecondDigitalProductsReward: "-- 2n lloc - Productes digitals de premi --",
+        selectEventThirdDigitalProductsReward: "-- 3r lloc - Productes digitals de premi --",
+        selectEventFourthTenthDigitalProductsReward: "-- 4t-10è lloc - Productes digitals de premi --",
+        selectEventAllDigitalProductsReward: "-- Participants - Productes digitals de premi --",
 
         // CREATE EVENT
         eventsTitle: "Esdeveniments registrats",
@@ -1457,6 +1471,13 @@ export const dictionary: Record<string, DictionaryEntry> = {
         eventTypeCelebracio: "Celebración",
         eventTypeCompensacio: "Compensación",
 
+        selectEventCercatrivies: "-- Cercatrivies --",
+        selectEventFirstDigitalProductsReward: "-- 1r lugar - Productos digitales de premio --",
+        selectEventSecondDigitalProductsReward: "-- 2n lugar - Productos digitales de premio --",
+        selectEventThirdDigitalProductsReward: "-- 3r lugar - Productos digitales de premio --",
+        selectEventFourthTenthDigitalProductsReward: "-- 4º-10º lugar - Productos digitales de premio --",
+        selectEventAllDigitalProductsReward: "-- Todos los participantes - Productos digitales de premio --",
+
         // CREATE EVENT
         eventsTitle: "Eventos registrados",
         createEventTitle: "Crea un nuevo evento",
@@ -1505,9 +1526,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         // CHAMPIONSHIP PLACES
         firstPlace: "1r lugar",
-        secondPlace: "2o lugar",
+        secondPlace: "2º lugar",
         thirdPlace: "3r lugar",
-        fourthToTenthPlace: "4o-10o lugar",
+        fourthToTenthPlace: "4º-10º lugar",
         allParticipants: "Participantes"
 
     },
@@ -1967,6 +1988,13 @@ export const dictionary: Record<string, DictionaryEntry> = {
         eventTypeCercampionatAnual: "Annual Cercampionat",
         eventTypeCelebracio: "Celebration",
         eventTypeCompensacio: "Compensation",
+
+        selectEventCercatrivies: "-- Cercatrivies --",
+        selectEventFirstDigitalProductsReward: "-- 1st place - Digital products reward --",
+        selectEventSecondDigitalProductsReward: "-- 2nd place - Digital products reward --",
+        selectEventThirdDigitalProductsReward: "-- 3rd place - Digital products reward --",
+        selectEventFourthTenthDigitalProductsReward: "-- 4th-10th place - Digital products reward --",
+        selectEventAllDigitalProductsReward: "-- All participants - Digital products reward --",
 
         // CREATE EVENT
         eventsTitle: "Registered events",

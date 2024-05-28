@@ -4,19 +4,19 @@ import { EventTypeNotValidError, isEventTypeValid } from "@/modules/events/domai
 import { EventDescriptionNotValidError, isEventDescriptionValid } from "@/modules/events/domain/events-attributes/EventDescription";
 import { EventNameNotValidError, isEventNameValid } from "@/modules/events/domain/events-attributes/EventName";
 import { EventColourNotValidError, isEventColourValid } from "@/modules/events/domain/events-attributes/EventColours";
-import {EventStartDateNotValidError, isEventStartDateValid} from "@/modules/events/domain/digitalproducts-attributes/EventStartDate";
-import {EventEndDateNotValidError, isEventEndDateValid} from "@/modules/events/domain/digitalproducts-attributes/EventEndDate";
-import {EventFirstCoinsRewardNotValidError, isEventFirstCoinsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventFirstCoinsReward";
-import {EventCercatriviesNotValidError, isEventCercatriviesValid} from "@/modules/events/domain/digitalproducts-attributes/EventCercatrivies";
-import {EventThirdCoinsRewardNotValidError, isEventThirdCoinsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventThirdCoinsReward";
-import {EventFourthTenthCoinsRewardNotValidError, isEventFourthTenthCoinsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventFourthTenthCoinsReward";
-import {EventSecondCoinsRewardNotValidError, isEventSecondCoinsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventSecondCoinsReward";
-import {EventAllCoinsRewardNotValidError, isEventAllCoinsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventAllCoinsReward";
-import {EventFirstDigitalProductsRewardNotValidError, isEventFirstDigitalProductsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventFirstDigitalProductsReward";
-import {EventSecondDigitalProductsRewardNotValidError, isEventSecondDigitalProductsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventSecondDigitalProductsReward";
-import {EventThirdDigitalProductsRewardNotValidError, isEventThirdDigitalProductsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventThirdDigitalProductsReward";
-import {EventAllDigitalProductsRewardNotValidError, isEventAllDigitalProductsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventAllDigitalProductsReward";
-import {EventFourthTenthDigitalProductsRewardNotValidError, isEventFourthTenthDigitalProductsRewardValid} from "@/modules/events/domain/digitalproducts-attributes/EventFourthTenthDigitalProductsReward";
+import {EventStartDateNotValidError, isEventStartDateValid} from "@/modules/events/domain/events-attributes/EventStartDate";
+import {EventEndDateNotValidError, isEventEndDateValid} from "@/modules/events/domain/events-attributes/EventEndDate";
+import {EventFirstCoinsRewardNotValidError, isEventFirstCoinsRewardValid} from "@/modules/events/domain/events-attributes/EventFirstCoinsReward";
+import {EventCercatriviesNotValidError, isEventCercatriviesValid} from "@/modules/events/domain/events-attributes/EventCercatrivies";
+import {EventThirdCoinsRewardNotValidError, isEventThirdCoinsRewardValid} from "@/modules/events/domain/events-attributes/EventThirdCoinsReward";
+import {EventFourthTenthCoinsRewardNotValidError, isEventFourthTenthCoinsRewardValid} from "@/modules/events/domain/events-attributes/EventFourthTenthCoinsReward";
+import {EventSecondCoinsRewardNotValidError, isEventSecondCoinsRewardValid} from "@/modules/events/domain/events-attributes/EventSecondCoinsReward";
+import {EventAllCoinsRewardNotValidError, isEventAllCoinsRewardValid} from "@/modules/events/domain/events-attributes/EventAllCoinsReward";
+import {EventFirstDigitalProductsRewardNotValidError, isEventFirstDigitalProductsRewardValid} from "@/modules/events/domain/events-attributes/EventFirstDigitalProductsReward";
+import {EventSecondDigitalProductsRewardNotValidError, isEventSecondDigitalProductsRewardValid} from "@/modules/events/domain/events-attributes/EventSecondDigitalProductsReward";
+import {EventThirdDigitalProductsRewardNotValidError, isEventThirdDigitalProductsRewardValid} from "@/modules/events/domain/events-attributes/EventThirdDigitalProductsReward";
+import {EventAllDigitalProductsRewardNotValidError, isEventAllDigitalProductsRewardValid} from "@/modules/events/domain/events-attributes/EventAllDigitalProductsReward";
+import {EventFourthTenthDigitalProductsRewardNotValidError, isEventFourthTenthDigitalProductsRewardValid} from "@/modules/events/domain/events-attributes/EventFourthTenthDigitalProductsReward";
 
 export interface Event {
     id: string;
@@ -73,7 +73,7 @@ export function ensureEventIsValidEmptyId({id, name, description, image, primary
     if (!isEventThirdCoinsRewardValid(thirdCoinsReward)) { throw EventThirdCoinsRewardNotValidError(thirdCoinsReward); }
     if (!isEventThirdDigitalProductsRewardValid(thirdDigitalProductsReward.toString())) { throw EventThirdDigitalProductsRewardNotValidError(thirdDigitalProductsReward.toString()); }
     if (!isEventFourthTenthCoinsRewardValid(fourthTenthCoinsReward)) { throw EventFourthTenthCoinsRewardNotValidError(fourthTenthCoinsReward); }
-    if (!isEventFourthTenthDigitalProductsRewardValid(fourthTenthDigitalProductsReward.toString())) { throw EventFourthTenthDigitalProductsRewardNotValidError(fourthTenthDigitalProductsReward).toString(); }
+    if (!isEventFourthTenthDigitalProductsRewardValid(fourthTenthDigitalProductsReward.toString())) { throw EventFourthTenthDigitalProductsRewardNotValidError(fourthTenthDigitalProductsReward.toString()); }
     if (!isEventAllCoinsRewardValid(allCoinsReward)) { throw EventAllCoinsRewardNotValidError(allCoinsReward); }
     if (!isEventAllDigitalProductsRewardValid(allDigitalProductsReward.toString())) { throw EventAllDigitalProductsRewardNotValidError(allDigitalProductsReward.toString()); }
 }

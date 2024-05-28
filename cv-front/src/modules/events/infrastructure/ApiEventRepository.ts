@@ -9,7 +9,7 @@ export function createApiEventRepository(): EventRepository {
     return {
         storeEvent, getEventById, getEventByName, getAllEventsByName,
         getAllEventsByType, getAllEvents, updateEvent, deleteEvent, getAllEventsNoImage,
-        getAllUsers, updateUser
+        getAllUsers, updateUser, getAllActivitiesNoImage, getAllDigitalProducts
     };
 }
 

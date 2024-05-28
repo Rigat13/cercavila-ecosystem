@@ -11,5 +11,5 @@ export function EventCercatriviesNotValidError(cercatrivies: string): Error {
 }
 
 export function concatenateCercatrivies (cercatrivies) {
-    return digitalProducts.map(digitalProduct => cercatrivies.id).join(',');
+    return cercatrivies.map(digitalProduct => cercatrivies.id).join(',');
 }

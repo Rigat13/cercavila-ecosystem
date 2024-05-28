@@ -41,7 +41,7 @@ function PageContent() {
 
             <div className = "Events">
                 <h1 className={globalStyles.h1}>{dictionary[lang]?.cercavilaTitle}</h1>
-                <FilteredEventsList lang={lang} isStore={false}/>
+                <FilteredEventsList lang={lang} />
                 <CreateEventForm lang={lang}/>
             </div>
         </EventsContextProvider>

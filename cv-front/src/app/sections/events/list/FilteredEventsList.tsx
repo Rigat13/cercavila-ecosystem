@@ -4,7 +4,6 @@ import { useEventsContext } from "@/app/sections/events/EventsContext";
 import styles from "./FilteredEventsList.module.scss";
 import { dictionary } from "@/content";
 import { eventTypes } from "@/modules/events/domain/events-attributes/EventType";
-import { TO_REMOVE_BuyConfirmationPopup } from "@/app/sections/events/list/BuyConfirmationPopup";
 
 export function FilteredEventsList({ lang }: { lang: string }) {
     const { eventsNoImage, events, users } = useEventsContext();
