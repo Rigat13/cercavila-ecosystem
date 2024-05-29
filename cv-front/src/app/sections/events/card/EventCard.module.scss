@@ -134,4 +134,44 @@
     30%, 50%, 70% {transform: translate3d(-4px, 0, 0);}
     40%, 60% {transform: translate3d(4px, 0, 0);}
   }
+
+  /* ---------------------------------------------------- Rewards ---------------------------------------------------- */
+  .eventCard__rewards {
+    margin-top: 1rem;
+  }
+
+  .rewardLine {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff; /* White background */
+    border-radius: 1rem; /* Rounded border */
+    margin-bottom: 0.5rem; /* Adjust as needed */
+    padding: 0.5rem;
+  }
+
+  .rewardImage {
+    height: 2rem; /* Adjust height as needed */
+    margin-right: 0.5rem; /* Adjust spacing */
+  }
+
+  .coins {
+    color: #111111;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-right: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  .coinIcon {
+    height: 1.5rem;
+    margin-right: 1rem;
+  }
+
+  .digitalProductImage {
+    height: 3rem;
+    margin-right: auto;
+    border-radius: 0.5rem;
+    animation: fadeIn 1s; -webkit-animation: fadeIn 1s; -moz-animation: fadeIn 1s; -o-animation: fadeIn 1s; -ms-animation: fadeIn 1s;
+  }
+
 }

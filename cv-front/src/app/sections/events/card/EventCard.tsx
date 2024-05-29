@@ -9,6 +9,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const isMajorEvent = event.type === 'eventTypeCercampionatMensual' || event.type === 'eventTypeCercampionatAnual';
     const { cercatrivies } = useEventsContext();
+    const { digitalProducts } = useEventsContext();
 
     useEffect(() => {
         if (event.image) {
@@ -44,14 +45,27 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
         transition: 'background-color 0.3s ease, color 0.3s ease',
     }
 
+    const renderDigitalProductsImages = (digitalProductsIds: string[]) => {
+        return digitalProductsIds.toString().split(",").map((digitalProductId, index) => {
+            const digitalProduct = digitalProducts.find(product => product.id === digitalProductId);
+            if (!digitalProduct) return null;
+            const digitalProductImageBlob = base64ToBlob(digitalProduct.image as unknown as string);
+            const digitalProductImageUrl = URL.createObjectURL(digitalProductImageBlob);
+            return (<img key={index} src={digitalProductImageUrl} alt={digitalProduct.name} className={styles.digitalProductImage}/>);
+        });
+    }
+
     const renderRewards = () => {
         if (!isMajorEvent) return null;
+
         return (
             <div className={styles.eventCard__rewards}>
-                <p>{dictionary[lang]?.firstPlace}: {event.firstCoinsReward} coins, {event.firstDigitalProductsReward.toString()}</p>
-                <p>{dictionary[lang]?.secondPlace}: {event.secondCoinsReward} coins, {event.secondDigitalProductsReward.toString()}</p>
-                <p>{dictionary[lang]?.thirdPlace}: {event.thirdCoinsReward} coins, {event.thirdDigitalProductsReward.toString()}</p>
-                <p>{dictionary[lang]?.fourthToTenthPlace}: {event.fourthTenthCoinsReward} coins, {event.fourthTenthDigitalProductsReward.toString()}</p>
+                <div className={styles.rewardLine}>
+                    <img src="/icons/icon-first.svg" alt="First Place" className={styles.rewardImage} />
+                    <span className={styles.coins}>{event.firstCoinsReward}</span>
+                    <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
+                    {renderDigitalProductsImages(event.firstDigitalProductsReward)}
+                </div>
             </div>
         );
     };
