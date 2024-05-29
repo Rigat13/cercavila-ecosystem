@@ -51,9 +51,14 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
             if (!digitalProduct) return null;
             const digitalProductImageBlob = base64ToBlob(digitalProduct.image as unknown as string);
             const digitalProductImageUrl = URL.createObjectURL(digitalProductImageBlob);
-            return (<img key={index} src={digitalProductImageUrl} alt={digitalProduct.name} className={styles.digitalProductImage}/>);
+            return (
+                <div className={styles.digitalProductImageWrapper} key={index}>
+                    <img src={digitalProductImageUrl} alt={digitalProduct.name} className={styles.digitalProductImage} />
+                    <span className={styles.digitalProductImageLabel}>{digitalProduct.name}</span>
+                </div>
+            );
         });
-    }
+    };
 
     const renderRewards = () => {
         if (!isMajorEvent) return null;
@@ -64,11 +69,43 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                     <img src="/icons/icon-first.svg" alt="First Place" className={styles.rewardImage} />
                     <span className={styles.coins}>{event.firstCoinsReward}</span>
                     <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
-                    {renderDigitalProductsImages(event.firstDigitalProductsReward)}
+                    <div className={styles.rewardImagesContainer}>
+                        {renderDigitalProductsImages(event.firstDigitalProductsReward)}
+                    </div>
                 </div>
+
+                <div className={styles.rewardLine}>
+                    <img src="/icons/icon-second.svg" alt="Second Place" className={styles.rewardImage} />
+                    <span className={styles.coins}>{event.secondCoinsReward}</span>
+                    <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
+                    <div className={styles.rewardImagesContainer}>
+                        {renderDigitalProductsImages(event.secondDigitalProductsReward)}
+                    </div>
+                </div>
+
+                <div className={styles.rewardLine}>
+                    <img src="/icons/icon-third.svg" alt="Third Place" className={styles.rewardImage} />
+                    <span className={styles.coins}>{event.thirdCoinsReward}</span>
+                    <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
+                    <div className={styles.rewardImagesContainer}>
+                        {renderDigitalProductsImages(event.thirdDigitalProductsReward)}
+                    </div>
+                </div>
+
+                <div className={styles.rewardLine}>
+                    <img src="/icons/icon-fourthtenth.svg" alt="Fourth to Tenth Place" className={styles.rewardImage} />
+                    <span className={styles.coins}>{event.fourthTenthCoinsReward}</span>
+                    <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
+                    <div className={styles.rewardImagesContainer}>
+                        {renderDigitalProductsImages(event.fourthTenthDigitalProductsReward)}
+                    </div>
+                </div>
+
             </div>
         );
     };
+
+
 
     const renderAllRewards = () => {
         return (

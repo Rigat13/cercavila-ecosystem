@@ -24,6 +24,7 @@
     align-items: center;
 
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    padding: 0.3rem;
     padding-bottom: 1rem; /* Add padding to prevent content from touching the border */
   }
 
@@ -67,16 +68,17 @@
     margin-top: 1rem;
     z-index: 2;
     font-size: 1rem;
-    background: #1f1f1f;
+    background: rgba(0, 0, 0, 0.42);
     color: white;
     border-radius: 1rem;
-    padding: 0.5rem;
+    padding: 2rem 1rem;
+    padding-bottom: 0rem;
     text-align: left;
     width: 90%; /* Ensure the rewards section doesn't overflow */
   }
 
   &__allRewards {
-    background: #2d2d2d;
+    background: rgba(0, 0, 0, 0.42);
   }
 
   &__image {
@@ -88,7 +90,7 @@
     justify-content: center;
     overflow: hidden;
     transition: transform 0.3s ease;
-
+    padding: 0.3rem;
     border-radius: 2rem 2rem 0 0;
 
     img {
@@ -145,13 +147,27 @@
     align-items: center;
     background-color: #ffffff; /* White background */
     border-radius: 1rem; /* Rounded border */
-    margin-bottom: 0.5rem; /* Adjust as needed */
+    margin-bottom: 2rem; /* Adjust as needed */
     padding: 0.5rem;
+    position: relative; /* Ensure overflow images are correctly positioned */
+    overflow: visible; /* Allow children to overflow */
+    height: 2rem;
+  }
+
+  .rewardImagesContainer {
+    display: flex;
+    align-items: center; /* Ensure children are centered */
+    position: relative; /* Positioning context for overflow */
+  }
+
+  .rewardImage, .coinIcon {
+    flex-shrink: 0; /* Prevent shrinking */
+    height: 3rem; /* Fixed size for the reward image */
+    margin-right: 0.5rem; /* Adjust spacing */
   }
 
   .rewardImage {
-    height: 2rem; /* Adjust height as needed */
-    margin-right: 0.5rem; /* Adjust spacing */
+    margin-left: -0.5rem;
   }
 
   .coins {
@@ -159,19 +175,47 @@
     font-size: 1.2rem;
     font-weight: 700;
     margin-right: 0.5rem;
-    margin-left: 1rem;
   }
 
   .coinIcon {
     height: 1.5rem;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  .digitalProductImageWrapper {
+    position: relative; /* Required for positioning label */
+    margin: 0rem 0.5rem;
+    display: flex; /* Flex display to align items */
+    align-items: center; /* Center items vertically */
   }
 
   .digitalProductImage {
     height: 3rem;
-    margin-right: auto;
     border-radius: 0.5rem;
-    animation: fadeIn 1s; -webkit-animation: fadeIn 1s; -moz-animation: fadeIn 1s; -o-animation: fadeIn 1s; -ms-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+    position: relative; /* Allow overflow positioning */
+    top: 0; /* Adjust to vertically center */
+    z-index: 1; /* Ensure it is above other elements */
   }
+
+  .digitalProductImageLabel {
+    position: absolute;
+    top: -2rem; /* Adjust as needed */
+    left: 50%; /* Align label horizontally */
+    transform: translateX(-50%); /* Center label horizontally */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    color: white;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.5rem; /* Adjust padding as needed */
+    font-size: 0.8rem;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth transition */
+    z-index: 2; /* Ensure it is above the image */
+  }
+
+  .digitalProductImageWrapper:hover .digitalProductImageLabel {
+    opacity: 1;
+  }
+
 
 }
