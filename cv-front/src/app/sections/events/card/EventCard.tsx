@@ -3,10 +3,12 @@ import styles from "./EventCard.module.scss";
 import { defaultLang, dictionary } from "@/content";
 import React, { useEffect, useState } from "react";
 import { base64ToBlob } from "@/app/sections/shared/Utilities";
+import {useEventsContext} from "@/app/sections/events/EventsContext";
 
 export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const isMajorEvent = event.type === 'eventTypeCercampionatMensual' || event.type === 'eventTypeCercampionatAnual';
+    const { cercatrivies } = useEventsContext();
 
     useEffect(() => {
         if (event.image) {
@@ -20,12 +22,27 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const handleMouseEnter = () => { setIsHovered(true); };
     const handleMouseLeave = () => { setIsHovered(false); };
 
-    const hoverStyle = isHovered ? {
+    const additionalStyle = isHovered ? {
+        backgroundColor: event.secondaryColour,
+        color: event.primaryColour,
+        boxShadow: 'inset 0 0 0rem 0.6rem ' + event.primaryColour,
+        transition: 'background-color 0.3s ease, color 0.3s ease',
+    } : {
         backgroundColor: event.primaryColour,
         color: event.secondaryColour,
         boxShadow: 'inset 0 0 0rem 0.6rem ' + event.secondaryColour,
         transition: 'background-color 0.3s ease, color 0.3s ease',
-    } : {};
+    };
+
+    const datesStyle = isHovered ? {
+        backgroundColor: event.primaryColour,
+        color: event.secondaryColour,
+        transition: 'background-color 0.3s ease, color 0.3s ease',
+    } : {
+        backgroundColor: event.secondaryColour,
+        color: event.primaryColour,
+        transition: 'background-color 0.3s ease, color 0.3s ease',
+    }
 
     const renderRewards = () => {
         if (!isMajorEvent) return null;
@@ -47,28 +64,22 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
         );
     };
 
-    const renderEventDetails = () => {
-        return (
-            <a target="_blank" className={styles.eventCard__aImage}>
-                <div className={styles.eventCard__image}>
-                    <img src={imageUrl} alt={`Image of ${event.name}`} />
-                </div>
-            </a>
-        );
-    };
-
     const formattedStartDate = new Date(event.startDate).toLocaleDateString(lang);
     const formattedEndDate = new Date(event.endDate).toLocaleDateString(lang);
+    const formattedStartTime = new Date(event.startDate).toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
+    const formattedEndTime = new Date(event.endDate).toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
 
     return (
-        <div className={styles.eventCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={hoverStyle}>
-            <div className={styles.eventCard__info}>
-                {renderEventDetails()}
-                <h3 className={styles.eventCard__name}>{event.name}</h3>
+        <div className={styles.eventCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className={styles.eventCard__info} style={additionalStyle}>
+                {imageUrl && (
+                    <div className={styles.eventCard__image}>
+                        <img src={imageUrl} alt={`Image of ${event.name}`} />
+                    </div>
+                )}
                 <p className={styles.eventCard__description}>{event.description}</p>
-                <p className={styles.eventCard__dates}>
-                    {formattedStartDate} - {formattedEndDate}
-                </p>
+                <p className={styles.eventCard__dates} style={datesStyle}> {dictionary[lang]?.start}: {formattedStartDate} {formattedStartTime} </p>
+                <p className={styles.eventCard__dates} style={datesStyle}> {dictionary[lang]?.end}: {formattedEndDate} {formattedEndTime} </p>
                 {event.cercatrivies  && (<div className={styles.eventCard__cercatrivies}>
                     <ul>
                         {event.cercatrivies.map((trivia, index) => (

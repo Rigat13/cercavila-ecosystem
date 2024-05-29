@@ -16,6 +16,9 @@ interface DictionaryEntry {
     successUpdate: string;
     errorUpdate: string;
 
+    start: string;
+    end: string;
+
     // -------------------------------------------------------------------------------------------- LOGIN
     loginTitle: string;
     loginButton: string;
@@ -532,6 +535,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
         loading: "Carregant...",
         successUpdate: "Actualització feta!",
         errorUpdate: "Error en l'actualització :(",
+
+        start: "Inici",
+        end: "Fi",
 
         // -------------------------------------------------------------------------------------------- LOGIN
         loginTitle: "És hora d'entrar a Cercavila!",
@@ -1051,6 +1057,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
         successUpdate: "Actualización hecha!",
         errorUpdate: "Error en la actualización :(",
 
+        start: "Inicio",
+        end: "Fin",
+
         // -------------------------------------------------------------------------------------------- LOGIN
         loginTitle: "Es hora de entrar en Cercavila!",
         loginButton: "Inicia sesión",
@@ -1568,6 +1577,9 @@ export const dictionary: Record<string, DictionaryEntry> = {
         loading: "Loading...",
         successUpdate: "Update done!",
         errorUpdate: "Update error :(",
+
+        start: "Start",
+        end: "End",
 
         // -------------------------------------------------------------------------------------------- LOGIN
         loginTitle: "It's time to enter Cercavila!",
