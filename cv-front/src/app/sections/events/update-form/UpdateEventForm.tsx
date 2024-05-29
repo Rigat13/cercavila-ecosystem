@@ -410,7 +410,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
         isTypeValid = isEventTypeValid(type, dictionary[lang]?.selectEventType+"");
         isStartDateValid = isEventStartDateValid(startDate+" "+startTime);
         isStartTimeValid = isStartDateValid;
-        isEndDateValid = isEventEndDateValid(endDate+" "+endTime);
+        isEndDateValid = isEventEndDateValid((startDate+" "+startTime), (endDate+" "+endTime));
         isEndTimeValid = isEndDateValid;
         isCercatriviesValid = isEventCercatriviesValid(cercatrivies);
         isFirstCoinsRewardValid = isEventFirstCoinsRewardValid(firstCoinsReward);
