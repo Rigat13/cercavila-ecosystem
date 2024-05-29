@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 129 129" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-809,-1496)">
+        <g id="icon-geganquesta-min" transform="matrix(1,0,0,1,809.82,1496.65)">
+            <rect x="0" y="0" width="128" height="128" style="fill:none;"/>
+            <g transform="matrix(6.00973,-0.94946,0.94946,6.00973,-682.577,-2220.2)">
+                <text x="54.062px" y="392.972px" style="font-family:'BookmanOldStyle-BoldItalic', 'Bookman Old Style', serif;font-weight:600;font-style:italic;font-size:12px;">G</text>
+            </g>
+            <g transform="matrix(5.19501,-0.820746,0.820746,5.19501,-534.342,-1909.48)">
+                <text x="54.062px" y="392.972px" style="font-family:'BookmanOldStyle-BoldItalic', 'Bookman Old Style', serif;font-weight:600;font-style:italic;font-size:12px;fill:rgb(236,75,115);">q</text>
+            </g>
+        </g>
+    </g>
+</svg>
