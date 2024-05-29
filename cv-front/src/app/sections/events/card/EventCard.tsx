@@ -69,6 +69,20 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const formattedStartTime = new Date(event.startDate).toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
     const formattedEndTime = new Date(event.endDate).toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
 
+    const renderCercatrivies = () => {
+        if (!event.cercatrivies) return null;
+        return (
+            <div className={styles.eventCard__cercatrivies}>
+                <ul>
+                    {event.cercatrivies.toString().split(",").map((id, index) => {
+                        const trivia = cercatrivies.find(t => t.id === id);
+                        return trivia ? <li key={index}>{trivia.question}</li> : null;
+                    })}
+                </ul>
+            </div>
+        );
+    };
+
     return (
         <div className={styles.eventCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className={styles.eventCard__info} style={additionalStyle}>
@@ -80,13 +94,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                 <p className={styles.eventCard__description}>{event.description}</p>
                 <p className={styles.eventCard__dates} style={datesStyle}> {dictionary[lang]?.start}: {formattedStartDate} {formattedStartTime} </p>
                 <p className={styles.eventCard__dates} style={datesStyle}> {dictionary[lang]?.end}: {formattedEndDate} {formattedEndTime} </p>
-                {event.cercatrivies  && (<div className={styles.eventCard__cercatrivies}>
-                    <ul>
-                        {event.cercatrivies.map((trivia, index) => (
-                            <li key={index}>{trivia}</li>
-                        ))}
-                    </ul>
-                </div>)}
+                {renderCercatrivies()}
                 {isMajorEvent ? renderRewards() : renderAllRewards()}
             </div>
 
