@@ -4,6 +4,7 @@ import { defaultLang, dictionary } from "@/content";
 import React, { useEffect, useState } from "react";
 import { base64ToBlob } from "@/app/sections/shared/Utilities";
 import {useEventsContext} from "@/app/sections/events/EventsContext";
+import {DigitalProductDetails} from "@/app/sections/digitalproducts/card/DigitalProductDetails";
 
 export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -53,7 +54,11 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
             const digitalProductImageUrl = URL.createObjectURL(digitalProductImageBlob);
             return (
                 <div className={styles.digitalProductImageWrapper} key={index}>
-                    <img src={digitalProductImageUrl} alt={digitalProduct.name} className={styles.digitalProductImage} />
+                    {digitalProduct.type === 'digitalProductTypeUserTitle' ? (
+                        <div className={styles.digitalProductText}> <DigitalProductDetails digitalProduct={digitalProduct} /></div>
+                    ) : (
+                        <div className={styles.digitalProductImage}> <DigitalProductDetails digitalProduct={digitalProduct} /></div>
+                    )}
                     <span className={styles.digitalProductImageLabel}>{digitalProduct.name}</span>
                 </div>
             );
@@ -109,8 +114,14 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
 
     const renderAllRewards = () => {
         return (
-            <div className={styles.eventCard__allRewards}>
-                {event.allDigitalProductsReward && (<p>{dictionary[lang]?.allParticipants}: {event.allCoinsReward} coins, {event.allDigitalProductsReward.toString()}</p>)}
+            <div className={styles.eventCard__rewards}>
+                <div className={styles.rewardLine}>
+                    <span className={styles.coins}>{event.allCoinsReward}</span>
+                    <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
+                    <div className={styles.rewardImagesContainer}>
+                        {renderDigitalProductsImages(event.allDigitalProductsReward)}
+                    </div>
+                </div>
             </div>
         );
     };

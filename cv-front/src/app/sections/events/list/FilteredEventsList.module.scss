@@ -8,6 +8,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   margin: 4rem 8rem;
+  gap: 1rem;
 }
 
 .centeredSection {
