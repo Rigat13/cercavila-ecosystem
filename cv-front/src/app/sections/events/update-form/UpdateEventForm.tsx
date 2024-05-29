@@ -14,7 +14,10 @@ import { DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH, isEventDescriptionValid
 import { isEventColourValid } from "@/modules/events/domain/events-attributes/EventColours";
 import ColourPicker from "@/app/sections/shared/ColourPicker";
 import {isEventStartDateValid} from "../../../../modules/events/domain/events-attributes/EventStartDate";
-import {isEventCercatriviesValid} from "../../../../modules/events/domain/events-attributes/EventCercatrivies";
+import {
+    concatenateCercatrivies,
+    isEventCercatriviesValid
+} from "../../../../modules/events/domain/events-attributes/EventCercatrivies";
 import {isEventFirstCoinsRewardValid} from "../../../../modules/events/domain/events-attributes/EventFirstCoinsReward";
 import {isEventFirstDigitalProductsRewardValid} from "../../../../modules/events/domain/events-attributes/EventFirstDigitalProductsReward";
 import {isEventSecondCoinsRewardValid} from "../../../../modules/events/domain/events-attributes/EventSecondCoinsReward";
@@ -26,6 +29,9 @@ import {isEventThirdCoinsRewardValid} from "../../../../modules/events/domain/ev
 import {isEventThirdDigitalProductsRewardValid} from "../../../../modules/events/domain/events-attributes/EventThirdDigitalProductsReward";
 import {isEventAllDigitalProductsRewardValid} from "../../../../modules/events/domain/events-attributes/EventAllDigitalProductsReward";
 import {isEventEndDateValid} from "@/modules/events/domain/events-attributes/EventEndDate";
+import {Activity} from "@/modules/activities/domain/Activity";
+import {DigitalProduct} from "@/modules/digitalproducts/domain/DigitalProduct";
+import {concatenateUserDigitalProducts} from "@/modules/users/domain/user-attributes/UserDigitalProducts";
 
 const initialState = {
     id: "",
@@ -77,7 +83,15 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
     const [isFirstTimeValidation, setIsFirstTimeValidation] = useState(true);
 
     const { cercatrivies } = useEventsContext();
+    const [selectedCercatrivies, setSelectedCercatrivies] = useState([]);
+
     const { digitalProducts } = useEventsContext();
+    const [selectedDigitalProductsFirst, setSelectedDigitalProductsFirst] = useState([]);
+    const [selectedDigitalProductsSecond, setSelectedDigitalProductsSecond] = useState([]);
+    const [selectedDigitalProductsThird, setSelectedDigitalProductsThird] = useState([]);
+    const [selectedDigitalProductsFourthTenth, setSelectedDigitalProductsFourthTenth] = useState([]);
+    const [selectedDigitalProductsAll, setSelectedDigitalProductsAll] = useState([]);
+
 
     lang = lang;
 
@@ -216,9 +230,75 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
     }
 
     const handleCercatriviesChange = (ev) => {
-        const newCercatrivies = ev.target.value;
-        updateForm({ cercatrivies: newCercatrivies });
-        validateFormData({ ...formData, cercatrivies: newCercatrivies });
+        const selectedId = ev.target.value;
+        const selectedCercatrivia = cercatrivies.find(option => option.id === selectedId);
+        (selectedCercatrivies as Activity[]).push(selectedCercatrivia as Activity);
+        if (selectedCercatrivia) {
+            setSelectedCercatrivies(selectedCercatrivies);
+            const newCercatrivies = concatenateCercatrivies(selectedCercatrivies);
+            updateForm({cercatrivies: newCercatrivies});
+            validateFormData({...formData, cercatrivies: newCercatrivies});
+        }
+    }
+
+    const handleFirstDigitalProductsRewardChange = (ev) => {
+        const selectedId = ev.target.value;
+        const selectedDigitalProduct = digitalProducts.find(option => option.id === selectedId);
+        (selectedDigitalProductsFirst as DigitalProduct[]).push(selectedDigitalProduct as DigitalProduct);
+        if (selectedDigitalProduct) {
+            setSelectedDigitalProductsFirst(selectedDigitalProductsFirst);
+            const newFirstDigitalProductsReward = concatenateUserDigitalProducts(selectedDigitalProductsFirst);
+            updateForm({ firstDigitalProductsReward: newFirstDigitalProductsReward });
+            validateFormData({ ...formData, firstDigitalProductsReward: newFirstDigitalProductsReward });
+        }
+    }
+
+    const handleSecondDigitalProductsRewardChange = (ev) => {
+        const selectedId = ev.target.value;
+        const selectedDigitalProduct = digitalProducts.find(option => option.id === selectedId);
+        (selectedDigitalProductsSecond as DigitalProduct[]).push(selectedDigitalProduct as DigitalProduct);
+        if (selectedDigitalProduct) {
+            setSelectedDigitalProductsSecond(selectedDigitalProductsSecond);
+            const newSecondDigitalProductsReward = concatenateUserDigitalProducts(selectedDigitalProductsSecond);
+            updateForm({ secondDigitalProductsReward: newSecondDigitalProductsReward });
+            validateFormData({ ...formData, secondDigitalProductsReward: newSecondDigitalProductsReward });
+        }
+    }
+
+    const handleThirdDigitalProductsRewardChange = (ev) => {
+        const selectedId = ev.target.value;
+        const selectedDigitalProduct = digitalProducts.find(option => option.id === selectedId);
+        (selectedDigitalProductsThird as DigitalProduct[]).push(selectedDigitalProduct as DigitalProduct);
+        if (selectedDigitalProduct) {
+            setSelectedDigitalProductsThird(selectedDigitalProductsThird);
+            const newThirdDigitalProductsReward = concatenateUserDigitalProducts(selectedDigitalProductsThird);
+            updateForm({ thirdDigitalProductsReward: newThirdDigitalProductsReward });
+            validateFormData({ ...formData, thirdDigitalProductsReward: newThirdDigitalProductsReward });
+        }
+    }
+
+    const handleFourthTenthDigitalProductsRewardChange = (ev) => {
+        const selectedId = ev.target.value;
+        const selectedDigitalProduct = digitalProducts.find(option => option.id === selectedId);
+        (selectedDigitalProductsFourthTenth as DigitalProduct[]).push(selectedDigitalProduct as DigitalProduct);
+        if (selectedDigitalProduct) {
+            setSelectedDigitalProductsFourthTenth(selectedDigitalProductsFourthTenth);
+            const newFourthTenthDigitalProductsReward = concatenateUserDigitalProducts(selectedDigitalProductsFourthTenth);
+            updateForm({ fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
+            validateFormData({ ...formData, fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
+        }
+    }
+
+    const handleAllDigitalProductsRewardChange = (ev) => {
+        const selectedId = ev.target.value;
+        const selectedDigitalProduct = digitalProducts.find(option => option.id === selectedId);
+        (selectedDigitalProductsAll as DigitalProduct[]).push(selectedDigitalProduct as DigitalProduct);
+        if (selectedDigitalProduct) {
+            setSelectedDigitalProductsAll(selectedDigitalProductsAll);
+            const newAllDigitalProductsReward = concatenateUserDigitalProducts(selectedDigitalProductsAll);
+            updateForm({ allDigitalProductsReward: newAllDigitalProductsReward });
+            validateFormData({ ...formData, allDigitalProductsReward: newAllDigitalProductsReward });
+        }
     }
 
     const handleFirstCoinsRewardChange = (ev) => {
@@ -227,22 +307,10 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
         validateFormData({ ...formData, firstCoinsReward: newFirstCoinsReward });
     }
 
-    const handleFirstDigitalProductsRewardChange = (ev) => {
-        const newFirstDigitalProductsReward = ev.target.value;
-        updateForm({ firstDigitalProductsReward: newFirstDigitalProductsReward });
-        validateFormData({ ...formData, firstDigitalProductsReward: newFirstDigitalProductsReward });
-    }
-
     const handleSecondCoinsRewardChange = (ev) => {
         const newSecondCoinsReward = ev.target.value;
         updateForm({ secondCoinsReward: newSecondCoinsReward });
         validateFormData({ ...formData, secondCoinsReward: newSecondCoinsReward });
-    }
-
-    const handleSecondDigitalProductsRewardChange = (ev) => {
-        const newSecondDigitalProductsReward = ev.target.value;
-        updateForm({ secondDigitalProductsReward: newSecondDigitalProductsReward });
-        validateFormData({ ...formData, secondDigitalProductsReward: newSecondDigitalProductsReward });
     }
 
     const handleThirdCoinsRewardChange = (ev) => {
@@ -251,34 +319,16 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
         validateFormData({ ...formData, thirdCoinsReward: newThirdCoinsReward });
     }
 
-    const handleThirdDigitalProductsRewardChange = (ev) => {
-        const newThirdDigitalProductsReward = ev.target.value;
-        updateForm({ thirdDigitalProductsReward: newThirdDigitalProductsReward });
-        validateFormData({ ...formData, thirdDigitalProductsReward: newThirdDigitalProductsReward });
-    }
-
     const handleFourthTenthCoinsRewardChange = (ev) => {
         const newFourthTenthCoinsReward = ev.target.value;
         updateForm({ fourthTenthCoinsReward: newFourthTenthCoinsReward });
         validateFormData({ ...formData, fourthTenthCoinsReward: newFourthTenthCoinsReward });
     }
 
-    const handleFourthTenthDigitalProductsRewardChange = (ev) => {
-        const newFourthTenthDigitalProductsReward = ev.target.value;
-        updateForm({ fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
-        validateFormData({ ...formData, fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
-    }
-
     const handleAllCoinsRewardChange = (ev) => {
         const newAllCoinsReward = ev.target.value;
         updateForm({ allCoinsReward: newAllCoinsReward });
         validateFormData({ ...formData, allCoinsReward: newAllCoinsReward });
-    }
-
-    const handleAllDigitalProductsRewardChange = (ev) => {
-        const newAllDigitalProductsReward = ev.target.value;
-        updateForm({ allDigitalProductsReward: newAllDigitalProductsReward });
-        validateFormData({ ...formData, allDigitalProductsReward: newAllDigitalProductsReward });
     }
 
     const validateFormData = ({ id, name, description, image, primaryColour, secondaryColour, type, startDate, startTime, endDate, endTime, cercatrivies,
@@ -600,7 +650,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={cercatrivies.some(cercatrivia => cercatrivia.id === cercatrivia.id)}
+                                            disabled={selectedCercatrivies.some(cercatrivia => cercatrivia.id === cercatrivia.id)}
                                         >
                                             {option.question}
                                         </option>
@@ -642,7 +692,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsFirst.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
                                         >
                                             {option.name}
                                         </option>
@@ -684,7 +734,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsSecond.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
                                         >
                                             {option.name}
                                         </option>
@@ -726,7 +776,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsThird.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
                                         >
                                             {option.name}
                                         </option>
@@ -768,7 +818,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsFourthTenth.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
                                         >
                                             {option.name}
                                         </option>
@@ -810,7 +860,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={digitalProducts.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsAll.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
                                         >
                                             {option.name}
                                         </option>
