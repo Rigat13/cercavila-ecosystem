@@ -112,6 +112,36 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                     imageFile = new File([blob], fileName, { type: originalMimeType });
                 }
 
+                const selectedCercatrivies = eventData.cercatrivies.toString().split(',').map(role => role.trim()).filter(role => role).map(cercatriviaId => {
+                    return cercatrivies.find(cercatrivia => cercatrivia.id === cercatriviaId);
+                }).filter((cercatrivia): cercatrivia is Activity => !!cercatrivia);
+                setSelectedCercatrivies(selectedCercatrivies);
+
+                const selectedDigitalProductsFirst = eventData.firstDigitalProductsReward.toString().split(',').map(role => role.trim()).filter(role => role).map(digitalProductId => {
+                    return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
+                }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
+                setSelectedDigitalProductsFirst(selectedDigitalProductsFirst);
+
+                const selectedDigitalProductsSecond = eventData.secondDigitalProductsReward.toString().split(',').map(role => role.trim()).filter(role => role).map(digitalProductId => {
+                    return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
+                }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
+                setSelectedDigitalProductsSecond(selectedDigitalProductsSecond);
+
+                const selectedDigitalProductsThird = eventData.thirdDigitalProductsReward.toString().split(',').map(role => role.trim()).filter(role => role).map(digitalProductId => {
+                    return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
+                }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
+                setSelectedDigitalProductsThird(selectedDigitalProductsThird);
+
+                const selectedDigitalProductsFourthTenth = eventData.fourthTenthDigitalProductsReward.toString().split(',').map(role => role.trim()).filter(role => role).map(digitalProductId => {
+                    return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
+                }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
+                setSelectedDigitalProductsFourthTenth(selectedDigitalProductsFourthTenth);
+
+                const selectedDigitalProductsAll = eventData.allDigitalProductsReward.toString().split(',').map(role => role.trim()).filter(role => role).map(digitalProductId => {
+                    return digitalProducts.find(digitalProduct => digitalProduct.id === digitalProductId);
+                }).filter((digitalProduct): digitalProduct is DigitalProduct => !!digitalProduct);
+                setSelectedDigitalProductsAll(selectedDigitalProductsAll);
+
                 updateForm({
                     id: eventData.id,
                     name: eventData.name,
@@ -120,8 +150,10 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                     primaryColour: eventData.primaryColour,
                     secondaryColour: eventData.secondaryColour,
                     type: eventData.type,
-                    startDate: eventData.startDate,
-                    endDate: eventData.endDate,
+                    startDate: eventData.startDate ? eventData.startDate.split(' ')[0] : '',
+                    startTime: eventData.startDate ? eventData.startDate.split(' ')[1] : '',
+                    endDate: eventData.endDate ? eventData.endDate.split(' ')[0] : '',
+                    endTime: eventData.endDate ? eventData.endDate.split(' ')[1] : '',
                     cercatrivies: eventData.cercatrivies.toString(),
                     firstCoinsReward: eventData.firstCoinsReward+"",
                     firstDigitalProductsReward: eventData.firstDigitalProductsReward.toString(),
@@ -151,7 +183,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
             }
         };
         fetchEventData();
-    }, [eventId, events]);
+    }, [eventId, events, cercatrivies, digitalProducts]);
 
     const handleNameChange = (ev) => {
         const newName = ev.target.value;
