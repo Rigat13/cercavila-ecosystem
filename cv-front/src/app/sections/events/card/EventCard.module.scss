@@ -226,5 +226,59 @@
     opacity: 1;
   }
 
+  // ------------------------------------------------ Cercatrivies ------------------------------------------------
+  &__cercatrivies {
+    z-index: 2;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
 
+    .cercatriviaItem {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 1rem;
+      width: 7rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      .circleBackground {
+        width: 5rem;
+        height: 5rem;
+        background: #eee;
+        border-radius: 50%;
+        position: absolute;
+        top: -1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+      }
+
+      .icon {
+        position: absolute;
+        top: -1.2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border-radius: 50%;
+        padding: 0.2rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .date {
+        font-size: 1rem;
+        margin-top: 2rem;
+      }
+
+      .daysRemaining {
+        font-size: 0.8rem;
+        color: red;
+        margin-top: 0.5rem;
+      }
+    }
+  }
 }

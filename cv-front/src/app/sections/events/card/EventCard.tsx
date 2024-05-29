@@ -133,17 +133,38 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
 
     const renderCercatrivies = () => {
         if (!event.cercatrivies) return null;
+
+        const startDate = new Date(event.startDate);
+        const endDate = new Date(event.endDate);
+        const today = new Date();
+
         return (
             <div className={styles.eventCard__cercatrivies}>
-                <ul>
-                    {event.cercatrivies.toString().split(",").map((id, index) => {
-                        const trivia = cercatrivies.find(t => t.id === id);
-                        return trivia ? <li key={index}>{trivia.question}</li> : null;
-                    })}
-                </ul>
+                {event.cercatrivies.toString().split(",").map((id, index) => {
+                    const trivia = cercatrivies.find(t => t.id === id);
+                    if (!trivia) return null;
+
+                    const triviaDate = new Date(startDate);
+                    triviaDate.setDate(startDate.getDate() + index);
+
+                    if (triviaDate > endDate) return null;
+
+                    const formattedTriviaDate = triviaDate.toLocaleDateString(lang, { day: '2-digit', month: '2-digit' });
+                    const daysRemaining = Math.floor((triviaDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+                    return (
+                        <div className="cercatriviaItem" key={index}>
+                            <div className="circleBackground"></div>
+                            <img src="/icons/icon-cercatrivia.svg" alt="Cercatrivia Icon" className="icon" />
+                            <div className="date">{formattedTriviaDate}</div>
+                            {daysRemaining < 7 && <div className="daysRemaining">{daysRemaining.toString()+dictionary[lang]?.days}</div>}
+                        </div>
+                    );
+                })}
             </div>
         );
     };
+
 
     return (
         <div className={styles.eventCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
