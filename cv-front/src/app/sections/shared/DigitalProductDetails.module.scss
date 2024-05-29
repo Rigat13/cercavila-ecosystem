@@ -209,6 +209,11 @@
     mix-blend-mode: overlay;
     transform: skewX(-30deg);
     transition: none;
+    z-index: 1;
+  }
+
+  &__aTitle &__shine {
+    animation: shine 1.5s linear infinite; -webkit-animation: shine 1.5s linear infinite; -moz-animation: shine 1.5s linear infinite; -o-animation: shine 1.5s linear infinite; -ms-animation: shine 1.5s linear infinite;
   }
 
   &__goldenShine {
@@ -233,10 +238,6 @@
     pointer-events: none; /* Ensure clicks go through to the image */
     z-index: 1; /* Ensure it's above the image */
 
-    animation: shine 1.5s linear infinite; -webkit-animation: shine 1.5s linear infinite; -moz-animation: shine 1.5s linear infinite; -o-animation: shine 1.5s linear infinite; -ms-animation: shine 1.5s linear infinite;
-  }
-
-  &__aTitle &__shine {
     animation: shine 1.5s linear infinite; -webkit-animation: shine 1.5s linear infinite; -moz-animation: shine 1.5s linear infinite; -o-animation: shine 1.5s linear infinite; -ms-animation: shine 1.5s linear infinite;
   }
 

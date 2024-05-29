@@ -2,6 +2,7 @@ import { DigitalProduct } from "@/modules/digitalproducts/domain/DigitalProduct"
 import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
 import React, { useEffect, useState } from "react";
 import { base64ToBlob } from "@/app/sections/shared/Utilities";
+import styles from "@/app/sections/users/user/UserPage.module.scss";
 
 export function DigitalProductDetails({ digitalProduct }: { digitalProduct: DigitalProduct }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -40,6 +41,7 @@ export function DigitalProductDetails({ digitalProduct }: { digitalProduct: Digi
                 <div className={detailsStyles.digitalProductDetails__title}
                      style={{ background: digitalProduct.primaryColour, color: digitalProduct.secondaryColour }}>
                     {digitalProduct.name}
+                    <div className={detailsStyles.digitalProductDetails__shine}></div>
                 </div>
             </a>;
         case 'digitalProductTypeUserBackgroundColour':
