@@ -26,6 +26,7 @@ import {isEventFourthTenthDigitalProductsRewardValid} from "@/modules/events/dom
 import {isEventAllCoinsRewardValid} from "@/modules/events/domain/events-attributes/EventAllCoinsReward";
 import {isEventAllDigitalProductsRewardValid} from "@/modules/events/domain/events-attributes/EventAllDigitalProductsReward";
 import {useEventsContext} from "@/app/sections/events/EventsContext";
+import {isEventEndDateValid} from "@/modules/events/domain/events-attributes/EventEndDate";
 
 const initialState = {
     name: "",
@@ -35,7 +36,9 @@ const initialState = {
     secondaryColour: "",
     type: "",
     startDate: "",
+    startTime: "",
     endDate: "",
+    endTime: "",
     cercatrivies: "",
     firstCoinsReward: "",
     firstDigitalProductsReward: "",
@@ -50,7 +53,7 @@ const initialState = {
 };
 
 export let isNameValid, isDescriptionValid, isImageValid, isPrimaryColourValid, isSecondaryColourValid, isTypeValid,
-    isStartDateValid, isEndDateValid, isCercatriviesValid, isFirstCoinsRewardValid, isFirstDigitalProductsRewardValid,
+    isStartDateValid, isStartTimeValid, isEndDateValid, isEndTimeValid, isCercatriviesValid, isFirstCoinsRewardValid, isFirstDigitalProductsRewardValid,
     isSecondCoinsRewardValid, isSecondDigitalProductsRewardValid, isThirdCoinsRewardValid, isThirdDigitalProductsRewardValid,
     isFourthTenthCoinsRewardValid, isFourthTenthDigitalProductsRewardValid, isAllCoinsRewardValid, isAllDigitalProductsRewardValid = false;
 
@@ -138,10 +141,22 @@ export function CreateEventForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, startDate: newStartDate });
     }
 
+    const handleStartTimeChange = (ev) => {
+        const newStartTime = ev.target.value;
+        updateForm({ startTime: newStartTime });
+        validateFormData({ ...formData, startTime: newStartTime });
+    }
+
     const handleEndDateChange = (ev) => {
         const newEndDate = ev.target.value;
         updateForm({ endDate: newEndDate });
         validateFormData({ ...formData, endDate: newEndDate });
+    }
+
+    const handleEndTimeChange = (ev) => {
+        const newEndTime = ev.target.value;
+        updateForm({ endTime: newEndTime });
+        validateFormData({ ...formData, endTime: newEndTime });
     }
 
     const handleCercatriviesChange = (ev) => {
@@ -210,7 +225,7 @@ export function CreateEventForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, allDigitalProductsReward: newAllDigitalProductsReward });
     }
 
-    const validateFormData = ({ name, description, image, primaryColour, secondaryColour, type, startDate, endDate, cercatrivies,
+    const validateFormData = ({ name, description, image, primaryColour, secondaryColour, type, startDate, startTime, endDate, endTime, cercatrivies,
                                   firstCoinsReward, firstDigitalProductsReward, secondCoinsReward, secondDigitalProductsReward,
                                   thirdCoinsReward, thirdDigitalProductsReward, fourthTenthCoinsReward, fourthTenthDigitalProductsReward,
                                   allCoinsReward, allDigitalProductsReward }) => {
@@ -221,8 +236,10 @@ export function CreateEventForm({ lang }: { lang: string }) {
         isPrimaryColourValid = isEventColourValid(primaryColour);
         isSecondaryColourValid = isEventColourValid(secondaryColour);
         isTypeValid = isEventTypeValid(type, dictionary[lang]?.selectEventType+"");
-        isStartDateValid = isEventStartDateValid(startDate);
-        isEndDateValid = isEventStartDateValid(endDate);
+        isStartDateValid = isEventStartDateValid(startDate+" "+startTime);
+        isStartTimeValid = isStartDateValid;
+        isEndDateValid = isEventEndDateValid(endDate+" "+endTime);
+        isEndTimeValid = isEndDateValid;
         isCercatriviesValid = isEventCercatriviesValid(cercatrivies);
         isFirstCoinsRewardValid = isEventFirstCoinsRewardValid(firstCoinsReward);
         isFirstDigitalProductsRewardValid = isEventFirstDigitalProductsRewardValid(firstDigitalProductsReward);
@@ -243,7 +260,9 @@ export function CreateEventForm({ lang }: { lang: string }) {
             secondaryColour: isSecondaryColourValid ? "" : dictionary[lang]?.eventSecondaryColourInvalid + "",
             type: isTypeValid ? "" : dictionary[lang]?.eventTypeInvalid + " " + TYPE_MIN_LENGTH + " - " + TYPE_MAX_LENGTH,
             startDate: isStartDateValid ? "" : dictionary[lang]?.eventStartDateInvalid,
+            startTime: isStartTimeValid ? "" : dictionary[lang]?.eventStartDateInvalid,
             endDate: isEndDateValid ? "" : dictionary[lang]?.eventEndDateInvalid,
+            endTime: isEndTimeValid ? "" : dictionary[lang]?.eventEndDateInvalid,
             cercatrivies: isCercatriviesValid ? "" : dictionary[lang]?.eventCercatriviesInvalid,
             firstCoinsReward: isFirstCoinsRewardValid ? "" : dictionary[lang]?.eventFirstCoinsRewardInvalid,
             firstDigitalProductsReward: isFirstDigitalProductsRewardValid ? "" : dictionary[lang]?.eventFirstDigitalProductsRewardInvalid,
@@ -260,7 +279,7 @@ export function CreateEventForm({ lang }: { lang: string }) {
 
     const handleSubmit = (ev: React.FormEvent) => {
         if (!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isTypeValid
-            || !isStartDateValid || !isEndDateValid || !isCercatriviesValid || !isFirstCoinsRewardValid || !isFirstDigitalProductsRewardValid
+            || !isStartDateValid || !isStartTimeValid || !isEndDateValid || !isEndTimeValid || !isCercatriviesValid || !isFirstCoinsRewardValid || !isFirstDigitalProductsRewardValid
             || !isSecondCoinsRewardValid || !isSecondDigitalProductsRewardValid || !isThirdCoinsRewardValid || !isThirdDigitalProductsRewardValid
             || !isFourthTenthCoinsRewardValid || !isFourthTenthDigitalProductsRewardValid || !isAllCoinsRewardValid || !isAllDigitalProductsRewardValid) { return; }
 
@@ -275,7 +294,9 @@ export function CreateEventForm({ lang }: { lang: string }) {
             secondaryColour: formData.secondaryColour,
             type: formData.type,
             startDate: formData.startDate,
+            startTime: formData.startTime,
             endDate: formData.endDate,
+            endTime: formData.endTime,
             cercatrivies: formData.cercatrivies.split(",").map(id => id.trim()).filter(id => id),
             firstCoinsReward: parseFloat(formData.firstCoinsReward),
             firstDigitalProductsReward: formData.firstDigitalProductsReward.split(",").map(id => id.trim()).filter(id => id),
@@ -434,6 +455,13 @@ export function CreateEventForm({ lang }: { lang: string }) {
                                 value={formData.startDate}
                                 onChange={handleStartDateChange}
                             />
+                            <input
+                                type="time"
+                                id="startTime"
+                                name="startTime"
+                                value={formData.startTime}
+                                onChange={handleStartTimeChange}
+                            />
                             {formData.startDate && errors.startDate && (
                                 <div style={{ color: "tomato" }}>{errors.startDate}</div>
                             )}
@@ -447,6 +475,13 @@ export function CreateEventForm({ lang }: { lang: string }) {
                                 name="endDate"
                                 value={formData.endDate}
                                 onChange={handleEndDateChange}
+                            />
+                            <input
+                                type="time"
+                                id="endTime"
+                                name="endTime"
+                                value={formData.endTime}
+                                onChange={handleEndTimeChange}
                             />
                             {formData.endDate && errors.endDate && (
                                 <div style={{ color: "tomato" }}>{errors.endDate}</div>
@@ -696,7 +731,7 @@ export function CreateEventForm({ lang }: { lang: string }) {
                             className={styles.actionButton}
                             type="submit"
                             disabled={!isNameValid || !isDescriptionValid || !isImageValid || !isPrimaryColourValid || !isSecondaryColourValid || !isTypeValid
-                                || !isStartDateValid || !isEndDateValid || !isCercatriviesValid || !isFirstCoinsRewardValid || !isFirstDigitalProductsRewardValid
+                                || !isStartDateValid || !isStartTimeValid || !isEndDateValid || !isEndTimeValid || !isCercatriviesValid || !isFirstCoinsRewardValid || !isFirstDigitalProductsRewardValid
                                 || !isSecondCoinsRewardValid || !isSecondDigitalProductsRewardValid || !isThirdCoinsRewardValid || !isThirdDigitalProductsRewardValid
                                 || !isFourthTenthCoinsRewardValid || !isFourthTenthDigitalProductsRewardValid || !isAllCoinsRewardValid || !isAllDigitalProductsRewardValid}
                         >
