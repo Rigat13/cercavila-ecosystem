@@ -239,7 +239,18 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
             updateForm({cercatrivies: newCercatrivies});
             validateFormData({...formData, cercatrivies: newCercatrivies});
         }
-    }
+    };
+
+    const handleDeleteCercatrivia = (index) => {
+        setSelectedCercatrivies((prevSelectedCercatrivies) => {
+            const newSelectedCercatrivies = [...prevSelectedCercatrivies];
+            newSelectedCercatrivies.splice(index, 1);
+            const newCercatrivies = concatenateCercatrivies(newSelectedCercatrivies);
+            updateForm({ cercatrivies: newCercatrivies });
+            validateFormData({ ...formData, cercatrivies: newCercatrivies });
+            return newSelectedCercatrivies;
+        });
+    };
 
     const handleFirstDigitalProductsRewardChange = (ev) => {
         const selectedId = ev.target.value;
@@ -251,7 +262,18 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
             updateForm({ firstDigitalProductsReward: newFirstDigitalProductsReward });
             validateFormData({ ...formData, firstDigitalProductsReward: newFirstDigitalProductsReward });
         }
-    }
+    };
+
+    const handleDeleteFirstDigitalProduct = (index) => {
+        setSelectedDigitalProductsFirst((prevSelectedDigitalProductsFirst) => {
+            const newSelectedDigitalProductsFirst = [...prevSelectedDigitalProductsFirst];
+            newSelectedDigitalProductsFirst.splice(index, 1);
+            const newFirstDigitalProductsReward = concatenateUserDigitalProducts(newSelectedDigitalProductsFirst);
+            updateForm({ firstDigitalProductsReward: newFirstDigitalProductsReward });
+            validateFormData({ ...formData, firstDigitalProductsReward: newFirstDigitalProductsReward });
+            return newSelectedDigitalProductsFirst;
+        });
+    };
 
     const handleSecondDigitalProductsRewardChange = (ev) => {
         const selectedId = ev.target.value;
@@ -263,7 +285,18 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
             updateForm({ secondDigitalProductsReward: newSecondDigitalProductsReward });
             validateFormData({ ...formData, secondDigitalProductsReward: newSecondDigitalProductsReward });
         }
-    }
+    };
+
+    const handleDeleteSecondDigitalProduct = (index) => {
+        setSelectedDigitalProductsSecond((prevSelectedDigitalProductsSecond) => {
+            const newSelectedDigitalProductsSecond = [...prevSelectedDigitalProductsSecond];
+            newSelectedDigitalProductsSecond.splice(index, 1);
+            const newSecondDigitalProductsReward = concatenateUserDigitalProducts(newSelectedDigitalProductsSecond);
+            updateForm({ secondDigitalProductsReward: newSecondDigitalProductsReward });
+            validateFormData({ ...formData, secondDigitalProductsReward: newSecondDigitalProductsReward });
+            return newSelectedDigitalProductsSecond;
+        });
+    };
 
     const handleThirdDigitalProductsRewardChange = (ev) => {
         const selectedId = ev.target.value;
@@ -275,7 +308,18 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
             updateForm({ thirdDigitalProductsReward: newThirdDigitalProductsReward });
             validateFormData({ ...formData, thirdDigitalProductsReward: newThirdDigitalProductsReward });
         }
-    }
+    };
+
+    const handleDeleteThirdDigitalProduct = (index) => {
+        setSelectedDigitalProductsThird((prevSelectedDigitalProductsThird) => {
+            const newSelectedDigitalProductsThird = [...prevSelectedDigitalProductsThird];
+            newSelectedDigitalProductsThird.splice(index, 1);
+            const newThirdDigitalProductsReward = concatenateUserDigitalProducts(newSelectedDigitalProductsThird);
+            updateForm({ thirdDigitalProductsReward: newThirdDigitalProductsReward });
+            validateFormData({ ...formData, thirdDigitalProductsReward: newThirdDigitalProductsReward });
+            return newSelectedDigitalProductsThird;
+        });
+    };
 
     const handleFourthTenthDigitalProductsRewardChange = (ev) => {
         const selectedId = ev.target.value;
@@ -287,7 +331,18 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
             updateForm({ fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
             validateFormData({ ...formData, fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
         }
-    }
+    };
+
+    const handleDeleteFourthTenthDigitalProduct = (index) => {
+        setSelectedDigitalProductsFourthTenth((prevSelectedDigitalProductsFourthTenth) => {
+            const newSelectedDigitalProductsFourthTenth = [...prevSelectedDigitalProductsFourthTenth];
+            newSelectedDigitalProductsFourthTenth.splice(index, 1);
+            const newFourthTenthDigitalProductsReward = concatenateUserDigitalProducts(newSelectedDigitalProductsFourthTenth);
+            updateForm({ fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
+            validateFormData({ ...formData, fourthTenthDigitalProductsReward: newFourthTenthDigitalProductsReward });
+            return newSelectedDigitalProductsFourthTenth;
+        });
+    };
 
     const handleAllDigitalProductsRewardChange = (ev) => {
         const selectedId = ev.target.value;
@@ -299,7 +354,18 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
             updateForm({ allDigitalProductsReward: newAllDigitalProductsReward });
             validateFormData({ ...formData, allDigitalProductsReward: newAllDigitalProductsReward });
         }
-    }
+    };
+
+    const handleDeleteAllDigitalProduct = (index) => {
+        setSelectedDigitalProductsAll((prevSelectedDigitalProductsAll) => {
+            const newSelectedDigitalProductsAll = [...prevSelectedDigitalProductsAll];
+            newSelectedDigitalProductsAll.splice(index, 1);
+            const newAllDigitalProductsReward = concatenateUserDigitalProducts(newSelectedDigitalProductsAll);
+            updateForm({ allDigitalProductsReward: newAllDigitalProductsReward });
+            validateFormData({ ...formData, allDigitalProductsReward: newAllDigitalProductsReward });
+            return newSelectedDigitalProductsAll;
+        });
+    };
 
     const handleFirstCoinsRewardChange = (ev) => {
         const newFirstCoinsReward = ev.target.value;
@@ -650,7 +716,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={selectedCercatrivies.some(cercatrivia => cercatrivia.id === cercatrivia.id)}
+                                            disabled={selectedCercatrivies.some(cercatrivia => (cercatrivia as Activity).id === option.id)}
                                         >
                                             {option.question}
                                         </option>
@@ -662,6 +728,14 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             {formData.cercatrivies && errors.cercatrivies && (
                                 <div style={{ color: "tomato" }}>{errors.cercatrivies}</div>
                             )}
+                        </div>
+                        <div className={styles.selectedElements}>
+                            {selectedCercatrivies.map((cercatrivia, index) => (
+                                <div key={(cercatrivia as Activity).id} className={styles.selectedElement}>
+                                    <span>{(cercatrivia as Activity).question}</span>
+                                    <button type="button" onClick={() => handleDeleteCercatrivia(index)}>×</button>
+                                </div>
+                            ))}
                         </div>
 
                         <div className={styles.formGroup}> {/* ------------------------------------------------------------------- FIRST COINS REWARD */}
@@ -692,7 +766,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={selectedDigitalProductsFirst.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsFirst.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
                                         >
                                             {option.name}
                                         </option>
@@ -704,6 +778,14 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             {formData.firstDigitalProductsReward && errors.firstDigitalProductsReward && (
                                 <div style={{ color: "tomato" }}>{errors.firstDigitalProductsReward}</div>
                             )}
+                        </div>
+                        <div className={styles.selectedElements}>
+                            {selectedDigitalProductsFirst.map((digitalProduct, index) => (
+                                <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
+                                    <span>{(digitalProduct as DigitalProduct).name}</span>
+                                    <button type="button" onClick={() => handleDeleteFirstDigitalProduct(index)}>×</button>
+                                </div>
+                            ))}
                         </div>
 
                         <div className={styles.formGroup}> {/* ------------------------------------------------------------------- SECOND COINS REWARD */}
@@ -734,7 +816,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={selectedDigitalProductsSecond.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsSecond.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
                                         >
                                             {option.name}
                                         </option>
@@ -746,6 +828,14 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             {formData.secondDigitalProductsReward && errors.secondDigitalProductsReward && (
                                 <div style={{ color: "tomato" }}>{errors.secondDigitalProductsReward}</div>
                             )}
+                        </div>
+                        <div className={styles.selectedElements}>
+                            {selectedDigitalProductsSecond.map((digitalProduct, index) => (
+                                <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
+                                    <span>{(digitalProduct as DigitalProduct).name}</span>
+                                    <button type="button" onClick={() => handleDeleteSecondDigitalProduct(index)}>×</button>
+                                </div>
+                            ))}
                         </div>
 
                         <div className={styles.formGroup}> {/* ------------------------------------------------------------------- THIRD COINS REWARD */}
@@ -776,7 +866,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={selectedDigitalProductsThird.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsThird.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
                                         >
                                             {option.name}
                                         </option>
@@ -788,6 +878,14 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             {formData.thirdDigitalProductsReward && errors.thirdDigitalProductsReward && (
                                 <div style={{ color: "tomato" }}>{errors.thirdDigitalProductsReward}</div>
                             )}
+                        </div>
+                        <div className={styles.selectedElements}>
+                            {selectedDigitalProductsThird.map((digitalProduct, index) => (
+                                <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
+                                    <span>{(digitalProduct as DigitalProduct).name}</span>
+                                    <button type="button" onClick={() => handleDeleteThirdDigitalProduct(index)}>×</button>
+                                </div>
+                            ))}
                         </div>
 
                         <div className={styles.formGroup}> {/* ------------------------------------------------------------------- FOURTH-TENTH COINS REWARD */}
@@ -818,7 +916,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={selectedDigitalProductsFourthTenth.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsFourthTenth.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
                                         >
                                             {option.name}
                                         </option>
@@ -830,6 +928,14 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                             {formData.fourthTenthDigitalProductsReward && errors.fourthTenthDigitalProductsReward && (
                                 <div style={{ color: "tomato" }}>{errors.fourthTenthDigitalProductsReward}</div>
                             )}
+                        </div>
+                        <div className={styles.selectedElements}>
+                            {selectedDigitalProductsFourthTenth.map((digitalProduct, index) => (
+                                <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
+                                    <span>{(digitalProduct as DigitalProduct).name}</span>
+                                    <button type="button" onClick={() => handleDeleteFourthTenthDigitalProduct(index)}>×</button>
+                                </div>
+                            ))}
                         </div>
 
                         <div className={styles.formGroup}> {/* ------------------------------------------------------------------- ALL COINS REWARD */}
@@ -860,7 +966,7 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                         <option
                                             key={option.id}
                                             value={option.id}
-                                            disabled={selectedDigitalProductsAll.some(digitalProduct => digitalProduct.id === digitalProduct.id)}
+                                            disabled={selectedDigitalProductsAll.some(digitalProduct => (digitalProduct as DigitalProduct).id === option.id)}
                                         >
                                             {option.name}
                                         </option>
@@ -873,7 +979,14 @@ export function UpdateEventForm({eventId, lang}: {eventId: string; lang: string}
                                 <div style={{ color: "tomato" }}>{errors.allDigitalProductsReward}</div>
                             )}
                         </div>
-
+                        <div className={styles.selectedElements}>
+                            {selectedDigitalProductsAll.map((digitalProduct, index) => (
+                                <div key={(digitalProduct as DigitalProduct).id} className={styles.selectedElement}>
+                                    <span>{(digitalProduct as DigitalProduct).name}</span>
+                                    <button type="button" onClick={() => handleDeleteAllDigitalProduct(index)}>×</button>
+                                </div>
+                            ))}
+                        </div>
 
                         <button
                             className={styles.actionButton}

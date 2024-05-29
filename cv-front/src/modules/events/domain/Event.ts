@@ -56,7 +56,6 @@ export function ensureEventIsValidEmptyId({id, name, description, image, primary
                                               firstCoinsReward, firstDigitalProductsReward, secondCoinsReward, secondDigitalProductsReward,
                                               thirdCoinsReward, thirdDigitalProductsReward, fourthTenthCoinsReward, fourthTenthDigitalProductsReward,
                                               allCoinsReward, allDigitalProductsReward}: Event): void {
-    if (!isEventIdValid(id)) { throw EventIdNotValidError(id); }
     if (!isEventNameValid(name)) { throw EventNameNotValidError(name); }
     if (!isEventDescriptionValid(description)) { throw EventDescriptionNotValidError(description); }
     if (!isEventImageValid(image)) { throw EventImageNotValidError(image); }

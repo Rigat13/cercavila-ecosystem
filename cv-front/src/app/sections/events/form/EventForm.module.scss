@@ -135,4 +135,41 @@
     overflow: hidden;
     margin: 0 0.5rem 0.5rem 0rem;
   }
+
+  // ---------------------------------------------------- Selected Elements ----------------------------------------------------
+  .selectedElements {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .selectedElement {
+    background-color: #000088;
+    color: #f8f1f1;
+    border: 0px solid transparent;
+    border-radius: 1rem;
+    padding: 0.2rem 0.4rem;
+    margin: 0.2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .selectedElement span{
+    margin-right: 8px;
+  }
+
+  .selectedElement button, .selectedElementCombined button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    align-self: center;
+    padding: 0rem 0.6rem 0rem 0.6rem;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: #f32336; // Darker shade on hover
+    }
+  }
 }
