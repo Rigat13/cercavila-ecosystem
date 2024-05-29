@@ -78,6 +78,12 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                 </div>)}
                 {isMajorEvent ? renderRewards() : renderAllRewards()}
             </div>
+
+            <a href={`/events/update.html?eventId=${event.id}${lang === defaultLang ? '' : `&lang=${lang}`}`}>
+                <button className={styles.updateButton}>
+                    <img src="/icons/icon-edit.svg" alt="Editar" />
+                </button>
+            </a>
         </div>
     );
 }

@@ -63,7 +63,7 @@ export function ensureEventIsValidEmptyId({id, name, description, image, primary
     if (!isEventColourValid(secondaryColour)) { throw EventColourNotValidError(secondaryColour); }
     if (!isEventTypeValid(type, "")) { throw EventTypeNotValidError(type); }
     if (!isEventStartDateValid(startDate)) { throw EventStartDateNotValidError(startDate); }
-    if (!isEventEndDateValid(endDate)) { throw EventEndDateNotValidError(endDate); }
+    if (!isEventEndDateValid(startDate, endDate)) { throw EventEndDateNotValidError(endDate); }
     if (!isEventCercatriviesValid(cercatrivies.toString())) { throw EventCercatriviesNotValidError(cercatrivies.toString()); }
     if (!isEventFirstCoinsRewardValid(firstCoinsReward)) { throw EventFirstCoinsRewardNotValidError(firstCoinsReward); }
     if (!isEventFirstDigitalProductsRewardValid(firstDigitalProductsReward.toString())) { throw EventFirstDigitalProductsRewardNotValidError(firstDigitalProductsReward.toString()); }

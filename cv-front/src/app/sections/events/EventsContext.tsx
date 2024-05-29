@@ -107,6 +107,7 @@ export const EventsContextProvider = ({
                                   type: string; startDate: string; endDate: string; cercatrivies: string[]; firstCoinsReward: number; firstDigitalProductsReward: string[];
                                   secondCoinsReward: number; secondDigitalProductsReward: string[]; thirdCoinsReward: number; thirdDigitalProductsReward: string[];
                                   fourthTenthCoinsReward: number; fourthTenthDigitalProductsReward: string[]; allCoinsReward: number; allDigitalProductsReward: string[]; }) {
+
         await updateEvent(repository, { id, name, description, image, primaryColour, secondaryColour, type, startDate, endDate, cercatrivies,
             firstCoinsReward, firstDigitalProductsReward, secondCoinsReward, secondDigitalProductsReward,
             thirdCoinsReward, thirdDigitalProductsReward, fourthTenthCoinsReward, fourthTenthDigitalProductsReward,
