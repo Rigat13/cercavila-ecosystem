@@ -2,10 +2,7 @@ package cat.cercavila.cvapi.events.application.port.in.create;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public record CreateEventCommand(
         String id,
@@ -31,19 +28,19 @@ public record CreateEventCommand(
         String endDate,
         String cercatrivies,
 
-        @DecimalMin(value = "0.0", message = "La recompensa ha de ser superior a 0.")
+        @PositiveOrZero(message = "La recompensa ha de ser superior o igual a 0.")
         float firstCoinsReward,
         String firstDigitalProductsReward,
-        @DecimalMin(value = "0.0", message = "La recompensa ha de ser superior a 0.")
+        @PositiveOrZero(message = "La recompensa ha de ser superior o igual a 0.")
         float secondCoinsReward,
         String secondDigitalProductsReward,
-        @DecimalMin(value = "0.0", message = "La recompensa ha de ser superior a 0.")
+        @PositiveOrZero(message = "La recompensa ha de ser superior o igual a 0.")
         float thirdCoinsReward,
         String thirdDigitalProductsReward,
-        @DecimalMin(value = "0.0", message = "La recompensa ha de ser superior a 0.")
+        @PositiveOrZero(message = "La recompensa ha de ser superior o igual a 0.")
         float fourthTenthCoinsReward,
         String fourthTenthDigitalProductsReward,
-        @DecimalMin(value = "0.0", message = "La recompensa ha de ser superior a 0.")
+        @PositiveOrZero(message = "La recompensa ha de ser superior o igual a 0.")
         float allCoinsReward,
         String allDigitalProductsReward
 ) {}

@@ -31,10 +31,10 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
         if (!isMajorEvent) return null;
         return (
             <div className={styles.eventCard__rewards}>
-                <p>{dictionary[lang]?.firstPlace}: {event.firstCoinsReward} coins, {event.firstDigitalProductsReward.join(", ")}</p>
-                <p>{dictionary[lang]?.secondPlace}: {event.secondCoinsReward} coins, {event.secondDigitalProductsReward.join(", ")}</p>
-                <p>{dictionary[lang]?.thirdPlace}: {event.thirdCoinsReward} coins, {event.thirdDigitalProductsReward.join(", ")}</p>
-                <p>{dictionary[lang]?.fourthToTenthPlace}: {event.fourthTenthCoinsReward} coins, {event.fourthTenthDigitalProductsReward.join(", ")}</p>
+                <p>{dictionary[lang]?.firstPlace}: {event.firstCoinsReward} coins, {event.firstDigitalProductsReward.toString()}</p>
+                <p>{dictionary[lang]?.secondPlace}: {event.secondCoinsReward} coins, {event.secondDigitalProductsReward.toString()}</p>
+                <p>{dictionary[lang]?.thirdPlace}: {event.thirdCoinsReward} coins, {event.thirdDigitalProductsReward.toString()}</p>
+                <p>{dictionary[lang]?.fourthToTenthPlace}: {event.fourthTenthCoinsReward} coins, {event.fourthTenthDigitalProductsReward.toString()}</p>
             </div>
         );
     };
@@ -42,7 +42,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const renderAllRewards = () => {
         return (
             <div className={styles.eventCard__allRewards}>
-                {event.allDigitalProductsReward && (<p>{dictionary[lang]?.allParticipants}: {event.allCoinsReward} coins, {event.allDigitalProductsReward.join(", ")}</p>)}
+                {event.allDigitalProductsReward && (<p>{dictionary[lang]?.allParticipants}: {event.allCoinsReward} coins, {event.allDigitalProductsReward.toString()}</p>)}
             </div>
         );
     };

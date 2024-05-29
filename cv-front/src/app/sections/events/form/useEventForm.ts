@@ -32,6 +32,11 @@ export function useEventForm(): {
         setFormStatus(FormStatus.Loading);
         startDate = startDate + " " + startTime;
         endDate = endDate + " " + endTime;
+        firstCoinsReward = firstCoinsReward || 0;
+        secondCoinsReward = secondCoinsReward || 0;
+        thirdCoinsReward = thirdCoinsReward || 0;
+        fourthTenthCoinsReward = fourthTenthCoinsReward || 0;
+        allCoinsReward = allCoinsReward || 0;
         try {
             createEvent({id: "", name, description, image, primaryColour, secondaryColour, type, startDate, endDate, cercatrivies,
                 firstCoinsReward, firstDigitalProductsReward, secondCoinsReward, secondDigitalProductsReward,
