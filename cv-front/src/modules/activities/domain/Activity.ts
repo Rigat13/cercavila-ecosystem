@@ -6,6 +6,8 @@ import {ActivityCorrectAnswerNotValidError, isActivityCorrectAnswerValid} from "
 import {ActivityFirstIncorrectAnswerNotValidError, isActivityFirstIncorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivityFirstIncorrectAnswer";
 import {ActivitySecondIncorrectAnswerNotValidError, isActivitySecondIncorrectAnswerValid} from "@/modules/activities/domain/activity-attributes/ActivitySecondIncorrectAnswer";
 
+export const CERCATRIVIA_EXPIRATION_DAYS = 7;
+
 export interface Activity {
     id: string;
     question: string;

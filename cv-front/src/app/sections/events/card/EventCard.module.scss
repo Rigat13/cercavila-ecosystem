@@ -230,20 +230,18 @@
   &__cercatrivies {
     z-index: 2;
     font-size: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
 
     .cercatriviaItem {
-      background: #ffffff;
-      border-radius: 1rem;
       padding: 1rem;
       width: 7rem;
+      height: 6rem;
       text-align: center;
       position: relative;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
       .circleBackground {
         width: 5rem;
@@ -251,7 +249,7 @@
         background: #eee;
         border-radius: 50%;
         position: absolute;
-        top: -1.5rem;
+        top: 0rem;
         left: 50%;
         transform: translateX(-50%);
         z-index: -1;
@@ -259,7 +257,7 @@
 
       .icon {
         position: absolute;
-        top: -1.2rem;
+        top: 0rem;
         left: 50%;
         transform: translateX(-50%);
         background: white;
@@ -270,14 +268,28 @@
       }
 
       .date {
-        font-size: 1rem;
-        margin-top: 2rem;
+        width: fit-content;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0.2rem;
+        font-size: 1.3rem;
+        font-weight: 700;
       }
 
       .daysRemaining {
+        width: fit-content;
+        position: absolute;
+        padding: 0rem 0.5rem;
+        bottom: -0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0.6rem;
         font-size: 0.8rem;
-        color: red;
-        margin-top: 0.5rem;
+        font-weight: 500;
+        background: yellow;
+        color: black;
       }
     }
   }

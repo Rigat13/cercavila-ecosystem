@@ -19,7 +19,8 @@ interface DictionaryEntry {
     start: string;
     end: string;
     days: string;
-    day: string;
+    hours: string;
+    remain: string;
 
     // -------------------------------------------------------------------------------------------- LOGIN
     loginTitle: string;
@@ -541,7 +542,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         start: "Inici",
         end: "Fi",
         days: "dies",
-        day: "dia",
+        hours: "h",
+        remain: "Queden",
 
         // -------------------------------------------------------------------------------------------- LOGIN
         loginTitle: "És hora d'entrar a Cercavila!",
@@ -1064,7 +1066,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         start: "Inicio",
         end: "Fin",
         days: "días",
-        day: "día",
+        hours: "h",
+        remain: "m",
 
         // -------------------------------------------------------------------------------------------- LOGIN
         loginTitle: "Es hora de entrar en Cercavila!",
@@ -1587,7 +1590,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         start: "Start",
         end: "End",
         days: "days",
-        day: "day",
+        hours: "h",
+        remain: "Remain",
 
         // -------------------------------------------------------------------------------------------- LOGIN
         loginTitle: "It's time to enter Cercavila!",

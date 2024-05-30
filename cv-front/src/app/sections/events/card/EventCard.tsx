@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { base64ToBlob } from "@/app/sections/shared/Utilities";
 import {useEventsContext} from "@/app/sections/events/EventsContext";
 import {DigitalProductDetails} from "@/app/sections/digitalproducts/card/DigitalProductDetails";
+import {CERCATRIVIA_EXPIRATION_DAYS} from "@/modules/activities/domain/Activity";
 
 export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -45,6 +46,8 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
         color: event.primaryColour,
         transition: 'background-color 0.3s ease, color 0.3s ease',
     }
+
+    const lastDateStyle = { backgroundColor: "#de2b69", color: "#ffffff",}
 
     const renderDigitalProductsImages = (digitalProductsIds: string[]) => {
         return digitalProductsIds.toString().split(",").map((digitalProductId, index) => {
@@ -150,14 +153,26 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                     if (triviaDate > endDate) return null;
 
                     const formattedTriviaDate = triviaDate.toLocaleDateString(lang, { day: '2-digit', month: '2-digit' });
-                    const daysRemaining = Math.floor((triviaDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+                    const timeDifference = ((triviaDate.getTime() - today.getTime()) );
+                    const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                    const hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60));
+                    const minutesRemainingAfterHours = Math.floor(timeDifference / (1000 * 60) - hoursRemaining * 60);
+
+                    let daysRemainingText = '';
+                    if (timeDifference > 0 && hoursRemaining < 24) {
+                        daysRemainingText = dictionary[lang]?.remain +" "+ hoursRemaining + "." + minutesRemainingAfterHours + dictionary[lang]?.hours;
+                    } else if (daysRemaining >= 1) {
+                        daysRemainingText = dictionary[lang]?.remain + daysRemaining + ' ' + dictionary[lang]?.days;
+                    }
 
                     return (
-                        <div className="cercatriviaItem" key={index}>
-                            <div className="circleBackground"></div>
-                            <img src="/icons/icon-cercatrivia.svg" alt="Cercatrivia Icon" className="icon" />
-                            <div className="date">{formattedTriviaDate}</div>
-                            {daysRemaining < 7 && <div className="daysRemaining">{daysRemaining.toString()+dictionary[lang]?.days}</div>}
+                        <div className={styles.cercatriviaItem} key={index}>
+                            <div className={styles.circleBackground} style={datesStyle}></div>
+                            <img src="/icons/icon-cercatrivia-min.svg" className={styles.icon}/>
+                            <div className={styles.date} style={datesStyle}> {formattedTriviaDate} </div>
+                            {timeDifference > 0 && hoursRemaining < 24 && <div className={styles.daysRemaining} style={lastDateStyle}>{daysRemainingText}</div>}
+                            {timeDifference > 0 && daysRemaining >= 1 && <div className={styles.daysRemaining}>{daysRemainingText}</div>}
                         </div>
                     );
                 })}
