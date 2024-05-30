@@ -10,6 +10,8 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
     const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
     const [answerButtons, setAnswerButtons] = useState<string[]>([]);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+    const [imageOpacity, setImageOpacity] = useState(1);
+    const [imageHeight, setImageHeight] = useState('auto');
 
     useEffect(() => {
         if (activity.image) {
@@ -26,6 +28,8 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
     const handleAnswerClick = (answer: string) => {
         setSelectedAnswer(answer);
         setActivityAnswered(true);
+        setImageOpacity(0);
+        setImageHeight('0');
         if (answer === activity.correctAnswer) {
             setIsCorrectAnswer(true);
             confetti({
@@ -34,15 +38,15 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
                 spread: 70,
                 origin: { y: 0.6 }
             });
-        } else {
-            setIsCorrectAnswer(false);
-        }
+        } else { setIsCorrectAnswer(false); }
     };
 
     const handleClose = () => {
         setActivityAnswered(false);
         setIsCorrectAnswer(null);
         setSelectedAnswer(null);
+        setImageOpacity(1);
+        setImageHeight('auto');
         onClose();
     };
 
@@ -50,7 +54,7 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
         <div className={styles.popupOverlay}>
             <div className={styles.popupContent}>
                 {imageUrl && (
-                    <div className={styles.image}>
+                    <div className={styles.image} style={{ opacity: imageOpacity, height: imageHeight }}>
                         <img
                             src={imageUrl}
                             alt={`Image of ${activity.question}`}
@@ -58,7 +62,17 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
                     </div>
                 )}
                 <button className={styles.closePopupButton} type="button" onClick={handleClose}>×</button>
+                {activityAnswered && isCorrectAnswer && (
+                    <p className={styles.superCongratulationsTitle}>
+                        {dictionary[lang]?.activityCorrect}
+                    </p>
+                )}
 
+                {activityAnswered && isCorrectAnswer === false && (
+                    <p className={styles.superSadTitle}>
+                        {dictionary[lang]?.activityIncorrect}
+                    </p>
+                )}
                 <div className={styles.triviaSection}>
                     <h2 className={styles.triviaQuestion}>{activity.question}</h2>
                     {answerButtons.map((answer, index) => (
@@ -83,19 +97,7 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
                     ))}
                 </div>
 
-                {activityAnswered && isCorrectAnswer && (
-                    <p className={styles.superCongratulationsTitle}>
-                        {dictionary[lang]?.activityCorrect}
-                    </p>
-                )}
-
-                {activityAnswered && isCorrectAnswer === false && (
-                    <p className={styles.superSadTitle}>
-                        {dictionary[lang]?.activityIncorrect}
-                    </p>
-                )}
-
-                {activityAnswered && (
+                {!activityAnswered && (
                     <button className={styles.cancelButton} onClick={handleClose}>
                         {dictionary[lang]?.digitalProductCancelBuyButton}
                     </button>
