@@ -2,184 +2,106 @@ import React, { useEffect, useState } from 'react';
 import styles from './ActivityPlayWindow.module.scss';
 import { dictionary } from "@/content";
 import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
-import { base64ToBlob } from "@/app/sections/shared/Utilities";
-import { useUpdateUserForm, FormStatus } from "@/app/sections/digitalproducts/list/useUpdateUserForm"; // Updated path
-import { useDigitalProductsContext } from "@/app/sections/digitalproducts/DigitalProductsContext";
 import confetti from 'canvas-confetti';
+import { Activity } from "@/modules/activities/domain/Activity";
 
-export function ActivityPlayWindow({ activity, onClose, lang, user }) {
-    const canBuy = user.coins >= activity.price;
-    const remainingCoins = activity.price - user.coins;
-
+export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Activity; onClose: () => void; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
-    const { submitForm, formStatus } = useUpdateUserForm();
-    const { digitalProducts } = useDigitalProductsContext();
-    const [buyOrCancelButtonsVisible, setBuyOrCancelButtonsVisible] = useState(true);
+    const [activityAnswered, setActivityAnswered] = useState(false);
+    const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
+    const [answerButtons, setAnswerButtons] = useState<string[]>([]);
+
     useEffect(() => {
         if (activity.image) {
-            const blob = base64ToBlob(activity.image);
+            const blob = base64ToBlob(activity.image as unknown as string);
             const url = URL.createObjectURL(blob);
             setImageUrl(url);
         }
+
+        // Shuffle and set answer buttons
+        const answers = [activity.correctAnswer, activity.firstIncorrectAnswer, activity.secondIncorrectAnswer];
+        setAnswerButtons(answers.sort(() => Math.random() - 0.5));
     }, [activity.image]);
 
-    useEffect(() => {
-        if (formStatus === FormStatus.Success) {
+    const handleAnswerClick = (answer: string) => {
+        setActivityAnswered(true);
+        if (answer === activity.correctAnswer) {
+            setIsCorrectAnswer(true);
             confetti({
                 zIndex: 200,
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 }
             });
+        } else {
+            setIsCorrectAnswer(false);
         }
-    }, [formStatus]);
-
-    const renderProductDetails = () => {
-        if (!imageUrl && activity.type !== 'digitalProductTypeUserBackgroundColour' && activity.type !== 'digitalProductTypeUserTitle') return null;
-        switch (activity.type) {
-            case 'digitalProductTypeUserImage':
-                return (
-                    <a target="_blank" className={detailsStyles.digitalProductDetails__aImage}>
-                        <div className={detailsStyles.digitalProductDetails__image}>
-                            <img
-                                src={imageUrl}
-                                alt={`Imatge de ${activity.name}`}
-                            />
-                        </div>
-                    </a>
-                );
-            case 'digitalProductTypeUserImageFrame':
-                return (
-                    <a target="_blank" className={detailsStyles.digitalProductDetails__aImageFrame}>
-                        <div className={detailsStyles.digitalProductDetails__imageFrame}>
-                            <img
-                                src={imageUrl}
-                                alt={`Imatge de ${activity.name}`}
-                            />
-                        </div>
-                    </a>
-                );
-            case 'digitalProductTypeUserBackgroundImage':
-                return (
-                    <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundImage}>
-                        <div className={detailsStyles.digitalProductDetails__backgroundImage}>
-                            <img
-                                src={imageUrl}
-                                alt={`Imatge de ${activity.name}`}
-                            />
-                        </div>
-                    </a>
-                );
-            case 'digitalProductTypeUserTitle':
-                return (
-                    <a target="_blank" className={detailsStyles.digitalProductDetails__aTitle}>
-                        <div className={detailsStyles.digitalProductDetails__title}
-                             style={{ background: activity.primaryColour, color: activity.secondaryColour }}>
-                            {activity.name}
-                            <div className={detailsStyles.digitalProductDetails__shine}></div>
-                        </div>
-                    </a>
-                );
-            case 'digitalProductTypeUserBackgroundColour':
-                return (
-                    <a target="_blank" className={detailsStyles.digitalProductDetails__aBackgroundColour} >
-                        <div className={detailsStyles.digitalProductDetails__backgroundColour}
-                             style={{ background: activity.primaryColour, color: activity.secondaryColour }}>
-                            Abc
-                        </div>
-                    </a>
-                );
-            case 'digitalProductTypeSticker': case 'digitalProductTypePin':
-                return (
-                    <a target="_blank" className={detailsStyles.digitalProductDetails__aSticker}>
-                        <div className={detailsStyles.digitalProductDetails__sticker}>
-                            <img
-                                src={imageUrl}
-                                alt={`Imatge de ${activity.name}`}
-                            />
-                        </div>
-                    </a>
-                );
-            case 'digitalProductTypePin':
-                return (
-                    <a target="_blank" className={detailsStyles.digitalProductDetails__aPin}>
-                        <div className={detailsStyles.digitalProductDetails__pin}>
-                            <img
-                                src={imageUrl}
-                                alt={`Imatge de ${activity.name}`}
-                            />
-                        </div>
-                    </a>
-                );
-            default:
-                return null;
-        }
-    };
-
-    const handleBuy = async () => {
-        const updatedCoins = user.coins - activity.price;
-        const updatedDigitalProducts = user.digitalProducts ? user.digitalProducts.split(',') : [];
-        updatedDigitalProducts.push(activity.id);
-        setBuyOrCancelButtonsVisible(false);
-
-        await submitForm({
-            id: user.id,
-            nickname: user.nickname,
-            name: user.name,
-            firstSurname: user.firstSurname,
-            secondSurname: user.secondSurname,
-            email: user.email,
-            password: user.password,
-            roles: user.roles.toString().split(','),
-            coins: updatedCoins,
-            digitalProducts: updatedDigitalProducts,
-            activeUserImage: user.activeUserImage,
-            activeUserImageFrame: user.activeUserImageFrame,
-            activeUserBackgroundImage: user.activeUserBackgroundImage,
-            activeUserTitle: user.activeUserTitle,
-            activeUserBackgroundColour: user.activeUserBackgroundColour,
-            activePins: user.activePins,
-        });
-
     };
 
     const handleClose = () => {
-        setBuyOrCancelButtonsVisible(true);
+        setActivityAnswered(false);
+        setIsCorrectAnswer(null);
         onClose();
-    }
+    };
 
     return (
         <div className={styles.popupOverlay}>
             <div className={styles.popupContent}>
-                {renderProductDetails()}
+                {imageUrl && (
+                    <a className={detailsStyles.digitalProductDetails__aImage}>
+                        <div className={detailsStyles.digitalProductDetails__image}>
+                            <img
+                                src={imageUrl}
+                                alt={`Image of ${activity.question}`}
+                            />
+                        </div>
+                    </a>
+                )}
                 <button className={styles.closePopupButton} type="button" onClick={handleClose}>×</button>
-                <div className={styles.coinsCount}>
-                    <span>{user.coins}</span>
-                    <img className={styles.iconCountImg} src="/icons/icon-coin.svg" alt="C" />
-                </div>
-                {formStatus != FormStatus.Success  && <h2 className={styles.confirmBuyTitle}>{dictionary[lang]?.digitalProductConfirmBuyTitle}</h2>}
-                {formStatus != FormStatus.Success  && <p>{dictionary[lang]?.digitalProductConfirmBuyMessage.replace('{product}', activity.name)}</p>}
-                {formStatus != FormStatus.Success  && <p>{dictionary[lang]?.digitalProductProductPrice.replace('{price}', activity.price)}</p>}
-                {formStatus === FormStatus.Success  && <p className={styles.superCongratulationsTitle}>{dictionary[lang]?.digitalProductSuccessBuyMessage}</p>}
 
-                <div className={styles.buttonsContainer}>
-                    {canBuy && buyOrCancelButtonsVisible ? (
-                        <button className={styles.confirmButton} onClick={handleBuy}>
-                            {activity.price}
-                            <img className={styles.iconCountImgGeneral} src="/icons/icon-coin.svg" alt="C" />
-                            {dictionary[lang]?.digitalProductStoreBuyButton}
-                        </button>
-                    ) : !canBuy && buyOrCancelButtonsVisible ? (
-                        <p className={styles.insufficientCoins}>
-                            {dictionary[lang]?.digitalProductInsufficientCoins.replace('{remaining}', remainingCoins + "")}
-                        </p>
-                    ) : null}
-                    {buyOrCancelButtonsVisible && <button className={styles.cancelButton} onClick={onClose}>{dictionary[lang]?.digitalProductCancelBuyButton}</button>}
-                    {formStatus === FormStatus.Loading && <p className={styles.updateUserStatusLoading}>{dictionary[lang]?.loading}</p>}
-                    {formStatus === FormStatus.Success && <p className={styles.updateUserStatusSuccess}>{dictionary[lang]?.successUpdate}</p>}
-                    {formStatus === FormStatus.Error && <p className={styles.updateUserStatusError}>{dictionary[lang]?.errorUpdate}</p>}
-                </div>
+                {!activityAnswered && (
+                    <div className={styles.triviaSection}>
+                        <h2 className={styles.triviaQuestion}>{activity.question}</h2>
+                        {answerButtons.map((answer, index) => (
+                            <button
+                                key={index}
+                                className={styles.answerButton}
+                                onClick={() => handleAnswerClick(answer)}
+                            >
+                                {answer}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
+                {activityAnswered && isCorrectAnswer && (
+                    <p className={styles.superCongratulationsTitle}>
+                        {dictionary[lang]?.activityCorrect}
+                    </p>
+                )}
+
+                {activityAnswered && isCorrectAnswer === false && (
+                    <p className={styles.superSadTitle}>
+                        {dictionary[lang]?.activityIncorrect}
+                    </p>
+                )}
+
+                {activityAnswered && (
+                    <button className={styles.cancelButton} onClick={handleClose}>
+                        {dictionary[lang]?.digitalProductCancelBuyButton}
+                    </button>
+                )}
             </div>
         </div>
     );
+}
+
+function base64ToBlob(base64: string): Blob {
+    const binaryString = window.atob(base64);
+    const length = binaryString.length;
+    const bytes = new Uint8Array(length);
+    for (let i = 0; i < length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new Blob([bytes], { type: 'image/jpeg' });
 }

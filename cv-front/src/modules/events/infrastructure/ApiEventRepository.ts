@@ -9,7 +9,7 @@ export function createApiEventRepository(): EventRepository {
     return {
         storeEvent, getEventById, getEventByName, getAllEventsByName,
         getAllEventsByType, getAllEvents, updateEvent, deleteEvent, getAllEventsNoImage,
-        getAllUsers, updateUser, getAllActivitiesNoImage, getAllDigitalProducts
+        getAllUsers, updateUser, getAllActivitiesNoImage, getAllActivities, getAllDigitalProducts
     };
 }
 
@@ -159,6 +159,17 @@ async function getAllActivitiesNoImage() {
         return activities;
     } catch (error) {
         throw new Error("No s'ha pogut obtenir totes les activities sense imatge. \nMotiu: " + error);
+    }
+}
+
+async function getAllActivities() {
+    try {
+        const activities = await fetch(URL_PREFIX + `/api/activities`).then(
+            (response) => response.json() as Promise<Activity[]>
+        );
+        return activities;
+    } catch (error) {
+        throw new Error("No s'ha pogut obtenir totes les activities. \nMotiu: " + error);
     }
 }
 

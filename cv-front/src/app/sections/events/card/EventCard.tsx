@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { base64ToBlob } from "@/app/sections/shared/Utilities";
 import {useEventsContext} from "@/app/sections/events/EventsContext";
 import {DigitalProductDetails} from "@/app/sections/digitalproducts/card/DigitalProductDetails";
-import {CERCATRIVIA_EXPIRATION_DAYS} from "@/modules/activities/domain/Activity";
+import {Activity, CERCATRIVIA_EXPIRATION_DAYS} from "@/modules/activities/domain/Activity";
 import {ActivityPlayWindow} from "@/app/sections/activities/play-window/ActivityPlayWindow";
 
 export function EventCard({ event, lang }: { event: Event; lang: string }) {
@@ -205,7 +205,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     };
 
     const handleActivityButtonClick = (activity) => {
-        if (!isLoggedIn) return window.location.href = `/login.html`;
+        if (!isLoggedIn) return window.location.href = `/login.html`; // Could also add redirect, but did now work with client side routing
         else {
             setSelectedActivity(activity);
             setPopupVisible(true);
@@ -241,7 +241,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
 
             {popupVisible && selectedActivity && localStorage && (
                 <ActivityPlayWindow
-                    activity={selectedActivity}
+                    activity={selectedActivity as Activity}
                     onClose={handleActivityClose}
                     lang={lang}
                     user={users.find(user => user.nickname === localStorage.getItem('username'))}

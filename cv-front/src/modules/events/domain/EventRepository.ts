@@ -15,6 +15,7 @@ export interface EventRepository {
     deleteEvent:(id: string) => Promise<void>;
 
     getAllActivitiesNoImage: () => Promise<Activity[]>;
+    getAllActivities: () => Promise<Activity[]>;
     getAllDigitalProducts: () => Promise<DigitalProduct[]>;
 
     getAllUsers: () => Promise<User[]>;

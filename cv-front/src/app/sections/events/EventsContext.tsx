@@ -15,6 +15,7 @@ import {Activity} from "../../../modules/activities/domain/Activity";
 import {getAllActivitiesNoImage_eventRepo} from "../../../modules/activities/application/get-all/getAllActivitiesNoImage";
 import {getAllDigitalProducts_eventRepo} from "../../../modules/digitalproducts/application/get-all/getAllDigitalProducts";
 import {DigitalProduct} from "../../../modules/digitalproducts/domain/DigitalProduct";
+import {getAllActivities_eventRepo} from "@/modules/activities/application/get-all/getAllActivities";
 
 export interface ContextState {
     events: Event[];
@@ -82,7 +83,7 @@ export const EventsContextProvider = ({
     }
 
     async function getCercatrivies() {
-        return getAllActivitiesNoImage_eventRepo(repository).then((activities) => {
+        return getAllActivities_eventRepo(repository).then((activities) => {
             setCercatrivies(activities.filter(activity => activity.type === "activityTypeCercatrivia"));
         });
     }

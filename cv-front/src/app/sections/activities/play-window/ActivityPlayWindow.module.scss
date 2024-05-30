@@ -48,63 +48,31 @@
   }
 }
 
-.buttonsContainer {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
+.triviaSection {
+  margin: 2rem 0;
 }
 
-.confirmButton,
-.cancelButton {
+.triviaQuestion {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.answerButton {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
   font-size: 1.2rem;
-  font-weight: 700;
-  padding: 0.6rem 1.2rem;
-  border-radius: 1rem;
+  border: none;
+  background-color: #f0f0f0;
   cursor: pointer;
-  transition: all 0.3s;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s;
 }
 
-.confirmButton {
-  background: #33da8f;
-  color: white;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:hover {
-    background: #0f9d6b;
-    transform: scale(1.1);
-  }
+.answerButton:hover {
+  background-color: #ddd;
 }
-.updateUserStatusSuccess, .updateUserStatusError, .updateUserStatusLoading {
-  color: white;
-  border-radius: 2rem;
-  padding: 0.5rem 1rem;
-}
-
-.updateUserStatusSuccess { background: #33da8f; }
-.updateUserStatusError { background: #ff4d4d; }
-.updateUserStatusLoading { background: #111111; }
-
-
-.confirmBuyTitle {
-  font-size: 2rem;
-  font-weight: 800;
-  margin-top: 3rem;
-}
-
-.cancelButton {
-  background: #595959;
-  color: white;
-  border: none;
-  &:hover {
-    background: #3d3d3d;
-    transform: scale(1.1);
-  }
-}
-
-
 
 .superCongratulationsTitle {
   font-size: 5rem;
@@ -113,69 +81,44 @@
   margin-top: 5rem;
   line-height: 1;
   opacity: 0;
-  animation: fadeInFromLeft 0.8s ease-out forwards; -webkit-animation: fadeInFromLeft 0.8s ease-out forwards; -moz-animation: fadeInFromLeft 0.8s ease-out forwards; -o-animation: fadeInFromLeft 0.8s ease-out forwards; -ms-animation: fadeInFromLeft 0.8s ease-out forwards;
+  animation: fadeInFromBottom 0.8s ease-out forwards; -webkit-animation: fadeInFromBottom 0.8s ease-out forwards; -moz-animation: fadeInFromBottom 0.8s ease-out forwards; -o-animation: fadeInFromBottom 0.8s ease-out forwards; -ms-animation: fadeInFromBottom 0.8s ease-out forwards;
 }
 
-@keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
-@-moz-keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
-@-webkit-keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
-@-o-keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
-@-ms-keyframes fadeInFromLeft { from {opacity: 0;transform: translateX(-20%);} to {opacity: 1;transform: translateX(0);} }
-
-.insufficientCoins {
-  color: rgba(190, 38, 38, 0.55);
-  font-weight: bold;
+.superSadTitle {
+  font-size: 5rem;
+  font-weight: 1000;
+  font-style: italic;
+  margin-top: 5rem;
+  line-height: 1;
+  opacity: 0;
+  animation: fadeInFromTop 0.8s ease-out forwards; -webkit-animation: fadeInFromTop 0.8s ease-out forwards; -moz-animation: fadeInFromTop 0.8s ease-out forwards; -o-animation: fadeInFromTop 0.8s ease-out forwards; -ms-animation: fadeInFromTop 0.8s ease-out forwards;
 }
 
+@keyframes fadeInFromBottom { from {opacity: 0;transform: translateY(40%);} to {opacity: 1;transform: translateY(0);} }
+@-moz-keyframes fadeInFromBottom { from {opacity: 0;transform: translateY(40%);} to {opacity: 1;transform: translateY(0);} }
+@-webkit-keyframes fadeInFromBottom { from {opacity: 0;transform: translateY(40%);} to {opacity: 1;transform: translateY(0);} }
+@-o-keyframes fadeInFromBottom { from {opacity: 0;transform: translateY(40%);} to {opacity: 1;transform: translateY(0);} }
+@-ms-keyframes fadeInFromBottom { from {opacity: 0;transform: translateY(40%);} to {opacity: 1;transform: translateY(0);} }
 
-.coinsCount {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin: 1rem 0;
-  border-radius: 3rem;
-  background: white;
-  color: #111111;
-  padding: 0.5rem 1rem;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-}
+@keyframes fadeInFromTop { from {opacity: 0;transform: translateY(-40%);} to {opacity: 1;transform: translateY(0);} }
+@-moz-keyframes fadeInFromTop { from {opacity: 0;transform: translateY(-40%);} to {opacity: 1;transform: translateY(0);} }
+@-webkit-keyframes fadeInFromTop { from {opacity: 0;transform: translateY(-40%);} to {opacity: 1;transform: translateY(0);} }
+@-o-keyframes fadeInFromTop { from {opacity: 0;transform: translateY(-40%);} to {opacity: 1;transform: translateY(0);} }
+@-ms-keyframes fadeInFromTop { from {opacity: 0;transform: translateY(-40%);} to {opacity: 1;transform: translateY(0);} }
 
-.iconCountImg {
-  width: 2rem;
-  height: 2rem;
-  margin-left: 0.6rem;
-  border-radius: 50%;
-  padding: 0.2rem;
-}
-
-.iconCountImgGeneral {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  padding: 0.2rem;
-  margin-left: 0.4rem;
-}
-
-
-@media (max-width: 768px) {
-  .coinsCount {
-    font-size: 1rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .iconCountImg {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  .confirmButton,
-  .cancelButton {
-    font-size: 1rem;
-    padding: 0.4rem 0.8rem;
+.cancelButton {
+  margin-top: 1rem;
+  background: #595959;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    background: #3d3d3d;
+    transform: scale(1.1);
   }
 }
-

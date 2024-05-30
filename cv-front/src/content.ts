@@ -414,6 +414,11 @@ interface DictionaryEntry {
     errorRetrievingActivityMessage: string;
     errorRetrievingActivitiesMessage: string;
 
+    // ANSWER ACTIVITY
+    activityCorrect: string;
+    activityIncorrect: string;
+    activityThanks: string;
+
     // -------------------------------------------------------------------------------------------- EVENT
     eventName: string;
     eventDescription: string;
@@ -936,6 +941,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
         activityNotFoundWithId: "Activitat no trobada amb id: ",
         errorRetrievingActivityMessage: "Error en obtenir la informació de l'activitat. \nMotiu: ",
         errorRetrievingActivitiesMessage: "Error en obtenir la informació de les activitats. \nMotiu: ",
+
+        // ANSWER ACTIVITY
+        activityCorrect: "Correcta!",
+        activityIncorrect: "Llàstima :(",
+        activityThanks: "Gràcies!",
 
         // -------------------------------------------------------------------------------------------- EVENT
         eventName: "Nom",
@@ -1461,6 +1471,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
         errorRetrievingActivityMessage: "Error al obtener la información de la actividad. \nMotivo: ",
         errorRetrievingActivitiesMessage: "Error al obtener la información de las actividades. \nMotivo: ",
 
+        // ANSWER ACTIVITY
+        activityCorrect: "¡Correcta!",
+        activityIncorrect: "Lástima :(",
+        activityThanks: "¡Gracias!",
+
         // -------------------------------------------------------------------------------------------- EVENT
         eventName: "Nombre",
         eventDescription: "Descripción",
@@ -1984,6 +1999,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
         activityNotFoundWithId: "Activity not found with id: ",
         errorRetrievingActivityMessage: "Error retrieving activity information. \nReason: ",
         errorRetrievingActivitiesMessage: "Error retrieving activities information. \nReason: ",
+
+        // ANSWER ACTIVITY
+        activityCorrect: "You nailed it!",
+        activityIncorrect: "Oh no :(",
+        activityThanks: "Thanks!",
 
         // -------------------------------------------------------------------------------------------- EVENT
         eventName: "Name",
