@@ -179,7 +179,6 @@ export function FilteredDigitalProductsList({ lang, isStore }: { lang: string, i
                             isEditable={!isStore && isLoggedIn}
                             lang={lang}
                             alreadyObtained={userDigitalProducts.includes(loadedDigitalProduct.id)} // Check if the product is obtained
-                            onBuyButtonClick={() => handleBuyButtonClick(loadedDigitalProduct)} // Handle buy button click
                         />
                     ))}
             </div>

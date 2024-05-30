@@ -6,6 +6,7 @@ import { base64ToBlob } from "@/app/sections/shared/Utilities";
 import {useEventsContext} from "@/app/sections/events/EventsContext";
 import {DigitalProductDetails} from "@/app/sections/digitalproducts/card/DigitalProductDetails";
 import {CERCATRIVIA_EXPIRATION_DAYS} from "@/modules/activities/domain/Activity";
+import {ActivityPlayWindow} from "@/app/sections/activities/play-window/ActivityPlayWindow";
 
 export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -13,11 +14,22 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const { cercatrivies } = useEventsContext();
     const { digitalProducts } = useEventsContext();
 
+    const [popupVisible, setPopupVisible] = useState(false);
+    const [selectedActivity, setSelectedActivity] = useState(null);
+
+    const { users } = useEventsContext();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
+
     useEffect(() => {
         if (event.image) {
             const blob = base64ToBlob(event.image as unknown as string);
             const url = URL.createObjectURL(blob);
             setImageUrl(url);
+        }
+        if(localStorage) {
+            setIsLoggedIn(localStorage.getItem('username') !== null);
+            setUser(users.find(user => user.nickname === localStorage.getItem('username')));
         }
     }, [event.image]);
 
@@ -166,10 +178,12 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                         daysRemainingText = dictionary[lang]?.remain +" "+ daysRemaining + ' ' + dictionary[lang]?.days;
                     }
 
+                    // If onClick={handleActivityButtonClick(trivia), trivia is called immediately, and so at the start it returns an undefined.
+                    // So it is needed a function to be called only when the button is clicked, onClick={() => handleActivityButtonClick(trivia)}.
                     return (
                         <div key={index}>
                             {stillTimeRemaining && (
-                                <div className={styles.cercatriviaItem}>
+                                <button className={styles.cercatriviaItem} onClick={() => handleActivityButtonClick(trivia)}>
                                     <div className={styles.circleBackground} style={datesStyle}></div>
                                     <img src="/icons/icon-cercatrivia-min.svg" className={styles.icon}/>
                                     <div className={styles.date} style={datesStyle}> {formattedTriviaDate} </div>
@@ -181,13 +195,23 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                                             <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
                                         </div>
                                     }
-                                </div>
+                                </button>
                             )}
                         </div>
                     );
                 })}
             </div>
         );
+    };
+
+    const handleActivityButtonClick = (activity) => {
+        setSelectedActivity(activity);
+        setPopupVisible(true);
+    };
+
+    const handleActivityClose = () => {
+        setPopupVisible(false);
+        setSelectedActivity(null);
     };
 
 
@@ -211,6 +235,15 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                     <img src="/icons/icon-edit.svg" alt="Editar" />
                 </button>
             </a>
+
+            {popupVisible && selectedActivity && localStorage && (
+                <ActivityPlayWindow
+                    activity={selectedActivity}
+                    onClose={handleActivityClose}
+                    lang={lang}
+                    user={users.find(user => user.nickname === localStorage.getItem('username'))}
+                />
+            )}
         </div>
     );
 }
