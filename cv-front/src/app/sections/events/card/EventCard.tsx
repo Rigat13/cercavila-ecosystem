@@ -101,7 +101,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                 </div>
 
                 <div className={styles.rewardLine}>
-                    <img src="/icons/icon-fourthtenth.svg" alt="Fourth to Tenth Place" className={styles.rewardImage} />
+                    <img src="/icons/icon-fourthTenth.svg" alt="Fourth to Tenth Place" className={styles.rewardImage} />
                     <span className={styles.coins}>{event.fourthTenthCoinsReward}</span>
                     <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
                     <div className={styles.rewardImagesContainer}>
