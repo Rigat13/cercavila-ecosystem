@@ -205,8 +205,11 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     };
 
     const handleActivityButtonClick = (activity) => {
-        setSelectedActivity(activity);
-        setPopupVisible(true);
+        if (!isLoggedIn) return window.location.href = `/login.html`;
+        else {
+            setSelectedActivity(activity);
+            setPopupVisible(true);
+        }
     };
 
     const handleActivityClose = () => {
