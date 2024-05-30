@@ -9,6 +9,7 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
     const [activityAnswered, setActivityAnswered] = useState(false);
     const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
     const [answerButtons, setAnswerButtons] = useState<string[]>([]);
+    const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
     useEffect(() => {
         if (activity.image) {
@@ -23,6 +24,7 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
     }, [activity.image]);
 
     const handleAnswerClick = (answer: string) => {
+        setSelectedAnswer(answer);
         setActivityAnswered(true);
         if (answer === activity.correctAnswer) {
             setIsCorrectAnswer(true);
@@ -40,6 +42,7 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
     const handleClose = () => {
         setActivityAnswered(false);
         setIsCorrectAnswer(null);
+        setSelectedAnswer(null);
         onClose();
     };
 
@@ -56,20 +59,29 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
                 )}
                 <button className={styles.closePopupButton} type="button" onClick={handleClose}>×</button>
 
-                {!activityAnswered && (
-                    <div className={styles.triviaSection}>
-                        <h2 className={styles.triviaQuestion}>{activity.question}</h2>
-                        {answerButtons.map((answer, index) => (
-                            <button
-                                key={index}
-                                className={styles.answerButton}
-                                onClick={() => handleAnswerClick(answer)}
-                            >
-                                {answer}
-                            </button>
-                        ))}
-                    </div>
-                )}
+                <div className={styles.triviaSection}>
+                    <h2 className={styles.triviaQuestion}>{activity.question}</h2>
+                    {answerButtons.map((answer, index) => (
+                        <button
+                            key={index}
+                            className={`${styles.answerButton} ${
+                                activityAnswered
+                                    ? answer === activity.correctAnswer
+                                        ? styles.correct
+                                        : styles.incorrect
+                                    : ''
+                            } ${
+                                answer === selectedAnswer
+                                    ? styles.selected
+                                    : ''
+                            }`}
+                            onClick={() => !activityAnswered && handleAnswerClick(answer)}
+                            disabled={activityAnswered}
+                        >
+                            {answer}
+                        </button>
+                    ))}
+                </div>
 
                 {activityAnswered && isCorrectAnswer && (
                     <p className={styles.superCongratulationsTitle}>
@@ -83,7 +95,7 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
                     </p>
                 )}
 
-                {!activityAnswered && (
+                {activityAnswered && (
                     <button className={styles.cancelButton} onClick={handleClose}>
                         {dictionary[lang]?.digitalProductCancelBuyButton}
                     </button>
