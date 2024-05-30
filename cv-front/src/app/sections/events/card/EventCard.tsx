@@ -140,7 +140,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
         const startDate = new Date(event.startDate);
         const endDate = new Date(event.endDate);
         const today = new Date();
-
+        // ----------------------------------------------------------------------------------------- TIME REMAINING COUNTDOWN
         return (
             <div className={styles.eventCard__cercatrivies}>
                 {event.cercatrivies.toString().split(",").map((id, index) => {
@@ -149,30 +149,40 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
 
                     const triviaDate = new Date(startDate);
                     triviaDate.setDate(startDate.getDate() + index);
-
                     if (triviaDate > endDate) return null;
-
                     const formattedTriviaDate = triviaDate.toLocaleDateString(lang, { day: '2-digit', month: '2-digit' });
 
-                    const timeDifference = ((triviaDate.getTime() - today.getTime()) );
-                    const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                    const hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60));
-                    const minutesRemainingAfterHours = Math.floor(timeDifference / (1000 * 60) - hoursRemaining * 60);
-
+                    const timeDifference =  (today.getTime() - triviaDate.getTime());
+                    const daysRemaining = CERCATRIVIA_EXPIRATION_DAYS - Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                    const hoursRemaining = CERCATRIVIA_EXPIRATION_DAYS*24 - Math.floor(timeDifference / (1000 * 60 * 60));
+                    const minutesRemainingAfterHours = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                    const minutesRemainingAfterHoursString = minutesRemainingAfterHours < 10 ? "0" + minutesRemainingAfterHours : minutesRemainingAfterHours.toString();
+                    const stillTimeRemaining = daysRemaining >= 0 && hoursRemaining >= 0 && minutesRemainingAfterHours >= 0;
                     let daysRemainingText = '';
+
                     if (timeDifference > 0 && hoursRemaining < 24) {
-                        daysRemainingText = dictionary[lang]?.remain +" "+ hoursRemaining + "." + minutesRemainingAfterHours + dictionary[lang]?.hours;
+                        daysRemainingText = dictionary[lang]?.remain +" "+ hoursRemaining + "." + minutesRemainingAfterHoursString + dictionary[lang]?.hours;
                     } else if (daysRemaining >= 1) {
-                        daysRemainingText = dictionary[lang]?.remain + daysRemaining + ' ' + dictionary[lang]?.days;
+                        daysRemainingText = dictionary[lang]?.remain +" "+ daysRemaining + ' ' + dictionary[lang]?.days;
                     }
 
                     return (
-                        <div className={styles.cercatriviaItem} key={index}>
-                            <div className={styles.circleBackground} style={datesStyle}></div>
-                            <img src="/icons/icon-cercatrivia-min.svg" className={styles.icon}/>
-                            <div className={styles.date} style={datesStyle}> {formattedTriviaDate} </div>
-                            {timeDifference > 0 && hoursRemaining < 24 && <div className={styles.daysRemaining} style={lastDateStyle}>{daysRemainingText}</div>}
-                            {timeDifference > 0 && daysRemaining >= 1 && <div className={styles.daysRemaining}>{daysRemainingText}</div>}
+                        <div key={index}>
+                            {stillTimeRemaining && (
+                                <div className={styles.cercatriviaItem}>
+                                    <div className={styles.circleBackground} style={datesStyle}></div>
+                                    <img src="/icons/icon-cercatrivia-min.svg" className={styles.icon}/>
+                                    <div className={styles.date} style={datesStyle}> {formattedTriviaDate} </div>
+                                    {hoursRemaining < 24 && <div className={styles.daysRemaining} style={lastDateStyle}>{daysRemainingText}</div>}
+                                    {daysRemaining > 1 && daysRemaining < 7 && <div className={styles.daysRemaining}>{daysRemainingText}</div>}
+                                    {daysRemaining === 7 &&
+                                        <div className={styles.x2rewardLine}>
+                                            <span className={styles.x2coins}>x2</span>
+                                            <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
+                                        </div>
+                                    }
+                                </div>
+                            )}
                         </div>
                     );
                 })}

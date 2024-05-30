@@ -292,5 +292,33 @@
         color: black;
       }
     }
+    // ------------------------------------------------ x2 Reward ------------------------------------------------
+    .x2rewardLine {
+      width: fit-content;
+      position: absolute;
+      bottom: 0rem;
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      border-radius: 1rem;
+      padding: 0.5rem;
+      padding-right: 0rem;
+      height: 2rem;
+      animation: scaleUpDown 1s infinite; -moz-animation: scaleUpDown 1s infinite; -webkit-animation: scaleUpDown 1s infinite; -o-animation: scaleUpDown 1s infinite; -ms-animation: scaleUpDown 1s infinite;
+    }
+
+    .x2coins {
+      color: #111111;
+      font-size: 1.8rem;
+      font-weight: 850;
+      margin-right: 0.4rem;
+    }
+
+
+    @keyframes scaleUpDown { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @-moz-keyframes scaleUpDown { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @-webkit-keyframes scaleUpDown { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @-o-keyframes scaleUpDown { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @-ms-keyframes scaleUpDown { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
   }
 }
