@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ActivityPlayWindow.module.scss';
 import { dictionary } from "@/content";
-import detailsStyles from "@/app/sections/shared/DigitalProductDetails.module.scss";
 import confetti from 'canvas-confetti';
 import { Activity } from "@/modules/activities/domain/Activity";
 
@@ -48,14 +47,12 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
         <div className={styles.popupOverlay}>
             <div className={styles.popupContent}>
                 {imageUrl && (
-                    <a className={detailsStyles.digitalProductDetails__aImage}>
-                        <div className={detailsStyles.digitalProductDetails__image}>
-                            <img
-                                src={imageUrl}
-                                alt={`Image of ${activity.question}`}
-                            />
-                        </div>
-                    </a>
+                    <div className={styles.image}>
+                        <img
+                            src={imageUrl}
+                            alt={`Image of ${activity.question}`}
+                        />
+                    </div>
                 )}
                 <button className={styles.closePopupButton} type="button" onClick={handleClose}>×</button>
 
@@ -86,7 +83,7 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
                     </p>
                 )}
 
-                {activityAnswered && (
+                {!activityAnswered && (
                     <button className={styles.cancelButton} onClick={handleClose}>
                         {dictionary[lang]?.digitalProductCancelBuyButton}
                     </button>

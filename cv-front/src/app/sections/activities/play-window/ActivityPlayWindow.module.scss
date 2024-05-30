@@ -34,7 +34,6 @@
   background: white;
   color: #111111;
   padding: 0rem 0.9rem;
-  margin-top: 1rem;
   border-radius: 50%;
   transition: all 0.3s;
   &:hover {
@@ -48,12 +47,37 @@
   }
 }
 
+.image {
+  width: 100%;
+  height: auto; /* Allow height to be dynamic */
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  padding: 0.3rem;
+  border-radius: 2rem 2rem 0 0;
+
+  img {
+    width: 100%;
+    height: auto; /* Ensure the image is fully displayed */
+    object-fit: contain; /* Ensure the image is fully displayed without cropping */
+    transition: transform 0.3s ease;
+    background: transparent;
+
+    animation: fadeIn 1s; -webkit-animation: fadeIn 1s; -moz-animation: fadeIn 1s; -o-animation: fadeIn 1s; -ms-animation: fadeIn 1s;
+  }
+}
+
+
 .triviaSection {
   margin: 2rem 0;
 }
 
 .triviaQuestion {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-weight: 800;
   margin-bottom: 1rem;
 }
 
@@ -78,7 +102,8 @@
   font-size: 5rem;
   font-weight: 1000;
   font-style: italic;
-  margin-top: 5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   line-height: 1;
   opacity: 0;
   animation: fadeInFromBottom 0.8s ease-out forwards; -webkit-animation: fadeInFromBottom 0.8s ease-out forwards; -moz-animation: fadeInFromBottom 0.8s ease-out forwards; -o-animation: fadeInFromBottom 0.8s ease-out forwards; -ms-animation: fadeInFromBottom 0.8s ease-out forwards;
@@ -88,7 +113,8 @@
   font-size: 5rem;
   font-weight: 1000;
   font-style: italic;
-  margin-top: 5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   line-height: 1;
   opacity: 0;
   animation: fadeInFromTop 0.8s ease-out forwards; -webkit-animation: fadeInFromTop 0.8s ease-out forwards; -moz-animation: fadeInFromTop 0.8s ease-out forwards; -o-animation: fadeInFromTop 0.8s ease-out forwards; -ms-animation: fadeInFromTop 0.8s ease-out forwards;
