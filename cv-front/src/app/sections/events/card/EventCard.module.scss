@@ -291,7 +291,13 @@
         background: yellow;
         color: black;
       }
+
+      transition: transform 0.3s ease;
     }
+    .cercatriviaItem:hover {
+      transform: scale(1.1);
+    }
+
     // ------------------------------------------------ x2 Reward ------------------------------------------------
     .x2rewardLine {
       width: fit-content;

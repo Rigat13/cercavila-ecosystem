@@ -16,6 +16,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
 
     const [popupVisible, setPopupVisible] = useState(false);
     const [selectedActivity, setSelectedActivity] = useState(null);
+    const [selectedActivityIsDoubleCoins, setSelectedActivityIsDoubleCoins] = useState(false);
 
     const { users } = useEventsContext();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -183,7 +184,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                     return (
                         <div key={index}>
                             {stillTimeRemaining && (
-                                <button className={styles.cercatriviaItem} onClick={() => handleActivityButtonClick(trivia)}>
+                                <button className={styles.cercatriviaItem} onClick={() => handleActivityButtonClick(trivia, daysRemaining === 7)}>
                                     <div className={styles.circleBackground} style={datesStyle}></div>
                                     <img src="/icons/icon-cercatrivia-min.svg" className={styles.icon}/>
                                     <div className={styles.date} style={datesStyle}> {formattedTriviaDate} </div>
@@ -204,10 +205,11 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
         );
     };
 
-    const handleActivityButtonClick = (activity) => {
+    const handleActivityButtonClick = (activity, isDoubleCoins) => {
         if (!isLoggedIn) return window.location.href = `/login.html`; // Could also add redirect, but did now work with client side routing
         else {
             setSelectedActivity(activity);
+            setSelectedActivityIsDoubleCoins(isDoubleCoins);
             setPopupVisible(true);
         }
     };
@@ -215,8 +217,8 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const handleActivityClose = () => {
         setPopupVisible(false);
         setSelectedActivity(null);
+        setSelectedActivityIsDoubleCoins(false);
     };
-
 
     return (
         <div className={styles.eventCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
@@ -239,12 +241,13 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                 </button>
             </a>
 
-            {popupVisible && selectedActivity && localStorage && (
+            {popupVisible && selectedActivity && selectedActivityIsDoubleCoins != undefined && localStorage && (
                 <ActivityPlayWindow
                     activity={selectedActivity as Activity}
                     onClose={handleActivityClose}
                     lang={lang}
                     user={users.find(user => user.nickname === localStorage.getItem('username'))}
+                    doubleCoins={selectedActivityIsDoubleCoins}
                 />
             )}
         </div>

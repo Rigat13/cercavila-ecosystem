@@ -4,7 +4,7 @@ import { dictionary } from "@/content";
 import confetti from 'canvas-confetti';
 import { Activity } from "@/modules/activities/domain/Activity";
 
-export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Activity; onClose: () => void; lang: string }) {
+export function ActivityPlayWindow({ activity, onClose, lang, doubleCoins }: { activity: Activity; onClose: () => void; lang: string; doubleCoins: boolean }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [activityAnswered, setActivityAnswered] = useState(false);
     const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
@@ -12,6 +12,7 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [imageOpacity, setImageOpacity] = useState(1);
     const [imageHeight, setImageHeight] = useState('auto');
+    const [isDoubleCoins, setIsDoubleCoins] = useState(false);
 
     useEffect(() => {
         if (activity.image) {
@@ -24,6 +25,10 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
         const answers = [activity.correctAnswer, activity.firstIncorrectAnswer, activity.secondIncorrectAnswer];
         setAnswerButtons(answers.sort(() => Math.random() - 0.5));
     }, [activity.image]);
+
+    useEffect(() => {
+        setIsDoubleCoins(doubleCoins);
+    }, [doubleCoins]);
 
     const handleAnswerClick = (answer: string) => {
         setSelectedAnswer(answer);
@@ -63,9 +68,19 @@ export function ActivityPlayWindow({ activity, onClose, lang }: { activity: Acti
                 )}
                 <button className={styles.closePopupButton} type="button" onClick={handleClose}>×</button>
                 {activityAnswered && isCorrectAnswer && (
-                    <p className={styles.superCongratulationsTitle}>
-                        {dictionary[lang]?.activityCorrect}
-                    </p>
+                    <div className={styles.rewardLineContainer}>
+                        <div className={styles.rewardLine}>
+                            <span className={styles.coins}>
+                                {isDoubleCoins ? // TODO Substitute by API call to ask for reward amount, add call to store reward and CLAIM button to claim it directly.
+                                    (<span className={styles.coins}>2</span>)
+                                    : (<span className={styles.coins}>1</span>)}
+                            </span>
+                            <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
+                        </div>
+                        <p className={styles.superCongratulationsTitle}>
+                            {dictionary[lang]?.activityCorrect}
+                        </p>
+                    </div>
                 )}
 
                 {activityAnswered && isCorrectAnswer === false && (

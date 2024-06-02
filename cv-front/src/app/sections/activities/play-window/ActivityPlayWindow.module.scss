@@ -257,3 +257,37 @@
     transform: scale(1.1);
   }
 }
+
+.rewardLineContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+.rewardLine {
+  width: fit-content;
+  position: absolute;
+  top: -0.5rem;
+  bottom: 0rem;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  padding-right: 0rem;
+  height: 2rem;
+  animation: scaleUpDown 1s infinite; -moz-animation: scaleUpDown 1s infinite; -webkit-animation: scaleUpDown 1s infinite; -o-animation: scaleUpDown 1s infinite; -ms-animation: scaleUpDown 1s infinite;
+}
+
+.coins {
+  color: #111111;
+  font-size: 2.5rem;
+  font-weight: 850;
+  margin-right: 0.4rem;
+}
+
+.coinIcon {
+  height: 2rem;
+  margin-right: 0.5rem;
+}
