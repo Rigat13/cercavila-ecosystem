@@ -66,13 +66,15 @@ function RightSidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
             </button>
             <div className={styles.rightMenuContainer}>
                 <div className={styles.rightMenu}>
-                    {events && events.map(event => (
-                        <EventCard
-                            key={event.id}
-                            event={event}
-                            lang={lang}
-                        />
-                    ))}
+                    {events && events
+                        .sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime())
+                        .map(event => (
+                            <EventCard
+                                key={event.id}
+                                event={event}
+                                lang={lang}
+                            />
+                        ))}
                 </div>
             </div>
         </div>
