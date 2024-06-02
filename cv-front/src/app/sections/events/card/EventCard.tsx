@@ -22,6 +22,9 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
 
+    const [hasExpired, setHasExpired] = useState(false);
+    const additionalActiveStyle = hasExpired ? { opacity: 0.5 } : {};
+
     useEffect(() => {
         if (event.image) {
             const blob = base64ToBlob(event.image as unknown as string);
@@ -33,6 +36,12 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
             setUser(users.find(user => user.nickname === localStorage.getItem('username')));
         }
     }, [event.image]);
+
+    useEffect(() => {
+        const today = new Date();
+        const endDate = new Date(event.endDate);
+        setHasExpired(today > endDate);
+    }, [event.endDate]);
 
     const [isHovered, setIsHovered] = useState(false);
     const handleMouseEnter = () => { setIsHovered(true); };
@@ -222,7 +231,7 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
 
     return (
         <div className={styles.eventCard} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <div className={styles.eventCard__info} style={additionalStyle}>
+            <div className={`${styles.eventCard__info} ${hasExpired ? styles.expiredEventCard : ''} `} style={additionalStyle}>
                 {imageUrl && (
                     <div className={styles.eventCard__image}>
                         <img src={imageUrl} alt={`Image of ${event.name}`} />

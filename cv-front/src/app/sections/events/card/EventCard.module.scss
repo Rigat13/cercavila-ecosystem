@@ -10,6 +10,11 @@
   width: 20rem;
   height: auto;
 
+  .expiredEventCard {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   &__info {
     width: 95%;
     height: auto;
