@@ -255,7 +255,6 @@ export function EventCard({ event, lang }: { event: Event; lang: string }) {
                     activity={selectedActivity as Activity}
                     onClose={handleActivityClose}
                     lang={lang}
-                    user={users.find(user => user.nickname === localStorage.getItem('username'))}
                     doubleCoins={selectedActivityIsDoubleCoins}
                 />
             )}
