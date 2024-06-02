@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState, useRef } from 'react';
 import { defaultLang, dictionary } from "@/content";
 import styles from "./SidebarMenu.module.scss";
 import { useSearchParams } from "next/navigation";
@@ -30,6 +30,15 @@ function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
     const existingParams = getExistingParams(searchParams);
     const { users } = useUsersContext();
     const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+    const sidebarRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => { if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {onClose();}};
+        if (isOpen) {document.addEventListener('mousedown', handleClickOutside);}
+        else {document.removeEventListener('mousedown', handleClickOutside);}
+        
+        return () => {document.removeEventListener('mousedown', handleClickOutside);};
+    }, [isOpen, onClose]);
 
     useEffect(() => {
         const storedUsername = localStorage.getItem('username');
@@ -46,7 +55,7 @@ function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
     };
 
     return (
-        <div className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
+        <div ref={sidebarRef} className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
             <button className={styles.sidebarButton} onClick={onClose}>
                 <img src="/icons/icon-burger-inverted.svg" alt="Side bar" />
             </button>
