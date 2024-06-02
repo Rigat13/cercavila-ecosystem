@@ -10,6 +10,7 @@ import {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import {Suspense} from "react";
+import RightSidebarMenu from "@/app/sections/shared/RightSidebarMenu";
 
 export default function Page() {
     return (
@@ -23,9 +24,12 @@ function PageContent() {
     const searchParams = useSearchParams();
     const activityId = searchParams.get('activityId') || '';
     const lang = searchParams.get('lang') || defaultLang;
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const toggleSidebar = () => { setIsSidebarOpen(!isSidebarOpen); };
     const repository = createApiActivityRepository();
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
+    const toggleSidebar = () => { setIsSidebarOpen(!isSidebarOpen); };
+    const toggleRightSidebar = () => { setIsRightSidebarOpen(!isRightSidebarOpen); };
 
     return (
         <ActivitiesContextProvider repository={repository}>
@@ -38,6 +42,7 @@ function PageContent() {
                     <img src="/icons/icon-burger.svg" alt="Side bar" />
                 </button>
                 <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
+                <RightSidebarMenu isOpen={isRightSidebarOpen} onClose={toggleRightSidebar} lang={lang}/>
             </div>
 
             <div className = "Activities">

@@ -4,11 +4,12 @@ import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiColla
 import {CollesContextProvider, useCollesContext} from "@/app/sections/colles/CollesContext";
 import {useSearchParams } from "next/navigation";
 import {defaultLang, dictionary} from "@/content";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import {Suspense} from "react";
 import {CollaPageHolder} from "@/app/sections/colles/colla/CollaPageHolder";
+import RightSidebarMenu from "@/app/sections/shared/RightSidebarMenu";
 
 export default function Page() {
     return (
@@ -22,10 +23,12 @@ function PageContent() {
     const searchParams = useSearchParams();
     const collaId = searchParams.get('collaId') || '';
     const lang = searchParams.get('lang') || defaultLang;
+    const repository = createApiCollaRepository();
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
     const toggleSidebar = () => { setIsSidebarOpen(!isSidebarOpen); };
-    const repository = createApiCollaRepository();
+    const toggleRightSidebar = () => { setIsRightSidebarOpen(!isRightSidebarOpen); };
 
     return (
         <CollesContextProvider repository={repository}>
@@ -38,6 +41,7 @@ function PageContent() {
                         <img src="/icons/icon-burger.svg" alt="Side bar" />
                     </button>
                     <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
+                    <RightSidebarMenu isOpen={isRightSidebarOpen} onClose={toggleRightSidebar} lang={lang}/>
                 </div>
 
                 { collaId && <CollaPageHolder collaId={collaId} lang={lang}/> }

@@ -7,11 +7,12 @@ import {FilteredDigitalProductsList} from "@/app/sections/digitalproducts/list/F
 import {CreateDigitalProductForm} from "@/app/sections/digitalproducts/form/CreateDigitalProductForm";
 import {defaultLang, dictionary} from "@/content";
 import {useSearchParams } from "next/navigation";
-import {useState} from "react";
+import React, {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import globalStyles from "@/app/globalStyles.module.scss";
 import { Suspense } from 'react';
+import RightSidebarMenu from "@/app/sections/shared/RightSidebarMenu";
 
 export default function Page() {
     return (
@@ -25,8 +26,12 @@ function PageContent() {
     const searchParams = useSearchParams();
     const lang = searchParams.get('lang') || defaultLang;
     const repository = createApiDigitalProductRepository();
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
     const toggleSidebar = () => { setIsSidebarOpen(!isSidebarOpen); };
+    const toggleRightSidebar = () => { setIsRightSidebarOpen(!isRightSidebarOpen); };
+
     return (
         <DigitalProductsContextProvider repository={repository}>
             <div className="flex justify-center items-center">
@@ -37,6 +42,7 @@ function PageContent() {
                     <img src="/icons/icon-burger.svg" alt="Side bar" />
                 </button>
                 <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
+                <RightSidebarMenu isOpen={isRightSidebarOpen} onClose={toggleRightSidebar} lang={lang}/>
             </div>
 
             <div className = "DigitalProducts">

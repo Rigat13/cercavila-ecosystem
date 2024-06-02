@@ -11,6 +11,7 @@ import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import { Suspense } from 'react';
 import {CCGMCardHolder} from "@/app/sections/colles/list/CCGMCardHolder";
+import RightSidebarMenu from "@/app/sections/shared/RightSidebarMenu";
 
 export default function Page() {
     return (
@@ -24,8 +25,12 @@ function PageContent() {
     const searchParams = useSearchParams();
     const lang = searchParams.get('lang') || defaultLang;
     const repository = createApiCollaRepository();
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
     const toggleSidebar = () => { setIsSidebarOpen(!isSidebarOpen); };
+    const toggleRightSidebar = () => { setIsRightSidebarOpen(!isRightSidebarOpen); };
+
     return (
         <CollesContextProvider repository={repository}>
             <div className="flex justify-center items-center">
@@ -36,6 +41,7 @@ function PageContent() {
                     <img src="/icons/icon-burger.svg" alt="Side bar" />
                 </button>
                 <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
+                <RightSidebarMenu isOpen={isRightSidebarOpen} onClose={toggleRightSidebar} lang={lang}/>
             </div>
 
             <div className = "CCGM">
