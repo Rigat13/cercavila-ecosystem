@@ -13,19 +13,19 @@ interface SidebarMenuProps {
     lang: string;
 }
 
-export default function SidebarMenu({ isOpen, onClose, lang }: SidebarMenuProps) {
+export default function RightSidebarMenu({ isOpen, onClose, lang }: SidebarMenuProps) {
     const repository = createApiUserRepository();
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <UsersContextProvider repository={repository}>
-                <SidebarMenuContent isOpen={isOpen} onClose={onClose} lang={lang} />
+                <RightSidebarMenuContent isOpen={isOpen} onClose={onClose} lang={lang} />
             </UsersContextProvider>
         </Suspense>
     );
 }
 
-function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
+function RightSidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
     const searchParams = useSearchParams();
     const existingParams = getExistingParams(searchParams);
     const { users } = useUsersContext();
@@ -55,9 +55,9 @@ function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
     };
 
     return (
-        <div ref={sidebarRef} className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
-            <button className={styles.sidebarButton} onClick={onClose}>
-                <img src="/icons/icon-burger-inverted.svg" alt="Side bar" />
+        <div ref={sidebarRef} className={`${styles.rightSidebar} ${isOpen ? styles.open : ''}`}>
+            <button className={styles.rightSidebarButton} onClick={onClose}>
+                <img src="/icons/icon-cercatrivia-min.svg" alt="Events" />
             </button>
             <div className={styles.menuContainer}>
                 <div className={styles.menu}>
@@ -72,23 +72,6 @@ function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
                             <a className={styles.sidebarActionButton} href="/register.html">{dictionary[lang]?.registerButton}</a>
                         </div>
                     )}
-                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/" : `/?lang=${lang}`}>{dictionary[lang]?.cercavilaTitle}</a>
-                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/ccgm.html" : `/ccgm.html?lang=${lang}`}>{dictionary[lang]?.ccgmAcronym}</a>
-                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>{dictionary[lang]?.collesTitle}</a>
-                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/figures.html" : `/figures.html?lang=${lang}`}>{dictionary[lang]?.figuresTitle}</a>
-                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/store.html" : `/store.html?lang=${lang}`}>{dictionary[lang]?.storeTitle}</a>
-                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/digitalproducts.html" : `/digitalproducts.html?lang=${lang}`}>{dictionary[lang]?.digitalProductsTitle}</a>
-                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/users.html" : `/users.html?lang=${lang}`}>{dictionary[lang]?.usersTitle}</a>
-                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/activities.html" : `/activities.html?lang=${lang}`}>{dictionary[lang]?.activitiesTitle}</a>
-                    <a className={styles.sidebarCategoryButton} href={lang === defaultLang ? "/events.html" : `/events.html?lang=${lang}`}>{dictionary[lang]?.eventsTitle}</a>
-                </div>
-            </div>
-            <div className={styles.languageSelector}>
-                <button className={styles.languageButton}>{lang}</button>
-                <div className={styles.dropdownContent}>
-                    {lang !== defaultLang && <a href={`?${existingParams}&lang=ca`}>{defaultLang}</a>}
-                    {lang !== 'en' && <a href={`?${existingParams}&lang=en`}>en</a>}
-                    {lang !== 'es' && <a href={`?${existingParams}&lang=es`}>es</a>}
                 </div>
             </div>
         </div>

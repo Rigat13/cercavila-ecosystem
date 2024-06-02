@@ -144,4 +144,43 @@
   .sidebarActionButton:hover {
     background-color: darkblue;
   }
+
+
+
+
+  /* ---------------------------------------------------- RIGHT SIDEBAR ---------------------------------------------------- */
+  .rightSidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initially hidden */
+    width: 300px;
+    height: 100%;
+    background-color: black;
+    transition: right 0.3s ease; /* Animate right property */
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    z-index: 10;
+
+    &.open {
+      right: 0; /* Move to the right when open */
+    }
+  }
+
+  .rightSidebarButton {
+    position: relative;
+    top: 0;
+    left: -6rem;
+    margin: 1rem;
+    display: flex;
+    width: 4rem;
+    height: auto;
+    transition: transform 0.3s ease;
+    z-index: 9;
+    border: 0.4rem solid black;
+    border-radius: 50%;
+  }
+
+  .rightSidebarButton:hover {
+    transform: scale(1.1);
+  }
 }
