@@ -6,6 +6,9 @@ import UserCard from "@/app/sections/users/card/UserCard";
 import { UsersContextProvider, useUsersContext } from "@/app/sections/users/UsersContext";
 import { User } from "@/modules/users/domain/User";
 import { createApiUserRepository } from "@/modules/users/infrastructure/ApiUserRepository";
+import {EventCard} from "@/app/sections/events/card/EventCard";
+import {EventsContextProvider, useEventsContext} from "@/app/sections/events/EventsContext";
+import {createApiEventRepository} from "@/modules/events/infrastructure/ApiEventRepository";
 
 interface SidebarMenuProps {
     isOpen: boolean;
@@ -14,13 +17,13 @@ interface SidebarMenuProps {
 }
 
 export default function RightSidebarMenu({ isOpen, onClose, lang }: SidebarMenuProps) {
-    const repository = createApiUserRepository();
+    const repository = createApiEventRepository();
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <UsersContextProvider repository={repository}>
+            <EventsContextProvider repository={repository}>
                 <RightSidebarMenuContent isOpen={isOpen} onClose={onClose} lang={lang} />
-            </UsersContextProvider>
+            </EventsContextProvider>
         </Suspense>
     );
 }
@@ -28,7 +31,9 @@ export default function RightSidebarMenu({ isOpen, onClose, lang }: SidebarMenuP
 function RightSidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
     const searchParams = useSearchParams();
     const existingParams = getExistingParams(searchParams);
-    const { users } = useUsersContext();
+    const { users } = useEventsContext();
+    const { events } = useEventsContext();
+
     const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -57,21 +62,17 @@ function RightSidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
     return (
         <div ref={sidebarRef} className={`${styles.rightSidebar} ${isOpen ? styles.open : ''}`}>
             <button className={styles.rightSidebarButton} onClick={onClose}>
-                <img src="/icons/icon-cercatrivia-min.svg" alt="Events" />
+                <img src="/icons/icon-cercampionat-min.svg" alt="Events" />
             </button>
-            <div className={styles.menuContainer}>
-                <div className={styles.menu}>
-                    {loggedInUser ? (
-                        <div className={styles.userCardContainer}>
-                            <UserCard user={loggedInUser} lang={lang} />
-                            <button className={styles.sidebarActionButton} onClick={handleLogout}>{dictionary[lang]?.logoutButton}</button>
-                        </div>
-                    ) : (
-                        <div className={styles.authButtonsContainer}>
-                            <a className={styles.sidebarActionButton} href="/login.html">{dictionary[lang]?.loginButton}</a>
-                            <a className={styles.sidebarActionButton} href="/register.html">{dictionary[lang]?.registerButton}</a>
-                        </div>
-                    )}
+            <div className={styles.rightMenuContainer}>
+                <div className={styles.rightMenu}>
+                    {events && events.map(event => (
+                        <EventCard
+                            key={event.id}
+                            event={event}
+                            lang={lang}
+                        />
+                    ))}
                 </div>
             </div>
         </div>

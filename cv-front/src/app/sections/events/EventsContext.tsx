@@ -12,7 +12,6 @@ import {User} from "@/modules/users/domain/User";
 import {getAllUsers_eventRepo} from "@/modules/users/application/get-all/getAllUsers";
 import {updateUser_eventRepo} from "@/modules/users/application/update/updateUser";
 import {Activity} from "../../../modules/activities/domain/Activity";
-import {getAllActivitiesNoImage_eventRepo} from "../../../modules/activities/application/get-all/getAllActivitiesNoImage";
 import {getAllDigitalProducts_eventRepo} from "../../../modules/digitalproducts/application/get-all/getAllDigitalProducts";
 import {DigitalProduct} from "../../../modules/digitalproducts/domain/DigitalProduct";
 import {getAllActivities_eventRepo} from "@/modules/activities/application/get-all/getAllActivities";
