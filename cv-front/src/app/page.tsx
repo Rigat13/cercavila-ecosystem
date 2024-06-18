@@ -3,10 +3,11 @@
 import Image from "next/image";
 import {defaultLang, dictionary} from "@/content";
 import {useSearchParams } from "next/navigation";
-import {useState} from "react";
+import React, {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import { Suspense } from 'react';
+import RightSidebarMenu from "@/app/sections/shared/RightSidebarMenu";
 
 export default function Home() {
   return (
@@ -19,8 +20,11 @@ export default function Home() {
 function HomeContent() {
   const searchParams = useSearchParams();
   const lang = searchParams.get('lang') || defaultLang;
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
   const toggleSidebar = () => { setIsSidebarOpen(!isSidebarOpen); };
+  const toggleRightSidebar = () => { setIsRightSidebarOpen(!isRightSidebarOpen); };
 
   return (
     <main>
@@ -29,6 +33,7 @@ function HomeContent() {
           <img src="/icons/icon-burger.svg" alt="Side bar" />
         </button>
         <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
+        <RightSidebarMenu isOpen={isRightSidebarOpen} onClose={toggleRightSidebar} lang={lang}/>
       </div>
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="z-9 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
