@@ -30,6 +30,8 @@ interface DictionaryEntry {
     registerButton: string;
     registerError: string;
     logoutButton: string;
+    incorrectPasswordError: string;
+    userNotFoundError: string;
 
     // -------------------------------------------------------------------------------------------- CCGM
     ccgmAcronym: string;
@@ -558,6 +560,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         registerButton: "Registra't",
         registerError: "Error en registrar-se",
         logoutButton: "Tanca sessió",
+        incorrectPasswordError: "Contrasenya incorrecta",
+        userNotFoundError: "No s'ha trobat cap usuari/a amb aquest nom",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -1087,6 +1091,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         registerButton: "Regístrate",
         registerError: "Error en registrarse",
         logoutButton: "Cierra sesión",
+        incorrectPasswordError: "Contraseña incorrecta",
+        userNotFoundError: "No se ha encontrado al usuario/a con este nombre",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -1616,6 +1622,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         registerButton: "Register",
         registerError: "Error registering",
         logoutButton: "Log out",
+        incorrectPasswordError: "Incorrect password",
+        userNotFoundError: "No user found with this nickname",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
