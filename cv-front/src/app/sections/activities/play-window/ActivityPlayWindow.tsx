@@ -3,6 +3,7 @@ import styles from './ActivityPlayWindow.module.scss';
 import { dictionary } from "@/content";
 import confetti from 'canvas-confetti';
 import { Activity } from "@/modules/activities/domain/Activity";
+import ReactDOM from 'react-dom';
 
 export function ActivityPlayWindow({ activity, onClose, lang, doubleCoins }: { activity: Activity; onClose: () => void; lang: string; doubleCoins: boolean }) {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -55,15 +56,13 @@ export function ActivityPlayWindow({ activity, onClose, lang, doubleCoins }: { a
         onClose();
     };
 
-    return (
+    return ReactDOM.createPortal(
         <div className={styles.popupOverlay}>
             <div className={styles.popupContent}>
+                {/* Your existing code logic */}
                 {imageUrl && (
                     <div className={styles.image} style={{ opacity: imageOpacity, height: imageHeight }}>
-                        <img
-                            src={imageUrl}
-                            alt={`Image of ${activity.question}`}
-                        />
+                        <img src={imageUrl} alt={`Image of ${activity.question}`} />
                     </div>
                 )}
                 <button className={styles.closePopupButton} type="button" onClick={handleClose}>×</button>
@@ -72,38 +71,22 @@ export function ActivityPlayWindow({ activity, onClose, lang, doubleCoins }: { a
                         <div className={styles.rewardLine}>
                             <span className={styles.coins}>
                                 {isDoubleCoins ? // TODO Substitute by API call to ask for reward amount, add call to store reward and CLAIM button to claim it directly.
-                                    (<span className={styles.coins}>2</span>)
-                                    : (<span className={styles.coins}>1</span>)}
+                                    (<span className={styles.coins}>2</span>) : (<span className={styles.coins}>1</span>)}
                             </span>
                             <img src="/icons/icon-coin.svg" alt="Coin" className={styles.coinIcon} />
                         </div>
-                        <p className={styles.superCongratulationsTitle}>
-                            {dictionary[lang]?.activityCorrect}
-                        </p>
+                        <p className={styles.superCongratulationsTitle}>{dictionary[lang]?.activityCorrect}</p>
                     </div>
                 )}
-
-                {activityAnswered && isCorrectAnswer === false && (
-                    <p className={styles.superSadTitle}>
-                        {dictionary[lang]?.activityIncorrect}
-                    </p>
+                {activityAnswered && !isCorrectAnswer && (
+                    <p className={styles.superSadTitle}>{dictionary[lang]?.activityIncorrect}</p>
                 )}
                 <div className={styles.triviaSection}>
                     <h2 className={styles.triviaQuestion}>{activity.question}</h2>
                     {answerButtons.map((answer, index) => (
                         <button
                             key={index}
-                            className={`${styles.answerButton} ${
-                                activityAnswered
-                                    ? answer === activity.correctAnswer
-                                        ? styles.correct
-                                        : styles.incorrect
-                                    : ''
-                            } ${
-                                answer === selectedAnswer
-                                    ? styles.selected
-                                    : ''
-                            }`}
+                            className={`${styles.answerButton} ${activityAnswered ? (answer === activity.correctAnswer ? styles.correct : styles.incorrect) : ''} ${answer === selectedAnswer ? styles.selected : ''}`}
                             onClick={() => !activityAnswered && handleAnswerClick(answer)}
                             disabled={activityAnswered}
                         >
@@ -111,14 +94,14 @@ export function ActivityPlayWindow({ activity, onClose, lang, doubleCoins }: { a
                         </button>
                     ))}
                 </div>
-
                 {!activityAnswered && (
                     <button className={styles.cancelButton} onClick={handleClose}>
                         {dictionary[lang]?.digitalProductCancelBuyButton}
                     </button>
                 )}
             </div>
-        </div>
+        </div>,
+        document.body // Append to body
     );
 }
 
