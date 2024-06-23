@@ -145,7 +145,24 @@
     background-color: darkblue;
   }
 
+  .homeButton {
+    position: relative;
+    top: 4rem;
+    left: 22rem;
+    margin: 1rem;
+    display: flex;
+    width: 3.5rem;
+    height: auto;
+    transition: transform 0.3s ease;
+    z-index: 9;
+    border: 0.4rem solid black;
+    background: black;
+    border-radius: 50%;
+  }
 
+  .homeButton:hover {
+    transform: scale(1.1);
+  }
 
 
   /* ---------------------------------------------------- RIGHT SIDEBAR ---------------------------------------------------- */
