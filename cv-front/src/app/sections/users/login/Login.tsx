@@ -96,7 +96,10 @@ const Login: React.FC<LoginProps> = ({ onLogin, lang }) => {
                 </div>
                 {error && <div className={styles.errorMessage}>{error}</div>}
                 <div className={styles.buttonContainer}>
-                    <button type="submit" className={styles.actionButton} disabled={!isNicknameValid || !nicknameExists || !isPasswordValid}>{dictionary[lang]?.loginButton}</button>
+                    <button type="submit" className={styles.actionButton}
+                            disabled={!isNicknameValid || !nicknameExists || !isPasswordValid}>
+                        {dictionary[lang]?.loginButton}
+                    </button>
                 </div>
             </form>
         </div>
