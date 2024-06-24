@@ -45,19 +45,19 @@ function HomeContent() {
         </div>
         <div className={styles.grid}>
           <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
-            <img src="/icons/icon-home.svg" alt="Arrow" className={styles.menuImage} /> {dictionary[lang]?.collesTitle}
+            <img src="/icons/icon-colles.svg" alt="Colles" className={styles.menuImage} /> {dictionary[lang]?.collesTitle}
           </a>
 
-          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
-            <img src="/icons/icon-home.svg" alt="Arrow" className={styles.menuImage} /> {dictionary[lang]?.storeTitle}
+          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/store.html" : `/store.html?lang=${lang}`}>
+            <img src="/icons/icon-store.svg" alt="Store" className={styles.menuImage} /> {dictionary[lang]?.storeTitle}
           </a>
 
-          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
-            <img src="/icons/icon-home.svg" alt="Arrow" className={styles.menuImage} /> {dictionary[lang]?.usersTitle}
+          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/users.html" : `/users.html?lang=${lang}`}>
+            <img src="/icons/icon-users.svg" alt="Users" className={styles.menuImage} /> {dictionary[lang]?.usersTitle}
           </a>
 
-          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
-            <img src="/icons/icon-home.svg" alt="Arrow" className={styles.menuImage} /> {dictionary[lang]?.eventsTitle}
+          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/events.html" : `/events.html?lang=${lang}`}>
+            <img src="/icons/icon-events.svg" alt="Events" className={styles.menuImage} /> {dictionary[lang]?.eventsTitle}
           </a>
         </div>
       </main>
