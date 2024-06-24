@@ -1,4 +1,4 @@
-$figure-scroll-speed: 40s;
+$figure-scroll-speed: 60s;
 $jump-time: 0.7s;
 $jump-distance: 1.5rem;
 
@@ -64,7 +64,6 @@ $jump-distance: 1.5rem;
   padding: 0.5rem 1rem;
   border-radius: 2rem;
 }
-
 
 .grid {
   display: grid;
@@ -158,11 +157,30 @@ $jump-distance: 1.5rem;
   animation-timing-function: linear;
 }
 
-@keyframes scrollLeft { 0% {transform: translateX(0);opacity: 0;} 5% {opacity: 1;} 95% { opacity: 1;} 100% {transform: translateX(-100%); opacity: 0;} }
-@-moz-keyframes scrollLeft { 0% {transform: translateX(0);opacity: 0;} 5% {opacity: 1;} 95% { opacity: 1;} 100% {transform: translateX(-100%); opacity: 0;} }
-@-webkit-keyframes scrollLeft { 0% {transform: translateX(0);opacity: 0;} 5% {opacity: 1;} 95% { opacity: 1;} 100% {transform: translateX(-100%); opacity: 0;} }
-@-o-keyframes scrollLeft { 0% {transform: translateX(0);opacity: 0;} 5% {opacity: 1;} 95% { opacity: 1;} 100% {transform: translateX(-100%); opacity: 0;} }
-
+@keyframes scrollLeft {
+  0% { transform: translateX(0); opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}
+@-moz-keyframes scrollLeft {
+  0% { transform: translateX(0); opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}
+@-webkit-keyframes scrollLeft {
+  0% { transform: translateX(0); opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}
+@-o-keyframes scrollLeft {
+  0% { transform: translateX(0); opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}
 
 /* Cloned content styling */
 .figuresWrapper.clone {
@@ -172,14 +190,56 @@ $jump-distance: 1.5rem;
   animation: none; /* No animation for the clone */
 }
 
-.figureDiv {
-  animation: jump $jump-time ease-in-out infinite; -moz-animation: jump $jump-time ease-in-out infinite; -webkit-animation: jump $jump-time ease-in-out infinite; -o-animation: jump $jump-time ease-in-out infinite;
+/* Animation for odd figures */
+.figureDiv:nth-child(odd) {
+  animation: jump $jump-time ease-in-out infinite;
+  -moz-animation: jump $jump-time ease-in-out infinite;
+  -webkit-animation: jump $jump-time ease-in-out infinite;
+  -o-animation: jump $jump-time ease-in-out infinite;
 }
 
-@keyframes jump { 0%, 100% {transform: translateY(0);} 50% {transform: translateY($jump-distance); }}
-@-moz-keyframes jump { 0%, 100% {transform: translateY(0);} 50% {transform: translateY($jump-distance); }}
-@-webkit-keyframes jump { 0%, 100% {transform: translateY(0);} 50% {transform: translateY($jump-distance); }}
-@-o-keyframes jump { 0%, 100% {transform: translateY(0);} 50% {transform: translateY($jump-distance); }}
+/* Animation for even figures */
+.figureDiv:nth-child(even) {
+  animation: bounce $jump-time ease-in-out infinite;
+  -moz-animation: bounce $jump-time ease-in-out infinite;
+  -webkit-animation: bounce $jump-time ease-in-out infinite;
+  -o-animation: bounce $jump-time ease-in-out infinite;
+  animation-delay: calc(var(--random-delay) * 1s); /* Add random delay */
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY($jump-distance); }
+}
+@-moz-keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY($jump-distance); }
+}
+@-webkit-keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY($jump-distance); }
+}
+@-o-keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY($jump-distance); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-1 * $jump-distance)); }
+}
+@-moz-keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-1 * $jump-distance)); }
+}
+@-webkit-keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-1 * $jump-distance)); }
+}
+@-o-keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-1 * $jump-distance)); }
+}
 
 /* ---------------------------------------------------- BIG SCREEN ---------------------------------------------------- */
 
@@ -207,7 +267,6 @@ $jump-distance: 1.5rem;
     max-width: 15rem;
     margin-top: 0rem;
   }
-
 
   .menuCategoryButton {
     width: 26rem;
