@@ -70,7 +70,7 @@ $jump-distance: 1.5rem;
   grid-template-columns: 1fr;
   gap: 16px;
   text-align: center;
-  margin-top: 32px;
+  margin-top: 5rem;
 }
 
 .group {
@@ -111,21 +111,25 @@ $jump-distance: 1.5rem;
   width: 20rem;
   height: auto; /* Maintain aspect ratio */
   transition: transform 0.3s ease;
-  background-color: #232323;
-  color: white;
+  background: rgba(226, 255, 245, 0.7);
+  backdrop-filter: blur(10px); /* Blur effect for the background */
+  color: #232323;
   font-weight: bold;
   font-size: 1.5rem;
   border-radius: 2rem;
   padding: 1rem;
   justify-content: center; // Center text horizontally
   align-items: center; // Center text vertically
+  border-width: 0.5rem;
+  border-color: #232323;
 }
 
 .menuCategoryButton:hover {
   transform: scale(1.1);
-  background-color: #2fffc1;
+  background: rgba(47, 255, 193, 0.7);
   color: #232323;
 }
+
 
 .menuImage {
   width: 4rem;
@@ -136,6 +140,9 @@ $jump-distance: 1.5rem;
   padding: 0rem;
   margin-right: 1rem;
   margin-left: -0.5rem;
+  background: #232323;
+  border-width: 0.5rem;
+  border-color: #232323;
   border-radius: 50%;
 }
 
@@ -143,11 +150,13 @@ $jump-distance: 1.5rem;
 
 .figuresContainer {
   width: 100%;
-  overflow: hidden; /* Hide the scrollbar */
   display: flex;
   flex-wrap: nowrap; /* Ensure figures stay in a single line */
-  padding: 10px 0; /* Optional: Add padding for spacing */
   position: relative;
+  top: -24rem;
+  overflow: hidden;
+  padding: $jump-distance;
+  z-index: -1;
 }
 
 .figuresWrapper {
@@ -157,30 +166,10 @@ $jump-distance: 1.5rem;
   animation-timing-function: linear;
 }
 
-@keyframes scrollLeft {
-  0% { transform: translateX(0); opacity: 0; }
-  5% { opacity: 1; }
-  95% { opacity: 1; }
-  100% { transform: translateX(-100%); opacity: 0; }
-}
-@-moz-keyframes scrollLeft {
-  0% { transform: translateX(0); opacity: 0; }
-  5% { opacity: 1; }
-  95% { opacity: 1; }
-  100% { transform: translateX(-100%); opacity: 0; }
-}
-@-webkit-keyframes scrollLeft {
-  0% { transform: translateX(0); opacity: 0; }
-  5% { opacity: 1; }
-  95% { opacity: 1; }
-  100% { transform: translateX(-100%); opacity: 0; }
-}
-@-o-keyframes scrollLeft {
-  0% { transform: translateX(0); opacity: 0; }
-  5% { opacity: 1; }
-  95% { opacity: 1; }
-  100% { transform: translateX(-100%); opacity: 0; }
-}
+@keyframes scrollLeft { 0% { transform: translateX(0); opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
+@-moz-keyframes scrollLeft { 0% { transform: translateX(0); opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
+@-webkit-keyframes scrollLeft { 0% { transform: translateX(0); opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
+@-o-keyframes scrollLeft { 0% { transform: translateX(0); opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
 
 /* Cloned content styling */
 .figuresWrapper.clone {
@@ -207,39 +196,15 @@ $jump-distance: 1.5rem;
   animation-delay: calc(var(--random-delay) * 1s); /* Add random delay */
 }
 
-@keyframes jump {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY($jump-distance); }
-}
-@-moz-keyframes jump {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY($jump-distance); }
-}
-@-webkit-keyframes jump {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY($jump-distance); }
-}
-@-o-keyframes jump {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY($jump-distance); }
-}
+@keyframes jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY($jump-distance); } }
+@-moz-keyframes jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY($jump-distance); } }
+@-webkit-keyframes jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY($jump-distance); } }
+@-o-keyframes jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY($jump-distance); } }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(calc(-1 * $jump-distance)); }
-}
-@-moz-keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(calc(-1 * $jump-distance)); }
-}
-@-webkit-keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(calc(-1 * $jump-distance)); }
-}
-@-o-keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(calc(-1 * $jump-distance)); }
-}
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
+@-moz-keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
+@-webkit-keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
+@-o-keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
 
 /* ---------------------------------------------------- BIG SCREEN ---------------------------------------------------- */
 
