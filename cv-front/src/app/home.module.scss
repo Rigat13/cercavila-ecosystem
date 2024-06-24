@@ -1,3 +1,5 @@
+$figure-scroll-speed: 40s;
+
 .main {
   display: flex;
   flex-direction: column;
@@ -140,16 +142,59 @@
 
 .figuresContainer {
   width: 100%;
-  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow: hidden; /* Hide the scrollbar */
   display: flex;
   flex-wrap: nowrap; /* Ensure figures stay in a single line */
   padding: 10px 0; /* Optional: Add padding for spacing */
+  position: relative;
 }
 
 .figuresWrapper {
   display: flex;
   gap: 0;
+  animation: scrollLeft $figure-scroll-speed linear infinite; -webkit-animation: scrollLeft $figure-scroll-speed linear infinite; -moz-animation: scrollLeft $figure-scroll-speed linear infinite; -o-animation: scrollLeft $figure-scroll-speed linear infinite;
+  animation-timing-function: linear;
 }
+
+@keyframes scrollLeft {
+  0% {transform: translateX(0);opacity: 0;}
+  5% {opacity: 1;}
+  95% { opacity: 1;}
+  100% {transform: translateX(-100%); opacity: 0;}
+}
+
+@-moz-keyframes scrollLeft {
+  0% {transform: translateX(0);opacity: 0;}
+  5% {opacity: 1;}
+  95% { opacity: 1;}
+  100% {transform: translateX(-100%); opacity: 0;}
+}
+
+@-webkit-keyframes scrollLeft {
+  0% {transform: translateX(0);opacity: 0;}
+  5% {opacity: 1;}
+  95% { opacity: 1;}
+  100% {transform: translateX(-100%); opacity: 0;}
+}
+
+@-o-keyframes scrollLeft {
+  0% {transform: translateX(0);opacity: 0;}
+  5% {opacity: 1;}
+  95% { opacity: 1;}
+  100% {transform: translateX(-100%); opacity: 0;}
+}
+
+
+/* Cloned content styling */
+.figuresWrapper.clone {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  animation: none; /* No animation for the clone */
+}
+
+
+/* ---------------------------------------------------- BIG SCREEN ---------------------------------------------------- */
 
 @media (min-width: 768px) {
   .relative {

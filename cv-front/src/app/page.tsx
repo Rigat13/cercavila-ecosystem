@@ -3,7 +3,7 @@
 import Image from "next/image";
 import {defaultLang, dictionary} from "@/content";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import { Suspense } from 'react';
@@ -33,6 +33,16 @@ function HomeContent() {
   const toggleRightSidebar = () => { setIsRightSidebarOpen(!isRightSidebarOpen); };
 
   const { figures } = useCollesContext();
+
+  // ------------------------------------------ Auto scroll figures
+  const wrapperRef = useRef(null);
+  useEffect(() => {
+      const wrapper = wrapperRef.current;
+      const clone = wrapper.cloneNode(true);
+      clone.classList.add(styles.clone);
+      wrapper.parentNode.appendChild(clone);
+  }, []);
+  // --------------------------------------------------------------
 
   return (
       <main className={styles.main}>
@@ -72,13 +82,13 @@ function HomeContent() {
           </a>
         </div>
 
-        <div className={styles.figuresContainer}>
-          <div className={styles.figuresWrapper}>
-            {figures && figures.map((loadedFigure) => (
-                <SimpleCollaFiguraCard key={loadedFigure.id} figura={loadedFigure} lang={lang}/>
-            ))}
+          <div className={styles.figuresContainer}>
+              <div className={styles.figuresWrapper} ref={wrapperRef}>
+                  {figures && figures.map((loadedFigure) => (
+                      <SimpleCollaFiguraCard key={loadedFigure.id} figura={loadedFigure} lang={lang} />
+                  ))}
+              </div>
           </div>
-        </div>
       </main>
   );
 }
