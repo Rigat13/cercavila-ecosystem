@@ -9,7 +9,6 @@ import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import { Suspense } from 'react';
 import RightSidebarMenu from "@/app/sections/shared/RightSidebarMenu";
 import styles from './home.module.scss';
-import {CollaFiguraCard} from "@/app/sections/colles/colla/figura/CollaFiguraCard";
 import {CollesContextProvider, useCollesContext} from "@/app/sections/colles/CollesContext";
 import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiCollaRepository";
 import {SimpleCollaFiguraCard} from "@/app/sections/colles/colla/figura/SimpleCollaFiguraCard";

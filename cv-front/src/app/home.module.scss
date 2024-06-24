@@ -1,6 +1,7 @@
 $figure-scroll-speed: 60s;
 $jump-time: 0.7s;
 $jump-distance: 1.5rem;
+$background-speed: 60s;
 
 .main {
   display: flex;
@@ -9,7 +10,20 @@ $jump-distance: 1.5rem;
   justify-content: center; /* Center items vertically */
   min-height: 100vh;
   padding: 24px;
+
+  background-image: url('/web-background.avif');
+  background-size: 30rem; /* Adjust the size of each repeated image */
+  background-repeat: repeat; /* Repeat the image */
+  background-position: center;
+  background-attachment: fixed;
+
+  animation: moveBackground $background-speed linear infinite; -moz-animation: moveBackground $background-speed linear infinite; -webkit-animation: moveBackground $background-speed linear infinite; -o-animation: moveBackground $background-speed linear infinite;
 }
+
+@keyframes moveBackground { 0% {background-position: center center;} 100% {background-position: top right;} }
+@-moz-keyframes moveBackground { 0% {background-position: center center;} 100% {background-position: top right;} }
+@-webkit-keyframes moveBackground { 0% {background-position: center center;} 100% {background-position: top right;} }
+@-o-keyframes moveBackground { 0% {background-position: center center;} 100% {background-position: top right;} }
 
 .relative {
   display: flex;
@@ -71,6 +85,7 @@ $jump-distance: 1.5rem;
   gap: 16px;
   text-align: center;
   margin-top: 5rem;
+  z-index: 2;
 }
 
 .group {
@@ -156,7 +171,7 @@ $jump-distance: 1.5rem;
   top: -24rem;
   overflow: hidden;
   padding: $jump-distance;
-  z-index: -1;
+  z-index: 0;
 }
 
 .figuresWrapper {
