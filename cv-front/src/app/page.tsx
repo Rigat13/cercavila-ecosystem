@@ -44,21 +44,20 @@ function HomeContent() {
           </a>
         </div>
         <div className={styles.grid}>
-          <a href="https://www.instagram.com/coordinadoragegantsmataro/" className={styles.group} target="_blank" rel="noopener noreferrer">
-            <h2>CCGM{" "}<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span></h2>
-            <p className={styles.p}>Troba informació sobre les colles geganteres de Mataró.</p>
+          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
+            <img src="/icons/icon-home.svg" alt="Arrow" className={styles.menuImage} /> {dictionary[lang]?.collesTitle}
           </a>
-          <a href="http://www.gegantsmataro.net/" className={styles.group} target="_blank" rel="noopener noreferrer">
-            <h2>Gegants{" "}<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span></h2>
-            <p className={styles.p}>Explora els gegants actius al Web dels Gegants de Mataró!</p>
+
+          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
+            <img src="/icons/icon-home.svg" alt="Arrow" className={styles.menuImage} /> {dictionary[lang]?.storeTitle}
           </a>
-          <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`} className={styles.group} target="_blank" rel="noopener noreferrer">
-            <h2>Colles a Cercavila{" "}<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span></h2>
-            <p className={styles.p}>Descobreix les colles registrades a Cercavila.</p>
+
+          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
+            <img src="/icons/icon-home.svg" alt="Arrow" className={styles.menuImage} /> {dictionary[lang]?.usersTitle}
           </a>
-          <a href="https://www.instagram.com/c.rigat/" className={styles.group} target="_blank" rel="noopener noreferrer">
-            <h2>Nosaltres{" "}<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span></h2>
-            <p className={styles.p}>Descobreix més sobre l&apos;equip darrere Cercavila.</p>
+
+          <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`}>
+            <img src="/icons/icon-home.svg" alt="Arrow" className={styles.menuImage} /> {dictionary[lang]?.eventsTitle}
           </a>
         </div>
       </main>

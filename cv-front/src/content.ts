@@ -651,7 +651,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectFigures: "-- Figura --",
 
         // CREATE COLLA
-        collesTitle: "Colles registrades",
+        collesTitle: "Colles",
         createCollaTitle: "Crea una nova colla",
         createCollaButton: "Crea la colla",
 
@@ -854,7 +854,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectUserActivePin: "Seleccioneu el pin a col·locar:",
 
         // CREATE USER
-        usersTitle: "Usuaris registrats",
+        usersTitle: "Usuaris",
         createUserTitle: "Crea un nou usuari",
         createUserButton: "Crea l'usuari",
 
@@ -989,7 +989,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectEventAllDigitalProductsReward: "-- Participants - Productes digitals de premi --",
 
         // CREATE EVENT
-        eventsTitle: "Esdeveniments registrats",
+        eventsTitle: "Esdeveniments",
         createEventTitle: "Crea un nou esdeveniment",
         createEventButton: "Crea l'esdeveniment",
 
@@ -1183,7 +1183,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectFigures: "-- Figura --",
 
         // CREATE COLLA
-        collesTitle: "Collas registradas",
+        collesTitle: "Collas",
         createCollaTitle: "Crea una nueva colla",
         createCollaButton: "Crea la colla",
 
@@ -1386,7 +1386,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectUserActivePin: "Selecciona el pin a colocar:",
 
         // CREATE USER
-        usersTitle: "Usuarios registrados",
+        usersTitle: "Usuarios",
         createUserTitle: "Crea un nuevo usuario",
         createUserButton: "Crea el usuario",
 
@@ -1521,7 +1521,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectEventAllDigitalProductsReward: "-- Todos los participantes - Productos digitales de premio --",
 
         // CREATE EVENT
-        eventsTitle: "Eventos registrados",
+        eventsTitle: "Eventos",
         createEventTitle: "Crea un nuevo evento",
         createEventButton: "Crea el evento",
 
@@ -1715,7 +1715,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectFigures: "-- Figure --",
 
         // CREATE COLLA
-        collesTitle: "Registered colles",
+        collesTitle: "Colles",
         createCollaTitle: "Create a new colla",
         createCollaButton: "Create colla",
 
@@ -1918,7 +1918,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectUserActivePin: "Select the pin to place:",
 
         // CREATE USER
-        usersTitle: "Registered users",
+        usersTitle: "Users",
         createUserTitle: "Create a new user",
         createUserButton: "Create user",
 
@@ -2053,7 +2053,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectEventAllDigitalProductsReward: "-- All participants - Digital products reward --",
 
         // CREATE EVENT
-        eventsTitle: "Registered events",
+        eventsTitle: "Events",
         createEventTitle: "Create a new event",
         createEventButton: "Create event",
 
