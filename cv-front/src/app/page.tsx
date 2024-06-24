@@ -9,9 +9,18 @@ import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import { Suspense } from 'react';
 import RightSidebarMenu from "@/app/sections/shared/RightSidebarMenu";
 import styles from './home.module.scss';
+import {CollaFiguraCard} from "@/app/sections/colles/colla/figura/CollaFiguraCard";
+import {CollesContextProvider, useCollesContext} from "@/app/sections/colles/CollesContext";
+import {createApiCollaRepository} from "@/modules/colles/infrastructure/ApiCollaRepository";
+import {SimpleCollaFiguraCard} from "@/app/sections/colles/colla/figura/SimpleCollaFiguraCard";
 
 export default function Home() {
-  return (<Suspense fallback={<div>Loading...</div>}><HomeContent /></Suspense>);
+  const repository = createApiCollaRepository();
+
+  return (
+      <CollesContextProvider repository={repository}>
+        <Suspense fallback={<div>Loading...</div>}><HomeContent /></Suspense>
+      </CollesContextProvider>);
 }
 
 function HomeContent() {
@@ -22,6 +31,8 @@ function HomeContent() {
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
   const toggleSidebar = () => { setIsSidebarOpen(!isSidebarOpen); };
   const toggleRightSidebar = () => { setIsRightSidebarOpen(!isRightSidebarOpen); };
+
+  const { figures } = useCollesContext();
 
   return (
       <main className={styles.main}>
@@ -59,6 +70,14 @@ function HomeContent() {
           <a className={styles.menuCategoryButton} href={lang === defaultLang ? "/events.html" : `/events.html?lang=${lang}`}>
             <img src="/icons/icon-events.svg" alt="Events" className={styles.menuImage} /> {dictionary[lang]?.eventsTitle}
           </a>
+        </div>
+
+        <div className={styles.figuresContainer}>
+          <div className={styles.figuresWrapper}>
+            {figures && figures.map((loadedFigure) => (
+                <SimpleCollaFiguraCard key={loadedFigure.id} figura={loadedFigure} lang={lang}/>
+            ))}
+          </div>
         </div>
       </main>
   );
