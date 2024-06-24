@@ -1,69 +1,73 @@
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
   min-height: 100vh;
   padding: 24px;
 }
 
 .relative {
-  position: relative;
   display: flex;
-  place-items: center;
-}
-
-.fixed {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  height: 48px;
-  width: 100%;
-  justify-content: center;
-  background: linear-gradient(to top, white, white);
-  @media (min-width: 1024px) {
-    position: static;
-    height: auto;
-    width: auto;
-    background: none;
-  }
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  margin-bottom: 24px; /* Adjust as needed */
 }
 
 .pointerEvents {
-  pointer-events: none;
   display: flex;
-  place-items: center;
-  gap: 8px;
-  padding: 8px;
-  @media (min-width: 1024px) {
-    pointer-events: auto;
-    padding: 0;
-  }
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  justify-content: center; /* Centers items horizontally */
+  gap: 16px; /* Adjust spacing between images */
+  align-items: center; /* Centers items vertically */
 }
 
-.relativeImg {
-  position: relative;
-  filter: drop-shadow(0 0 0.3rem #ffffff70);
+.giantsImg {
+  width: 100%;
+  height: auto;
+  max-width: 20rem;
+  margin: 0 auto;
+  margin-top: -2rem;
 }
 
-.image {
-  position: relative;
-  width: 510px;
-  height: 56px;
+.logoImg {
+  width: 100%;
+  height: auto;
+  max-width: 10rem;
+  margin: 0 auto;
+  margin-top: -0rem;
+  margin-bottom: -4rem;
 }
+
+.imageContainer {
+  flex: 1 1 100%; /* Each image container takes full width initially */
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.subtitle {
+  margin: 4rem;
+  margin-top: 6rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 500;
+  text-align: center;
+  background: #2fffc1;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+}
+
 
 .grid {
   display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
   text-align: center;
-  margin-bottom: 32px;
-  @media (min-width: 1024px) {
-    max-width: 80%;
-    width: 100%;
-    margin-bottom: 0;
-    grid-template-columns: repeat(4, 1fr);
-    text-align: left;
-  }
+  margin-top: 32px;
 }
 
 .group {
@@ -96,4 +100,30 @@
   max-width: 30ch;
   font-size: 0.875rem;
   opacity: 0.5;
+}
+
+@media (min-width: 768px) {
+  .relative {
+    flex-direction: row; /* Images side by side on larger screens */
+  }
+  .pointerEvents {
+    flex-direction: row; /* Images side by side on larger screens */
+  }
+  .imageContainer {
+    flex: 0 0 calc(50% - 8px); /* Two images side by side with a small gap */
+    margin-bottom: 0; /* No margin between images on larger screens */
+    width: 50rem;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for grid items on larger screens */
+  }
+  .giantsImg {
+    width: 70%;
+    max-width: 100rem;
+    margin: 1rem;
+  }
+  .logoImg {
+    max-width: 15rem;
+    margin-top: 0rem;
+  }
 }

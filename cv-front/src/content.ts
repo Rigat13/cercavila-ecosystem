@@ -4,6 +4,7 @@ export const defaultLang = "ca";
 interface DictionaryEntry {
     // -------------------------------------------------------------------------------------------- GENERAL
     cercavilaTitle: string;
+    cercavilaTagline: string;
     cercavilaWelcome: string;
     errorFound: string;
     unreachablePage: string;
@@ -534,6 +535,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
     ca: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
+        cercavilaTagline: "La plataforma de les colles geganteres de Mataró",
         cercavilaWelcome: "Heu arribat a Cercavila, ",
         errorFound: "Hi ha hagut un error",
         unreachablePage: "No s'esperava arribar aquí",
@@ -1065,6 +1067,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
     es: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
+        cercavilaTagline: "La plataforma de las collas de gigantes de Mataró",
         cercavilaWelcome: "Ha llegado a Cercavila, ",
         errorFound: "Ha habido un error",
         unreachablePage: "No se esperaba llegar aquí",
@@ -1596,6 +1599,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
     en: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
+        cercavilaTagline: "The platform for Mataró giants' guilds",
         cercavilaWelcome: "You have arrived at Cercavila, ",
         errorFound: "An error has occurred",
         unreachablePage: "Unexpected path",

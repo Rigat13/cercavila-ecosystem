@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { defaultLang, dictionary } from "@/content";
+import {defaultLang, dictionary} from "@/content";
 import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
@@ -10,7 +10,9 @@ import { Suspense } from 'react';
 import RightSidebarMenu from "@/app/sections/shared/RightSidebarMenu";
 import styles from './home.module.scss';
 
-export default function Home() { return (<Suspense fallback={<div>Loading...</div>}><HomeContent /></Suspense>); }
+export default function Home() {
+  return (<Suspense fallback={<div>Loading...</div>}><HomeContent /></Suspense>);
+}
 
 function HomeContent() {
   const searchParams = useSearchParams();
@@ -27,31 +29,34 @@ function HomeContent() {
           <button className={stylesSidebar.sidebarButton} onClick={toggleSidebar}>
             <img src="/icons/icon-burger.svg" alt="Side bar" />
           </button>
-          <SidebarMenu  isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
+          <SidebarMenu isOpen={isSidebarOpen} onClose={toggleSidebar} lang={lang}/>
           <RightSidebarMenu isOpen={isRightSidebarOpen} onClose={toggleRightSidebar} lang={lang}/>
         </div>
         <div className={styles.relative}>
-          <div className={styles.fixed}>
-            <a className={`${styles.pointerEvents} ${styles.pointerEvents}`} target="_blank" rel="noopener noreferrer">
-              <Image className={styles.relativeImg} src="/cercavila_logo.svg" alt="Logotip de Cercavila" width={270} height={56} priority />
-              <Image className={styles.image} src="/gegants_fons.png" alt="Fons de gegants" width={510} height={300} priority style={{ objectFit: 'contain', width: '100%', height: 'auto' }} />
-            </a>
-          </div>
+          <a className={styles.pointerEvents} target="_blank" rel="noopener noreferrer">
+            <div className={styles.imageContainer}>
+              <Image className={styles.logoImg} src="/cercavila_logo.svg" alt="Logotip de Cercavila" width={570} height={256} priority />
+              <p className={styles.subtitle}>{dictionary[lang]?.cercavilaTagline}</p>
+            </div>
+            <div className={styles.imageContainer}>
+              <Image className={styles.giantsImg} src="/gegants_fons.png" alt="Fons de gegants" width={510} height={300} priority />
+            </div>
+          </a>
         </div>
         <div className={styles.grid}>
-          <a href="https://www.instagram.com/coordinadoragegantsmataro/" className={`${styles.group} ${styles.group}`} target="_blank" rel="noopener noreferrer">
+          <a href="https://www.instagram.com/coordinadoragegantsmataro/" className={styles.group} target="_blank" rel="noopener noreferrer">
             <h2>CCGM{" "}<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span></h2>
             <p className={styles.p}>Troba informació sobre les colles geganteres de Mataró.</p>
           </a>
-          <a href="http://www.gegantsmataro.net/" className={`${styles.group} ${styles.group}`} target="_blank" rel="noopener noreferrer">
+          <a href="http://www.gegantsmataro.net/" className={styles.group} target="_blank" rel="noopener noreferrer">
             <h2>Gegants{" "}<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span></h2>
             <p className={styles.p}>Explora els gegants actius al Web dels Gegants de Mataró!</p>
           </a>
-          <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`} className={`${styles.group} ${styles.group}`} target="_blank" rel="noopener noreferrer">
+          <a href={lang === defaultLang ? "/colles.html" : `/colles.html?lang=${lang}`} className={styles.group} target="_blank" rel="noopener noreferrer">
             <h2>Colles a Cercavila{" "}<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span></h2>
             <p className={styles.p}>Descobreix les colles registrades a Cercavila.</p>
           </a>
-          <a href="https://www.instagram.com/c.rigat/" className={`${styles.group} ${styles.group}`} target="_blank" rel="noopener noreferrer">
+          <a href="https://www.instagram.com/c.rigat/" className={styles.group} target="_blank" rel="noopener noreferrer">
             <h2>Nosaltres{" "}<span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span></h2>
             <p className={styles.p}>Descobreix més sobre l&apos;equip darrere Cercavila.</p>
           </a>
