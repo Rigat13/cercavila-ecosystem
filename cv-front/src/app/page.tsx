@@ -81,11 +81,12 @@ function HomeContent() {
             <img src="/icons/icon-events.svg" alt="Events" className={styles.menuImage} /> {dictionary[lang]?.eventsTitle}
           </a>
         </div>
-
           <div className={styles.figuresContainer}>
               <div className={styles.figuresWrapper} ref={wrapperRef}>
                   {figures && figures.map((loadedFigure) => (
-                      <SimpleCollaFiguraCard key={loadedFigure.id} figura={loadedFigure} lang={lang} />
+                      <div key={loadedFigure.id} className={styles.figureDiv}>
+                          <SimpleCollaFiguraCard figura={loadedFigure} lang={lang} />
+                      </div>
                   ))}
               </div>
           </div>

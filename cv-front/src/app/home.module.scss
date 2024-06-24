@@ -1,4 +1,6 @@
 $figure-scroll-speed: 40s;
+$jump-time: 0.7s;
+$jump-distance: 1.5rem;
 
 .main {
   display: flex;
@@ -156,33 +158,10 @@ $figure-scroll-speed: 40s;
   animation-timing-function: linear;
 }
 
-@keyframes scrollLeft {
-  0% {transform: translateX(0);opacity: 0;}
-  5% {opacity: 1;}
-  95% { opacity: 1;}
-  100% {transform: translateX(-100%); opacity: 0;}
-}
-
-@-moz-keyframes scrollLeft {
-  0% {transform: translateX(0);opacity: 0;}
-  5% {opacity: 1;}
-  95% { opacity: 1;}
-  100% {transform: translateX(-100%); opacity: 0;}
-}
-
-@-webkit-keyframes scrollLeft {
-  0% {transform: translateX(0);opacity: 0;}
-  5% {opacity: 1;}
-  95% { opacity: 1;}
-  100% {transform: translateX(-100%); opacity: 0;}
-}
-
-@-o-keyframes scrollLeft {
-  0% {transform: translateX(0);opacity: 0;}
-  5% {opacity: 1;}
-  95% { opacity: 1;}
-  100% {transform: translateX(-100%); opacity: 0;}
-}
+@keyframes scrollLeft { 0% {transform: translateX(0);opacity: 0;} 5% {opacity: 1;} 95% { opacity: 1;} 100% {transform: translateX(-100%); opacity: 0;} }
+@-moz-keyframes scrollLeft { 0% {transform: translateX(0);opacity: 0;} 5% {opacity: 1;} 95% { opacity: 1;} 100% {transform: translateX(-100%); opacity: 0;} }
+@-webkit-keyframes scrollLeft { 0% {transform: translateX(0);opacity: 0;} 5% {opacity: 1;} 95% { opacity: 1;} 100% {transform: translateX(-100%); opacity: 0;} }
+@-o-keyframes scrollLeft { 0% {transform: translateX(0);opacity: 0;} 5% {opacity: 1;} 95% { opacity: 1;} 100% {transform: translateX(-100%); opacity: 0;} }
 
 
 /* Cloned content styling */
@@ -193,6 +172,14 @@ $figure-scroll-speed: 40s;
   animation: none; /* No animation for the clone */
 }
 
+.figureDiv {
+  animation: jump $jump-time ease-in-out infinite; -moz-animation: jump $jump-time ease-in-out infinite; -webkit-animation: jump $jump-time ease-in-out infinite; -o-animation: jump $jump-time ease-in-out infinite;
+}
+
+@keyframes jump { 0%, 100% {transform: translateY(0);} 50% {transform: translateY($jump-distance); }}
+@-moz-keyframes jump { 0%, 100% {transform: translateY(0);} 50% {transform: translateY($jump-distance); }}
+@-webkit-keyframes jump { 0%, 100% {transform: translateY(0);} 50% {transform: translateY($jump-distance); }}
+@-o-keyframes jump { 0%, 100% {transform: translateY(0);} 50% {transform: translateY($jump-distance); }}
 
 /* ---------------------------------------------------- BIG SCREEN ---------------------------------------------------- */
 
