@@ -34,7 +34,7 @@ function PageContent() {
 
     return (
         <ActivitiesContextProvider repository={repository}>
-            <div className="flex justify-center items-center">
+            <div className={stylesSidebar.centralLogo}>
                 <a href={lang === defaultLang ? "/" : `/?lang=${lang}`}>
                     <Image src="/cercavila_logo.svg" alt="Logotip de Cercavila" className="}" width={80} height={80} />
                 </a>
