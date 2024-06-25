@@ -86,7 +86,8 @@ function HomeContent() {
                         <div
                             key={loadedFigure.id}
                             className={styles.figureDiv}
-                            style={index % 2 === 0 ? { '--random-delay': `${Math.random() * 2}s` } : {}}
+                            // eslint-disable-next-line react/prop-types
+                            style={index % 2 === 0 ? { '--random-delay': `${Math.random() * 2}s` } as any : {}}
                         >
                             <SimpleCollaFiguraCard figura={loadedFigure} lang={lang} />
                         </div>
