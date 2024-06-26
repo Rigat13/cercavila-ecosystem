@@ -82,7 +82,7 @@ $background-speed: 60s;
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 1rem;
   text-align: center;
   margin-top: 5rem;
   z-index: 2;
@@ -121,7 +121,6 @@ $background-speed: 60s;
 }
 
 .menuCategoryButton {
-  margin: 1rem;
   display: flex;
   width: 20rem;
   height: auto; /* Maintain aspect ratio */
@@ -129,10 +128,10 @@ $background-speed: 60s;
   background: rgba(226, 255, 245, 0.7);
   backdrop-filter: blur(10px); /* Blur effect for the background */
   color: #232323;
-  font-weight: bold;
-  font-size: 1.5rem;
+  font-weight: 800;
+  font-size: 1.6rem;
   border-radius: 2rem;
-  padding: 1rem;
+  padding: 0.8rem;
   justify-content: center; // Center text horizontally
   align-items: center; // Center text vertically
   border-width: 0.5rem;
@@ -148,7 +147,6 @@ $background-speed: 60s;
 
 .menuImage {
   width: 4rem;
-  left: 0;
   height: auto;
   max-width: 20rem;
   margin: -1rem;
@@ -221,6 +219,16 @@ $background-speed: 60s;
 @-webkit-keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
 @-o-keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
 
+/* ---------------------------------------------------- SMALL SCREEN ---------------------------------------------------- */
+@media (max-width: 767px) {
+  .grid {
+    margin-top: -10rem;
+  }
+  .menuImage {
+    width: 3rem;
+    border-width: 0.5rem;
+  }
+}
 /* ---------------------------------------------------- BIG SCREEN ---------------------------------------------------- */
 
 @media (min-width: 768px) {
