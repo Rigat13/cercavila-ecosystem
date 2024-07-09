@@ -23,9 +23,10 @@ const initialState = {
     backgroundImage: null as File | null,
     giantName: "",
     colour: "",
+    imantNumber: "",
 }
 
-export let isLogoValid, isSecondaryImageValid, isBackgroundImageValid, isGiantNameValid, isColourValid = false;
+export let isLogoValid, isSecondaryImageValid, isBackgroundImageValid, isGiantNameValid, isColourValid, isImantNumberValid = false;
 
 
 const lang = defaultLang;
@@ -56,6 +57,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const [isBackgroundImageAlreadyValid, setBackgroundImageAlreadyValid] = useState(false);
 
     const [giantName, setGiantName] = useState("");
+    const [imantNumber, setNumberField] = useState<number>(0);
 
     const [selectedFigures] = useState([]);
 
@@ -230,7 +232,14 @@ export function CreateImantForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, colour: newColour });
     }
 
-    const validateFormData = ({ logo, secondaryImage, backgroundImage, giantName, colour }) => {
+    const handleNumberChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        const newNumberField = parseInt(ev.target.value, 10);
+        setNumberField(newNumberField);
+        updateForm({ imantNumber: newNumberField });
+        validateFormData({ ...formData, imantNumber: newNumberField });
+    };
+
+    const validateFormData = ({ logo, secondaryImage, backgroundImage, giantName, colour, imantNumber }) => {
         // Perform validation based on the provided data
         const formDataWithImage = { ...formData };
         if (logo) { formDataWithImage.logo = logo; }
@@ -245,6 +254,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
         setBackgroundImageAlreadyValid(isBackgroundImageValid);
         isColourValid = isCollaColourValid(colour);
         isGiantNameValid = isCollaNameValid(giantName);
+        isImantNumberValid = imantNumber > 0;
 
         setErrors({
             logo: formDataWithImage.logo,
@@ -252,11 +262,12 @@ export function CreateImantForm({ lang }: { lang: string }) {
             backgroundImage: formDataWithImage.backgroundImage,
             giantName: isGiantNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
             colour: isColourValid ? "" : dictionary[lang]?.collesPrimaryColourInvalid + "",
+            imantNumber: isImantNumberValid ? "" : dictionary[lang]?.imantNumberInvalid + "",
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid) { return; }
+        if (!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid || !isImantNumberValid) { return; }
 
         const formDataWithImage = { ...formData };
         if (logo) { formDataWithImage.logo = logo; }
@@ -407,6 +418,19 @@ export function CreateImantForm({ lang }: { lang: string }) {
                             )}
                             {errors.colour && (
                                 <div style={{ color: "tomato" }}>{errors.colour}</div>
+                            )}
+                        </div>
+                        <div className={styles.formGroup}>
+                            <label htmlFor="number">{dictionary[lang]?.imantNumber}</label>
+                            <input
+                                type="number"
+                                id="imantNumber"
+                                name="imantNumber"
+                                value={imantNumber}
+                                onChange={handleNumberChange}
+                            />
+                            {errors.imantNumber && (
+                                <p style={{ color: 'red' }}>{errors.imantNumber}</p>
                             )}
                         </div>
                         <button
