@@ -14,6 +14,7 @@ import { useCollesContext } from "@/app/sections/colles/CollesContext";
 const initialState = {
     logo: null as File | null,
     secondaryImage: null as File | null,
+    giantName: "",
 }
 
 export let isLogoValid = false;
@@ -36,6 +37,8 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const [secondaryImageSize, setSecondaryImageSize] = useState(0);
     const [secondaryImagePreview, setSecondaryImagePreview] = useState<string | null>(null);
     const [isSecondaryImageAlreadyValid, setSecondaryImageAlreadyValid] = useState(false);
+
+    const [giantName, setGiantName] = useState("");
 
     const [selectedFigures] = useState([]);
 
@@ -60,13 +63,22 @@ export function CreateImantForm({ lang }: { lang: string }) {
                     ctx.drawImage(logoImg, 0, 0);
                     secondaryImg.onload = () => {
                         ctx.drawImage(secondaryImg, 0, 0, logoImg.width, logoImg.height);
+
+                        // Add text to the canvas
+                        if (giantName) {
+                            ctx.font = '30px Montserrat'; // Adjust font size and style as needed
+                            ctx.fillStyle = 'white'; // Adjust text color as needed
+                            ctx.textAlign = 'center';
+                            ctx.fillText(giantName, canvas.width / 2, canvas.height - 20); // Adjust position as needed
+                        }
+
                         const mergedImageUrl = canvas.toDataURL('image/png');
                         setDownloadUrl(mergedImageUrl);
                     };
                 };
             }
         }
-    }, [logoPreview, secondaryImagePreview]);
+    }, [logoPreview, secondaryImagePreview, giantName]);
 
     const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setLogoAlreadyValid(false);
@@ -108,7 +120,12 @@ export function CreateImantForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, secondaryImage: file });
     };
 
-    const validateFormData = ({ logo, secondaryImage }) => {
+    const handleGiantNameChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        setGiantName(ev.target.value);
+        validateFormData({ ...formData, giantName: ev.target.value });
+    };
+
+    const validateFormData = ({ logo, secondaryImage, giantName }) => {
         // Perform validation based on the provided data
         if (!isLogoAlreadyValid) isLogoValid = isCollaLogoValid(logo);
         if (!isSecondaryImageAlreadyValid) isSecondaryImageValid = isCollaLogoValid(secondaryImage);
@@ -118,11 +135,12 @@ export function CreateImantForm({ lang }: { lang: string }) {
         setErrors({
             logo: null,
             secondaryImage: null,
+            giantName: giantName.length > 0 ? null : "Giant name is required",
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isLogoValid || !isSecondaryImageValid) { return; }
+        if (!isLogoValid || !isSecondaryImageValid || !giantName) { return; }
 
         const formDataWithImage = { ...formData };
         if (logo) { formDataWithImage.logo = logo; }
@@ -132,6 +150,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
         //submitForm({
         //  logo: formDataWithImage.logo,
         //  secondaryImage: formDataWithImage.secondaryImage,
+        //  giantName: giantName,
         //});
     };
 
@@ -139,7 +158,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
         if (downloadUrl) {
             const link = document.createElement('a');
             link.href = downloadUrl;
-            link.download = 'merged_image.png';
+            link.download = 'merged_image_with_text.png';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -194,7 +213,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
                             <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
                         <div className={styles.formGroup}>
-                            <label htmlFor="secondaryImage">{dictionary[lang]?.collaLogo}</label>
+                            <label htmlFor="secondaryImage">{dictionary[lang]?.collaSecondaryImage}</label>
                             <div className={styles.imagePreviewContainer}>
                                 {secondaryImagePreview && (
                                     <div className={styles.imagePreview}>
@@ -216,10 +235,23 @@ export function CreateImantForm({ lang }: { lang: string }) {
                             )}
                             <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
+                        <div className={styles.formGroup}>
+                            <label htmlFor="giantName">{dictionary[lang]?.giantName}</label>
+                            <input
+                                type="text"
+                                id="giantName"
+                                name="giantName"
+                                value={giantName}
+                                onChange={handleGiantNameChange}
+                            />
+                            {errors.giantName && (
+                                <p style={{ color: 'red' }}>{errors.giantName}</p>
+                            )}
+                        </div>
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isLogoValid || !isSecondaryImageValid}
+                            disabled={!isLogoValid || !isSecondaryImageValid || !giantName}
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>
