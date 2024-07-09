@@ -64,6 +64,9 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const [isColourPickerOpen, setIsColourPickerOpen] = useState(false);
     const [colour, setColour] = useState('#FFFFFF');
 
+    const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
+
+
     lang = lang;
 
     useEffect(() => {
@@ -153,6 +156,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
                         const mergedImageUrl = canvas.toDataURL('image/png');
                         setDownloadUrl(mergedImageUrl);
+                        setPreviewImageUrl(mergedImageUrl);
                     })
                     .catch(error => {
                         console.error('Error loading images:', error);
@@ -473,6 +477,13 @@ export function CreateImantForm({ lang }: { lang: string }) {
                             </button>
                         )}
                     </form>
+
+                    {previewImageUrl && (
+                        <div className={styles.ImagePreview}>
+                            <h3>Preview:</h3>
+                            <img src={previewImageUrl} alt="Preview" />
+                        </div>
+                    )}
                 </section>
             );
         default:
