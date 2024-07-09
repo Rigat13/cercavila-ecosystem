@@ -11,17 +11,22 @@ import "@/app/globals.css";
 import { isCollaLogoValid, LOGO_MAX_MBS } from "@/modules/colles/domain/colla-attributes/CollaLogo";
 import { concatenateFigures } from "@/modules/colles/domain/colla-attributes/CollaFigures";
 import { useCollesContext } from "@/app/sections/colles/CollesContext";
+import {isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
+import {isNameValid, isPrimaryColourValid} from "@/app/sections/colles/form/CreateCollaForm";
+import ColourPicker from "@/app/sections/shared/ColourPicker";
+import {isCollaNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
+import {update} from "immutable";
 
 const initialState = {
     logo: null as File | null,
     secondaryImage: null as File | null,
     backgroundImage: null as File | null,
     giantName: "",
+    colour: "",
 }
 
-export let isLogoValid = false;
-export let isSecondaryImageValid = false;
-export let isBackgroundImageValid = false;
+export let isLogoValid, isSecondaryImageValid, isBackgroundImageValid, isGiantNameValid, isColourValid = false;
+
 
 const lang = defaultLang;
 
@@ -30,7 +35,7 @@ const downloadImageWidth = 591; // Width of the downloaded image
 const downloadImageHeight = 591; // Height of the downloaded image
 
 export function CreateImantForm({ lang }: { lang: string }) {
-    const { formData, resetForm } = useCollaFormData(initialState);
+    const { formData, updateForm, resetForm } = useCollaFormData(initialState);
     const { formStatus, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
 
@@ -53,6 +58,9 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const [giantName, setGiantName] = useState("");
 
     const [selectedFigures] = useState([]);
+
+    const [isColourPickerOpen, setIsColourPickerOpen] = useState(false);
+    const [colour, setColour] = useState('#FFFFFF');
 
     lang = lang;
 
@@ -170,29 +178,46 @@ export function CreateImantForm({ lang }: { lang: string }) {
     };
 
     const handleGiantNameChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        setGiantName(ev.target.value);
-        validateFormData({ ...formData, giantName: ev.target.value });
+        const newGiantName = ev.target.value;
+        setGiantName(newGiantName);
+        updateForm({ giantName: newGiantName });
+        validateFormData({ ...formData, giantName:newGiantName });
     };
 
-    const validateFormData = ({ logo, secondaryImage, backgroundImage, giantName }) => {
+    const handleColourChange = (ev) => {
+        const newColour = ev.target.value;
+        setColour(newColour);
+        updateForm({ colour: newColour });
+        validateFormData({ ...formData, colour: newColour });
+    }
+
+    const validateFormData = ({ logo, secondaryImage, backgroundImage, giantName, colour }) => {
         // Perform validation based on the provided data
+        const formDataWithImage = { ...formData };
+        if (logo) { formDataWithImage.logo = logo; }
+        if (secondaryImage) { formDataWithImage.secondaryImage = secondaryImage; }
+        if (backgroundImage) { formDataWithImage.backgroundImage = backgroundImage; }
+
         if (!isLogoAlreadyValid) isLogoValid = isCollaLogoValid(logo);
         if (!isSecondaryImageAlreadyValid) isSecondaryImageValid = isCollaLogoValid(secondaryImage);
         if (!isBackgroundImageAlreadyValid) isBackgroundImageValid = isCollaLogoValid(backgroundImage);
         setLogoAlreadyValid(isLogoValid);
         setSecondaryImageAlreadyValid(isSecondaryImageValid);
         setBackgroundImageAlreadyValid(isBackgroundImageValid);
+        isColourValid = isCollaColourValid(colour);
+        isGiantNameValid = isCollaNameValid(giantName);
 
         setErrors({
-            logo: null,
-            secondaryImage: null,
-            backgroundImage: null,
-            giantName: giantName.length > 0 ? null : "Giant name is required",
+            logo: formDataWithImage.logo,
+            secondaryImage: formDataWithImage.secondaryImage,
+            backgroundImage: formDataWithImage.backgroundImage,
+            giantName: isGiantNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
+            colour: isColourValid ? "" : dictionary[lang]?.collesPrimaryColourInvalid + "",
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !giantName) { return; }
+        if (!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid) { return; }
 
         const formDataWithImage = { ...formData };
         if (logo) { formDataWithImage.logo = logo; }
@@ -325,10 +350,30 @@ export function CreateImantForm({ lang }: { lang: string }) {
                                 <p style={{ color: 'red' }}>{errors.giantName}</p>
                             )}
                         </div>
+                        <div className={styles.formGroup}>
+                            <label htmlFor="colour">{dictionary[lang]?.collaPrimaryColour}</label>
+                            <button
+                                className={styles.colourPreviewButton}
+                                type="button"
+                                id="colourPreviewButton"
+                                style={{ backgroundColor: colour }}
+                                onClick={(event) => { event.preventDefault(); setIsColourPickerOpen(!isColourPickerOpen); }}/>
+                            {isColourPickerOpen && (
+                                <ColourPicker
+                                    id="colour"
+                                    name="colour"
+                                    value={formData.colour}
+                                    onChange={handleColourChange}
+                                />
+                            )}
+                            {errors.colour && (
+                                <div style={{ color: "tomato" }}>{errors.colour}</div>
+                            )}
+                        </div>
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !giantName}
+                            disabled={!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid}
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>
