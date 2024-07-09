@@ -74,10 +74,19 @@ export function CreateImantForm({ lang }: { lang: string }) {
                     canvas.width = downloadImageWidth;
                     canvas.height = downloadImageHeight;
 
+                    // Fill canvas with white background
+                    ctx.fillStyle = '#ffffff'; // White color
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    // Draw background image
                     ctx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
+
                     secondaryImg.onload = () => {
+                        // Draw secondary image
                         ctx.drawImage(secondaryImg, 0, 0, downloadImageWidth, downloadImageHeight);
+
                         backgroundImg.onload = () => {
+                            // Draw logo image
                             ctx.drawImage(logoImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
                             // Add text to the canvas
@@ -97,6 +106,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
             }
         }
     }, [logoPreview, secondaryImagePreview, backgroundImagePreview, giantName]);
+
 
 
     const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
