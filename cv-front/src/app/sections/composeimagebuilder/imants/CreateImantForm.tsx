@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {FormStatus, useCollaForm} from "@/app/sections/colles/form/useCollaForm";
 import { Spinner } from "@/app/sections/shared/Spinner";
 import {useCollaFormData} from "@/app/sections/colles/form/useCollaFormData";
-import styles from "@/app/sections/colles/form/CollaForm.module.scss";
+import styles from "@/app/sections/composeimagebuilder/imants/ImantForm.module.scss";
 import {defaultLang, dictionary} from "@/content";
 
 import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
@@ -45,6 +45,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const [logoSize, setLogoSize] = useState(0);
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
     const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
+    const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
     const { figuresNoImage } = useCollesContext();
     const [selectedFigures, setSelectedFigures] = useState([]);
@@ -52,8 +53,13 @@ export function CreateImantForm({ lang }: { lang: string }) {
     lang = lang;
 
     useEffect(() => {
-
-    }, [formData]);
+        if (logoPreview) {
+            const link = document.createElement('a');
+            link.href = logoPreview;
+            link.download = 'uploaded_logo.png';
+            setDownloadUrl(link.href);
+        }
+    }, [logoPreview]);
 
     const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setLogoAlreadyValid(false);
@@ -93,8 +99,19 @@ export function CreateImantForm({ lang }: { lang: string }) {
         ev.preventDefault();
         const concatenatedFigures = concatenateFigures(selectedFigures);
         //submitForm({
-          //  logo: formDataWithImage.logo,
+        //  logo: formDataWithImage.logo,
         //});
+    };
+
+    const handleDownload = () => {
+        if (downloadUrl) {
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'uploaded_logo.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     };
 
     switch (formStatus) {
@@ -103,12 +120,12 @@ export function CreateImantForm({ lang }: { lang: string }) {
         case FormStatus.Success:
             return (
                 <SuccessNotification lang={lang}
-                    resetForm={() => {
-                        resetForm();
-                        resetFormStatus();
-                    }}
+                                     resetForm={() => {
+                                         resetForm();
+                                         resetFormStatus();
+                                     }}
                 />
-        );
+            );
         case FormStatus.Error:
             return <ErrorNotification lang={lang} resetForm={resetFormStatus} />;
         case FormStatus.Initial:
@@ -151,6 +168,15 @@ export function CreateImantForm({ lang }: { lang: string }) {
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>
+                        {logoPreview && (
+                            <button
+                                type="button"
+                                className={styles.downloadButton}
+                                onClick={handleDownload}
+                            >
+                                {dictionary[lang]?.downloadImageButton}
+                            </button>
+                        )}
                     </form>
                 </section>
             );
