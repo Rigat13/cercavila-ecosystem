@@ -82,10 +82,6 @@ export function CreateImantForm({ lang }: { lang: string }) {
                     canvas.width = downloadImageWidth;
                     canvas.height = downloadImageHeight;
 
-                    // Fill canvas with white background
-                    ctx.fillStyle = '#ffffff'; // White color
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
                     // Draw background image
                     ctx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
@@ -95,11 +91,31 @@ export function CreateImantForm({ lang }: { lang: string }) {
                     ctx.fillRect(0, 0, downloadImageWidth, downloadImageHeight);
 
                     secondaryImg.onload = () => {
-                        // Draw secondary image
-                        ctx.globalCompositeOperation = 'source-over'; // Reset to default
-                        ctx.drawImage(secondaryImg, 0, 0, downloadImageWidth, downloadImageHeight);
+                        canvas.width = downloadImageWidth;
+                        canvas.height = downloadImageHeight;
 
-                        backgroundImg.onload = () => {
+                        // Draw background image
+                        ctx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
+
+                        // Create a temporary canvas to use as a mask
+                        const maskCanvas = document.createElement('canvas');
+                        maskCanvas.width = downloadImageWidth;
+                        maskCanvas.height = downloadImageHeight;
+                        const maskCtx = maskCanvas.getContext('2d');
+
+                        if (maskCtx) {
+                            // Draw background image onto mask canvas
+                            maskCtx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
+
+                            // Apply color multiplication to the masked area only
+                            ctx.globalCompositeOperation = 'source-atop'; // Use the background image as a mask
+                            ctx.fillStyle = colour; // Use the selected color
+                            ctx.fillRect(0, 0, downloadImageWidth, downloadImageHeight);
+
+                            // Draw secondary image
+                            ctx.globalCompositeOperation = 'source-over'; // Reset to default
+                            ctx.drawImage(secondaryImg, 0, 0, downloadImageWidth, downloadImageHeight);
+
                             // Draw logo image
                             ctx.drawImage(logoImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
@@ -111,6 +127,11 @@ export function CreateImantForm({ lang }: { lang: string }) {
                                 ctx.textBaseline = 'bottom'; // Align text to bottom
                                 ctx.fillText(giantName.toUpperCase(), canvas.width / 2, canvas.height - 20); // Display uppercase text
                             }
+
+                            // Add a white background to the entire canvas
+                            ctx.globalCompositeOperation = 'destination-over'; // Draw behind existing content
+                            ctx.fillStyle = '#ffffff'; // White color
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                             const mergedImageUrl = canvas.toDataURL('image/png');
                             setDownloadUrl(mergedImageUrl);
