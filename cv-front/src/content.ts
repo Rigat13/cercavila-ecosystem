@@ -513,6 +513,7 @@ interface DictionaryEntry {
     // --------------------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------------------- IMANTS
     ccgmImantsCreatorTitle: string;
+    createImantTitle: string;
     downloadImageButton: string;
     imantNumber: string;
     imantNumberInvalid: string;
@@ -1052,6 +1053,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // --------------------------------------------------------------------------------------------
         // -------------------------------------------------------------------------------------------- IMANTS
         ccgmImantsCreatorTitle: "Creador d'imants de la CCGM",
+        createImantTitle: "Crea un nou imant",
         downloadImageButton: "Descarregar",
         imantNumber: "Número d'imant",
         imantNumberInvalid: "El número d'imant no és vàlid. Ha de ser un número positiu.",
@@ -1591,6 +1593,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // --------------------------------------------------------------------------------------------
         // -------------------------------------------------------------------------------------------- IMANTS
         ccgmImantsCreatorTitle: "Creador de imanes de la CCGM",
+        createImantTitle: "Crea un nuevo imán",
         downloadImageButton: "Descargar",
         imantNumber: "Número de imán",
         imantNumberInvalid: "El número de imán no es válido. Debe ser un número positivo.",
@@ -2130,6 +2133,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         // --------------------------------------------------------------------------------------------
         // -------------------------------------------------------------------------------------------- IMANTS
         ccgmImantsCreatorTitle: "CCGM magnets creator",
+        createImantTitle: "Create a new magnet",
         downloadImageButton: "Download",
         imantNumber: "Magnet number",
         imantNumberInvalid: "The magnet number is not valid. It must be a positive number.",

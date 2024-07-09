@@ -346,7 +346,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
         case FormStatus.Initial:
             return (
                 <section id="order" className={styles.collaForm}>
-                    <h2>{dictionary[lang]?.createCollaTitle}</h2>
+                    <h2>{dictionary[lang]?.createImantTitle}</h2>
 
                     <form
                         onSubmit={(ev) => {
@@ -424,18 +424,12 @@ export function CreateImantForm({ lang }: { lang: string }) {
                                 <p style={{ color: 'red' }}>{errors.imantNumber}</p>
                             )}
                         </div>
-                        <button
-                            className={styles.actionButton}
-                            type="submit"
-                            disabled={!isframeImageValid || !isGiantImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid || !isImantNumberValid}
-                        >
-                            {dictionary[lang]?.createCollaButton}
-                        </button>
                         {downloadUrl && (
                             <button
                                 type="button"
                                 className={styles.downloadButton}
                                 onClick={handleDownload}
+                                disabled={!isframeImageValid || !isGiantImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid || !isImantNumberValid}
                             >
                                 {dictionary[lang]?.downloadImageButton}
                             </button>
