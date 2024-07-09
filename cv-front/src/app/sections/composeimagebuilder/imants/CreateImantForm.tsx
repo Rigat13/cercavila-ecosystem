@@ -6,6 +6,7 @@ import { Spinner } from "@/app/sections/shared/Spinner";
 import { useCollaFormData } from "@/app/sections/colles/form/useCollaFormData";
 import styles from "@/app/sections/composeimagebuilder/imants/ImantForm.module.scss";
 import { defaultLang, dictionary } from "@/content";
+import "@/app/globals.css";
 
 import { isCollaLogoValid, LOGO_MAX_MBS } from "@/modules/colles/domain/colla-attributes/CollaLogo";
 import { concatenateFigures } from "@/modules/colles/domain/colla-attributes/CollaFigures";
@@ -66,10 +67,11 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
                         // Add text to the canvas
                         if (giantName) {
-                            ctx.font = '30px Montserrat'; // Adjust font size and style as needed
-                            ctx.fillStyle = 'white'; // Adjust text color as needed
+                            ctx.font = 'bold 30px Josefin Sans'; // Adjust font size and style
+                            ctx.fillStyle = 'black'; // Adjust text color as needed
                             ctx.textAlign = 'center';
-                            ctx.fillText(giantName, canvas.width / 2, canvas.height - 20); // Adjust position as needed
+                            ctx.textBaseline = 'bottom'; // Align text to bottom
+                            ctx.fillText(giantName.toUpperCase(), canvas.width / 2, canvas.height - 20); // Display uppercase text
                         }
 
                         const mergedImageUrl = canvas.toDataURL('image/png');
@@ -79,6 +81,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
             }
         }
     }, [logoPreview, secondaryImagePreview, giantName]);
+
 
     const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setLogoAlreadyValid(false);
