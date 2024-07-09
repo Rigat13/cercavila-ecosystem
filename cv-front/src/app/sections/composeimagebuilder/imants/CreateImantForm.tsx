@@ -74,73 +74,84 @@ export function CreateImantForm({ lang }: { lang: string }) {
                 const secondaryImg = new Image();
                 const backgroundImg = new Image();
 
+                // Set sources for images
                 logoImg.src = logoPreview;
                 secondaryImg.src = secondaryImagePreview;
                 backgroundImg.src = backgroundImagePreview;
 
-                logoImg.onload = () => {
-                    canvas.width = downloadImageWidth;
-                    canvas.height = downloadImageHeight;
-
-                    // Draw background image
-                    ctx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
-
-                    // Apply color multiplication only to the background image
-                    ctx.globalCompositeOperation = 'multiply';
-                    ctx.fillStyle = colour; // Use the selected color
-                    ctx.fillRect(0, 0, downloadImageWidth, downloadImageHeight);
-
-                    secondaryImg.onload = () => {
+                // Ensure all images are loaded before processing
+                Promise.all([loadImage(logoImg), loadImage(secondaryImg), loadImage(backgroundImg)])
+                    .then(() => {
                         canvas.width = downloadImageWidth;
                         canvas.height = downloadImageHeight;
 
-                        // Draw background image
+                        // Create a temporary canvas to apply the color multiplication
+                        const tempCanvas = document.createElement('canvas');
+                        const tempCtx = tempCanvas.getContext('2d');
+                        tempCanvas.width = downloadImageWidth;
+                        tempCanvas.height = downloadImageHeight;
+
+                        // Draw background image onto temporary canvas
+                        tempCtx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
+
+                        // Apply color multiplication to the temporary canvas
+                        tempCtx.globalCompositeOperation = 'multiply';
+                        tempCtx.fillStyle = colour;
+                        tempCtx.fillRect(0, 0, downloadImageWidth, downloadImageHeight);
+
+                        // Reset composite operation and draw the multiplied result onto the main canvas
+                        ctx.globalCompositeOperation = 'source-over';
+                        ctx.drawImage(tempCanvas, 0, 0, downloadImageWidth, downloadImageHeight);
+
+                        // Draw the background image again as a mask to preserve transparency
+                        ctx.globalCompositeOperation = 'destination-in';
                         ctx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
-                        // Create a temporary canvas to use as a mask
-                        const maskCanvas = document.createElement('canvas');
-                        maskCanvas.width = downloadImageWidth;
-                        maskCanvas.height = downloadImageHeight;
-                        const maskCtx = maskCanvas.getContext('2d');
+                        // Draw the secondary image on top
+                        ctx.globalCompositeOperation = 'source-over';
+                        ctx.drawImage(secondaryImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
-                        if (maskCtx) {
-                            // Draw background image onto mask canvas
-                            maskCtx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
+                        // Draw the logo image on top
+                        ctx.drawImage(logoImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
-                            // Apply color multiplication to the masked area only
-                            ctx.globalCompositeOperation = 'source-atop'; // Use the background image as a mask
-                            ctx.fillStyle = colour; // Use the selected color
-                            ctx.fillRect(0, 0, downloadImageWidth, downloadImageHeight);
+                        // Add text to the canvas
+                        if (giantName) {
+                            ctx.font = 'bold 90px Josefin Sans'; // Adjust font size and style
+                            ctx.fillStyle = 'black'; // Adjust text color as needed
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom'; // Align text to bottom
+                            ctx.fillText(giantName.toUpperCase(), canvas.width / 2, canvas.height - 20); // Display uppercase text
+                        }
 
-                            // Draw secondary image
-                            ctx.globalCompositeOperation = 'source-over'; // Reset to default
-                            ctx.drawImage(secondaryImg, 0, 0, downloadImageWidth, downloadImageHeight);
+                        // Add a white background to the entire canvas
+                        ctx.globalCompositeOperation = 'destination-over'; // Draw behind existing content
+                        ctx.fillStyle = '#ffffff'; // White color
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                            // Draw logo image
-                            ctx.drawImage(logoImg, 0, 0, downloadImageWidth, downloadImageHeight);
-
-                            // Add text to the canvas
-                            if (giantName) {
-                                ctx.font = 'bold 90px Josefin Sans'; // Adjust font size and style
-                                ctx.fillStyle = 'black'; // Adjust text color as needed
-                                ctx.textAlign = 'center';
-                                ctx.textBaseline = 'bottom'; // Align text to bottom
-                                ctx.fillText(giantName.toUpperCase(), canvas.width / 2, canvas.height - 20); // Display uppercase text
-                            }
-
-                            // Add a white background to the entire canvas
-                            ctx.globalCompositeOperation = 'destination-over'; // Draw behind existing content
-                            ctx.fillStyle = '#ffffff'; // White color
-                            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                            const mergedImageUrl = canvas.toDataURL('image/png');
-                            setDownloadUrl(mergedImageUrl);
-                        };
-                    };
-                };
+                        const mergedImageUrl = canvas.toDataURL('image/png');
+                        setDownloadUrl(mergedImageUrl);
+                    })
+                    .catch(error => {
+                        console.error('Error loading images:', error);
+                    });
             }
         }
     }, [logoPreview, secondaryImagePreview, backgroundImagePreview, giantName, colour]);
+
+// Function to ensure image is loaded properly
+    function loadImage(image) {
+        return new Promise((resolve, reject) => {
+            if (image.complete) {
+                resolve(image);
+            } else {
+                image.onload = () => resolve(image);
+                image.onerror = reject;
+            }
+        });
+    }
+
+
+
 
 
 
