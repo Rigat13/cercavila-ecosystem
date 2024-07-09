@@ -70,6 +70,8 @@ export function CreateImantForm({ lang }: { lang: string }) {
     lang = lang;
 
     useEffect(() => {
+        initialiseHardcodedImages();
+
         if (logoPreview && secondaryImagePreview && backgroundImagePreview) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
@@ -180,7 +182,13 @@ export function CreateImantForm({ lang }: { lang: string }) {
     }
 
 
+    function initialiseHardcodedImages() {
+        setLogo(new File([""], "imants_frame_top.png", { type: "image/png" }));
+        setLogoPreview("/composefiles/imants_frame_top.png");
 
+        setBackgroundImage(new File([""], "imants_background.png", { type: "image/png" }));
+        setBackgroundImagePreview("/composefiles/imants_background.png");
+    }
 
 
 
@@ -345,29 +353,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
                             handleSubmit(ev);
                         }}
                     >
-                        <div className={styles.formGroup}>
-                            <label htmlFor="logo">{dictionary[lang]?.collaLogo}</label>
-                            <div className={styles.imagePreviewContainer}>
-                                {logoPreview && (
-                                    <div className={styles.imagePreview}>
-                                        <img src={logoPreview} alt="Logo Preview" />
-                                    </div>
-                                )}
-                            </div>
-                            <input
-                                type="file"
-                                id="logo"
-                                name="logo"
-                                accept="image/*,.avif" // Specify accepted file types (images)
-                                onChange={handleLogoChange}
-                            />
-                            {logoSize > LOGO_MAX_MBS && (
-                                <p style={{ color: 'red' }}>
-                                    {`File size (${logoSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
-                                </p>
-                            )}
-                            <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
-                        </div>
+
                         <div className={styles.formGroup}>
                             <label htmlFor="secondaryImage">{dictionary[lang]?.collaSecondaryImage}</label>
                             <div className={styles.imagePreviewContainer}>
@@ -391,29 +377,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
                             )}
                             <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
-                        <div className={styles.formGroup}>
-                            <label htmlFor="backgroundImage">{dictionary[lang]?.collaBackgroundImage}</label>
-                            <div className={styles.imagePreviewContainer}>
-                                {backgroundImagePreview && (
-                                    <div className={styles.imagePreview}>
-                                        <img src={backgroundImagePreview} alt="Background Image Preview" />
-                                    </div>
-                                )}
-                            </div>
-                            <input
-                                type="file"
-                                id="backgroundImage"
-                                name="backgroundImage"
-                                accept="image/*,.avif" // Specify accepted file types (images)
-                                onChange={handleBackgroundImageChange}
-                            />
-                            {backgroundImageSize > LOGO_MAX_MBS && (
-                                <p style={{ color: 'red' }}>
-                                    {`File size (${backgroundImageSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
-                                </p>
-                            )}
-                            <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
-                        </div>
+
                         <div className={styles.formGroup}>
                             <label htmlFor="giantName">{dictionary[lang]?.giantName}</label>
                             <input
@@ -512,3 +476,55 @@ function ErrorNotification({ lang, resetForm }: { lang: string; resetForm: () =>
 function assertUnreachable(x: never): never {
     throw new Error("No s'esperava arribar aquí");
 }
+
+
+/* TO ADD IF NEEDED TO MODIFY FRONT AND BACK IMAGE ON THE GO * /
+
+<div className={styles.formGroup}>
+                            <label htmlFor="logo">{dictionary[lang]?.collaLogo}</label>
+                            <div className={styles.imagePreviewContainer}>
+                                {logoPreview && (
+                                    <div className={styles.imagePreview}>
+                                        <img src={logoPreview} alt="Logo Preview" />
+                                    </div>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                id="logo"
+                                name="logo"
+                                accept="image/*,.avif" // Specify accepted file types (images)
+                                onChange={handleLogoChange}
+                            />
+                            {logoSize > LOGO_MAX_MBS && (
+                                <p style={{ color: 'red' }}>
+                                    {`File size (${logoSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                </p>
+                            )}
+                            <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
+                        </div>
+
+<div className={styles.formGroup}>
+                            <label htmlFor="backgroundImage">{dictionary[lang]?.collaBackgroundImage}</label>
+                            <div className={styles.imagePreviewContainer}>
+                                {backgroundImagePreview && (
+                                    <div className={styles.imagePreview}>
+                                        <img src={backgroundImagePreview} alt="Background Image Preview" />
+                                    </div>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                id="backgroundImage"
+                                name="backgroundImage"
+                                accept="image/*,.avif" // Specify accepted file types (images)
+                                onChange={handleBackgroundImageChange}
+                            />
+                            {backgroundImageSize > LOGO_MAX_MBS && (
+                                <p style={{ color: 'red' }}>
+                                    {`File size (${backgroundImageSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                </p>
+                            )}
+                            <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
+                        </div>
+ */
