@@ -23,6 +23,10 @@ export let isSecondaryImageValid = false;
 
 const lang = defaultLang;
 
+// Define resolution parameters for the downloaded image
+const downloadImageWidth = 591; // Width of the downloaded image
+const downloadImageHeight = 591; // Height of the downloaded image
+
 export function CreateImantForm({ lang }: { lang: string }) {
     const { formData, resetForm } = useCollaFormData(initialState);
     const { formStatus, resetFormStatus } = useCollaForm();
@@ -58,16 +62,16 @@ export function CreateImantForm({ lang }: { lang: string }) {
                 secondaryImg.src = secondaryImagePreview;
 
                 logoImg.onload = () => {
-                    canvas.width = logoImg.width;
-                    canvas.height = logoImg.height;
+                    canvas.width = downloadImageWidth;
+                    canvas.height = downloadImageHeight;
 
-                    ctx.drawImage(logoImg, 0, 0);
+                    ctx.drawImage(logoImg, 0, 0, downloadImageWidth, downloadImageHeight);
                     secondaryImg.onload = () => {
-                        ctx.drawImage(secondaryImg, 0, 0, logoImg.width, logoImg.height);
+                        ctx.drawImage(secondaryImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
                         // Add text to the canvas
                         if (giantName) {
-                            ctx.font = 'bold 30px Josefin Sans'; // Adjust font size and style
+                            ctx.font = 'bold 90px Josefin Sans'; // Adjust font size and style
                             ctx.fillStyle = 'black'; // Adjust text color as needed
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'bottom'; // Align text to bottom
@@ -86,7 +90,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setLogoAlreadyValid(false);
         const file = ev.target.files?.[0];
-        if (file == undefined) { validateFormData({ ...formData, logo: file }); return; }
+        if (file === undefined) { validateFormData({ ...formData, logo: file }); return; }
 
         setImage(file);
         const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
@@ -106,7 +110,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const handleSecondaryImageChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setSecondaryImageAlreadyValid(false);
         const file = ev.target.files?.[0];
-        if (file == undefined) { validateFormData({ ...formData, secondaryImage: file }); return; }
+        if (file === undefined) { validateFormData({ ...formData, secondaryImage: file }); return; }
 
         setSecondaryImage(file);
         const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
@@ -161,7 +165,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
         if (downloadUrl) {
             const link = document.createElement('a');
             link.href = downloadUrl;
-            link.download = 'merged_image_with_text.png';
+            link.download = 'merged_image_with_text.png'; // Ensure the downloaded file extension matches the content
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
