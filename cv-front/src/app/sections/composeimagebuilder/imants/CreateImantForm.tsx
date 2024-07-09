@@ -1,45 +1,30 @@
 'use client';
 
-import React, {useEffect, useState} from "react";
-import {FormStatus, useCollaForm} from "@/app/sections/colles/form/useCollaForm";
+import React, { useEffect, useState } from "react";
+import { FormStatus, useCollaForm } from "@/app/sections/colles/form/useCollaForm";
 import { Spinner } from "@/app/sections/shared/Spinner";
-import {useCollaFormData} from "@/app/sections/colles/form/useCollaFormData";
+import { useCollaFormData } from "@/app/sections/colles/form/useCollaFormData";
 import styles from "@/app/sections/composeimagebuilder/imants/ImantForm.module.scss";
-import {defaultLang, dictionary} from "@/content";
+import { defaultLang, dictionary } from "@/content";
 
-import {isCollaNameValid, NAME_MIN_LENGTH, NAME_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaName";
-import {isCollaEntityValid, ENTITY_MIN_LENGTH, ENTITY_MAX_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaEntity";
-import {isCollaFoundationYearValid, FOUNDATION_YEAR_MIN, FOUNDATION_YEAR_MAX} from "@/modules/colles/domain/colla-attributes/CollaFoundationYear";
-import {isCollaDescriptionValid, DESCRIPTION_MAX_LENGTH, DESCRIPTION_MIN_LENGTH} from "@/modules/colles/domain/colla-attributes/CollaDescription";
-import {isCollaTypeValid,TYPE_MAX_LENGTH,TYPE_MIN_LENGTH,collaTypes} from "@/modules/colles/domain/colla-attributes/CollaType";
-import {isCollaNeighbourhoodValid, NEIGHBOURHOOD_MAX_LENGTH, NEIGHBOURHOOD_MIN_LENGTH, neighbourhoods} from "@/modules/colles/domain/colla-attributes/CollaNeighbourhood";
-import {isCollaColourValid} from "@/modules/colles/domain/colla-attributes/CollaColours";
-import {isCollaLogoValid, LOGO_MAX_MBS} from "@/modules/colles/domain/colla-attributes/CollaLogo";
-import ColourPicker from "@/app/sections/shared/ColourPicker";
-import {isCollaMusicValid, musics} from "@/modules/colles/domain/colla-attributes/CollaMusic";
-import {isCollaEmailValid} from "@/modules/colles/domain/colla-attributes/CollaEmail";
-import {isCollaInstagramValid} from "@/modules/colles/domain/colla-attributes/CollaInstagram";
-import {isCollaFiguresValid, concatenateFigures} from "@/modules/colles/domain/colla-attributes/CollaFigures";
-import {useCollesContext} from "@/app/sections/colles/CollesContext";
-import {Figura} from "@/modules/figures/domain/Figura";
+import { isCollaLogoValid, LOGO_MAX_MBS } from "@/modules/colles/domain/colla-attributes/CollaLogo";
+import { concatenateFigures } from "@/modules/colles/domain/colla-attributes/CollaFigures";
+import { useCollesContext } from "@/app/sections/colles/CollesContext";
 
 const initialState = {
     logo: null as File | null,
+    secondaryImage: null as File | null,
 }
 
 export let isLogoValid = false;
+export let isSecondaryImageValid = false;
 
 const lang = defaultLang;
 
 export function CreateImantForm({ lang }: { lang: string }) {
-    const { formData, updateForm, resetForm } = useCollaFormData(initialState);
-    const { formStatus, submitForm, resetFormStatus } = useCollaForm();
+    const { formData, resetForm } = useCollaFormData(initialState);
+    const { formStatus, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
-
-    const [isPrimaryColourPickerOpen, setIsPrimaryColourPickerOpen] = useState(false);
-    const [isSecondaryColourPickerOpen, setIsSecondaryColourPickerOpen] = useState(false);
-    const [primaryColour, setPrimaryColour] = useState('#FFFFFF');
-    const [secondaryColour, setSecondaryColour] = useState('#FFFFFF');
 
     const [logo, setImage] = useState<File | null>(null);
     const [logoSize, setLogoSize] = useState(0);
@@ -47,19 +32,41 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
     const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
-    const { figuresNoImage } = useCollesContext();
-    const [selectedFigures, setSelectedFigures] = useState([]);
+    const [secondaryImage, setSecondaryImage] = useState<File | null>(null);
+    const [secondaryImageSize, setSecondaryImageSize] = useState(0);
+    const [secondaryImagePreview, setSecondaryImagePreview] = useState<string | null>(null);
+    const [isSecondaryImageAlreadyValid, setSecondaryImageAlreadyValid] = useState(false);
+
+    const [selectedFigures] = useState([]);
 
     lang = lang;
 
     useEffect(() => {
-        if (logoPreview) {
-            const link = document.createElement('a');
-            link.href = logoPreview;
-            link.download = 'uploaded_logo.png';
-            setDownloadUrl(link.href);
+        if (logoPreview && secondaryImagePreview) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            if (ctx) {
+                const logoImg = new Image();
+                const secondaryImg = new Image();
+
+                logoImg.src = logoPreview;
+                secondaryImg.src = secondaryImagePreview;
+
+                logoImg.onload = () => {
+                    canvas.width = logoImg.width;
+                    canvas.height = logoImg.height;
+
+                    ctx.drawImage(logoImg, 0, 0);
+                    secondaryImg.onload = () => {
+                        ctx.drawImage(secondaryImg, 0, 0, logoImg.width, logoImg.height);
+                        const mergedImageUrl = canvas.toDataURL('image/png');
+                        setDownloadUrl(mergedImageUrl);
+                    };
+                };
+            }
         }
-    }, [logoPreview]);
+    }, [logoPreview, secondaryImagePreview]);
 
     const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setLogoAlreadyValid(false);
@@ -81,25 +88,50 @@ export function CreateImantForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, logo: file });
     };
 
-    const validateFormData = ({ logo }) => {
+    const handleSecondaryImageChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        setSecondaryImageAlreadyValid(false);
+        const file = ev.target.files?.[0];
+        if (file == undefined) { validateFormData({ ...formData, secondaryImage: file }); return; }
+
+        setSecondaryImage(file);
+        const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
+        setSecondaryImageSize(fileSizeInMB);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const result = reader.result as string;
+                setSecondaryImagePreview(result);
+            };
+            reader.readAsDataURL(file);
+        }
+        validateFormData({ ...formData, secondaryImage: file });
+    };
+
+    const validateFormData = ({ logo, secondaryImage }) => {
         // Perform validation based on the provided data
         if (!isLogoAlreadyValid) isLogoValid = isCollaLogoValid(logo);
+        if (!isSecondaryImageAlreadyValid) isSecondaryImageValid = isCollaLogoValid(secondaryImage);
         setLogoAlreadyValid(isLogoValid);
+        setSecondaryImageAlreadyValid(isSecondaryImageValid);
 
         setErrors({
             logo: null,
+            secondaryImage: null,
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isLogoValid) { return; }
+        if (!isLogoValid || !isSecondaryImageValid) { return; }
 
         const formDataWithImage = { ...formData };
         if (logo) { formDataWithImage.logo = logo; }
+        if (secondaryImage) { formDataWithImage.secondaryImage = secondaryImage; }
         ev.preventDefault();
         const concatenatedFigures = concatenateFigures(selectedFigures);
         //submitForm({
         //  logo: formDataWithImage.logo,
+        //  secondaryImage: formDataWithImage.secondaryImage,
         //});
     };
 
@@ -107,7 +139,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
         if (downloadUrl) {
             const link = document.createElement('a');
             link.href = downloadUrl;
-            link.download = 'uploaded_logo.png';
+            link.download = 'merged_image.png';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -161,14 +193,37 @@ export function CreateImantForm({ lang }: { lang: string }) {
                             )}
                             <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
+                        <div className={styles.formGroup}>
+                            <label htmlFor="secondaryImage">{dictionary[lang]?.collaLogo}</label>
+                            <div className={styles.imagePreviewContainer}>
+                                {secondaryImagePreview && (
+                                    <div className={styles.imagePreview}>
+                                        <img src={secondaryImagePreview} alt="Secondary Image Preview" />
+                                    </div>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                id="secondaryImage"
+                                name="secondaryImage"
+                                accept="image/*,.avif" // Specify accepted file types (images)
+                                onChange={handleSecondaryImageChange}
+                            />
+                            {secondaryImageSize > LOGO_MAX_MBS && (
+                                <p style={{ color: 'red' }}>
+                                    {`File size (${secondaryImageSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                </p>
+                            )}
+                            <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
+                        </div>
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isLogoValid}
+                            disabled={!isLogoValid || !isSecondaryImageValid}
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>
-                        {logoPreview && (
+                        {downloadUrl && (
                             <button
                                 type="button"
                                 className={styles.downloadButton}
