@@ -15,11 +15,13 @@ import { useCollesContext } from "@/app/sections/colles/CollesContext";
 const initialState = {
     logo: null as File | null,
     secondaryImage: null as File | null,
+    backgroundImage: null as File | null,
     giantName: "",
 }
 
 export let isLogoValid = false;
 export let isSecondaryImageValid = false;
+export let isBackgroundImageValid = false;
 
 const lang = defaultLang;
 
@@ -32,7 +34,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const { formStatus, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
 
-    const [logo, setImage] = useState<File | null>(null);
+    const [logo, setLogo] = useState<File | null>(null);
     const [logoSize, setLogoSize] = useState(0);
     const [logoPreview, setLogoPreview] = useState<string | null>(null);
     const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
@@ -43,6 +45,11 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const [secondaryImagePreview, setSecondaryImagePreview] = useState<string | null>(null);
     const [isSecondaryImageAlreadyValid, setSecondaryImageAlreadyValid] = useState(false);
 
+    const [backgroundImage, setBackgroundImage] = useState<File | null>(null);
+    const [backgroundImageSize, setBackgroundImageSize] = useState(0);
+    const [backgroundImagePreview, setBackgroundImagePreview] = useState<string | null>(null);
+    const [isBackgroundImageAlreadyValid, setBackgroundImageAlreadyValid] = useState(false);
+
     const [giantName, setGiantName] = useState("");
 
     const [selectedFigures] = useState([]);
@@ -50,41 +57,46 @@ export function CreateImantForm({ lang }: { lang: string }) {
     lang = lang;
 
     useEffect(() => {
-        if (logoPreview && secondaryImagePreview) {
+        if (logoPreview && secondaryImagePreview && backgroundImagePreview) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
 
             if (ctx) {
                 const logoImg = new Image();
                 const secondaryImg = new Image();
+                const backgroundImg = new Image();
 
                 logoImg.src = logoPreview;
                 secondaryImg.src = secondaryImagePreview;
+                backgroundImg.src = backgroundImagePreview;
 
                 logoImg.onload = () => {
                     canvas.width = downloadImageWidth;
                     canvas.height = downloadImageHeight;
 
-                    ctx.drawImage(logoImg, 0, 0, downloadImageWidth, downloadImageHeight);
+                    ctx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
                     secondaryImg.onload = () => {
                         ctx.drawImage(secondaryImg, 0, 0, downloadImageWidth, downloadImageHeight);
+                        backgroundImg.onload = () => {
+                            ctx.drawImage(logoImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
-                        // Add text to the canvas
-                        if (giantName) {
-                            ctx.font = 'bold 90px Josefin Sans'; // Adjust font size and style
-                            ctx.fillStyle = 'black'; // Adjust text color as needed
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'bottom'; // Align text to bottom
-                            ctx.fillText(giantName.toUpperCase(), canvas.width / 2, canvas.height - 20); // Display uppercase text
-                        }
+                            // Add text to the canvas
+                            if (giantName) {
+                                ctx.font = 'bold 90px Josefin Sans'; // Adjust font size and style
+                                ctx.fillStyle = 'black'; // Adjust text color as needed
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'bottom'; // Align text to bottom
+                                ctx.fillText(giantName.toUpperCase(), canvas.width / 2, canvas.height - 20); // Display uppercase text
+                            }
 
-                        const mergedImageUrl = canvas.toDataURL('image/png');
-                        setDownloadUrl(mergedImageUrl);
+                            const mergedImageUrl = canvas.toDataURL('image/png');
+                            setDownloadUrl(mergedImageUrl);
+                        };
                     };
                 };
             }
         }
-    }, [logoPreview, secondaryImagePreview, giantName]);
+    }, [logoPreview, secondaryImagePreview, backgroundImagePreview, giantName]);
 
 
     const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +104,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
         const file = ev.target.files?.[0];
         if (file === undefined) { validateFormData({ ...formData, logo: file }); return; }
 
-        setImage(file);
+        setLogo(file);
         const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
         setLogoSize(fileSizeInMB);
 
@@ -127,36 +139,61 @@ export function CreateImantForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, secondaryImage: file });
     };
 
+    const handleBackgroundImageChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        setBackgroundImageAlreadyValid(false);
+        const file = ev.target.files?.[0];
+        if (file === undefined) { validateFormData({ ...formData, backgroundImage: file }); return; }
+
+        setBackgroundImage(file);
+        const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
+        setBackgroundImageSize(fileSizeInMB);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const result = reader.result as string;
+                setBackgroundImagePreview(result);
+            };
+            reader.readAsDataURL(file);
+        }
+        validateFormData({ ...formData, backgroundImage: file });
+    };
+
     const handleGiantNameChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         setGiantName(ev.target.value);
         validateFormData({ ...formData, giantName: ev.target.value });
     };
 
-    const validateFormData = ({ logo, secondaryImage, giantName }) => {
+    const validateFormData = ({ logo, secondaryImage, backgroundImage, giantName }) => {
         // Perform validation based on the provided data
         if (!isLogoAlreadyValid) isLogoValid = isCollaLogoValid(logo);
         if (!isSecondaryImageAlreadyValid) isSecondaryImageValid = isCollaLogoValid(secondaryImage);
+        if (!isBackgroundImageAlreadyValid) isBackgroundImageValid = isCollaLogoValid(backgroundImage);
         setLogoAlreadyValid(isLogoValid);
         setSecondaryImageAlreadyValid(isSecondaryImageValid);
+        setBackgroundImageAlreadyValid(isBackgroundImageValid);
 
         setErrors({
             logo: null,
             secondaryImage: null,
+            backgroundImage: null,
             giantName: giantName.length > 0 ? null : "Giant name is required",
         });
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isLogoValid || !isSecondaryImageValid || !giantName) { return; }
+        if (!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !giantName) { return; }
 
         const formDataWithImage = { ...formData };
         if (logo) { formDataWithImage.logo = logo; }
         if (secondaryImage) { formDataWithImage.secondaryImage = secondaryImage; }
+        if (backgroundImage) { formDataWithImage.backgroundImage = backgroundImage; }
         ev.preventDefault();
         const concatenatedFigures = concatenateFigures(selectedFigures);
         //submitForm({
         //  logo: formDataWithImage.logo,
         //  secondaryImage: formDataWithImage.secondaryImage,
+        //  backgroundImage: formDataWithImage.backgroundImage,
         //  giantName: giantName,
         //});
     };
@@ -243,6 +280,29 @@ export function CreateImantForm({ lang }: { lang: string }) {
                             <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
                         <div className={styles.formGroup}>
+                            <label htmlFor="backgroundImage">{dictionary[lang]?.collaBackgroundImage}</label>
+                            <div className={styles.imagePreviewContainer}>
+                                {backgroundImagePreview && (
+                                    <div className={styles.imagePreview}>
+                                        <img src={backgroundImagePreview} alt="Background Image Preview" />
+                                    </div>
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                id="backgroundImage"
+                                name="backgroundImage"
+                                accept="image/*,.avif" // Specify accepted file types (images)
+                                onChange={handleBackgroundImageChange}
+                            />
+                            {backgroundImageSize > LOGO_MAX_MBS && (
+                                <p style={{ color: 'red' }}>
+                                    {`File size (${backgroundImageSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                </p>
+                            )}
+                            <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
+                        </div>
+                        <div className={styles.formGroup}>
                             <label htmlFor="giantName">{dictionary[lang]?.giantName}</label>
                             <input
                                 type="text"
@@ -258,7 +318,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isLogoValid || !isSecondaryImageValid || !giantName}
+                            disabled={!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !giantName}
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>
