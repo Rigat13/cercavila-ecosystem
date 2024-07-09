@@ -89,8 +89,14 @@ export function CreateImantForm({ lang }: { lang: string }) {
                     // Draw background image
                     ctx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
+                    // Apply color multiplication only to the background image
+                    ctx.globalCompositeOperation = 'multiply';
+                    ctx.fillStyle = colour; // Use the selected color
+                    ctx.fillRect(0, 0, downloadImageWidth, downloadImageHeight);
+
                     secondaryImg.onload = () => {
                         // Draw secondary image
+                        ctx.globalCompositeOperation = 'source-over'; // Reset to default
                         ctx.drawImage(secondaryImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
                         backgroundImg.onload = () => {
@@ -113,7 +119,8 @@ export function CreateImantForm({ lang }: { lang: string }) {
                 };
             }
         }
-    }, [logoPreview, secondaryImagePreview, backgroundImagePreview, giantName]);
+    }, [logoPreview, secondaryImagePreview, backgroundImagePreview, giantName, colour]);
+
 
 
 
