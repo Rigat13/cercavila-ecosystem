@@ -129,9 +129,21 @@ export function CreateImantForm({ lang }: { lang: string }) {
                         if (imantNumber) {
                             ctx.font = 'bold 40px Josefin Sans'; // Adjust font size and style
                             ctx.fillStyle = 'black'; // Adjust text color as needed
-                            ctx.textAlign = 'right';
+                            ctx.textAlign = 'center';
                             ctx.textBaseline = 'bottom'; // Align text to bottom
-                            ctx.fillText(imantNumber, canvas.width - 20, canvas.height - 20); // Display text at bottom right
+
+                            // Calculate x position dynamically based on number of digits
+                            const numDigits = imantNumber.toString().length;
+                            let x;
+                            if (numDigits === 1) {
+                                x = canvas.width - 20; // Adjust this value as needed for spacing
+                            } else if (numDigits === 2) {
+                                x = canvas.width - 40; // Adjust this value as needed for spacing
+                            } else if (numDigits === 3) {
+                                x = canvas.width - 60; // Adjust this value as needed for spacing
+                            }
+
+                            ctx.fillText(imantNumber, x, canvas.height - 20); // Display text at bottom right
                         }
 
                         // Add a white background to the entire canvas
@@ -148,6 +160,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
             }
         }
     }, [logoPreview, secondaryImagePreview, backgroundImagePreview, giantName, imantNumber, colour]);
+
 
 
 // Function to ensure image is loaded properly
