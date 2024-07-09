@@ -512,8 +512,11 @@ interface DictionaryEntry {
 
     // --------------------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------------------- IMANTS
+    ccgmImantsCreatorTitle: string;
     downloadImageButton: string;
-
+    imantNumber: string;
+    imantNumberInvalid: string;
+    preview: string;
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
@@ -1048,7 +1051,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         // --------------------------------------------------------------------------------------------
         // -------------------------------------------------------------------------------------------- IMANTS
-        downloadImageButton: "Descarregar"
+        ccgmImantsCreatorTitle: "Creador d'imants de la CCGM",
+        downloadImageButton: "Descarregar",
+        imantNumber: "Número d'imant",
+        imantNumberInvalid: "El número d'imant no és vàlid. Ha de ser un número positiu.",
+        preview: "Previsualització"
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1583,7 +1590,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         // --------------------------------------------------------------------------------------------
         // -------------------------------------------------------------------------------------------- IMANTS
-        downloadImageButton: "Descargar"
+        ccgmImantsCreatorTitle: "Creador de imanes de la CCGM",
+        downloadImageButton: "Descargar",
+        imantNumber: "Número de imán",
+        imantNumberInvalid: "El número de imán no es válido. Debe ser un número positivo.",
+        preview: "Vista previa"
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -2118,6 +2129,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
 
         // --------------------------------------------------------------------------------------------
         // -------------------------------------------------------------------------------------------- IMANTS
-        downloadImageButton: "Download"
+        ccgmImantsCreatorTitle: "CCGM magnets creator",
+        downloadImageButton: "Download",
+        imantNumber: "Magnet number",
+        imantNumberInvalid: "The magnet number is not valid. It must be a positive number.",
+        preview: "Preview"
     }
 }

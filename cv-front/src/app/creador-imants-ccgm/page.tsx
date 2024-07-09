@@ -49,7 +49,7 @@ function PageContent() {
             </div>
 
             <div className = "Colles">
-                <h1 className={globalStyles.h1}>{dictionary[lang]?.cercavilaTitle}</h1>
+                <h1 className={globalStyles.hSpecial}>{dictionary[lang]?.ccgmImantsCreatorTitle}</h1>
                 <CreateImantForm lang={lang}/>
             </div>
         </CollesContextProvider>

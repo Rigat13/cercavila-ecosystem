@@ -18,15 +18,15 @@ import {isCollaNameValid, NAME_MAX_LENGTH, NAME_MIN_LENGTH} from "@/modules/coll
 import {update} from "immutable";
 
 const initialState = {
-    logo: null as File | null,
-    secondaryImage: null as File | null,
+    frameImage: null as File | null,
+    giantImage: null as File | null,
     backgroundImage: null as File | null,
     giantName: "",
     colour: "",
     imantNumber: "",
 }
 
-export let isLogoValid, isSecondaryImageValid, isBackgroundImageValid, isGiantNameValid, isColourValid, isImantNumberValid = false;
+export let isframeImageValid, isGiantImageValid, isBackgroundImageValid, isGiantNameValid, isColourValid, isImantNumberValid = false;
 
 
 const lang = defaultLang;
@@ -40,16 +40,16 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const { formStatus, resetFormStatus } = useCollaForm();
     const [errors, setErrors] = useState(initialState);
 
-    const [logo, setLogo] = useState<File | null>(null);
-    const [logoSize, setLogoSize] = useState(0);
-    const [logoPreview, setLogoPreview] = useState<string | null>(null);
-    const [isLogoAlreadyValid, setLogoAlreadyValid] = useState(false);
+    const [frameImage, setframeImage] = useState<File | null>(null);
+    const [frameImageSize, setframeImageSize] = useState(0);
+    const [frameImagePreview, setframeImagePreview] = useState<string | null>(null);
+    const [isframeImageAlreadyValid, setframeImageAlreadyValid] = useState(false);
     const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
-    const [secondaryImage, setSecondaryImage] = useState<File | null>(null);
-    const [secondaryImageSize, setSecondaryImageSize] = useState(0);
-    const [secondaryImagePreview, setSecondaryImagePreview] = useState<string | null>(null);
-    const [isSecondaryImageAlreadyValid, setSecondaryImageAlreadyValid] = useState(false);
+    const [giantImage, setGiantImage] = useState<File | null>(null);
+    const [giantImageSize, setGiantImageSize] = useState(0);
+    const [giantImagePreview, setGiantImagePreview] = useState<string | null>(null);
+    const [isGiantImageAlreadyValid, setGiantImageAlreadyValid] = useState(false);
 
     const [backgroundImage, setBackgroundImage] = useState<File | null>(null);
     const [backgroundImageSize, setBackgroundImageSize] = useState(0);
@@ -72,22 +72,22 @@ export function CreateImantForm({ lang }: { lang: string }) {
     useEffect(() => {
         initialiseHardcodedImages();
 
-        if (logoPreview && secondaryImagePreview && backgroundImagePreview) {
+        if (frameImagePreview && giantImagePreview && backgroundImagePreview) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
 
             if (ctx) {
-                const logoImg = new Image();
-                const secondaryImg = new Image();
+                const frameImageImg = new Image();
+                const giantImg = new Image();
                 const backgroundImg = new Image();
 
                 // Set sources for images
-                logoImg.src = logoPreview;
-                secondaryImg.src = secondaryImagePreview;
+                frameImageImg.src = frameImagePreview;
+                giantImg.src = giantImagePreview;
                 backgroundImg.src = backgroundImagePreview;
 
                 // Ensure all images are loaded before processing
-                Promise.all([loadImage(logoImg), loadImage(secondaryImg), loadImage(backgroundImg)])
+                Promise.all([loadImage(frameImageImg), loadImage(giantImg), loadImage(backgroundImg)])
                     .then(() => {
                         canvas.width = downloadImageWidth;
                         canvas.height = downloadImageHeight;
@@ -114,12 +114,12 @@ export function CreateImantForm({ lang }: { lang: string }) {
                         ctx.globalCompositeOperation = 'destination-in';
                         ctx.drawImage(backgroundImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
-                        // Draw the secondary image on top
+                        // Draw the giant image on top
                         ctx.globalCompositeOperation = 'source-over';
-                        ctx.drawImage(secondaryImg, 0, 0, downloadImageWidth, downloadImageHeight);
+                        ctx.drawImage(giantImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
-                        // Draw the logo image on top
-                        ctx.drawImage(logoImg, 0, 0, downloadImageWidth, downloadImageHeight);
+                        // Draw the frameImage image on top
+                        ctx.drawImage(frameImageImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
                         // Add text to the canvas - giantName
                         if (giantName) {
@@ -165,7 +165,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
                     });
             }
         }
-    }, [logoPreview, secondaryImagePreview, backgroundImagePreview, giantName, imantNumber, colour]);
+    }, [frameImagePreview, giantImagePreview, backgroundImagePreview, giantName, imantNumber, colour]);
 
 
 
@@ -183,8 +183,8 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
 
     function initialiseHardcodedImages() {
-        setLogo(new File([""], "imants_frame_top.png", { type: "image/png" }));
-        setLogoPreview("/composefiles/imants_frame_top.png");
+        setframeImage(new File([""], "imants_frame_top.png", { type: "image/png" }));
+        setframeImagePreview("/composefiles/imants_frame_top.png");
 
         setBackgroundImage(new File([""], "imants_background.png", { type: "image/png" }));
         setBackgroundImagePreview("/composefiles/imants_background.png");
@@ -193,44 +193,44 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
 
 
-    const handleLogoChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        setLogoAlreadyValid(false);
+    const handleframeImageChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        setframeImageAlreadyValid(false);
         const file = ev.target.files?.[0];
-        if (file === undefined) { validateFormData({ ...formData, logo: file }); return; }
+        if (file === undefined) { validateFormData({ ...formData, frameImage: file }); return; }
 
-        setLogo(file);
+        setframeImage(file);
         const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
-        setLogoSize(fileSizeInMB);
+        setframeImageSize(fileSizeInMB);
 
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 const result = reader.result as string;
-                setLogoPreview(result);
+                setframeImagePreview(result);
             };
             reader.readAsDataURL(file);
         }
-        validateFormData({ ...formData, logo: file });
+        validateFormData({ ...formData, frameImage: file });
     };
 
-    const handleSecondaryImageChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        setSecondaryImageAlreadyValid(false);
+    const handleGiantImageChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        setGiantImageAlreadyValid(false);
         const file = ev.target.files?.[0];
-        if (file === undefined) { validateFormData({ ...formData, secondaryImage: file }); return; }
+        if (file === undefined) { validateFormData({ ...formData, giantImage: file }); return; }
 
-        setSecondaryImage(file);
+        setGiantImage(file);
         const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
-        setSecondaryImageSize(fileSizeInMB);
+        setGiantImageSize(fileSizeInMB);
 
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 const result = reader.result as string;
-                setSecondaryImagePreview(result);
+                setGiantImagePreview(result);
             };
             reader.readAsDataURL(file);
         }
-        validateFormData({ ...formData, secondaryImage: file });
+        validateFormData({ ...formData, giantImage: file });
     };
 
     const handleBackgroundImageChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -274,26 +274,26 @@ export function CreateImantForm({ lang }: { lang: string }) {
         validateFormData({ ...formData, imantNumber: newNumberField });
     };
 
-    const validateFormData = ({ logo, secondaryImage, backgroundImage, giantName, colour, imantNumber }) => {
+    const validateFormData = ({ frameImage, giantImage, backgroundImage, giantName, colour, imantNumber }) => {
         // Perform validation based on the provided data
         const formDataWithImage = { ...formData };
-        if (logo) { formDataWithImage.logo = logo; }
-        if (secondaryImage) { formDataWithImage.secondaryImage = secondaryImage; }
+        if (frameImage) { formDataWithImage.frameImage = frameImage; }
+        if (giantImage) { formDataWithImage.giantImage = giantImage; }
         if (backgroundImage) { formDataWithImage.backgroundImage = backgroundImage; }
 
-        if (!isLogoAlreadyValid) isLogoValid = isCollaLogoValid(logo);
-        if (!isSecondaryImageAlreadyValid) isSecondaryImageValid = isCollaLogoValid(secondaryImage);
+        if (!isframeImageAlreadyValid) isframeImageValid = isCollaLogoValid(frameImage);
+        if (!isGiantImageAlreadyValid) isGiantImageValid = isCollaLogoValid(giantImage);
         if (!isBackgroundImageAlreadyValid) isBackgroundImageValid = isCollaLogoValid(backgroundImage);
-        setLogoAlreadyValid(isLogoValid);
-        setSecondaryImageAlreadyValid(isSecondaryImageValid);
+        setframeImageAlreadyValid(isframeImageValid);
+        setGiantImageAlreadyValid(isGiantImageValid);
         setBackgroundImageAlreadyValid(isBackgroundImageValid);
         isColourValid = isCollaColourValid(colour);
         isGiantNameValid = isCollaNameValid(giantName);
         isImantNumberValid = imantNumber > 0;
 
         setErrors({
-            logo: formDataWithImage.logo,
-            secondaryImage: formDataWithImage.secondaryImage,
+            frameImage: formDataWithImage.frameImage,
+            giantImage: formDataWithImage.giantImage,
             backgroundImage: formDataWithImage.backgroundImage,
             giantName: isGiantNameValid ? "" : dictionary[lang]?.collesNameInvalid + NAME_MIN_LENGTH + " - " +NAME_MAX_LENGTH,
             colour: isColourValid ? "" : dictionary[lang]?.collesPrimaryColourInvalid + "",
@@ -302,17 +302,17 @@ export function CreateImantForm({ lang }: { lang: string }) {
     };
 
     const handleSubmit = (ev: React.FormEvent) => {
-        if (!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid || !isImantNumberValid) { return; }
+        if (!isframeImageValid || !isGiantImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid || !isImantNumberValid) { return; }
 
         const formDataWithImage = { ...formData };
-        if (logo) { formDataWithImage.logo = logo; }
-        if (secondaryImage) { formDataWithImage.secondaryImage = secondaryImage; }
+        if (frameImage) { formDataWithImage.frameImage = frameImage; }
+        if (giantImage) { formDataWithImage.giantImage = giantImage; }
         if (backgroundImage) { formDataWithImage.backgroundImage = backgroundImage; }
         ev.preventDefault();
         const concatenatedFigures = concatenateFigures(selectedFigures);
         //submitForm({
-        //  logo: formDataWithImage.logo,
-        //  secondaryImage: formDataWithImage.secondaryImage,
+        //  frameImage: formDataWithImage.frameImage,
+        //  giantImage: formDataWithImage.giantImage,
         //  backgroundImage: formDataWithImage.backgroundImage,
         //  giantName: giantName,
         //});
@@ -355,31 +355,31 @@ export function CreateImantForm({ lang }: { lang: string }) {
                     >
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="secondaryImage">{dictionary[lang]?.collaSecondaryImage}</label>
+                            <label htmlFor="giantImage">{dictionary[lang]?.figuraImage}</label>
                             <div className={styles.imagePreviewContainer}>
-                                {secondaryImagePreview && (
+                                {giantImagePreview && (
                                     <div className={styles.imagePreview}>
-                                        <img src={secondaryImagePreview} alt="Secondary Image Preview" />
+                                        <img src={giantImagePreview} alt="Giant Image Preview" />
                                     </div>
                                 )}
                             </div>
                             <input
                                 type="file"
-                                id="secondaryImage"
-                                name="secondaryImage"
+                                id="giantImage"
+                                name="giantImage"
                                 accept="image/*,.avif" // Specify accepted file types (images)
-                                onChange={handleSecondaryImageChange}
+                                onChange={handleGiantImageChange}
                             />
-                            {secondaryImageSize > LOGO_MAX_MBS && (
+                            {giantImageSize > LOGO_MAX_MBS && (
                                 <p style={{ color: 'red' }}>
-                                    {`File size (${secondaryImageSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                    {`File size (${giantImageSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
                                 </p>
                             )}
                             <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label htmlFor="giantName">{dictionary[lang]?.giantName}</label>
+                            <label htmlFor="giantName">{dictionary[lang]?.figuraName}</label>
                             <input
                                 type="text"
                                 id="giantName"
@@ -427,7 +427,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid || !isImantNumberValid}
+                            disabled={!isframeImageValid || !isGiantImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid || !isImantNumberValid}
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>
@@ -444,8 +444,8 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
                     {previewImageUrl && (
                         <div className={styles.ImagePreview}>
-                            <h3>Preview:</h3>
-                            <img src={previewImageUrl} alt="Preview" />
+                            <h3>{dictionary[lang]?.preview}:</h3>
+                            <img src={previewImageUrl} alt={dictionary[lang]?.preview} />
                         </div>
                     )}
                 </section>
@@ -481,24 +481,24 @@ function assertUnreachable(x: never): never {
 /* TO ADD IF NEEDED TO MODIFY FRONT AND BACK IMAGE ON THE GO * /
 
 <div className={styles.formGroup}>
-                            <label htmlFor="logo">{dictionary[lang]?.collaLogo}</label>
+                            <label htmlFor="frameImage">{dictionary[lang]?.collaframeImage}</label>
                             <div className={styles.imagePreviewContainer}>
-                                {logoPreview && (
+                                {frameImagePreview && (
                                     <div className={styles.imagePreview}>
-                                        <img src={logoPreview} alt="Logo Preview" />
+                                        <img src={frameImagePreview} alt="frameImage Preview" />
                                     </div>
                                 )}
                             </div>
                             <input
                                 type="file"
-                                id="logo"
-                                name="logo"
+                                id="frameImage"
+                                name="frameImage"
                                 accept="image/*,.avif" // Specify accepted file types (images)
-                                onChange={handleLogoChange}
+                                onChange={handleframeImageChange}
                             />
-                            {logoSize > LOGO_MAX_MBS && (
+                            {frameImageSize > LOGO_MAX_MBS && (
                                 <p style={{ color: 'red' }}>
-                                    {`File size (${logoSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
+                                    {`File size (${frameImageSize.toFixed(2)} MB) exceeds the maximum allowed size of ${LOGO_MAX_MBS} MB`}
                                 </p>
                             )}
                             <p>{dictionary[lang]?.maxFileSize + LOGO_MAX_MBS + "MB"}</p>
