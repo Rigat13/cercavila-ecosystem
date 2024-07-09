@@ -57,7 +57,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
     const [isBackgroundImageAlreadyValid, setBackgroundImageAlreadyValid] = useState(false);
 
     const [giantName, setGiantName] = useState("");
-    const [imantNumber, setNumberField] = useState<number>(0);
+    const [imantNumber, setImantNumber] = useState("");
 
     const [selectedFigures] = useState([]);
 
@@ -116,13 +116,22 @@ export function CreateImantForm({ lang }: { lang: string }) {
                         // Draw the logo image on top
                         ctx.drawImage(logoImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
-                        // Add text to the canvas
+                        // Add text to the canvas - giantName
                         if (giantName) {
                             ctx.font = 'bold 90px Josefin Sans'; // Adjust font size and style
                             ctx.fillStyle = 'black'; // Adjust text color as needed
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'bottom'; // Align text to bottom
                             ctx.fillText(giantName.toUpperCase(), canvas.width / 2, canvas.height - 20); // Display uppercase text
+                        }
+
+                        // Add text to the canvas - imantNumber
+                        if (imantNumber) {
+                            ctx.font = 'bold 40px Josefin Sans'; // Adjust font size and style
+                            ctx.fillStyle = 'black'; // Adjust text color as needed
+                            ctx.textAlign = 'right';
+                            ctx.textBaseline = 'bottom'; // Align text to bottom
+                            ctx.fillText(imantNumber, canvas.width - 20, canvas.height - 20); // Display text at bottom right
                         }
 
                         // Add a white background to the entire canvas
@@ -138,7 +147,8 @@ export function CreateImantForm({ lang }: { lang: string }) {
                     });
             }
         }
-    }, [logoPreview, secondaryImagePreview, backgroundImagePreview, giantName, colour]);
+    }, [logoPreview, secondaryImagePreview, backgroundImagePreview, giantName, imantNumber, colour]);
+
 
 // Function to ensure image is loaded properly
     function loadImage(image) {
@@ -234,8 +244,8 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
     const handleNumberChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         const newNumberField = parseInt(ev.target.value, 10);
-        setNumberField(newNumberField);
-        updateForm({ imantNumber: newNumberField });
+        setImantNumber(newNumberField+"");
+        updateForm({ imantNumber: newNumberField+"" });
         validateFormData({ ...formData, imantNumber: newNumberField });
     };
 
@@ -436,7 +446,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
                         <button
                             className={styles.actionButton}
                             type="submit"
-                            disabled={!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid}
+                            disabled={!isLogoValid || !isSecondaryImageValid || !isBackgroundImageValid || !isGiantNameValid || !isColourValid || !isImantNumberValid}
                         >
                             {dictionary[lang]?.createCollaButton}
                         </button>
