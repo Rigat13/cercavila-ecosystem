@@ -123,32 +123,38 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
                         // Add text to the canvas - giantName
                         if (giantName) {
-                            ctx.font = 'bold 90px Josefin Sans'; // Adjust font size and style
-                            ctx.fillStyle = 'black'; // Adjust text color as needed
+                            let nameSize = 42;
+                            let nameX = canvas.width / 2;
+                            let nameY = canvas.height - 25;
+
+                            ctx.font = 'bold ' + nameSize + 'px Josefin Sans'; // Adjust font size and style
+                            ctx.fillStyle = 'white'; // Adjust text color as needed
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'bottom'; // Align text to bottom
-                            ctx.fillText(giantName.toUpperCase(), canvas.width / 2, canvas.height - 20); // Display uppercase text
+                            ctx.fillText(giantName.toUpperCase(), nameX, nameY); // Display uppercase text
                         }
 
                         // Add text to the canvas - imantNumber
                         if (imantNumber) {
-                            ctx.font = 'bold 40px Josefin Sans'; // Adjust font size and style
-                            ctx.fillStyle = 'black'; // Adjust text color as needed
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'bottom'; // Align text to bottom
+                            let imantNumberSize = 30;
+                            let numberX = canvas.width - 35;
+                            let numberY = canvas.height - 16;
 
                             // Calculate x position dynamically based on number of digits
                             const numDigits = imantNumber.toString().length;
                             let x;
                             if (numDigits === 1) {
-                                x = canvas.width - 20; // Adjust this value as needed for spacing
                             } else if (numDigits === 2) {
-                                x = canvas.width - 40; // Adjust this value as needed for spacing
                             } else if (numDigits === 3) {
-                                x = canvas.width - 60; // Adjust this value as needed for spacing
+                                imantNumberSize = 22;
+                                numberY = canvas.height - 21;
                             }
+                            ctx.font = 'bold ' + imantNumberSize + 'px Josefin Sans'; // Adjust font size and style
+                            ctx.fillStyle = 'black'; // Adjust text color as needed
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom'; // Align text to bottom
 
-                            ctx.fillText(imantNumber, x, canvas.height - 20); // Display text at bottom right
+                            ctx.fillText(imantNumber, numberX, numberY); // Display text at bottom right
                         }
 
                         // Add a white background to the entire canvas
@@ -183,8 +189,11 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
 
     function initialiseHardcodedImages() {
-        setframeImage(new File([""], "imants_frame_top.png", { type: "image/png" }));
-        setframeImagePreview("/composefiles/imants_frame_top.png");
+        //setframeImage(new File([""], "imants_frame_top.png", { type: "image/png" }));
+        //setframeImagePreview("/composefiles/imants_frame_top.png");
+
+        setframeImage(new File([""], "proves.png", { type: "image/png" }));
+        setframeImagePreview("/composefiles/proves.png");
 
         setBackgroundImage(new File([""], "imants_background.png", { type: "image/png" }));
         setBackgroundImagePreview("/composefiles/imants_background.png");
