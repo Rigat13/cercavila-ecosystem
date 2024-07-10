@@ -103,7 +103,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
                         // Apply color multiplication to the temporary canvas
                         tempCtx.globalCompositeOperation = 'multiply';
-                        tempCtx.fillStyle = colour;
+                        tempCtx.fillStyle = colour; // Use the colour from the form
                         tempCtx.fillRect(0, 0, downloadImageWidth, downloadImageHeight);
 
                         // Reset composite operation and draw the multiplied result onto the main canvas
@@ -121,17 +121,26 @@ export function CreateImantForm({ lang }: { lang: string }) {
                         // Draw the frameImage image on top
                         ctx.drawImage(frameImageImg, 0, 0, downloadImageWidth, downloadImageHeight);
 
-                        // Add text to the canvas - giantName
+                        // Add text to the canvas - giantName with background color
                         if (giantName) {
                             let nameSize = 42;
                             let nameX = canvas.width / 2;
                             let nameY = canvas.height - 25;
 
-                            ctx.font = 'bold ' + nameSize + 'px Josefin Sans'; // Adjust font size and style
-                            ctx.fillStyle = 'white'; // Adjust text color as needed
+                            // Measure text width to set background size
+                            ctx.font = 'bold ' + nameSize + 'px Josefin Sans';
+                            const textWidth = ctx.measureText(giantName.toUpperCase()).width;
+                            const padding = 15; // Padding around text
+
+                            // Draw background rect behind text
+                            ctx.fillStyle = colour; // Use the colour from the form
+                            ctx.fillRect(nameX - textWidth / 2 - padding, nameY - nameSize - 10, textWidth + 2 * padding, nameSize + 11);
+
+                            // Draw text
+                            ctx.fillStyle = 'white';
                             ctx.textAlign = 'center';
-                            ctx.textBaseline = 'bottom'; // Align text to bottom
-                            ctx.fillText(giantName.toUpperCase(), nameX, nameY); // Display uppercase text
+                            ctx.textBaseline = 'bottom';
+                            ctx.fillText(giantName.toUpperCase(), nameX, nameY);
                         }
 
                         // Add text to the canvas - imantNumber
@@ -172,6 +181,7 @@ export function CreateImantForm({ lang }: { lang: string }) {
             }
         }
     }, [frameImagePreview, giantImagePreview, backgroundImagePreview, giantName, imantNumber, colour]);
+
 
 
 
