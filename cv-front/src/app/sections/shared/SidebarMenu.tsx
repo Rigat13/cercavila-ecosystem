@@ -56,9 +56,12 @@ function SidebarMenuContent({ isOpen, onClose, lang }: SidebarMenuProps) {
 
     return (
         <div ref={sidebarRef} className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
-            <button className={styles.sidebarButton} onClick={onClose}>
+            <button className={styles.sidebarButtonWhite} onClick={onClose}>
                 <img src="/icons/icon-burger-inverted.svg" alt="Side bar" />
             </button>
+            <a href={lang === defaultLang ? "/" : `/?lang=${lang}`}>
+                <button className={styles.homeButton}> <img src="/icons/icon-home.svg" alt="Inici" /> </button>
+            </a>
             <div className={styles.menuContainer}>
                 <div className={styles.menu}>
                     {loggedInUser ? (

@@ -34,6 +34,28 @@
   margin-top: 10px;
 }
 
+.actionButton{
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 1rem 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 7px;
+  background: #000088;
+  color: #f8f1f1;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    background: #f8f1f1;
+    color: #000088;
+  }
+  &:disabled {
+    background-color: #c0c0c0;
+    color: #808080;
+    cursor: not-allowed;
+  }
+}
+
 .buttonContainer {
   margin-top: 20px;
 }

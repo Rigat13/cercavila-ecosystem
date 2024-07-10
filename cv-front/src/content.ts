@@ -4,6 +4,7 @@ export const defaultLang = "ca";
 interface DictionaryEntry {
     // -------------------------------------------------------------------------------------------- GENERAL
     cercavilaTitle: string;
+    cercavilaTagline: string;
     cercavilaWelcome: string;
     errorFound: string;
     unreachablePage: string;
@@ -30,6 +31,8 @@ interface DictionaryEntry {
     registerButton: string;
     registerError: string;
     logoutButton: string;
+    incorrectPasswordError: string;
+    userNotFoundError: string;
 
     // -------------------------------------------------------------------------------------------- CCGM
     ccgmAcronym: string;
@@ -532,6 +535,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
     ca: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
+        cercavilaTagline: "La plataforma de les colles geganteres de Mataró",
         cercavilaWelcome: "Heu arribat a Cercavila, ",
         errorFound: "Hi ha hagut un error",
         unreachablePage: "No s'esperava arribar aquí",
@@ -558,6 +562,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         registerButton: "Registra't",
         registerError: "Error en registrar-se",
         logoutButton: "Tanca sessió",
+        incorrectPasswordError: "Contrasenya incorrecta",
+        userNotFoundError: "No s'ha trobat cap usuari/a amb aquest nom",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -645,7 +651,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectFigures: "-- Figura --",
 
         // CREATE COLLA
-        collesTitle: "Colles registrades",
+        collesTitle: "Colles",
         createCollaTitle: "Crea una nova colla",
         createCollaButton: "Crea la colla",
 
@@ -848,7 +854,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectUserActivePin: "Seleccioneu el pin a col·locar:",
 
         // CREATE USER
-        usersTitle: "Usuaris registrats",
+        usersTitle: "Usuaris",
         createUserTitle: "Crea un nou usuari",
         createUserButton: "Crea l'usuari",
 
@@ -983,7 +989,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectEventAllDigitalProductsReward: "-- Participants - Productes digitals de premi --",
 
         // CREATE EVENT
-        eventsTitle: "Esdeveniments registrats",
+        eventsTitle: "Esdeveniments",
         createEventTitle: "Crea un nou esdeveniment",
         createEventButton: "Crea l'esdeveniment",
 
@@ -1061,6 +1067,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
     es: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
+        cercavilaTagline: "La plataforma de las collas de gigantes de Mataró",
         cercavilaWelcome: "Ha llegado a Cercavila, ",
         errorFound: "Ha habido un error",
         unreachablePage: "No se esperaba llegar aquí",
@@ -1087,6 +1094,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         registerButton: "Regístrate",
         registerError: "Error en registrarse",
         logoutButton: "Cierra sesión",
+        incorrectPasswordError: "Contraseña incorrecta",
+        userNotFoundError: "No se ha encontrado al usuario/a con este nombre",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -1174,7 +1183,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectFigures: "-- Figura --",
 
         // CREATE COLLA
-        collesTitle: "Collas registradas",
+        collesTitle: "Collas",
         createCollaTitle: "Crea una nueva colla",
         createCollaButton: "Crea la colla",
 
@@ -1377,7 +1386,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectUserActivePin: "Selecciona el pin a colocar:",
 
         // CREATE USER
-        usersTitle: "Usuarios registrados",
+        usersTitle: "Usuarios",
         createUserTitle: "Crea un nuevo usuario",
         createUserButton: "Crea el usuario",
 
@@ -1512,7 +1521,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectEventAllDigitalProductsReward: "-- Todos los participantes - Productos digitales de premio --",
 
         // CREATE EVENT
-        eventsTitle: "Eventos registrados",
+        eventsTitle: "Eventos",
         createEventTitle: "Crea un nuevo evento",
         createEventButton: "Crea el evento",
 
@@ -1590,6 +1599,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
     en: {
         // -------------------------------------------------------------------------------------------- GENERAL
         cercavilaTitle: "Cercavila",
+        cercavilaTagline: "The platform for Mataró giants' guilds",
         cercavilaWelcome: "You have arrived at Cercavila, ",
         errorFound: "An error has occurred",
         unreachablePage: "Unexpected path",
@@ -1616,6 +1626,8 @@ export const dictionary: Record<string, DictionaryEntry> = {
         registerButton: "Register",
         registerError: "Error registering",
         logoutButton: "Log out",
+        incorrectPasswordError: "Incorrect password",
+        userNotFoundError: "No user found with this nickname",
 
         // -------------------------------------------------------------------------------------------- CCGM
         ccgmAcronym: "CCGM",
@@ -1703,7 +1715,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectFigures: "-- Figure --",
 
         // CREATE COLLA
-        collesTitle: "Registered colles",
+        collesTitle: "Colles",
         createCollaTitle: "Create a new colla",
         createCollaButton: "Create colla",
 
@@ -1906,7 +1918,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectUserActivePin: "Select the pin to place:",
 
         // CREATE USER
-        usersTitle: "Registered users",
+        usersTitle: "Users",
         createUserTitle: "Create a new user",
         createUserButton: "Create user",
 
@@ -2041,7 +2053,7 @@ export const dictionary: Record<string, DictionaryEntry> = {
         selectEventAllDigitalProductsReward: "-- All participants - Digital products reward --",
 
         // CREATE EVENT
-        eventsTitle: "Registered events",
+        eventsTitle: "Events",
         createEventTitle: "Create a new event",
         createEventButton: "Create event",
 

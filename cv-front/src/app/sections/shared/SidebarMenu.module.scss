@@ -45,7 +45,7 @@
   }
 
   /* ---------------------------------------------------- SIDE BAR ---------------------------------------------------- */
-  .sidebarButton {
+  .sidebarButton, .sidebarButtonWhite {
     position: fixed;
     top: 0;
     margin: 20px;
@@ -56,7 +56,11 @@
     z-index: 9;
   }
 
-  .sidebarButton:hover {
+  .sidebarButton {
+    left: 0;
+  }
+
+  .sidebarButton:hover, .sidebarButtonWhite:hover {
     transform: scale(1.1);
   }
 
@@ -90,7 +94,7 @@
     transition: left 0.3s ease;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
-    z-index: 10;
+    z-index: 15;
   }
 
   .sidebar.open {
@@ -145,7 +149,24 @@
     background-color: darkblue;
   }
 
+  .homeButton {
+    position: relative;
+    top: 4rem;
+    left: 22rem;
+    margin: 1rem;
+    display: flex;
+    width: 3.5rem;
+    height: auto;
+    transition: transform 0.3s ease;
+    z-index: 9;
+    border: 0.4rem solid black;
+    background: black;
+    border-radius: 50%;
+  }
 
+  .homeButton:hover {
+    transform: scale(1.1);
+  }
 
 
   /* ---------------------------------------------------- RIGHT SIDEBAR ---------------------------------------------------- */
@@ -159,7 +180,7 @@
     transition: right 0.3s ease; /* Animate right property */
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
-    z-index: 10;
+    z-index: 15;
 
     &.open {
       right: 0; /* Move to the right when open */
@@ -194,4 +215,14 @@
   .rightMenu {
     padding-top: 0rem;
   }
+}
+
+
+.centralLogo {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 10rem;
+  height: auto;
+  z-index: 10;
 }

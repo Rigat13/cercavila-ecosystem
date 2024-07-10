@@ -7,9 +7,7 @@ export const PASSWORD_ERROR_WEAK = `La contrasenya és massa feble. Ha de tenir 
 export const PASSWORD_ERROR_MEDIUM = 'La contrasenya és prou segura. Però si hi afegiu caràcters especials, serà encara més segura!';
 export const PASSWORD_ERROR_STRONG = 'La contrasenya és molt segura!';
 
-export function isUserPasswordValid(password: string): boolean {
-    return getPasswordStrength(password) !== PASSWORD_ERROR_WEAK;
-}
+export function isUserPasswordValid(password: string): boolean { return getPasswordStrength(password) !== PASSWORD_ERROR_WEAK;}
 
 export function UserPasswordNotValidError(password: string): Error {
     return new Error(getPasswordStrength(password));

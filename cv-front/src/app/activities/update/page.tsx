@@ -6,7 +6,7 @@ import {UpdateActivityForm} from "@/app/sections/activities/update-form/UpdateAc
 import {useSearchParams } from "next/navigation";
 import {defaultLang, dictionary} from "@/content";
 import styles from "@/app/sections/activities/list/ActivitiesList.module.scss";
-import {useState} from "react";
+import React, {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import {Suspense} from "react";
@@ -34,8 +34,10 @@ function PageContent() {
     return (
         <ActivitiesContextProvider repository={repository}>
             <Suspense fallback={<div>Loading...</div>}>
-            <div className="flex justify-center items-center">
-                <Image src="/cercavila_logo.svg" alt="Logotip de Cercavila" className="}" width={80} height={80} />
+            <div className={stylesSidebar.centralLogo}>
+                <a href={lang === defaultLang ? "/" : `/?lang=${lang}`}>
+                    <Image src="/cercavila_logo.svg" alt="Logotip de Cercavila" className="}" width={80} height={80} />
+                </a>
             </div>
             <div className={stylesSidebar.sidebar}>
                 <button className={stylesSidebar.sidebarButton} onClick={toggleSidebar}>

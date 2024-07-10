@@ -7,6 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfiguration {
     @Bean
+    //public WebClient createWebClient() { return WebClient.create("https://cl2024021422001.dnssw.net/api"); }
     public WebClient createWebClient() { return WebClient.create("http://81.25.126.202:8080/api"); }
     // LOCALHOST ALTERNATIVE
     //public WebClient createWebClient() { return WebClient.create("http://localhost/api"); }

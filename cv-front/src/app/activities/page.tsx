@@ -7,7 +7,7 @@ import {ActivitiesList} from "@/app/sections/activities/list/ActivitiesList";
 import {CreateActivityForm} from "@/app/sections/activities/form/CreateActivityForm";
 import {defaultLang, dictionary} from "@/content";
 import {useSearchParams } from "next/navigation";
-import {useState} from "react";
+import React, {useState} from "react";
 import SidebarMenu from "@/app/sections/shared/SidebarMenu";
 import stylesSidebar from "@/app/sections/shared/SidebarMenu.module.scss";
 import globalStyles from "@/app/globalStyles.module.scss";
@@ -34,8 +34,10 @@ function PageContent() {
 
     return (
         <ActivitiesContextProvider repository={repository}>
-            <div className="flex justify-center items-center">
-                <Image src="/cercavila_logo.svg" alt="Logotip de Cercavila" className="}" width={80} height={80} />
+            <div className={stylesSidebar.centralLogo}>
+                <a href={lang === defaultLang ? "/" : `/?lang=${lang}`}>
+                    <Image src="/cercavila_logo.svg" alt="Logotip de Cercavila" className="}" width={80} height={80} />
+                </a>
             </div>
             <div className={stylesSidebar.sidebar}>
                 <button className={stylesSidebar.sidebarButton} onClick={toggleSidebar}>

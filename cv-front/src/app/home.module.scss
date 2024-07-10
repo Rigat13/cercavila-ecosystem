@@ -1,0 +1,263 @@
+$figure-scroll-speed: 60s;
+$jump-time: 0.7s;
+$jump-distance: 1.5rem;
+$background-speed: 60s;
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  min-height: 100vh;
+  padding: 24px;
+
+  background-image: url('/web-background.avif');
+  background-size: 30rem; /* Adjust the size of each repeated image */
+  background-repeat: repeat; /* Repeat the image */
+  background-position: center;
+  background-attachment: fixed;
+
+  animation: moveBackground $background-speed linear infinite; -moz-animation: moveBackground $background-speed linear infinite; -webkit-animation: moveBackground $background-speed linear infinite; -o-animation: moveBackground $background-speed linear infinite;
+}
+
+@keyframes moveBackground { 0% {background-position: center center;} 100% {background-position: top right;} }
+@-moz-keyframes moveBackground { 0% {background-position: center center;} 100% {background-position: top right;} }
+@-webkit-keyframes moveBackground { 0% {background-position: center center;} 100% {background-position: top right;} }
+@-o-keyframes moveBackground { 0% {background-position: center center;} 100% {background-position: top right;} }
+
+.relative {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  margin-bottom: 24px; /* Adjust as needed */
+}
+
+.pointerEvents {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  justify-content: center; /* Centers items horizontally */
+  gap: 16px; /* Adjust spacing between images */
+  align-items: center; /* Centers items vertically */
+}
+
+.giantsImg {
+  width: 100%;
+  height: auto;
+  max-width: 20rem;
+  margin: 0 auto;
+  margin-top: -2rem;
+}
+
+.logoImg {
+  width: 100%;
+  height: auto;
+  max-width: 10rem;
+  margin: 0 auto;
+  margin-top: -0rem;
+  margin-bottom: -4rem;
+}
+
+.imageContainer {
+  flex: 1 1 100%; /* Each image container takes full width initially */
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.subtitle {
+  margin: 4rem;
+  margin-top: 6rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 500;
+  text-align: center;
+  background: #2fffc1;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  text-align: center;
+  margin-top: 5rem;
+  z-index: 2;
+}
+
+.group {
+  display: block;
+  padding: 16px 20px;
+  border-radius: 8px;
+  transition: border 0.3s, background 0.3s;
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+  }
+  &.dark:hover {
+    border-color: #444;
+    background: rgba(34, 34, 34, 0.3);
+  }
+}
+
+.h2 {
+  margin-bottom: 12px;
+  font-size: 2rem;
+  font-weight: 600;
+  .group:hover & {
+    transform: translateX(4px);
+  }
+}
+
+.p {
+  margin: 0;
+  max-width: 30ch;
+  font-size: 0.875rem;
+  opacity: 0.5;
+}
+
+.menuCategoryButton {
+  display: flex;
+  width: 20rem;
+  height: auto; /* Maintain aspect ratio */
+  transition: transform 0.3s ease;
+  background: rgba(226, 255, 245, 0.7);
+  backdrop-filter: blur(10px); /* Blur effect for the background */
+  color: #232323;
+  font-weight: 800;
+  font-size: 1.6rem;
+  border-radius: 2rem;
+  padding: 0.8rem;
+  justify-content: center; // Center text horizontally
+  align-items: center; // Center text vertically
+  border-width: 0.5rem;
+  border-color: #232323;
+}
+
+.menuCategoryButton:hover {
+  transform: scale(1.1);
+  background: rgba(47, 255, 193, 0.7);
+  color: #232323;
+}
+
+
+.menuImage {
+  width: 4rem;
+  height: auto;
+  max-width: 20rem;
+  margin: -1rem;
+  padding: 0rem;
+  margin-right: 1rem;
+  margin-left: -0.5rem;
+  background: #232323;
+  border-width: 0.5rem;
+  border-color: #232323;
+  border-radius: 50%;
+}
+
+/* ---------------------------------------------------- Selected Figures ---------------------------------------------------- */
+
+.figuresContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap; /* Ensure figures stay in a single line */
+  position: relative;
+  top: -24rem;
+  overflow: hidden;
+  padding: $jump-distance;
+  z-index: 0;
+}
+
+.figuresWrapper {
+  display: flex;
+  gap: 0;
+  animation: scrollLeft $figure-scroll-speed linear infinite; -webkit-animation: scrollLeft $figure-scroll-speed linear infinite; -moz-animation: scrollLeft $figure-scroll-speed linear infinite; -o-animation: scrollLeft $figure-scroll-speed linear infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes scrollLeft { 0% { transform: translateX(0); opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
+@-moz-keyframes scrollLeft { 0% { transform: translateX(0); opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
+@-webkit-keyframes scrollLeft { 0% { transform: translateX(0); opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
+@-o-keyframes scrollLeft { 0% { transform: translateX(0); opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { transform: translateX(-100%); opacity: 0; } }
+
+/* Cloned content styling */
+.figuresWrapper.clone {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  animation: none; /* No animation for the clone */
+}
+
+/* Animation for odd figures */
+.figureDiv:nth-child(odd) {
+  animation: jump $jump-time ease-in-out infinite;
+  -moz-animation: jump $jump-time ease-in-out infinite;
+  -webkit-animation: jump $jump-time ease-in-out infinite;
+  -o-animation: jump $jump-time ease-in-out infinite;
+}
+
+/* Animation for even figures */
+.figureDiv:nth-child(even) {
+  animation: bounce $jump-time ease-in-out infinite;
+  -moz-animation: bounce $jump-time ease-in-out infinite;
+  -webkit-animation: bounce $jump-time ease-in-out infinite;
+  -o-animation: bounce $jump-time ease-in-out infinite;
+  animation-delay: calc(var(--random-delay) * 1s); /* Add random delay */
+}
+
+@keyframes jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY($jump-distance); } }
+@-moz-keyframes jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY($jump-distance); } }
+@-webkit-keyframes jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY($jump-distance); } }
+@-o-keyframes jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY($jump-distance); } }
+
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
+@-moz-keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
+@-webkit-keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
+@-o-keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(-1 * $jump-distance)); } }
+
+/* ---------------------------------------------------- SMALL SCREEN ---------------------------------------------------- */
+@media (max-width: 767px) {
+  .grid {
+    margin-top: -10rem;
+  }
+  .menuImage {
+    width: 3rem;
+    border-width: 0.5rem;
+  }
+}
+/* ---------------------------------------------------- BIG SCREEN ---------------------------------------------------- */
+
+@media (min-width: 768px) {
+  .relative {
+    flex-direction: row; /* Images side by side on larger screens */
+  }
+  .pointerEvents {
+    flex-direction: row; /* Images side by side on larger screens */
+  }
+  .imageContainer {
+    flex: 0 0 calc(50% - 8px); /* Two images side by side with a small gap */
+    margin-bottom: 0; /* No margin between images on larger screens */
+    width: 50rem;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for grid items on larger screens */
+  }
+  .giantsImg {
+    width: 70%;
+    max-width: 100rem;
+    margin: 1rem;
+  }
+  .logoImg {
+    max-width: 15rem;
+    margin-top: 0rem;
+  }
+
+  .menuCategoryButton {
+    width: 26rem;
+    font-size: 2rem;
+  }
+}
