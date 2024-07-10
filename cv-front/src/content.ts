@@ -509,6 +509,11 @@ interface DictionaryEntry {
     thirdPlace: string;
     fourthToTenthPlace: string;
     allParticipants: string;
+
+    // --------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------- IMANTS
+    downloadImageButton: string;
+
 }
 
 export const dictionary: Record<string, DictionaryEntry> = {
@@ -1039,8 +1044,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
         secondPlace: "2n lloc",
         thirdPlace: "3r lloc",
         fourthToTenthPlace: "4t-10è lloc",
-        allParticipants: "Participants"
+        allParticipants: "Participants",
 
+        // --------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------- IMANTS
+        downloadImageButton: "Descarregar"
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -1571,8 +1579,11 @@ export const dictionary: Record<string, DictionaryEntry> = {
         secondPlace: "2º lugar",
         thirdPlace: "3r lugar",
         fourthToTenthPlace: "4º-10º lugar",
-        allParticipants: "Participantes"
+        allParticipants: "Participantes",
 
+        // --------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------- IMANTS
+        downloadImageButton: "Descargar"
     },
     // ------------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------------
@@ -2103,6 +2114,10 @@ export const dictionary: Record<string, DictionaryEntry> = {
         secondPlace: "2nd place",
         thirdPlace: "3rd place",
         fourthToTenthPlace: "4th-10th place",
-        allParticipants: "All participants"
+        allParticipants: "All participants",
+
+        // --------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------- IMANTS
+        downloadImageButton: "Download"
     }
 }

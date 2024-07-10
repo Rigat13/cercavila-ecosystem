@@ -1,0 +1,189 @@
+.collaForm {
+  position: relative;
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    label {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #000088;
+      border-radius: 7px;
+    }
+
+    p {
+      font-size: 0.9rem;
+      font-weight: 500;
+      font-style: italic;
+      color: #646464;
+    }
+  }
+
+  /* ---------------------------------------------------- Buttons ---------------------------------------------------- */
+
+  .actionButton {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 1rem 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 7px;
+    background: #000088;
+    color: #f8f1f1;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background: #f8f1f1;
+      color: #000088;
+    }
+
+    &:disabled {
+      background-color: #c0c0c0;
+      color: #808080;
+      cursor: not-allowed;
+    }
+  }
+
+  .downloadButton {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 1rem 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 7px;
+    background: #008800;
+    color: #f8f1f1;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background: #f8f1f1;
+      color: #008800;
+    }
+  }
+
+  padding: 2rem;
+  overflow: hidden;
+  background: transparent;
+  color: #000088;
+
+  .h2 {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.875rem;
+    padding: 1rem;
+  }
+
+  .h2error {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.875rem;
+    padding: 1rem;
+    color: #ff4646;
+  }
+
+  /* ---------------------------------------------------- Image Preview ---------------------------------------------------- */
+
+  .imagePreviewContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .imagePreview {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
+
+  .imagePreview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---------------------------------------------------- Selected Figures ---------------------------------------------------- */
+
+  .selectedFigures {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .selectedFigure {
+    background-color: #000088;
+    color: #f8f1f1;
+    border: 0px solid transparent;
+    border-radius: 1rem;
+    padding: 4px 8px;
+    margin: 4px;
+    display: flex;
+    align-items: center;
+  }
+
+  .selectedFigure span {
+    margin-right: 8px;
+  }
+
+  .selectedFigure button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ffffff;
+    align-self: center;
+    padding: 0rem 0.6rem 0rem 0.6rem;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: #f32336; // Darker shade on hover
+    }
+  }
+
+  option:disabled {
+    color: #ffffff;
+    background-color: #b5b5da;
+  }
+
+  /* ---------------------------------------------------- Colour Preview ---------------------------------------------------- */
+
+  .colourPreviewButton {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    overflow: hidden;
+    margin: 0 0.5rem 0.5rem 0rem;
+  }
+
+  .ImagePreview {
+    margin-top: 1.25rem;
+    padding: 0.625rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.3125rem;
+
+    h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.625rem;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.3125rem;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    }
+  }
+}
