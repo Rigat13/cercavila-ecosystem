@@ -130,11 +130,20 @@ export function CreateImantForm({ lang }: { lang: string }) {
                             // Measure text width to set background size
                             ctx.font = 'bold ' + nameSize + 'px Josefin Sans';
                             const textWidth = ctx.measureText(giantName.toUpperCase()).width;
-                            const padding = 15; // Padding around text
 
-                            // Draw background rect behind text
+                            const padding = 15; // Padding around text
+                            const cornerRadius = 27; // Radius for rounded corners
+                            const rectX = nameX - textWidth / 2 - padding;
+                            const rectY = nameY - nameSize - 11;
+                            const rectWidth = textWidth + 2 * padding;
+                            const rectHeight = nameSize + 14;
+
+                            // Draw rounded rectangle with rounded top corners
+                            drawRoundedRect(ctx, rectX, rectY, rectWidth, rectHeight, cornerRadius, colour);
+
                             ctx.fillStyle = colour; // Use the colour from the form
-                            ctx.fillRect(nameX - textWidth / 2 - padding, nameY - nameSize - 10, textWidth + 2 * padding, nameSize + 11);
+                            ctx.fill();
+                            // Old rect: // ctx.fillRect(nameX - textWidth / 2 - padding, nameY - nameSize - 10, textWidth + 2 * padding, nameSize + 11);
 
                             // Draw text
                             ctx.fillStyle = 'white';
@@ -183,9 +192,22 @@ export function CreateImantForm({ lang }: { lang: string }) {
     }, [frameImagePreview, giantImagePreview, backgroundImagePreview, giantName, imantNumber, colour]);
 
 
+    function drawRoundedRect(ctx, x, y, width, height, cornerRadius, color) {
+        ctx.beginPath();
+        ctx.moveTo(x + cornerRadius, y);
+        ctx.lineTo(x + width - cornerRadius, y);
+        ctx.arcTo(x + width, y, x + width, y + cornerRadius, cornerRadius);
+        ctx.lineTo(x + width, y + height);
+        ctx.lineTo(x, y + height);
+        ctx.lineTo(x, y + cornerRadius);
+        ctx.arcTo(x, y, x + cornerRadius, y, cornerRadius);
+        ctx.closePath();
 
+        ctx.fillStyle = color;
+        ctx.fill();
+    }
 
-// Function to ensure image is loaded properly
+    // Function to ensure image is loaded properly
     function loadImage(image) {
         return new Promise((resolve, reject) => {
             if (image.complete) {
@@ -199,11 +221,11 @@ export function CreateImantForm({ lang }: { lang: string }) {
 
 
     function initialiseHardcodedImages() {
-        //setframeImage(new File([""], "imants_frame_top.png", { type: "image/png" }));
-        //setframeImagePreview("/composefiles/imants_frame_top.png");
+        setframeImage(new File([""], "imants_frame_top.png", { type: "image/png" }));
+        setframeImagePreview("/composefiles/imants_frame_top.png");
 
-        setframeImage(new File([""], "proves.png", { type: "image/png" }));
-        setframeImagePreview("/composefiles/proves.png");
+        //setframeImage(new File([""], "proves.png", { type: "image/png" })); // TEST ONLY
+        //setframeImagePreview("/composefiles/proves.png"); // TEST ONLY
 
         setBackgroundImage(new File([""], "imants_background.png", { type: "image/png" }));
         setBackgroundImagePreview("/composefiles/imants_background.png");
